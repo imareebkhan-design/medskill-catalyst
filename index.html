@@ -1,0 +1,3368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedSkills Catalyst — Break Into Medical Device & MedTech Sales</title>
+<meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. ₹75,000 · 12 weeks · 100% placement support.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
+
+<!-- GA4 / Meta Pixel stubs — uncomment and replace IDs before launch
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','XXXXXXXXXXXXXXX');fbq('track','PageView');</script>
+-->
+
+<style>
+:root {
+  --bg:           #F8FAFC;       /* Clean clinical slate off-white */
+  --surface:      #FFFFFF;
+  --ink:          #0B1315;       /* High contrast dark ink */
+  --ink-muted:    #475569;       /* Muted slate grey */
+  --brand:        #0A2226;       /* Deep forest clinical spruce */
+  --brand-mid:    #0D5C68;       /* Slate teal label secondary */
+  --brand-light:  #E6F2F4;       /* Soft spruce teal tint */
+  --cta:          #10B981;       /* Vibrant solid Emerald Green */
+  --cta-hover:    #059669;
+  --amber:        #10B981;
+  --amber-hover:  #059669;
+  --amber-light:  #F7F5F0;       /* Sand/cream background */
+  --success:      #10B981;
+  --border:       rgba(10, 34, 38, 0.08); /* Micro-fine light borders */
+  --border-mid:   rgba(10, 34, 38, 0.15);
+  --shadow-sm:    0 2px 8px rgba(10, 34, 38, 0.01);
+  --shadow-md:    0 16px 40px rgba(10, 34, 38, 0.03);
+  --shadow-lg:    0 30px 80px rgba(10, 34, 38, 0.08);
+  --radius-sm:    8px;
+  --radius-md:    12px;
+  --radius-lg:    20px;
+  --radius-xl:    28px;
+  --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-serif:   'Fraunces', Georgia, serif;
+  --nav-h:        76px;
+  --easy-out:     cubic-bezier(.16,1,.3,1);
+}
+
+/* ── RESET & BASE ────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 1.5rem);-webkit-text-size-adjust:100%}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+ul,ol{list-style:none}
+input,textarea,select{font-family:inherit}
+
+/* ── LAYOUT & CONTAINER ──────────────────────────────────────────── */
+.container{width:min(1200px,100% - 3rem);margin-inline:auto}
+.container--narrow{width:min(760px,100% - 3rem);margin-inline:auto}
+.section{padding-block:clamp(6rem,11vw,9.5rem)}
+.section--alt{background:var(--surface)}
+.section--brand{background:var(--brand)}
+.section--dark{background:#081318; position:relative; overflow:hidden}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────────────── */
+.t-display{font-family:var(--font-serif);font-size:clamp(2.5rem,6.8vw,5rem);font-weight:700;line-height:1.06;letter-spacing:-.03em;color:var(--brand)}
+.t-h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5.2vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-.02em}
+.t-h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:var(--brand)}
+.t-h3{font-family:var(--font-sans);font-size:clamp(1.15rem,2vw,1.45rem);font-weight:700;line-height:1.3;letter-spacing:-.01em}
+.t-body-lg{font-size:1.15rem;line-height:1.75;font-weight:400;color:var(--ink-muted)}
+.t-body{font-size:1rem;line-height:1.68;color:var(--ink-muted)}
+.t-small{font-size:.875rem;line-height:1.55}
+.t-serif{font-family:var(--font-serif);font-style:italic;font-weight:400}
+.t-brand{color:var(--brand)}
+.t-brand-mid{color:var(--brand-mid)}
+.t-muted{color:var(--ink-muted)}
+.t-emerald{color:var(--cta)}
+
+.section-eyebrow{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--cta);margin-bottom:1rem;display:inline-flex;align-items:center;gap:.5rem}
+.section-eyebrow::after{content:'';width:40px;height:1px;background:var(--cta)}
+.section-sub{font-size:1.15rem;color:var(--ink-muted);margin-top:1.25rem;line-height:1.7;font-weight:400;max-width:680px;margin-inline:auto}
+
+/* ── BUTTONS & INTERACTIVES ──────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.9rem 2rem;border-radius:var(--radius-sm);font-weight:700;font-size:.95rem;transition:all .2s var(--easy-out);white-space:nowrap;letter-spacing:-.005em}
+.btn:active{transform:scale(0.97) translateY(0)}
+.btn--amber{background:var(--cta);color:#fff}
+.btn--amber:hover{background:var(--cta-hover);transform:translateY(-2px);box-shadow:0 8px 24px rgba(16,185,129,.2)}
+.btn--blue{background:var(--brand-mid);color:#fff}
+.btn--blue:hover{background:var(--brand);transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,92,104,.2)}
+.btn--outline{background:transparent;border:2px solid var(--brand);color:var(--brand)}
+.btn--outline:hover{background:var(--brand);color:#fff;transform:translateY(-2px)}
+.btn--ghost{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff}
+.btn--ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.7);transform:translateY(-2px)}
+.btn--wa{background:#128C7E;color:#fff}
+.btn--wa:hover{background:#075E54;transform:translateY(-2px);box-shadow:0 8px 24px rgba(18,140,126,.25)}
+.btn--white{background:#fff;color:var(--brand);box-shadow:var(--shadow-sm)}
+.btn--white:hover{background:#fafafa;transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn--lg{padding:1.1rem 2.4rem;font-size:1.05rem;border-radius:var(--radius-sm)}
+.btn--full{width:100%}
+
+/* ── UI DECORATIVE ACCENTS ───────────────────────────────────────── */
+.pill{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .95rem;border-radius:100px;font-size:.78rem;font-weight:700;letter-spacing:.03em;border:1px solid transparent}
+.pill--brand{background:var(--brand-light);color:var(--brand-mid);border-color:rgba(16,92,102,0.1)}
+.pill--amber{background:var(--amber-light);color:var(--cta);border-color:rgba(16,185,129,0.18)}
+.pill--success{background:rgba(16,185,129,0.08);color:#059669;border-color:rgba(16,185,129,0.15)}
+
+/* ── SCROLL FADE ANIMATION ───────────────────────────────────────── */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity .75s var(--easy-out),transform .75s var(--easy-out)}
+.fade-up.visible{opacity:1;transform:none}
+
+/* ══════════════════ NAV OVERHAUL ═════════════════════════════════ */
+#nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all .3s var(--easy-out)}
+#nav.scrolled{border-color:var(--border);background:rgba(255,255,255,0.92);box-shadow:0 4px 20px rgba(15,23,42,0.03)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
+.nav-logo{display:flex;align-items:center;gap:.75rem}
+.nav-logo-mark{width:40px;height:40px;border-radius:var(--radius-sm);background:var(--brand);border:1.25px solid var(--cta);display:grid;place-items:center;flex-shrink:0;box-shadow:0 4px 12px rgba(11,19,23,0.06)}
+.nav-logo-mark svg{width:22px;height:22px;fill:none;stroke:var(--cta);stroke-width:2}
+.nav-logo-text{font-family:var(--font-serif);font-weight:700;font-size:1.15rem;color:var(--brand);letter-spacing:-.01em;line-height:1}
+.nav-logo-text span{display:block;font-family:var(--font-sans);font-size:.68rem;font-weight:600;color:var(--ink-muted);letter-spacing:.05em;margin-top:.2rem;text-transform:uppercase}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:.9rem;font-weight:600;color:var(--ink-muted);transition:color .2s;position:relative}
+.nav-links a:hover{color:var(--brand)}
+.nav-links a::after{content:'';position:absolute;bottom:-6px;left:0;width:100%;height:1.5px;background:var(--cta);transform:scaleX(0);transform-origin:right;transition:transform .3s var(--easy-out)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-actions{display:flex;align-items:center;gap:1rem}
+.nav-phone{display:flex;align-items:center;gap:.4rem;font-size:.875rem;font-weight:700;color:var(--brand-mid);transition:color .2s}
+.nav-phone:hover{color:var(--brand)}
+.nav-phone svg{width:16px;height:16px;stroke:currentColor;stroke-width:2.2;fill:none}
+.nav-wa{display:flex;align-items:center;gap:.4rem;font-size:.875rem;font-weight:700;color:#128C7E;transition:color .2s}
+.nav-wa:hover{color:#075E54}
+.nav-wa svg{width:16px;height:16px;fill:currentColor}
+@media(max-width:850px){.nav-links,.nav-phone,.nav-wa{display:none}}
+
+/* ══════════════════ HERO SECTION REDESIGN ════════════════════════ */
+#hero{position:relative;padding-top:calc(var(--nav-h) + clamp(1.5rem,4vw,3rem));padding-bottom:clamp(2rem,5vw,4rem);background:var(--bg);overflow:hidden}
+.hero-card{position:relative;background-color:var(--brand);background-image:radial-gradient(circle at 100% 150%, rgba(16,185,129,0.15) 15%, transparent 50%),linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);background-size:100% 100%, 24px 24px, 24px 24px;border-radius:var(--radius-xl);padding:clamp(2.5rem,6vw,4.5rem) clamp(2rem,5vw,4rem);border:1px solid rgba(255,255,255,0.04);overflow:hidden;color:#FAF9F6;box-shadow:var(--shadow-lg)}
+.hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center;position:relative;z-index:2}
+.hero-pill{margin-bottom:1.75rem}
+.hero-headline{margin-bottom:1.5rem;color:#fff}
+.hero-headline em{display:inline-block;position:relative;z-index:1}
+.hero-headline em::after{content:'';position:absolute;bottom:8px;left:0;width:100%;height:8px;background:rgba(16,185,129,0.18);z-index:-1}
+.hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.7);margin-bottom:2.5rem;max-width:580px;line-height:1.75}
+.hero-sub strong{color:#fff;font-weight:700}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
+.hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
+.hero-stat{display:flex;flex-direction:column}
+.hero-stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--cta);line-height:1;letter-spacing:-.02em}
+.hero-stat-label{font-size:.8rem;color:rgba(255,255,255,0.5);font-weight:600;margin-top:.4rem;text-transform:uppercase;letter-spacing:.05em}
+.hero-stat-divider{width:1px;background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);align-self:stretch;min-height:48px}
+
+/* VSL Player Overhaul */
+.hero-vsl{position:relative;border-radius:var(--radius-lg);overflow:hidden;background:#03080A;aspect-ratio:16/10;box-shadow:var(--shadow-lg);cursor:pointer;border:1px solid rgba(255,255,255,0.06)}
+.hero-vsl img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:transform .6s var(--easy-out)}
+.hero-vsl:hover img{transform:scale(1.03)}
+.hero-vsl-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(11,30,38,0.9) 0%, rgba(11,30,38,0.2) 60%, rgba(11,30,38,0.4) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;z-index:2}
+@keyframes vslPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.2); }
+  70% { box-shadow: 0 0 0 14px rgba(255, 255, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+.hero-vsl-play{width:76px;height:76px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.6);display:grid;place-items:center;margin-bottom:1.5rem;transition:all .25s var(--easy-out);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:vslPulse 2.2s infinite var(--easy-out)}
+.hero-vsl:hover .hero-vsl-play{background:rgba(255,255,255,.9);border-color:#fff;transform:scale(1.06);animation:none;box-shadow:0 0 25px rgba(255,255,255,0.4)}
+.hero-vsl-play svg{width:26px;height:26px;fill:#fff;margin-left:4px;transition:fill .25s}
+.hero-vsl:hover .hero-vsl-play svg{fill:var(--brand)}
+.hero-vsl-label{color:#fff;font-weight:700;font-size:1.1rem;letter-spacing:-.01em}
+.hero-vsl-sub{color:rgba(255,255,255,.65);font-size:.85rem;margin-top:.4rem;font-weight:500}
+.hero-vsl-badge{position:absolute;bottom:1.25rem;right:1.25rem;background:rgba(11,30,38,.75);color:#fff;padding:.35rem .75rem;border-radius:6px;font-size:.75rem;font-weight:700;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.15)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-vsl{max-width:540px;margin-inline:auto}.hero-card{padding:2.5rem 1.75rem}}
+
+/* ── TRUST STRIP REDESIGN ═════════════════════════════════ */
+#trust {
+  padding-block: 5rem;
+  background: var(--surface);
+  border-block: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.trust-flex-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2.5rem;
+  margin-bottom: 3.5rem;
+}
+.trust-h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+  font-weight: 700;
+  color: var(--brand);
+  margin-top: 0.5rem;
+  letter-spacing: -0.02em;
+}
+.trust-label-left {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--cta);
+}
+.trust-badge-card {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+  max-width: 320px;
+}
+.badge-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  display: grid;
+  place-items: center;
+  color: var(--cta);
+}
+.badge-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+}
+.badge-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.badge-desc {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  margin-top: 0.15rem;
+}
+.trust-logos {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: 2.5rem 1.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.trust-logos svg {
+  height: 24px;
+  width: auto;
+  max-width: 125px;
+  color: var(--ink-muted);
+  opacity: 0.45;
+  transition: all 0.3s var(--easy-out);
+}
+.trust-logos svg:hover {
+  opacity: 0.95;
+  color: var(--brand);
+  transform: scale(1.05);
+}
+
+/* Infinite Learner Wall Marquee */
+.credibility-marquee-wrap {
+  margin-top: 3.5rem;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-block: 0.5rem;
+  mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+.credibility-marquee {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+@keyframes marqueeScroll {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: marqueeScroll 35s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+.student-ticker-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.95rem 1.5rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--easy-out);
+  cursor: default;
+}
+.student-ticker-card:hover {
+  border-color: var(--cta);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+.st-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  border: 1px solid rgba(10, 92, 104, 0.15);
+  display: grid;
+  place-items: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--brand-mid);
+}
+.st-details {
+  display: flex;
+  flex-direction: column;
+}
+.st-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.st-path {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  margin-top: 0.1rem;
+}
+.st-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #047857;
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+@media(max-width:990px){
+  .trust-flex-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+  .trust-logos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media(max-width:550px){
+  .trust-logos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── OUTCOMES SECTION REDESIGN ════════════════════ */
+.section-header {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: 5rem;
+}
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 2.5rem;
+}
+.outcome-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) scale(1);
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.outcome-card:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-mid);
+  transform: perspective(1000px) rotateX(calc(var(--rx, 0) * 1deg)) rotateY(calc(var(--ry, 0) * 1deg)) scale(1.03);
+}
+.outcome-stamp-watermark {
+  position: absolute;
+  right: -2.5rem;
+  bottom: 0.5rem;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: rgba(16, 185, 129, 0.04);
+  transform: rotate(-12deg);
+  pointer-events: none;
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.outcome-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.outcome-badge-verified {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--cta);
+  letter-spacing: 0.08em;
+  background: rgba(16, 185, 129, 0.06);
+  padding: 0.3rem 0.65rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(16, 185, 129, 0.12);
+}
+.badge-dot-green {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cta);
+  box-shadow: 0 0 8px var(--cta);
+}
+.outcome-badge-multiplier {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #047857;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.outcome-profile-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
+}
+.outcome-avatar-badge {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  border: 1px solid rgba(10, 92, 104, 0.18);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.outcome-profile-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.outcome-profile-meta {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-muted);
+  margin-top: 0.15rem;
+  opacity: 0.75;
+}
+.outcome-transition-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+.outcome-table-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.table-col-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.03em;
+}
+.table-col-value {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.table-col-value.value-strikethrough {
+  text-decoration: line-through;
+  opacity: 0.65;
+  color: var(--ink-muted);
+}
+.table-col-value.value-highlight {
+  color: var(--brand-mid);
+  background: var(--brand-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+.outcome-salary-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.75rem;
+}
+.salary-box {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.sal-lbl {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
+}
+.sal-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand);
+}
+.box-before .sal-val {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+.box-after .sal-val {
+  font-family: var(--font-serif);
+  font-size: 1.7rem;
+  color: var(--cta);
+  line-height: 1.1;
+}
+.salary-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  display: grid;
+  place-items: center;
+  color: var(--cta);
+}
+.salary-arrow svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 3;
+  fill: none;
+}
+.outcome-card-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+}
+.footer-sigs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sig-line {
+  display: flex;
+  flex-direction: column;
+}
+.sig-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+.sig-status.text-emerald {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--cta);
+}
+.sig-value.handwriting {
+  font-family: 'Brush Script MT', cursive, Georgia, serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--brand-mid);
+  transform: rotate(-3deg);
+  margin-top: -0.1rem;
+}
+
+/* ── TIMELINE ROADMAP (HOW IT WORKS) REDESIGN ═══════════════ */
+#how .section-eyebrow {
+  color: var(--cta);
+}
+#how .t-h2 {
+  color: #fff;
+}
+#how .section-sub {
+  color: rgba(255, 255, 255, 0.55);
+}
+.roadmap-container {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 4.5rem;
+}
+.roadmap-track {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.roadmap-line {
+  position: absolute;
+  left: 31px;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+}
+.roadmap-line-progress {
+  position: absolute;
+  left: 31px;
+  top: 1.5rem;
+  width: 2px;
+  background: var(--cta);
+  z-index: 2;
+  height: 0%;
+  transition: height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px var(--cta);
+}
+.roadmap-step {
+  display: flex;
+  gap: 1.75rem;
+  position: relative;
+  z-index: 3;
+  cursor: pointer;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.3s var(--easy-out);
+}
+.roadmap-step:hover, .roadmap-step.active {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(16, 185, 129, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+.roadmap-step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #081C20;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  flex-shrink: 0;
+  margin-left: 14px;
+  transition: all 0.3s var(--easy-out);
+  z-index: 2;
+}
+.roadmap-step:hover .roadmap-step-num, .roadmap-step.active .roadmap-step-num {
+  background: var(--cta);
+  border-color: var(--cta);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+}
+.roadmap-step-content {
+  flex: 1;
+}
+.roadmap-step-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s;
+}
+.roadmap-step:hover .roadmap-step-title, .roadmap-step.active .roadmap-step-title {
+  color: var(--cta);
+}
+.roadmap-step-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.6;
+}
+
+/* ROADMAP VISUAL DISPLAY PANELS */
+.roadmap-visual-display {
+  position: sticky;
+  top: 120px;
+  background: #081E21;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+.roadmap-visual-panel {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  animation: fadeIn 0.45s var(--easy-out);
+}
+.roadmap-visual-panel.active {
+  display: flex;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ROADMAP STYLING ACCENTS */
+/* ROADMAP STYLING ACCENTS */
+.roadmap-calendar {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+.roadmap-cal-header {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--cta);
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.roadmap-cal-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+.cal-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1.5px solid rgba(16, 185, 129, 0.25);
+  display: grid;
+  place-items: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--cta);
+}
+.cal-profile-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+}
+.cal-profile-meta {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.45);
+}
+.roadmap-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 1.25rem;
+}
+.cal-day {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  font-weight: 700;
+}
+.cal-date {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 6px 4px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.cal-date.active {
+  background: var(--cta);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+.roadmap-cal-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--cta);
+  background: rgba(16, 185, 129, 0.08);
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+  text-align: center;
+}
+
+.roadmap-progress-widget {
+  width: 100%;
+  max-width: 320px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  text-align: left;
+}
+.roadmap-prog-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}
+.roadmap-prog-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+.roadmap-prog-fill {
+  height: 100%;
+  background: var(--cta);
+  border-radius: 3px;
+  box-shadow: 0 0 8px var(--cta);
+}
+.roadmap-prog-meta {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 1.25rem;
+}
+.roadmap-prog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+}
+.prog-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+.prog-item.checked {
+  color: rgba(255, 255, 255, 0.75);
+}
+.prog-icon {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: inline-grid;
+  place-items: center;
+  font-size: 0.6rem;
+  flex-shrink: 0;
+}
+.prog-item.checked .prog-icon {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.25);
+  color: var(--cta);
+}
+.prog-item .text-active {
+  color: var(--cta);
+  font-weight: 700;
+}
+
+.roadmap-score-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 320px;
+}
+.score-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.08);
+  border-top-color: var(--cta);
+  display: grid;
+  place-items: center;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+.score-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+.score-metrics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 1rem;
+}
+.metric-item {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+.metric-lbl {
+  color: rgba(255, 255, 255, 0.45);
+}
+.metric-val {
+  color: #fff;
+  font-weight: 700;
+}
+
+.roadmap-offer-widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1.5px dashed rgba(16, 185, 129, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 320px;
+  position: relative;
+}
+.offer-seal {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--cta);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  margin-bottom: 1rem;
+}
+.offer-title {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+.offer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 1rem 0;
+}
+.offer-details-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.offer-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  text-align: left;
+}
+.off-lbl {
+  color: rgba(255,255,255,0.4);
+  font-weight: 700;
+}
+.off-val {
+  color: #fff;
+  font-weight: 800;
+}
+
+@media(max-width:900px){
+  .roadmap-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .roadmap-visual-display {
+    display: none;
+  }
+  .roadmap-mobile-visual {
+    display: block !important;
+    margin-top: 1.25rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .roadmap-line {
+    left: 27px;
+  }
+  .roadmap-line-progress {
+    left: 27px;
+  }
+  .roadmap-step-num {
+    margin-left: 10px;
+  }
+}
+@media(min-width:901px){
+  .roadmap-mobile-visual {
+    display: none !important;
+  }
+}
+
+/* ── CURRICULUM SECTION REDESIGN ══════════════════ */
+.curriculum-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:2rem}
+.module{border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-sm);transition:all .3s var(--easy-out)}
+.module:hover{box-shadow:var(--shadow-md);border-color:var(--border-mid)}
+.module-header{display:flex;align-items:center;gap:1rem;padding:1.5rem 1.75rem;cursor:pointer;user-select:none;transition:background .2s}
+.module-header:hover{background:#FAF9F6}
+.module-num{width:36px;height:36px;border-radius:10px;background:var(--brand-light);color:var(--brand-mid);font-weight:800;font-size:.9rem;display:grid;place-items:center;flex-shrink:0;transition:all .3s var(--easy-out)}
+.module-title{font-size:1.05rem;font-weight:700;color:var(--brand);flex:1;line-height:1.35;letter-spacing:-.01em}
+.module-toggle{width:28px;height:28px;border-radius:50%;background:var(--bg);display:grid;place-items:center;flex-shrink:0;transition:all .3s var(--easy-out)}
+.module-toggle svg{width:14px;height:14px;stroke:var(--brand-mid);stroke-width:2.5;fill:none}
+.module.open{border-color:var(--cta);box-shadow:0 10px 30px rgba(16,185,129,0.04)}
+.module.open .module-toggle{transform:rotate(180deg);background:var(--cta);color:#fff}
+.module.open .module-toggle svg{stroke:#fff}
+.module-body-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s var(--easy-out)}
+.module.open .module-body-wrap{grid-template-rows:1fr}
+.module-body{overflow:hidden}
+.module-body-inner{padding:0 1.75rem 1.65rem;border-top:1px solid var(--border)}
+.module-topics{display:flex;flex-direction:column;gap:.75rem;padding-top:1.25rem}
+.module-topic{display:flex;align-items:center;gap:.75rem;font-size:.92rem;color:var(--ink-muted);line-height:1.5}
+.module-topic-icon{width:20px;height:20px;border-radius:50%;background:rgba(16,92,102,0.08);border:1px solid rgba(16,92,102,0.18);display:inline-grid;place-items:center;flex-shrink:0}
+.module-topic-icon svg{width:10px;height:10px;fill:none;stroke:var(--brand-mid);stroke-width:3.5}
+@media(max-width:850px){.curriculum-grid{grid-template-columns:1fr}}
+
+/* ── FACULTY SECTION REDESIGN ═════════════════════ */
+.faculty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.25rem}
+.faculty-card{background:var(--surface);border-radius:var(--radius-lg);padding:2.5rem;border:1px solid var(--border);display:flex;flex-direction:column;gap:1.5rem;box-shadow:var(--shadow-sm);transition:all .3s var(--easy-out)}
+.faculty-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:var(--border-mid)}
+.faculty-av-wrap{display:flex;align-items:center;gap:1.25rem}
+.faculty-portrait-container{position:relative;width:72px;height:72px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#E2E8F0;border:2px solid var(--border)}
+.faculty-portrait{width:100%;height:100%;object-fit:cover}
+.faculty-former-logo{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm);display:grid;place-items:center;overflow:hidden;border:1px solid var(--border)}
+.faculty-former-logo svg{width:16px;height:auto}
+.faculty-name{font-family:var(--font-serif);font-weight:700;font-size:1.2rem;color:var(--brand)}
+.faculty-role{font-size:.82rem;color:var(--cta);font-weight:700;margin-top:.2rem;text-transform:uppercase;letter-spacing:.05em}
+.faculty-bio{font-size:.95rem;color:var(--ink-muted);line-height:1.7;flex:1}
+.faculty-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.faculty-tag{font-size:.78rem;font-weight:600;background:var(--brand-light);color:var(--brand-mid);padding:.25rem .75rem;border-radius:100px;border:1px solid rgba(16,92,102,0.06)}
+
+#masterclass {
+  background: linear-gradient(135deg, #07191C 0%, #040E10 100%);
+  overflow: hidden;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+#masterclass::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.masterclass-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 4.5rem;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.mc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: rgba(16, 185, 129, 0.06);
+  color: var(--cta);
+  padding: 0.45rem 1.15rem;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+.mc-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
+  animation: mcPulse 1.8s infinite;
+}
+@keyframes mcPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.mc-h {
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+}
+.mc-sub {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 1.1rem;
+  margin-bottom: 2.25rem;
+  line-height: 1.7;
+}
+
+/* Masterclass Agenda Timeline */
+.mc-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding-left: 1.25rem;
+}
+.mc-agenda::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0.25rem;
+  bottom: 0.25rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.mc-agenda-item {
+  position: relative;
+  display: flex;
+  gap: 1.25rem;
+}
+.mc-agenda-dot {
+  position: absolute;
+  left: -21px;
+  top: 0.35rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid #07191C;
+}
+.mc-agenda-item.active .mc-agenda-dot {
+  background: var(--cta);
+  box-shadow: 0 0 8px var(--cta);
+}
+.mc-agenda-time {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cta);
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+  width: 75px;
+}
+.mc-agenda-detail {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  text-align: left;
+}
+.mc-agenda-detail strong {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Speaker Credibility Badging */
+.mc-speaker-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.mc-speaker-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.mc-speaker-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mc-speaker-info {
+  text-align: left;
+}
+.mc-speaker-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #fff;
+}
+.mc-speaker-title {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Event Admission Ticket Mockup */
+.mc-ticket-container {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+.mc-ticket {
+  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  position: relative;
+  transition: all 0.15s ease-out;
+  transform-style: preserve-3d;
+}
+.ticket-speaker-photo-wrap {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #040E10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.ticket-speaker-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.ticket-speaker-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 1.75rem 1.25rem;
+  background: linear-gradient(to top, rgba(4,14,16,1) 0%, rgba(4,14,16,0.6) 50%, rgba(4,14,16,0) 100%);
+  text-align: left;
+}
+.ticket-speaker-overlay .speaker-name {
+  font-family: var(--font-sans);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+.ticket-speaker-overlay .speaker-title {
+  font-size: 0.75rem;
+  color: var(--cta);
+  font-weight: 700;
+  margin-top: 0.15rem;
+  letter-spacing: 0.03em;
+}
+.mc-ticket-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(16, 185, 129, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+.mc-ticket-top {
+  padding: 1.75rem;
+  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.12);
+  position: relative;
+  text-align: left;
+}
+.mc-ticket-top::before, .mc-ticket-top::after {
+  content: '';
+  position: absolute;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #040E10;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.mc-ticket-top::before {
+  left: -10px;
+}
+.mc-ticket-top::after {
+  right: -10px;
+}
+.ticket-logo {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+}
+.ticket-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ticket-val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: right;
+}
+.ticket-val.highlight {
+  color: var(--cta);
+}
+.mc-ticket-bottom {
+  padding: 1.75rem;
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mc-barcode-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  opacity: 0.65;
+}
+.mc-barcode {
+  height: 38px;
+  width: 80%;
+  background: linear-gradient(90deg, 
+    #fff 0%, #fff 2%, transparent 2%, transparent 4%,
+    #fff 4%, #fff 8%, transparent 8%, transparent 10%,
+    #fff 10%, #fff 11%, transparent 11%, transparent 14%,
+    #fff 14%, #fff 15%, transparent 15%, transparent 18%,
+    #fff 18%, #fff 22%, transparent 22%, transparent 25%,
+    #fff 25%, #fff 27%, transparent 27%, transparent 30%,
+    #fff 30%, #fff 35%, transparent 35%, transparent 38%,
+    #fff 38%, #fff 40%, transparent 40%, transparent 44%,
+    #fff 44%, #fff 45%, transparent 45%, transparent 48%,
+    #fff 48%, #fff 52%, transparent 52%, transparent 55%,
+    #fff 55%, #fff 58%, transparent 58%, transparent 60%,
+    #fff 60%, #fff 64%, transparent 64%, transparent 68%,
+    #fff 68%, #fff 70%, transparent 70%, transparent 74%,
+    #fff 74%, #fff 75%, transparent 75%, transparent 78%,
+    #fff 78%, #fff 82%, transparent 82%, transparent 85%,
+    #fff 85%, #fff 88%, transparent 88%, transparent 90%,
+    #fff 90%, #fff 95%, transparent 95%, transparent 98%,
+    #fff 98%, #fff 100%
+  );
+}
+.mc-ticket-id {
+  font-family: monospace;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 0.4rem;
+  letter-spacing: 0.1em;
+}
+.mc-seats-ticker {
+  width: 100%;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+.mc-seats-ticker .mc-seats-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.mc-seats-ticker .mc-seats-bar {
+  background: rgba(255, 255, 255, 0.08);
+  height: 5px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+.mc-seats-ticker .mc-seats-fill {
+  background: var(--cta);
+  width: 22%;
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 0 8px var(--cta);
+}
+.mc-seats-ticker .mc-seats-note {
+  font-size: 0.75rem;
+  color: var(--cta);
+  font-weight: 700;
+}
+@media(max-width:900px){
+  .masterclass-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .mc-ticket-container {
+    max-width: 340px;
+  }
+}
+
+
+/* ── LEAD CAPTURE WIDGET REDESIGN ──────────────── */
+.lead-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 4.5rem;
+  align-items: center;
+}
+.lead-book-container {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2.25rem;
+  align-items: center;
+}
+.book-mockup {
+  width: 130px;
+  height: 175px;
+  background: var(--brand);
+  border-radius: 4px 10px 10px 4px;
+  box-shadow: 12px 12px 28px rgba(10, 34, 38, 0.35), 
+              -3px 0 0 var(--cta) inset, 
+              4px 0 6px rgba(0,0,0,0.15) inset;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+  transition: all 0.3s var(--easy-out);
+  transform: rotate(-3deg);
+}
+.book-mockup:hover {
+  transform: rotate(0deg) translateY(-4px) scale(1.05);
+  box-shadow: 16px 20px 36px rgba(10, 34, 38, 0.45);
+}
+.book-spine-effect {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 10px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.45) 0%, rgba(255,255,255,0.12) 50%, rgba(0,0,0,0.2) 100%);
+  z-index: 2;
+}
+.book-cover {
+  padding: 1.15rem 0.85rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  border: 1px dashed rgba(16, 185, 129, 0.3);
+  margin: 4px;
+  border-radius: 2px 6px 6px 2px;
+  position: relative;
+  z-index: 1;
+}
+.book-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.book-tag {
+  font-size: 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--cta);
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.book-title {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+  margin-top: 0.3rem;
+  letter-spacing: -0.01em;
+}
+.book-meta {
+  font-size: 0.5rem;
+  color: rgba(250, 249, 246, 0.45);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.lead-h {
+  margin-bottom: 0.75rem;
+}
+.lead-sub {
+  color: var(--ink-muted);
+  font-size: 1.05rem;
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+.lead-checklist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.lead-check {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+.lead-check-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.lead-check-icon svg {
+  width: 10px;
+  height: 10px;
+  fill: none;
+  stroke: var(--cta);
+  stroke-width: 3.5;
+}
+
+.lead-form-wrap{background:var(--brand);border-radius:var(--radius-xl);padding:3rem;border:1px solid rgba(255,255,255,0.06);box-shadow:var(--shadow-lg);position:relative;color:#FAF9F6}
+.lead-form-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cta);border-radius:var(--radius-xl) var(--radius-xl) 0 0}
+.lead-form-title{font-family:var(--font-serif);font-size:1.35rem;font-weight:700;margin-bottom:.5rem;color:#FAF9F6}
+.lead-form-sub{font-size:.875rem;color:rgba(250,249,246,0.65);margin-bottom:2rem;line-height:1.5}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.25rem}
+.form-label{font-size:.83rem;font-weight:700;color:var(--brand-mid);text-transform:uppercase;letter-spacing:.05em}
+.lead-form-wrap .form-label{color:rgba(250,249,246,0.85)}
+.form-input{padding:.85rem 1.15rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:.95rem;background-color:#fff;color:var(--brand);transition:all .2s var(--easy-out);width:100%}
+.form-input:focus{outline:none;border-color:var(--cta);box-shadow:0 0 0 3px rgba(16,185,129,0.15)}
+.form-input::placeholder{color:#94A3B8}
+.lead-form-wrap .form-input{border-color:rgba(255,255,255,0.12);background-color:rgba(255,255,255,0.04);color:#FAF9F6}
+.lead-form-wrap .form-input:focus{border-color:var(--cta);box-shadow:0 0 0 3px rgba(16,185,129,0.25)}
+.lead-form-wrap .form-input::placeholder{color:rgba(250,249,246,0.35)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1.15rem center;background-size:12px}
+.lead-form-wrap .form-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23FAF9F6' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1.15rem center;background-size:12px}
+@media(max-width:900px){.lead-inner{grid-template-columns:1fr}.lead-form-wrap{padding:2rem}}
+
+/* ── GRADUATE TESTIMONIALS REDESIGN ─────────────── */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:2.25rem}
+.testi-card{background:var(--surface);border-radius:var(--radius-lg);padding:2.75rem;border:1px solid var(--border);box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:1.5rem;transition:all .3s var(--easy-out);position:relative}
+.testi-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md);border-color:var(--border-mid)}
+.testi-stars{display:flex;gap:.15rem}
+.testi-stars svg{width:16px;height:16px;fill:var(--cta)}
+.testi-quote{font-size:.98rem;color:var(--ink);line-height:1.75;font-style:italic;font-weight:400;flex:1;position:relative}
+.testi-author{display:flex;align-items:center;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.testi-av-wrap{width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0;border:1.5px solid var(--border)}
+.testi-av-img{width:100%;height:100%;object-fit:cover}
+.testi-name{font-family:var(--font-serif);font-weight:700;font-size:1rem;color:var(--brand)}
+.testi-detail{font-size:.78rem;color:var(--brand-mid);font-weight:700;margin-top:.2rem;text-transform:uppercase;letter-spacing:.05em}
+
+/* ── FAQ OVERHAUL ═════════════════════════════════ */
+.faq-list{max-width:820px;margin-inline:auto;display:flex;flex-direction:column;border-top:1px solid var(--border)}
+.faq-item{background:transparent;border-bottom:1px solid var(--border);transition:all .25s var(--easy-out)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.6rem 0;cursor:pointer;font-weight:700;font-size:1.05rem;color:var(--brand);user-select:none;transition:color .15s;letter-spacing:-.01em}
+.faq-q:hover{color:var(--brand-mid)}
+.faq-icon{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border);display:grid;place-items:center;flex-shrink:0;transition:all .3s var(--easy-out)}
+.faq-icon svg{width:12px;height:12px;stroke:var(--brand-mid);stroke-width:2.5;fill:none;transition:stroke .2s}
+.faq-item.open .faq-icon{transform:rotate(180deg);border-color:var(--cta);background:var(--amber-light)}
+.faq-item.open .faq-icon svg{stroke:var(--cta)}
+.faq-body-wrap{display:grid;grid-template-rows:0fr;transition:grid-template-rows .3s var(--easy-out)}
+.faq-item.open .faq-body-wrap{grid-template-rows:1fr}
+.faq-body{overflow:hidden}
+.faq-body-inner{padding:0 0 1.6rem;font-size:.96rem;color:var(--ink-muted);line-height:1.75}
+
+/* ── INVESTMENT (FEES) REDESIGN ─────────────────── */
+.fees-container {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.fees-card {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.fees-top {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-mid) 100%);
+  padding: 2.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  position: relative;
+}
+.fees-top::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 100% 0%, rgba(16,185,129,0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+.fees-program {
+  font-size: .78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: rgba(255,255,255,.6);
+  margin-bottom: .35rem;
+}
+.fees-name {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+.fees-price-wrap {
+  text-align: right;
+}
+.fees-price {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
+  letter-spacing: -.04em;
+}
+.fees-price-sub {
+  font-size: .82rem;
+  color: rgba(255,255,255,.65);
+  margin-top: .4rem;
+  font-weight: 500;
+}
+.fees-body {
+  padding: 2.5rem 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.fees-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .85rem 1.5rem;
+  margin-bottom: 2rem;
+}
+.fees-feat {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  font-size: .92rem;
+  color: var(--brand);
+  font-weight: 600;
+  text-align: left;
+}
+.fees-feat-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--brand-light);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: .05rem;
+  border: 1px solid rgba(16,92,102,0.1);
+}
+.fees-feat-icon svg {
+  width: 10px;
+  height: 10px;
+  stroke: var(--brand-mid);
+  stroke-width: 3.5;
+  fill: none;
+}
+.fees-emi {
+  background: var(--amber-light);
+  border: 1px solid rgba(10,34,38,0.08);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+.fees-emi-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.fees-emi-text {
+  font-size: .88rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  text-align: left;
+}
+.fees-emi-text strong {
+  font-weight: 700;
+  color: var(--brand);
+}
+.fees-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* ROI CALCULATOR CARD */
+.roi-card {
+  background: #061719;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.roi-card-header {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+.roi-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.roi-card-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+.roi-sliders {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2.25rem;
+}
+.roi-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.roi-slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.roi-slider-lbl {
+  color: rgba(255, 255, 255, 0.85);
+}
+.roi-slider-val {
+  color: var(--cta);
+  font-weight: 700;
+}
+.roi-slider-input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+.roi-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--cta);
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+  transition: transform 0.1s ease;
+}
+.roi-slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+.roi-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 1.5rem;
+}
+.roi-stat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+.roi-stat-lbl {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+}
+.roi-stat-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+}
+.roi-stat-val.highlight {
+  color: var(--cta);
+}
+.roi-disclaimer {
+  font-size: 0.76rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.4;
+  text-align: left;
+}
+
+@media(max-width:950px){
+  .fees-container {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+@media(max-width:600px){
+  .fees-features{grid-template-columns:1fr}
+  .fees-top{text-align:center;flex-direction:column;padding:2rem}
+  .fees-price-wrap{text-align:center}
+  .fees-body{padding:1.75rem 2rem}
+  .roi-card {padding: 2rem 1.5rem;}
+  .roi-grid {grid-template-columns: 1fr; gap: 1rem;}
+}
+
+
+/* ── PLACEMENT STRIP REDESIGN ═════════════════════ */
+#placement{background:#040D10;border-bottom:1px solid rgba(255,255,255,0.06)}
+#placement .section-eyebrow{color:var(--cta)}
+#placement .t-h2{color:#fff}
+#placement .section-sub{color:rgba(255,255,255,.5)}
+.placement-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-bottom:3.5rem}
+.placement-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-lg);padding:2.5rem 2rem;text-align:left;transition:all .3s}
+.placement-card:hover{background:rgba(255,255,255,.06);border-color:rgba(16,185,129,0.3)}
+.placement-icon-box{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.06);display:grid;place-items:center;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,0.08);font-size:1.25rem}
+.placement-icon-box svg{width:20px;height:20px;stroke:var(--cta);stroke-width:2;fill:none}
+.placement-num{font-family:var(--font-serif);font-size:3rem;font-weight:700;color:#fff;line-height:1;letter-spacing:-.03em;display:block}
+.placement-label{font-size:.82rem;color:rgba(255,255,255,.45);margin-top:.75rem;line-height:1.5;display:block;border-top:1px solid rgba(255,255,255,.08);padding-top:.75rem}
+.placement-cos{display:flex;flex-wrap:wrap;justify-content:center;gap:.75rem}
+.placement-co{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius-sm);padding:.5rem 1.2rem;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.6);transition:all .2s;letter-spacing:.03em}
+.placement-co:hover{background:rgba(16,185,129,0.12);color:#fff;border-color:var(--cta)}
+
+/* ── FINAL CALL TO ACTION REDESIGN ──────────────── */
+#final-cta{background:#040D10;padding-block:clamp(6rem,11vw,9.5rem);position:relative;overflow:hidden}
+#final-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(16,185,129,0.08) 0%, transparent 60%);pointer-events:none}
+.final-cta-inner{text-align:center;max-width:760px;margin-inline:auto;position:relative;z-index:2}
+.final-cta-eyebrow{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--cta);margin-bottom:1.5rem}
+.final-cta-h{font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:#fff;margin-bottom:1.5rem;line-height:1.15;letter-spacing:-.02em}
+.final-cta-sub{font-size:1.15rem;color:rgba(255,255,255,.55);margin-bottom:3rem;line-height:1.75}
+.final-cta-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem}
+
+/* ── FOOTER REDESIGN ══════════════════════════════ */
+#footer{background:#020709;color:rgba(255,255,255,.45);padding-block:5rem 3rem;border-top:1px solid rgba(255,255,255,.06)}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:4rem}
+.footer-tagline{font-size:.9rem;margin-top:1.25rem;line-height:1.65;max-width:300px;color:rgba(255,255,255,0.4)}
+.footer-contact{display:flex;flex-direction:column;gap:.6rem;margin-top:1.5rem}
+.footer-contact a{font-size:.875rem;color:rgba(255,255,255,.6);display:flex;align-items:center;gap:.5rem;transition:color .2s}
+.footer-contact a:hover{color:#fff}
+.footer-contact a svg{width:15px;height:15px;stroke:var(--cta);stroke-width:2;fill:none}
+.footer-col-title{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--cta);margin-bottom:1.5rem}
+.footer-links{display:flex;flex-direction:column;gap:.75rem}
+.footer-links a{font-size:.9rem;transition:color .2s;color:rgba(255,255,255,0.65)}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:2rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem;color:rgba(255,255,255,.3)}
+.footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
+.footer-legal a{transition:color .2s;color:rgba(255,255,255,0.45)}
+.footer-legal a:hover{color:#fff}
+@media(max-width:850px){.footer-grid{grid-template-columns:1fr 1fr}.footer-grid>:first-child{grid-column:1/-1}}
+@media(max-width:500px){.footer-grid{grid-template-columns:1fr}}
+
+/* ── MOBILE STICKY BAR REDESIGN ─────────────────── */
+#sticky-bar{position:fixed;bottom:0;left:0;right:0;z-index:800;background:rgba(255,255,255,0.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--border);padding:.85rem 1.25rem;padding-bottom:calc(.85rem + env(safe-area-inset-bottom,0px));box-shadow:0 -5px 25px rgba(15,23,42,0.08);display:none;gap:1rem;align-items:center}
+@media(max-width:850px){#sticky-bar{display:flex}body{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
+.sticky-cta{flex:1;text-align:center;padding:.8rem 1.25rem;border-radius:var(--radius-sm);font-weight:700;font-size:.95rem;background:var(--brand-mid);color:#fff;transition:transform .2s}
+.sticky-cta:hover{transform:translateY(-1px)}
+.sticky-wa{display:flex;align-items:center;justify-content:center;gap:.4rem;padding:.8rem 1.25rem;border-radius:var(--radius-sm);background:#128C7E;color:#fff;font-weight:700;font-size:.95rem;flex-shrink:0;transition:transform .2s}
+.sticky-wa:hover{transform:translateY(-1px)}
+.sticky-wa svg{width:16px;height:16px;fill:#fff}
+
+/* ── PREMIUM OVERLAYS & MODALS ─────────────────── */
+.overlay{position:fixed;inset:0;background:rgba(4,9,12,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s var(--easy-out)}
+.overlay.show{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:var(--radius-xl);max-width:540px;width:100%;overflow:hidden;transform:translateY(32px);transition:transform .4s var(--easy-out);box-shadow:var(--shadow-lg);position:relative;border:1px solid rgba(11,19,23,0.08)}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cta);z-index:5}
+.overlay.show .modal{transform:none}
+.modal-close{position:absolute;top:1.25rem;right:1.25rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;cursor:pointer;z-index:10;transition:all .2s;border:1px solid rgba(255,255,255,0.25)}
+.modal-close:hover{background:rgba(255,255,255,.9);border-color:#fff}
+.modal-close svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5;fill:none;transition:stroke .2s}
+.modal-close:hover svg{stroke:var(--brand)}
+
+/* VSL Modal */
+#vsl-overlay .modal{max-width:820px}
+.vsl-frame{background:#000;aspect-ratio:16/9;display:grid;place-items:center;position:relative}
+.vsl-placeholder{display:flex;flex-direction:column;align-items:center;gap:1.25rem;color:rgba(255,255,255,.7);text-align:center;padding:2rem}
+.vsl-play-big{width:84px;height:84px;border-radius:50%;border:2px solid rgba(255,255,255,.6);display:grid;place-items:center;margin-bottom:1.5rem;transition:all .25s var(--easy-out);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 0 0 0 rgba(255,255,255,0.2)}
+.vsl-play-big:hover{background:rgba(255,255,255,1);transform:scale(1.05)}
+.vsl-play-big svg{width:28px;height:28px;fill:#fff;margin-left:4px;transition:fill .25s}
+.vsl-play-big:hover svg{fill:var(--brand)}
+.vsl-body{padding:2rem 2.5rem}
+.vsl-body h3{font-family:var(--font-serif);font-size:1.35rem;font-weight:700;margin-bottom:.5rem;color:var(--brand)}
+.vsl-body p{font-size:.95rem;color:var(--ink-muted);line-height:1.6}
+
+/* Masterclass Modal */
+.mc-modal-head{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-mid) 100%);padding:2rem 2.5rem;position:relative}
+.mc-modal-head::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 100% 0%, rgba(16,185,129,0.1) 0%, transparent 60%);pointer-events:none}
+.mc-modal-head h3{font-family:var(--font-serif);font-size:1.45rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.mc-modal-head p{font-size:.9rem;color:rgba(255,255,255,.75);font-weight:500}
+.mc-modal-body{padding:2rem 2.5rem}
+
+/* Exit Intent Modal */
+.exit-inner{padding:3rem 2.5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+.exit-inner-icon{margin-bottom:1.25rem;display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--amber-light);border:1.25px solid rgba(16,185,129,0.18)}
+.exit-inner h3{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:var(--brand)}
+.exit-inner p{font-size:.95rem;color:var(--ink-muted);margin-bottom:2rem;line-height:1.65;max-width:440px}
+.exit-dismiss{width:100%;margin-top:.75rem;color:var(--ink-muted);font-size:.85rem;padding:.5rem;font-weight:600;transition:color .2s}
+.exit-dismiss:hover{color:var(--brand-mid)}
+.modal-close--light{background:var(--bg);border-color:var(--border)}
+.modal-close--light:hover{background:var(--border-mid)}
+.modal-close--light svg{stroke:var(--ink-muted)}
+.modal-close--light:hover svg{stroke:var(--brand)}
+</style>
+</head>
+<body>
+
+<!-- NAV ─────────────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#" class="nav-logo" aria-label="MedSkills Catalyst">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="nav-logo-text">MedSkills Catalyst<span>Medical Device &amp; MedTech Sales</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#outcomes">Outcomes</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#faculty">Faculty</a>
+      <a href="#fees">Fees</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:+919900000000">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.32 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.49 5.49l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        +91 99000 00000
+      </a>
+      <a class="nav-wa" href="https://wa.me/919900000000?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="nav_wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO ────────────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="container">
+    <div class="hero-card">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-pill fade-up"><span class="pill pill--brand">⚕ India's #1 MedTech Career Programme</span></div>
+          <h1 class="t-display hero-headline fade-up">
+            Turn Your Pharma Career Into <em class="t-serif t-cta">₹9–12 LPA</em> in Medical Device Sales
+          </h1>
+          <p class="t-body-lg hero-sub fade-up">A rigorous <strong>12-week programme</strong> for pharma MRs and life-science graduates who want to break into the fast-growing medical device and surgical sales industry — with a real salary jump, not just a certificate.</p>
+          <div class="hero-ctas fade-up">
+            <a href="#lead" class="btn btn--amber btn--lg" data-track="hero_apply">Apply for Next Batch →</a>
+            <button class="btn btn--blue" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Free Masterclass</button>
+          </div>
+          <div class="hero-stats fade-up">
+            <div class="hero-stat"><span class="hero-stat-num">3×</span><span class="hero-stat-label">Average salary jump</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><span class="hero-stat-num">200+</span><span class="hero-stat-label">Graduates placed</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><span class="hero-stat-num">40+</span><span class="hero-stat-label">Hiring companies</span></div>
+          </div>
+        </div>
+        <div class="fade-up">
+          <div class="hero-vsl" onclick="openModal('vsl-overlay')" role="button" aria-label="Watch programme overview" data-track="hero_vsl">
+            <img src="assets/vsl_thumbnail.png" alt="Clinical scenario walkthrough" loading="lazy">
+            <div class="hero-vsl-overlay">
+              <div class="hero-vsl-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+              <div class="hero-vsl-label">Watch: How Our Graduates Made the Switch</div>
+              <div class="hero-vsl-sub">4 min overview · No signup needed</div>
+            </div>
+            <div class="hero-vsl-badge">▶ 4:12</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP ─────────────────────────────────────────────────── -->
+<section id="trust">
+  <div class="container">
+    <div class="trust-flex-header">
+      <div>
+        <p class="trust-label-left">MEDTECH CAREER TRANSITIONS</p>
+        <h3 class="trust-h3">The Gold Standard in Medical Device Hiring</h3>
+      </div>
+      <div class="trust-badge-card">
+        <div class="badge-icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" fill="currentColor"/></svg>
+        </div>
+        <div>
+          <div class="badge-title">LinkedIn Top Program</div>
+          <div class="badge-desc">India's leading career accelerator</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-logos">
+      <!-- Medtronic -->
+      <svg viewBox="0 0 120 30" aria-label="Medtronic">
+        <path d="M5 24V6h5l3.6 8.2L17.2 6H22.2v18h-4v-11.2L14.6 21.2h-2L9 12.8V24H5zm21.4-10.4c0-2 1.3-3.5 3.4-3.5s3.4 1.5 3.4 3.5v6.8c0 2-1.3 3.5-3.4 3.5s-3.4-1.5-3.4-3.5v-6.8zm4 6.8v-6.8c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2v6.8c0 .7.4 1.2 1.2 1.2s1.2-.5 1.2-1.2zm10.8-5v-1.8h-2.7V9.8h-4V13.6h-1.8V17h1.8v6.3c0 2.2 1.3 3.6 3.6 3.6h3.1V23.2h-1.8c-.7 0-1.3-.6-1.3-1.3v-5h2.7v-3.3zm9-2.2v10.8h-4V6H50v5.8c0 1.3-.9 2.2-2.2 2.2h-1.3v3.6h1.3c2.2 0 3.6-1.3 3.6-3.6v-2.2zm10.3 10.8h-4v-13.8h4v2.1c.6-1.3 1.8-2.2 3.1-2.2.4 0 .8.1 1.1.3v3.8c-.4-.2-.7-.3-1.2-.3-1.3 0-2.5 1.1-2.5 2.5v7.6zm11.2-10.4c0-2 1.3-3.5 3.4-3.5s3.4 1.5 3.4 3.5v6.8c0 2-1.3 3.5-3.4 3.5s-3.4-1.5-3.4-3.5v-6.8zm4 6.8v-6.8c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2v6.8c0 .7.4 1.2 1.2 1.2s1.2-.5 1.2-1.2zm9.9-10.4h4V24h-4v-13.8zm0-4.1h4V9.6h-4V6.3zm10.8 17.9h-4V10.2h4v1.6c.7-1.2 2-1.8 3.4-1.8 2.5 0 4.2 1.6 4.2 4.2V24h-4v-8.1c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2V24z" fill="currentColor"/>
+      </svg>
+      <!-- Stryker -->
+      <svg viewBox="0 0 100 30" aria-label="Stryker">
+        <path d="M5 22h4c1.1 0 2-.2 2.6-.6s.9-1 .9-1.9c0-1-.3-1.6-.9-2c-.6-.4-1.5-.6-2.6-.6H5v5.1zm0-8.2h3.6c.9 0 1.6-.2 2.1-.5.5-.3.7-.9.7-1.7 0-.7-.2-1.3-.7-1.6-.5-.3-1.2-.5-2.1-.5H5v4.3zM0 26V4h10.5c2 0 3.7.4 4.8 1.2 1.1.8 1.6 2.1 1.6 3.8 0 1.2-.3 2.2-1.1 3-.8.8-1.8 1.3-3.1 1.5 1.4.3 2.5.8 3.2 1.7.7.9 1.1 2.1 1.1 3.6 0 1.8-.6 3.2-1.9 4.2-1.3 1-3 1.5-5.4 1.5H0zm23.6-5.1v-10h2.7v10c0 1.1.2 1.8.6 2.3.4.5 1.1.7 2 .7.9 0 1.6-.2 2-.7.4-.5.6-1.2.6-2.3v-10h2.7v10c0 1.8-.4 3.2-1.3 4.1-.9.9-2.2 1.4-4 1.4s-3.1-.5-4-1.4c-.9-.9-1.3-2.3-1.3-4.1zm14.4-10h2.9l3.8 7.3 3.8-7.3h2.9l-5.5 10v6.8h-2.7v-6.8l-5.5-10zm17.1 0h2.7v6.4h5.4v-6.4h2.7V26h-2.7v-7.7h-5.4V26h-2.7V10.9zm15.3 0h9v2.7h-6.3V18h5.7v2.7h-5.7v4.3h6.3V26h-9V10.9z" fill="currentColor"/>
+      </svg>
+      <!-- J&J MedTech -->
+      <svg viewBox="0 0 120 30" aria-label="J&amp;J MedTech">
+        <path d="M12 22c-2.5 0-4.5-1.5-4.5-4s2-4 4.5-4 4.5 1.5 4.5 4-2 4-4.5 4zm0-6.8c-1.3 0-2.2 1-2.2 2.8s.9 2.8 2.2 2.8 2.2-1 2.2-2.8-.9-2.8-2.2-2.8z" fill="currentColor"/>
+        <path d="M28 22c-1.8 0-3-1-3.5-2.2V22h-2.2V6h2.2v6.5c.5-1.2 1.7-2.2 3.5-2.2 2.5 0 4.5 2 4.5 5.8V22H30v-5.8c0-2.5-1-3.6-2.5-3.6s-2.5 1.1-2.5 3.6V22h2.5z" fill="currentColor"/>
+        <text x="44" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="12" fill="currentColor" letter-spacing="1">MedTech</text>
+        <path d="M8 8c-3 0-5 2-5 5s2 5 5 5c1 0 2-.3 2.5-.8V22H11V8H8zm0 7.8c-1.8 0-2.8-1-2.8-2.8s1-2.8 2.8-2.8 2.8 1 2.8 2.8-1 2.8-2.8 2.8z" fill="currentColor"/>
+        <path d="M38 12.2V10h-2V7h-2.2v3h-1.5v2.2h1.5v6.5c0 2 1 3 3 3h2v-2.2h-1.5c-1 0-1.3-.3-1.3-1.3v-6.2h2z" fill="currentColor"/>
+      </svg>
+      <!-- Abbott -->
+      <svg viewBox="0 0 100 30" aria-label="Abbott">
+        <path d="M12.5 15.9l-3.3-6.9H16.2L12.5 15.9zM12.5 4L2.5 24.2H8l2.2-4.5h9.6l2.2 4.5h5.5L12.5 4z" fill="currentColor"/>
+        <text x="32" y="22" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" fill="currentColor" letter-spacing="0.5">Abbott</text>
+      </svg>
+      <!-- Boston Scientific -->
+      <svg viewBox="0 0 140 30" aria-label="Boston Scientific">
+        <circle cx="15" cy="15" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="15" cy="15" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="15" cy="15" r="1.5" fill="currentColor"/>
+        <line x1="15" y1="5" x2="15" y2="25" stroke="currentColor" stroke-width="1"/>
+        <line x1="5" y1="15" x2="25" y2="15" stroke="currentColor" stroke-width="1"/>
+        <text x="34" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="currentColor" letter-spacing="0.5">Boston Scientific</text>
+      </svg>
+      <!-- Becton Dickinson -->
+      <svg viewBox="0 0 100 30" aria-label="BD">
+        <path d="M5 26V4h8.8c2.4 0 4.2.5 5.5 1.5 1.3 1 1.9 2.4 1.9 4.2 0 1.5-.4 2.7-1.3 3.6-.9.9-2 1.4-3.5 1.6 1.6.3 2.8.9 3.6 1.9.8 1 1.2 2.4 1.2 4 0 2-.7 3.6-2.1 4.7-1.4 1.1-3.4 1.6-6 1.6H5zm5.1-13.8h3.6c1.1 0 1.9-.2 2.4-.6.5-.4.8-1 .8-1.8 0-.8-.3-1.4-.8-1.7-.5-.3-1.3-.5-2.4-.5H5.1v4.6zm0 8.7h4.1c1.2 0 2.1-.2 2.7-.7.6-.5.9-1.2.9-2.1 0-1-.3-1.7-.9-2.1-.6-.4-1.5-.6-2.7-.6H5.1v5.5zm19.3-15h6.3c3.5 0 6.3 2.8 6.3 6.3v7.6c0 3.5-2.8 6.3-6.3 6.3h-6.3V5.9zm5.1 14h1.2c.7 0 1.2-.5 1.2-1.2v-7.6c0-.7-.5-1.2-1.2-1.2h-1.2v10z" fill="currentColor"/>
+        <polygon points="54 4 66 15 54 26 42 15" fill="none" stroke="currentColor" stroke-width="2.5"/>
+        <polygon points="64 4 76 15 64 26 52 15" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.5"/>
+      </svg>
+      <!-- Siemens Healthineers -->
+      <svg viewBox="0 0 130 30" aria-label="Siemens Healthineers">
+        <text x="0" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="12" fill="currentColor" letter-spacing="1">SIEMENS</text>
+        <text x="68" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="500" font-size="9" fill="currentColor" opacity="0.8">Healthineers</text>
+      </svg>
+      <!-- Roche Diagnostics -->
+      <svg viewBox="0 0 100 30" aria-label="Roche">
+        <polygon points="12 4 24 10 24 22 12 28 0 22 0 10" fill="none" stroke="currentColor" stroke-width="2"/>
+        <text x="8" y="19" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="currentColor">R</text>
+        <text x="32" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="13" fill="currentColor" letter-spacing="0.5">Roche</text>
+      </svg>
+    </div>
+
+    <!-- Infinite Learner Transition Wall -->
+    <div class="credibility-marquee-wrap">
+      <div class="credibility-marquee">
+        <div class="marquee-track">
+          <!-- Card 1 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">RS</div>
+            <div class="st-details">
+              <div class="st-name">Rohan Sharma</div>
+              <div class="st-path">Pharma MR ➔ Account Executive at <strong>Medtronic</strong></div>
+            </div>
+            <div class="st-badge">₹9.5 LPA</div>
+          </div>
+          <!-- Card 2 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">AK</div>
+            <div class="st-details">
+              <div class="st-name">Amit Kumar</div>
+              <div class="st-path">Biotech Grad ➔ Clinical Application Specialist at <strong>Stryker</strong></div>
+            </div>
+            <div class="st-badge">₹8.2 LPA</div>
+          </div>
+          <!-- Card 3 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">PB</div>
+            <div class="st-details">
+              <div class="st-name">Priyanka Bose</div>
+              <div class="st-path">Life Sciences ➔ Product Specialist at <strong>J&amp;J MedTech</strong></div>
+            </div>
+            <div class="st-badge">₹10.8 LPA</div>
+          </div>
+          <!-- Card 4 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">VS</div>
+            <div class="st-details">
+              <div class="st-name">Vijay Singh</div>
+              <div class="st-path">Pharma MR ➔ Area Sales Manager at <strong>Abbott</strong></div>
+            </div>
+            <div class="st-badge">₹11.2 LPA</div>
+          </div>
+          <!-- Card 5 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">MD</div>
+            <div class="st-details">
+              <div class="st-name">Monica Das</div>
+              <div class="st-path">Nurse Practitioner ➔ Therapy Consultant at <strong>Boston Scientific</strong></div>
+            </div>
+            <div class="st-badge">₹9.0 LPA</div>
+          </div>
+          
+          <!-- Duplicate cards for infinite loop -->
+          <!-- Card 1 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">RS</div>
+            <div class="st-details">
+              <div class="st-name">Rohan Sharma</div>
+              <div class="st-path">Pharma MR ➔ Account Executive at <strong>Medtronic</strong></div>
+            </div>
+            <div class="st-badge">₹9.5 LPA</div>
+          </div>
+          <!-- Card 2 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">AK</div>
+            <div class="st-details">
+              <div class="st-name">Amit Kumar</div>
+              <div class="st-path">Biotech Grad ➔ Clinical Application Specialist at <strong>Stryker</strong></div>
+            </div>
+            <div class="st-badge">₹8.2 LPA</div>
+          </div>
+          <!-- Card 3 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">PB</div>
+            <div class="st-details">
+              <div class="st-name">Priyanka Bose</div>
+              <div class="st-path">Life Sciences ➔ Product Specialist at <strong>J&amp;J MedTech</strong></div>
+            </div>
+            <div class="st-badge">₹10.8 LPA</div>
+          </div>
+          <!-- Card 4 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">VS</div>
+            <div class="st-details">
+              <div class="st-name">Vijay Singh</div>
+              <div class="st-path">Pharma MR ➔ Area Sales Manager at <strong>Abbott</strong></div>
+            </div>
+            <div class="st-badge">₹11.2 LPA</div>
+          </div>
+          <!-- Card 5 -->
+          <div class="student-ticker-card">
+            <div class="st-avatar">MD</div>
+            <div class="st-details">
+              <div class="st-name">Monica Das</div>
+              <div class="st-path">Nurse Practitioner ➔ Therapy Consultant at <strong>Boston Scientific</strong></div>
+            </div>
+            <div class="st-badge">₹9.0 LPA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES ────────────────────────────────────────────────────── -->
+<section id="outcomes" class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">AUDITED CAREER TRANSITIONS</p>
+      <h2 class="t-h2">Verified Salary Proof & Outcomes</h2>
+      <p class="section-sub">Every career transition below is audited, verified by third-party salary slips, and certified by MedSkills Catalyst. These are real stories of real graduates.</p>
+    </div>
+    <div class="outcomes-grid">
+      <!-- Card 1 -->
+      <div class="outcome-card fade-up" data-tilt>
+        <div class="outcome-stamp-watermark">VERIFIED</div>
+        <div class="outcome-card-top">
+          <div class="outcome-badge-verified">
+            <span class="badge-dot-green"></span> VERIFIED OUTCOME
+          </div>
+          <div class="outcome-badge-multiplier">2.7× JUMP</div>
+        </div>
+        
+        <div class="outcome-profile-row">
+          <div class="outcome-avatar-badge">RS</div>
+          <div>
+            <div class="outcome-profile-name">Rohan Sharma</div>
+            <div class="outcome-profile-meta">ALUMNUS • CLASS OF 2026</div>
+          </div>
+        </div>
+
+        <div class="outcome-transition-table">
+          <div class="outcome-table-row">
+            <span class="table-col-label">PRIOR ROLE</span>
+            <span class="table-col-value">Pharma MR (Sales)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">PLACED ROLE</span>
+            <span class="table-col-value value-highlight">Account Executive (Medtronic)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">CORE SKILL SHIFT</span>
+            <span class="table-col-value">OR Protocol &amp; Surgeon Advisory</span>
+          </div>
+        </div>
+
+        <div class="outcome-salary-block">
+          <div class="salary-box box-before">
+            <span class="sal-lbl">PREVIOUS</span>
+            <span class="sal-val">₹3.5 LPA</span>
+          </div>
+          <div class="salary-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="salary-box box-after">
+            <span class="sal-lbl">VERIFIED OFFERS</span>
+            <span class="sal-val">₹9.5 LPA</span>
+          </div>
+        </div>
+
+        <div class="outcome-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">AUDITED CERTIFICATE</span>
+              <span class="sig-status text-emerald">APPROVED</span>
+            </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDITOR SIGNATURE</span>
+              <span class="sig-value handwriting">A. K. Sen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="outcome-card fade-up" data-tilt>
+        <div class="outcome-stamp-watermark">VERIFIED</div>
+        <div class="outcome-card-top">
+          <div class="outcome-badge-verified">
+            <span class="badge-dot-green"></span> VERIFIED OUTCOME
+          </div>
+          <div class="outcome-badge-multiplier">2.9× JUMP</div>
+        </div>
+        
+        <div class="outcome-profile-row">
+          <div class="outcome-avatar-badge">AK</div>
+          <div>
+            <div class="outcome-profile-name">Amit Kumar</div>
+            <div class="outcome-profile-meta">ALUMNUS • CLASS OF 2026</div>
+          </div>
+        </div>
+
+        <div class="outcome-transition-table">
+          <div class="outcome-table-row">
+            <span class="table-col-label">PRIOR ROLE</span>
+            <span class="table-col-value">B.Pharm Graduate (Junior Sales)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">PLACED ROLE</span>
+            <span class="table-col-value value-highlight">Application Specialist (Stryker)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">CORE SKILL SHIFT</span>
+            <span class="table-col-value">Clinical Demo &amp; Case Coverages</span>
+          </div>
+        </div>
+
+        <div class="outcome-salary-block">
+          <div class="salary-box box-before">
+            <span class="sal-lbl">PREVIOUS</span>
+            <span class="sal-val">₹2.8 LPA</span>
+          </div>
+          <div class="salary-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="salary-box box-after">
+            <span class="sal-lbl">VERIFIED OFFERS</span>
+            <span class="sal-val">₹8.2 LPA</span>
+          </div>
+        </div>
+
+        <div class="outcome-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">AUDITED CERTIFICATE</span>
+              <span class="sig-status text-emerald">APPROVED</span>
+            </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDITOR SIGNATURE</span>
+              <span class="sig-value handwriting">M. Choudhury</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="outcome-card fade-up" data-tilt>
+        <div class="outcome-stamp-watermark">VERIFIED</div>
+        <div class="outcome-card-top">
+          <div class="outcome-badge-verified">
+            <span class="badge-dot-green"></span> VERIFIED OUTCOME
+          </div>
+          <div class="outcome-badge-multiplier">2.6× JUMP</div>
+        </div>
+        
+        <div class="outcome-profile-row">
+          <div class="outcome-avatar-badge">PB</div>
+          <div>
+            <div class="outcome-profile-name">Priyanka Bose</div>
+            <div class="outcome-profile-meta">ALUMNUS • CLASS OF 2026</div>
+          </div>
+        </div>
+
+        <div class="outcome-transition-table">
+          <div class="outcome-table-row">
+            <span class="table-col-label">PRIOR ROLE</span>
+            <span class="table-col-value">Biotech Grad (Lab Technician)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">PLACED ROLE</span>
+            <span class="table-col-value value-highlight">Regulatory Affairs Exec (J&amp;J)</span>
+          </div>
+          <div class="outcome-table-row">
+            <span class="table-col-label">CORE SKILL SHIFT</span>
+            <span class="table-col-value">CDSCO Filing &amp; Trial Compliance</span>
+          </div>
+        </div>
+
+        <div class="outcome-salary-block">
+          <div class="salary-box box-before">
+            <span class="sal-lbl">PREVIOUS</span>
+            <span class="sal-val">₹4.2 LPA</span>
+          </div>
+          <div class="salary-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+          <div class="salary-box box-after">
+            <span class="sal-lbl">VERIFIED OFFERS</span>
+            <span class="sal-val">₹10.8 LPA</span>
+          </div>
+        </div>
+
+        <div class="outcome-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">AUDITED CERTIFICATE</span>
+              <span class="sig-status text-emerald">APPROVED</span>
+            </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDITOR SIGNATURE</span>
+              <span class="sig-value handwriting">S. Raghavan</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS ────────────────────────────────────────────────── -->
+<section id="how" class="section section--dark">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">THE ROADMAP</p>
+      <h2 class="t-h2">From Application to Offer Letter in 16 Weeks</h2>
+      <p class="section-sub">A structured, supported journey — not a self-paced course you abandon by week three.</p>
+    </div>
+    
+    <div class="roadmap-container fade-up">
+      <!-- Left Track -->
+      <div class="roadmap-track">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-line-progress" id="roadmapLineProgress"></div>
+        
+        <!-- Step 1 -->
+        <div class="roadmap-step active" data-step="1">
+          <div class="roadmap-step-num">1</div>
+          <div class="roadmap-step-content">
+            <h3 class="roadmap-step-title">Apply &amp; Qualify</h3>
+            <p class="roadmap-step-desc">Submit a short application. We review your academic or sales background and schedule a 20-min career fit call within 48 hours to assess eligibility.</p>
+            
+            <!-- Mobile-only inline visual -->
+            <div class="roadmap-mobile-visual" style="display: none;">
+              <div class="roadmap-calendar">
+                <div class="roadmap-cal-header">FIT CALL SCHEDULER</div>
+                <div class="roadmap-cal-profile">
+                  <div class="cal-avatar">MC</div>
+                  <div>
+                    <div class="cal-profile-name">MedSkills Coach</div>
+                    <div class="cal-profile-meta">Eligibility assessment team</div>
+                  </div>
+                </div>
+                <div class="roadmap-cal-grid">
+                  <span class="cal-day">M</span><span class="cal-day">T</span><span class="cal-day">W</span><span class="cal-day">T</span><span class="cal-day">F</span><span class="cal-day">S</span><span class="cal-day">S</span>
+                  <span class="cal-date">24</span><span class="cal-date">25</span><span class="cal-date">26</span><span class="cal-date">27</span><span class="cal-date active">28</span><span class="cal-date">29</span><span class="cal-date">30</span>
+                </div>
+                <div class="roadmap-cal-status">✓ Selected: 28th • Today, 4:30 PM (IST)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="roadmap-step" data-step="2">
+          <div class="roadmap-step-num">2</div>
+          <div class="roadmap-step-content">
+            <h3 class="roadmap-step-title">12-Week Intensive Training</h3>
+            <p class="roadmap-step-desc">Live cohort-based learning, clinical scenario role-plays, and medical device anatomy simulations. Held in evenings/weekends so you do not have to quit your job.</p>
+            
+            <!-- Mobile-only inline visual -->
+            <div class="roadmap-mobile-visual" style="display: none;">
+              <div class="roadmap-progress-widget">
+                <div class="roadmap-prog-title">Module 2: Surgical Protocol &amp; OR Flow</div>
+                <div class="roadmap-prog-bar">
+                  <div class="roadmap-prog-fill" style="width: 72%;"></div>
+                </div>
+                <div class="roadmap-prog-meta">Progress: 72% Completed</div>
+                
+                <div class="roadmap-prog-list">
+                  <div class="prog-item checked">
+                    <span class="prog-icon">✓</span>
+                    <span class="prog-text">Anatomy of the Human Knee Joint</span>
+                  </div>
+                  <div class="prog-item checked">
+                    <span class="prog-icon">✓</span>
+                    <span class="prog-text">Aseptic OR Dressing Protocols</span>
+                  </div>
+                  <div class="prog-item">
+                    <span class="prog-icon font-light">•</span>
+                    <span class="prog-text text-active">Surgical Drill Demonstration (Live)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="roadmap-step" data-step="3">
+          <div class="roadmap-step-num">3</div>
+          <div class="roadmap-step-content">
+            <h3 class="roadmap-step-title">Placement Sprint</h3>
+            <p class="roadmap-step-desc">Resume rewrite, LinkedIn profile optimization, pitch training, and simulated mock interviews with seasoned MedTech sales directors.</p>
+            
+            <!-- Mobile-only inline visual -->
+            <div class="roadmap-mobile-visual" style="display: none;">
+              <div class="roadmap-score-widget">
+                <div class="score-circle">88%</div>
+                <div class="score-label">Technical Readiness Score</div>
+                
+                <div class="score-metrics-list">
+                  <div class="metric-item">
+                    <span class="metric-lbl">Clinical Knowledge</span>
+                    <span class="metric-val">90%</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-lbl">Hospital Buyer Persona</span>
+                    <span class="metric-val">84%</span>
+                  </div>
+                  <div class="metric-item">
+                    <span class="metric-lbl">Surgical Pitch Delivery</span>
+                    <span class="metric-val">92%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="roadmap-step" data-step="4">
+          <div class="roadmap-step-num">4</div>
+          <div class="roadmap-step-content">
+            <h3 class="roadmap-step-title">Offer &amp; Onboard</h3>
+            <p class="roadmap-step-desc">Accept the job offer that fits your career aspirations. We also provide post-placement support for 90 days to help you settle in successfully.</p>
+            
+            <!-- Mobile-only inline visual -->
+            <div class="roadmap-mobile-visual" style="display: none;">
+              <div class="roadmap-offer-widget">
+                <div class="offer-seal">✓</div>
+                <div class="offer-title">PLACEMENT OFFER CERTIFIED</div>
+                <div class="offer-divider"></div>
+                <div class="offer-details-table">
+                  <div class="offer-row">
+                    <span class="off-lbl">COMPANY:</span>
+                    <span class="off-val">Stryker India Pvt Ltd</span>
+                  </div>
+                  <div class="offer-row">
+                    <span class="off-lbl">PACKAGE:</span>
+                    <span class="off-val text-emerald">₹8.2 LPA + OTE</span>
+                  </div>
+                  <div class="offer-row">
+                    <span class="off-lbl">ROLE:</span>
+                    <span class="off-val">Application Specialist</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Visual Sticky Box (Desktop Only) -->
+      <div class="roadmap-visual-display">
+        <!-- Panel 1: Scheduler Booking Sheet -->
+        <div class="roadmap-visual-panel active" id="roadmapPanel1">
+          <div class="roadmap-calendar">
+            <div class="roadmap-cal-header">FIT CALL SCHEDULER</div>
+            <div class="roadmap-cal-profile">
+              <div class="cal-avatar">MC</div>
+              <div>
+                <div class="cal-profile-name">MedSkills Coach</div>
+                <div class="cal-profile-meta">Eligibility assessment team</div>
+              </div>
+            </div>
+            <div class="roadmap-cal-grid">
+              <span class="cal-day">M</span><span class="cal-day">T</span><span class="cal-day">W</span><span class="cal-day">T</span><span class="cal-day">F</span><span class="cal-day">S</span><span class="cal-day">S</span>
+              <span class="cal-date">24</span><span class="cal-date">25</span><span class="cal-date">26</span><span class="cal-date">27</span><span class="cal-date active">28</span><span class="cal-date">29</span><span class="cal-date">30</span>
+            </div>
+            <div class="roadmap-cal-status">✓ Selected: 28th • Today, 4:30 PM (IST)</div>
+          </div>
+        </div>
+        
+        <!-- Panel 2: Live Lecture Study Tracker -->
+        <div class="roadmap-visual-panel" id="roadmapPanel2">
+          <div class="roadmap-progress-widget">
+            <div class="roadmap-prog-title">Module 2: Surgical Protocol &amp; OR Flow</div>
+            <div class="roadmap-prog-bar">
+              <div class="roadmap-prog-fill" style="width: 72%;"></div>
+            </div>
+            <div class="roadmap-prog-meta">Progress: 72% Completed</div>
+            
+            <div class="roadmap-prog-list">
+              <div class="prog-item checked">
+                <span class="prog-icon">✓</span>
+                <span class="prog-text">Anatomy of the Human Knee Joint</span>
+              </div>
+              <div class="prog-item checked">
+                <span class="prog-icon">✓</span>
+                <span class="prog-text">Aseptic OR Dressing Protocols</span>
+              </div>
+              <div class="prog-item">
+                <span class="prog-icon font-light">•</span>
+                <span class="prog-text text-active">Surgical Drill Demonstration (Live)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Panel 3: Performance Scorecard Dial -->
+        <div class="roadmap-visual-panel" id="roadmapPanel3">
+          <div class="roadmap-score-widget">
+            <div class="score-circle">88%</div>
+            <div class="score-label">Technical Readiness Score</div>
+            
+            <div class="score-metrics-list">
+              <div class="metric-item">
+                <span class="metric-lbl">Clinical Knowledge</span>
+                <span class="metric-val">90%</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-lbl">Hospital Buyer Persona</span>
+                <span class="metric-val">84%</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-lbl">Surgical Pitch Delivery</span>
+                <span class="metric-val">92%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Panel 4: Physical Offer Letter Sheet Mockup -->
+        <div class="roadmap-visual-panel" id="roadmapPanel4">
+          <div class="roadmap-offer-widget">
+            <div class="offer-seal">✓</div>
+            <div class="offer-title">PLACEMENT OFFER CERTIFIED</div>
+            <div class="offer-divider"></div>
+            <div class="offer-details-table">
+              <div class="offer-row">
+                <span class="off-lbl">COMPANY:</span>
+                <span class="off-val">Stryker India Pvt Ltd</span>
+              </div>
+              <div class="offer-row">
+                <span class="off-lbl">PACKAGE:</span>
+                <span class="off-val text-emerald">₹8.2 LPA + OTE</span>
+              </div>
+              <div class="offer-row">
+                <span class="off-lbl">ROLE:</span>
+                <span class="off-val">Application Specialist</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM ──────────────────────────────────────────────────── -->
+<section id="curriculum" class="section section--alt">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">The Curriculum</p>
+      <h2 class="t-h2">6 Modules. Built With Hiring Managers, Not Just Academics.</h2>
+      <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
+    </div>
+    <div class="curriculum-grid" id="curriculum-grid"></div>
+  </div>
+</section>
+
+<!-- MASTERCLASS ─────────────────────────────────────────────────── -->
+<section id="masterclass" class="section">
+  <div class="container">
+    <div class="masterclass-inner">
+      <div class="fade-up">
+        <div class="mc-badge">
+          <span class="mc-live-dot"></span>
+          <span>LIVE ZOOM SESSION · RESERVATIONS OPEN</span>
+        </div>
+        <h2 class="mc-h">Break Into MedTech Sales in 90 Days — Without Prior Device Experience</h2>
+        <p class="mc-sub">Gagan Victor shares the exact, unwritten playbook our graduates use to secure interviews and offers at industry leaders like Stryker, Medtronic, and J&amp;J MedTech.</p>
+        
+        <!-- Live Timeline Agenda -->
+        <div class="mc-agenda">
+          <div class="mc-agenda-item active">
+            <div class="mc-agenda-dot"></div>
+            <div class="mc-agenda-time">11:00 AM</div>
+            <div class="mc-agenda-detail"><strong>The MedTech Map:</strong> Why Stryker, Medtronic, and J&amp;J are hiring career-switchers right now & what they look for.</div>
+          </div>
+          <div class="mc-agenda-item">
+            <div class="mc-agenda-dot"></div>
+            <div class="mc-agenda-time">11:30 AM</div>
+            <div class="mc-agenda-detail"><strong>The Resume Pivot:</strong> Re-engineering your non-device sales experience into a high-intent MedTech sales profile.</div>
+          </div>
+          <div class="mc-agenda-item">
+            <div class="mc-agenda-dot"></div>
+            <div class="mc-agenda-time">12:00 PM</div>
+            <div class="mc-agenda-detail"><strong>OR Protocols & Q&A:</strong> Live simulation case study breakdown & interactive student Q&A.</div>
+          </div>
+        </div>
+
+        <!-- Social Proof Visitor Counter -->
+        <div class="mc-speaker-badge">
+          <div style="display: flex; align-items: center; margin-right: 0.5rem;">
+            <div style="width: 28px; height: 28px; border-radius: 50%; overflow: hidden; border: 2px solid #040E10; margin-left: 0; background: #94A3B8;"><img src="assets/amit_kulkarni.png" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; overflow: hidden; border: 2px solid #040E10; margin-left: -8px; background: #64748B;"><img src="assets/nisha_kapoor.png" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; overflow: hidden; border: 2px solid #040E10; margin-left: -8px; background: #475569;"><img src="assets/priya_ravindran.png" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
+          </div>
+          <div style="font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 500;">
+            Join <span style="color: #fff; font-weight: 700;">142+ professionals</span> registered for this weekend's session
+          </div>
+        </div>
+      </div>
+      
+      <div class="fade-up">
+        <!-- Event Admission Ticket Mockup -->
+        <div class="mc-ticket-container" id="mcTicketPass">
+          <div class="mc-ticket" data-tilt>
+            <div class="mc-ticket-glow"></div>
+            <div class="ticket-speaker-photo-wrap">
+              <img src="assets/gagan_victor.png" alt="Gagan Victor" class="ticket-speaker-img" loading="lazy">
+              <div class="ticket-speaker-overlay">
+                <div class="speaker-name">Gagan Victor</div>
+                <div class="speaker-title">Ex-Regional Sales Manager, Medtronic</div>
+              </div>
+            </div>
+            <div class="mc-ticket-top">
+              <div class="ticket-logo">MEDSKILLS CATALYST</div>
+              <div class="ticket-row">
+                <div class="ticket-label">EVENT</div>
+                <div class="ticket-val highlight">VIP LIVE ADMISSION</div>
+              </div>
+              <div class="ticket-row">
+                <div class="ticket-label">DATE</div>
+                <div class="ticket-val">Saturday, 7th June</div>
+              </div>
+              <div class="ticket-row">
+                <div class="ticket-label">TIME</div>
+                <div class="ticket-val">11:00 AM IST</div>
+              </div>
+              <div class="ticket-row">
+                <div class="ticket-label">PORTAL</div>
+                <div class="ticket-val" style="color: #60A5FA;">Zoom Broadcast Live</div>
+              </div>
+            </div>
+            <div class="mc-ticket-bottom">
+              <div class="mc-seats-ticker">
+                <p class="mc-seats-lbl">SEATS ALLOCATED</p>
+                <div class="mc-seats-bar"><div class="mc-seats-fill" style="width: 82%;"></div></div>
+                <p class="mc-seats-note">⚡ Only 18 seats remaining</p>
+              </div>
+              <button class="btn btn--amber btn--full" onclick="openModal('mc-overlay')" data-track="masterclass_ticket_rsvp" style="border-radius: 8px; margin-bottom: 1.25rem;">Claim your free spot today →</button>
+              <div class="mc-barcode-wrap" style="margin-bottom: 0;">
+                <div class="mc-barcode"></div>
+                <div class="mc-ticket-id">PASS# MS-2026-9982</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FACULTY ─────────────────────────────────────────────────────── -->
+<section id="faculty" class="section section--alt">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">The Faculty</p>
+      <h2 class="t-h2">Taught By People Who Have Actually Done This Job</h2>
+      <p class="section-sub">No academics. Every instructor spent years in medical device and surgical sales at the companies you're trying to get hired at.</p>
+    </div>
+    <div class="faculty-grid">
+      <div class="faculty-card fade-up">
+        <div class="faculty-av-wrap">
+          <div class="faculty-portrait-container">
+            <img class="faculty-portrait" src="assets/gagan_victor.png" alt="Gagan Victor" loading="lazy">
+            <div class="faculty-former-logo" title="Ex-Medtronic">
+              <svg viewBox="0 0 30 30" style="width:12px;height:12px;fill:var(--brand-mid)"><path d="M5 24V6h5l3.6 8.2L17.2 6H22.2v18h-4v-11.2L14.6 21.2h-2L9 12.8V24H5z"/></svg>
+            </div>
+          </div>
+          <div><div class="faculty-name">Gagan Victor</div><div class="faculty-role">Lead Faculty &amp; Programme Director</div></div>
+        </div>
+        <p class="faculty-bio">14 years in MedTech sales. Former Regional Sales Manager at Medtronic India, overseeing cardiovascular and surgical portfolios across South India. Led a team of 22 before moving into training full-time.</p>
+        <div class="faculty-tags"><span class="faculty-tag">Cardiovascular</span><span class="faculty-tag">Surgical Sales</span><span class="faculty-tag">Team Leadership</span></div>
+      </div>
+      <div class="faculty-card fade-up">
+        <div class="faculty-av-wrap">
+          <div class="faculty-portrait-container">
+            <img class="faculty-portrait" src="assets/priya_ravindran.png" alt="Priya Ravindran" loading="lazy">
+            <div class="faculty-former-logo" title="Ex-Johnson &amp; Johnson">
+              <svg viewBox="0 0 30 30" style="width:12px;height:12px;fill:#D32F2F"><path d="M2 18c0-2.5 1.8-4.5 4.5-4.5 1.5 0 2.5.8 3.2 1.6V5h3.2v13H10v-1.5c-.7.8-1.8 1.5-3.2 1.5-2.7 0-4.8-2.5-4.8-5zm10.5 0c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5-1 2.5-2.5 2.5-2.5-1-2.5-2.5z"/></svg>
+            </div>
+          </div>
+          <div><div class="faculty-name">Priya Ravindran</div><div class="faculty-role">Clinical Track Lead</div></div>
+        </div>
+        <p class="faculty-bio">Former Clinical Application Specialist at J&amp;J MedTech. Specialist in laparoscopy and robotic surgery adoption. Trained 300+ surgeons on new device platforms across 6 Indian states.</p>
+        <div class="faculty-tags"><span class="faculty-tag">Clinical Applications</span><span class="faculty-tag">Surgical Robotics</span><span class="faculty-tag">Surgeon Training</span></div>
+      </div>
+      <div class="faculty-card fade-up">
+        <div class="faculty-av-wrap">
+          <div class="faculty-portrait-container">
+            <img class="faculty-portrait" src="assets/amit_kulkarni.png" alt="Amit Kulkarni" loading="lazy">
+            <div class="faculty-former-logo" title="Ex-Stryker">
+              <svg viewBox="0 0 30 30" style="width:12px;height:12px;fill:var(--brand)"><path d="M2 18h3.6c.9 0 1.6-.2 2.1-.5.5-.3.7-.9.7-1.7 0-.7-.2-1.3-.7-1.6-.5-.3-1.2-.5-2.1-.5H2v4.3zM0 24V4h8c1.5 0 2.8.3 3.6.9.8.6 1.2 1.5 1.2 2.7 0 .9-.2 1.7-.8 2.2-.6.6-1.4 1-2.4 1.1 1 .2 1.8.6 2.3 1.2.5.6.8 1.4.8 2.5 0 1.3-.4 2.4-1.3 3.1-.9.7-2.2 1.1-4 1.1H0v2z"/></svg>
+            </div>
+          </div>
+          <div><div class="faculty-name">Amit Kulkarni</div><div class="faculty-role">Enterprise Sales Track Lead</div></div>
+        </div>
+        <p class="faculty-bio">10 years in hospital procurement and enterprise MedTech deals. Ex-Stryker, closed institutional contracts above ₹5 Cr. Expert in multi-stakeholder hospital buying cycles and tender strategy.</p>
+        <div class="faculty-tags"><span class="faculty-tag">Hospital Procurement</span><span class="faculty-tag">Enterprise Sales</span><span class="faculty-tag">Tender Strategy</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD FORM ───────────────────────────────────────────────────── -->
+<section id="lead" class="section">
+  <div class="container">
+    <div class="lead-inner">
+      <div class="fade-up">
+        <div class="lead-book-container">
+          <div class="book-mockup">
+            <div class="book-spine-effect"></div>
+            <div class="book-cover">
+              <span class="book-tag">HANDBOOK</span>
+              <h4 class="book-title">MedTech Career Transition Guide</h4>
+              <span class="book-meta">2026 EDITION</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="t-h2 lead-h">Get the MedTech Career Transition Guide <span class="t-serif t-brand-mid">— Free</span></h2>
+            <p class="lead-sub" style="margin-bottom: 0;">A 28-page PDF covering the 6 highest-paying roles, the interview questions every company asks, and the salary negotiation scripts that work.</p>
+          </div>
+        </div>
+        <div class="lead-checklist">
+          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Which MedTech segment is hiring most aggressively right now</span>
+          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>How to rewrite your pharma resume for device companies</span>
+          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>The 5 things interviewers at Stryker and Medtronic always probe</span>
+          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Real salary bands by city, role, and company size</span>
+        </div>
+      </div>
+      <div class="fade-up">
+        <div class="lead-form-wrap">
+          <h3 class="lead-form-title">Send me the free guide</h3>
+          <p class="lead-form-sub">30 seconds. No spam — just the guide and our monthly career newsletter.</p>
+          <form id="lead-form" onsubmit="submitLead(event)">
+            <div class="form-group">
+              <label class="form-label" for="l-name">Your name</label>
+              <input class="form-input" type="text" id="l-name" name="name" placeholder="Rohan Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="l-phone">WhatsApp number</label>
+              <input class="form-input" type="tel" id="l-phone" name="phone" placeholder="+91 98765 43210" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="l-email">Email address</label>
+              <input class="form-input" type="email" id="l-email" name="email" placeholder="rohan@gmail.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="l-bg">Your current background</label>
+              <select class="form-input form-select" id="l-bg" name="background" required>
+                <option value="" disabled selected>Select one</option>
+                <option>Pharma Medical Representative</option>
+                <option>B.Pharm / M.Pharm Graduate</option>
+                <option>Biotech / Life Sciences Graduate</option>
+                <option>Lab / Clinical Technician</option>
+                <option>Other Healthcare Professional</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn--amber btn--full" data-track="lead_submit">Send Me the Free Guide →</button>
+          </form>
+          <p class="t-small t-muted" style="text-align:center;margin-top:.75rem">Your details are never shared. Unsubscribe any time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS ────────────────────────────────────────────────── -->
+<section id="testimonials" class="section section--alt">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Graduate Stories</p>
+      <h2 class="t-h2">What Our Graduates Say</h2>
+      <p class="section-sub">In their own words — from application to offer letter.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card fade-up">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg></div>
+        <p class="testi-quote">"I spent 4 years as a pharma MR feeling stuck. MedSkills Catalyst taught me how hospital buying works and how to talk to surgeons without sounding like a pharma rep. Got placed at Becton Dickinson within 3 weeks of completing the programme."</p>
+        <div class="testi-author">
+          <div class="testi-av-wrap"><img class="testi-av-img" src="assets/rahul_sinha.png" alt="Rahul Sinha" loading="lazy"></div>
+          <div><div class="testi-name">Rahul Sinha</div><div class="testi-detail">Territory Manager, Becton Dickinson · Mumbai</div></div>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg></div>
+        <p class="testi-quote">"Priya took us into real OR simulations. I walked into my Stryker interview and could talk about laparoscopy ports and trocar placement — the hiring manager was visibly surprised. I got the job that week."</p>
+        <div class="testi-author">
+          <div class="testi-av-wrap"><img class="testi-av-img" src="assets/nisha_kapoor.png" alt="Nisha Kapoor" loading="lazy"></div>
+          <div><div class="testi-name">Nisha Kapoor</div><div class="testi-detail">Clinical Sales Specialist, Stryker · Bengaluru</div></div>
+        </div>
+      </div>
+      <div class="testi-card fade-up">
+        <div class="testi-stars"><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg><svg viewBox="0 0 24 24"><path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192L12 .587z"/></svg></div>
+        <p class="testi-quote">"I was a biotech fresher with zero sales experience. The mock interviews were harder than the real ones. By the time I had my Abbott interview I was calm. I'm now at ₹9.8 LPA — two years after graduating with ₹0 work experience."</p>
+        <div class="testi-author">
+          <div class="testi-av-wrap"><img class="testi-av-img" src="assets/arjun_menon.png" alt="Arjun Menon" loading="lazy"></div>
+          <div><div class="testi-name">Arjun Menon</div><div class="testi-detail">Device Account Executive, Abbott · Hyderabad</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ ─────────────────────────────────────────────────────────── -->
+<section id="faq" class="section section--alt">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Common Questions</p>
+      <h2 class="t-h2">Answers to What You're Probably Thinking</h2>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- FEES ────────────────────────────────────────────────────────── -->
+<section id="fees" class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Investment</p>
+      <h2 class="t-h2">One Honest Price. No Hidden Fees.</h2>
+      <p class="section-sub">If your salary jumps by ₹5L in year one — and most of our graduates' does — you've recovered the programme cost in under 10 weeks of work.</p>
+    </div>
+    <div class="fees-container">
+      <div class="fees-card fade-up">
+        <div class="fees-top">
+          <div><div class="fees-program">Full Programme</div><div class="fees-name">MedSkills Catalyst — 12-Week Cohort</div></div>
+          <div class="fees-price-wrap"><div class="fees-price">₹75,000</div><div class="fees-price-sub">One-time · All taxes included</div></div>
+        </div>
+        <div class="fees-body">
+          <div class="fees-features">
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>12 weeks of live cohort sessions</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>6 modules with industry case studies</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Device lab and OR simulation access</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Dedicated placement support</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Resume &amp; LinkedIn profile rewrite</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Mock interviews with hiring managers</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Access to 40+ hiring partners</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>90-day post-placement coaching</div>
+          </div>
+          <div class="fees-emi">
+            <div class="fees-emi-icon">💳</div>
+            <div class="fees-emi-text"><strong>No-cost EMI — 3 and 6-month options available</strong> through HDFC, ICICI, Axis, and Bajaj Finserv. Apply first, sort the payment plan on your counselling call.</div>
+          </div>
+          <div class="fees-ctas">
+            <a href="#lead" class="btn btn--amber btn--lg" data-track="fees_apply">Apply for Next Batch →</a>
+            <a href="https://wa.me/919900000000?text=Hi%2C+I+have+a+question+about+fees" target="_blank" rel="noopener" class="btn btn--wa" data-track="fees_wa"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>Ask on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROI Calculator Card -->
+      <div class="roi-card fade-up">
+        <div class="roi-card-header">
+          <h3 class="roi-card-title">Career ROI Simulator</h3>
+          <p class="roi-card-desc">Calculate your real earning delta based on verified alumnus salary shifts.</p>
+        </div>
+        <div class="roi-sliders">
+          <div class="roi-slider-group">
+            <div class="roi-slider-header">
+              <span class="roi-slider-lbl">Current Annual Salary (LPA)</span>
+              <span class="roi-slider-val" id="currentSalaryVal">₹5.0L</span>
+            </div>
+            <input type="range" class="roi-slider-input" id="currentSalaryInput" min="3" max="15" step="0.5" value="5">
+          </div>
+          <div class="roi-slider-group">
+            <div class="roi-slider-header">
+              <span class="roi-slider-lbl">Target MedTech Role Salary (LPA)</span>
+              <span class="roi-slider-val" id="targetSalaryVal">₹9.5L</span>
+            </div>
+            <input type="range" class="roi-slider-input" id="targetSalaryInput" min="6" max="25" step="0.5" value="9.5">
+          </div>
+        </div>
+        <div class="roi-grid">
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">Projected Annual Raise</span>
+            <span class="roi-stat-val highlight" id="roiRaiseVal">+₹4.5L (+90%)</span>
+          </div>
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">3-Year Net Raise</span>
+            <span class="roi-stat-val highlight" id="roiThreeYrVal">+₹13.5L</span>
+          </div>
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">Tuition ROI</span>
+            <span class="roi-stat-val" id="roiPercentVal">600%</span>
+          </div>
+          <div class="roi-stat-box">
+            <span class="roi-stat-lbl">Payback Period</span>
+            <span class="roi-stat-val" id="roiPaybackVal">2.0 months</span>
+          </div>
+        </div>
+        <p class="roi-disclaimer">Based on average MedSkills placements of 88% within 90 days. Calculations factor in ₹75,000 program tuition.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLACEMENT ───────────────────────────────────────────────────── -->
+<section id="placement" class="section section--dark">
+  <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Placement Support</p>
+      <h2 class="t-h2">We Don't Stop at Graduation</h2>
+      <p class="section-sub">Most programmes give you a certificate and a LinkedIn post. We give you warm introductions and follow up until you have an offer in hand.</p>
+    </div>
+    <div class="placement-grid">
+      <div class="placement-card fade-up"><div class="placement-icon-box">🤝</div><div class="placement-num">200+</div><div class="placement-label">Graduates placed since 2021</div></div>
+      <div class="placement-card fade-up"><div class="placement-icon-box">⚡</div><div class="placement-num">47 days</div><div class="placement-label">Average time to offer after programme completion</div></div>
+      <div class="placement-card fade-up"><div class="placement-icon-box">🏢</div><div class="placement-num">40+</div><div class="placement-label">Active hiring partners across India</div></div>
+      <div class="placement-card fade-up"><div class="placement-icon-box">📈</div><div class="placement-num">93%</div><div class="placement-label">Placed within 90 days of completing the programme</div></div>
+    </div>
+    <div class="placement-cos fade-up">
+      <span class="placement-co">Stryker</span><span class="placement-co">Medtronic</span><span class="placement-co">J&amp;J MedTech</span><span class="placement-co">Becton Dickinson</span><span class="placement-co">Abbott</span><span class="placement-co">Siemens Healthineers</span><span class="placement-co">Smith &amp; Nephew</span><span class="placement-co">Zimmer Biomet</span><span class="placement-co">Baxter</span><span class="placement-co">Philips Healthcare</span><span class="placement-co">GE Healthcare</span><span class="placement-co">+28 more</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA ───────────────────────────────────────────────────── -->
+<section id="final-cta">
+  <div class="container">
+    <div class="final-cta-inner fade-up">
+      <p class="final-cta-eyebrow">Next Batch · Limited Seats</p>
+      <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
+      <p class="final-cta-sub">Every month you wait is a month someone else — with less experience than you — is getting the role and the salary you deserve. Applications for the July cohort close 20th June.</p>
+      <div class="final-cta-actions">
+        <a href="#lead" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
+        <button class="btn btn--ghost btn--lg" onclick="openModal('mc-overlay')" data-track="finalcta_masterclass">Free Masterclass First</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER ──────────────────────────────────────────────────────── -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#" class="nav-logo" style="display:inline-flex" aria-label="MedSkills Catalyst">
+          <div class="nav-logo-mark" style="background:var(--brand-mid)"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="nav-logo-text" style="color:#fff">MedSkills Catalyst<span style="color:rgba(255,255,255,.4)">Medical Device &amp; MedTech Sales</span></div>
+        </a>
+        <p class="footer-tagline">India's most rigorous career-transition programme for pharma professionals entering medical device and MedTech sales.</p>
+        <div class="footer-contact">
+          <a href="tel:+919900000000">📞 +91 99000 00000</a>
+          <a href="mailto:hello@medskillscatalyst.com">✉ hello@medskillscatalyst.com</a>
+          <a href="https://wa.me/919900000000" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-col-title">Programme</p>
+        <div class="footer-links"><a href="#outcomes">Outcomes</a><a href="#curriculum">Curriculum</a><a href="#faculty">Faculty</a><a href="#fees">Fees &amp; EMI</a><a href="#testimonials">Graduate Stories</a></div>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <div class="footer-links"><a href="#">About Us</a><a href="#">Placement Partners</a><a href="#">Blog</a><a href="#">Refer a Friend</a><a href="#">Careers at MSC</a></div>
+      </div>
+      <div>
+        <p class="footer-col-title">Support</p>
+        <div class="footer-links"><a href="#faq">FAQ</a><a href="#">Admissions Process</a><a href="#">Scholarships</a><a href="#">EMI Options</a><a href="#">Contact Us</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 MedSkills Catalyst Pvt. Ltd. · Bengaluru, India</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Refund Policy</a></div>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE STICKY BAR ───────────────────────────────────────────── -->
+<div id="sticky-bar">
+  <a href="#lead" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
+  <a class="sticky-wa" href="https://wa.me/919900000000?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="sticky_wa">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+<!-- VSL MODAL ───────────────────────────────────────────────────── -->
+<div class="overlay" id="vsl-overlay" onclick="closeOnBg(event,'vsl-overlay')">
+  <div class="modal" style="max-width:760px">
+    <button class="modal-close" onclick="closeModal('vsl-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="vsl-frame">
+      <div class="vsl-placeholder">
+        <div class="vsl-play-big"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <p style="font-size:.875rem">Video coming soon</p>
+      </div>
+    </div>
+    <div class="vsl-body">
+      <h3>How Our Graduates Made the Switch to MedTech Sales</h3>
+      <p>Real stories from Rahul, Nisha, and Arjun — from pharma MR to ₹9–12 LPA device sales roles in under 4 months.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MASTERCLASS MODAL ───────────────────────────────────────────── -->
+<div class="overlay" id="mc-overlay" onclick="closeOnBg(event,'mc-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('mc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="mc-modal-head">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Free Live Masterclass</p>
+      <h3>Break Into MedTech Sales in 90 Days</h3>
+      <p>Saturday, 7th June · 11 AM IST · Zoom · Free</p>
+    </div>
+    <div class="mc-modal-body">
+      <form id="mc-form" onsubmit="submitMC(event)">
+        <div class="form-group"><label class="form-label" for="mc-name">Your name</label><input class="form-input" type="text" id="mc-name" name="name" placeholder="Rohan Sharma" required></div>
+        <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required></div>
+        <div class="form-group"><label class="form-label" for="mc-email">Email (Zoom link sent here)</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required></div>
+        <button type="submit" class="btn btn--amber btn--full btn--lg" data-track="mc_submit">Reserve My Seat — It's Free →</button>
+        <p class="t-small t-muted" style="text-align:center;margin-top:.65rem">Zoom link sent 24 hrs before the session.</p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- EXIT POPUP ──────────────────────────────────────────────────── -->
+<div class="overlay" id="exit-overlay" onclick="closeOnBg(event,'exit-overlay')">
+  <div class="modal">
+    <button class="modal-close modal-close--light" onclick="closeModal('exit-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="exit-inner">
+      <div class="exit-inner-icon">
+        <svg viewBox="0 0 24 24" width="30" height="30" stroke="var(--cta)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M8.5 12h2l1.5-3 1.5 6 1.5-4 1.5 1"/>
+        </svg>
+      </div>
+      <h3>Before you go — one quick thing</h3>
+      <p>Still wondering whether your pharma background qualifies you for MedTech? Join the free masterclass and get that question answered live by someone who's hired 50+ people at Medtronic.</p>
+      <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openModal('mc-overlay')" data-track="exit_masterclass">Yes, Reserve a Free Seat →</button>
+      <button class="exit-dismiss" onclick="closeModal('exit-overlay')">No thanks, I'll figure it out myself</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ──────────────────────────────────────────────────────── */
+const MODULES = [
+  {num:'01',title:'Anatomy & Surgical Field Navigation',topics:['Reading surgical maps and approaching key anatomical landmarks','How scrub nurses, technicians, and surgeons divide OR responsibility','Sterile field etiquette — when to speak vs. observe','High-stakes case support: ortho, cardio, laparoscopy']},
+  {num:'02',title:'Multi-Stakeholder Hospital Procurement',topics:['Mapping the buying committee: CNO, CMO, procurement, HOD','How public vs. private hospital purchasing works differently','Navigating tender processes and formulary addition','Building champions at every level of the hierarchy']},
+  {num:'03',title:'Consultative Enterprise Sales',topics:['The difference between pharma detailing and device consultative selling','Needs-discovery frameworks used by top Stryker reps','Handling "we already have a vendor" and other stalls','Building long-cycle deals across 3–9 month buying windows']},
+  {num:'04',title:'Device Portfolio & Competitive Selling',topics:['How to learn a new product portfolio in 2 weeks','Reading a clinical study — what matters for device sales','Competitive landscape: knowing your rivals\' weaknesses','Objection handling for price, efficacy, and switching costs']},
+  {num:'05',title:'Clinical Data Interpretation',topics:['Reading a clinical paper like a sales professional','Regulatory basics: CE Mark, 510(k), CDSCO registration','Post-market surveillance: using real-world data in selling','Translating evidence for surgeons and administrators alike']},
+  {num:'06',title:'Career Architecture & Placement Sprint',topics:['Rebuilding your resume from pharma MR to MedTech AE','LinkedIn optimisation for inbound recruiter attention','60-min mock interviews with actual MedTech hiring managers','Offer negotiation: base, variables, and benefits — what to push on']}
+];
+
+const FAQS = [
+  {q:'Do I need to quit my current job to join?',a:'No. All sessions run evenings (7–9 PM IST) and Saturday mornings (9 AM–12 PM). The programme is designed for working professionals. About 80% of our cohort attends while still employed.'},
+  {q:'Is this right for me if I have no sales experience?',a:'Yes, if you have a life-science background. Several of our most successful graduates were lab technicians or fresh graduates with zero sales history. We look for curiosity, coachability, and communication — not a polished sales CV.'},
+  {q:'How is this different from a regular MBA or PGDM?',a:'We are a career-outcome programme, not an academic credential. We do not teach marketing theory. We teach you exactly how to get hired and excel at companies like Stryker and J&J MedTech. Our measure of success is your offer letter, not your grade sheet.'},
+  {q:'What happens if I don\'t get placed?',a:'We work with you until you do. There is no cutoff date on placement support. That said, 93% of graduates receive an offer within 90 days. Complete the programme, attend all placement sessions, and actively interview — you will get placed.'},
+  {q:'Can I pay in EMI?',a:'Yes. No-cost EMI options are available for 3 and 6 months through HDFC, ICICI, Axis, and Bajaj Finserv. You can also pay 50% upfront and 50% after placement confirmation, subject to approval during your admissions call.'},
+  {q:'When is the next batch? How many seats are available?',a:'The next cohort starts 5th July 2025. We cap every batch at 30 students to preserve the quality of instruction and placement attention. Applications close 20th June or when the batch fills — whichever is first.'},
+  {q:'Is there a refund policy?',a:'If you attend the orientation and decide MedSkills Catalyst is not the right fit within the first 7 days, we refund 100% — no questions asked. After 7 days, refunds are not available.'}
+];
+
+/* ── BUILD CURRICULUM ──────────────────────────────────────────── */
+const cgrid = document.getElementById('curriculum-grid');
+MODULES.forEach(m=>{
+  const el=document.createElement('div');
+  el.className='module fade-up';
+  el.innerHTML=`<div class="module-header" onclick="toggleModule(this)"><div class="module-num">${m.num}</div><div class="module-title">${m.title}</div><div class="module-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="module-body-wrap"><div class="module-body"><div class="module-body-inner"><div class="module-topics">${m.topics.map(t=>`<div class="module-topic"><span class="module-topic-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>${t}</div>`).join('')}</div></div></div></div>`;
+  cgrid.appendChild(el);
+});
+
+/* ── BUILD FAQ ─────────────────────────────────────────────────── */
+const flist=document.getElementById('faq-list');
+FAQS.forEach(f=>{
+  const el=document.createElement('div');
+  el.className='faq-item fade-up';
+  el.innerHTML=`<div class="faq-q" onclick="toggleFaq(this)"><span>${f.q}</span><div class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-body-wrap"><div class="faq-body"><div class="faq-body-inner"><p>${f.a}</p></div></div></div>`;
+  flist.appendChild(el);
+});
+
+/* ── ACCORDIONS ────────────────────────────────────────────────── */
+function toggleModule(h){h.closest('.module').classList.toggle('open')}
+function toggleFaq(b){b.closest('.faq-item').classList.toggle('open')}
+
+/* ── MODALS ────────────────────────────────────────────────────── */
+function openModal(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden'}
+function closeModal(id){document.getElementById(id).classList.remove('show');document.body.style.overflow=''}
+function closeOnBg(e,id){if(e.target===e.currentTarget)closeModal(id)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.show').forEach(o=>{o.classList.remove('show');document.body.style.overflow=''})});
+
+/* ── NAV SCROLL ────────────────────────────────────────────────── */
+let isNavScrolled = false;
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY > 40;
+  if (scrolled !== isNavScrolled) {
+    isNavScrolled = scrolled;
+    document.getElementById('nav').classList.toggle('scrolled', scrolled);
+  }
+}, { passive: true });
+
+/* ── INTERSECTION OBSERVER ─────────────────────────────────────── */
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+
+/* ── FORMS ─────────────────────────────────────────────────────── */
+function submitLead(e){
+  e.preventDefault();
+  const d=Object.fromEntries(new FormData(e.target));
+  console.log('[LeadForm]',d);
+  // TODO: POST to LeadSquared webhook
+  // fetch('https://api.leadsquared.com/...', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(d)})
+  // TODO: POST to AiSensy for WhatsApp confirmation
+  e.target.innerHTML='<div style="text-align:center;padding:2rem 1rem"><div style="font-size:2.5rem;margin-bottom:1rem">🎉</div><h3 style="font-size:1.15rem;font-weight:800;margin-bottom:.5rem">Guide on its way!</h3><p style="color:var(--ink-muted);font-size:.9rem">Check your WhatsApp and email in the next 5 minutes. Our team will also reach out to answer any questions.</p></div>';
+  if(typeof gtag!=='undefined')gtag('event','lead_form_submit',{event_category:'conversion'});
+}
+
+function submitMC(e){
+  e.preventDefault();
+  const d=Object.fromEntries(new FormData(e.target));
+  console.log('[MasterclassForm]',d);
+  // TODO: POST to AiSensy for Zoom link + WhatsApp confirmation
+  e.target.innerHTML='<div style="text-align:center;padding:1rem 0"><div style="font-size:2.5rem;margin-bottom:1rem">✅</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">You\'re registered!</h3><p style="color:var(--ink-muted);font-size:.875rem">We\'ll send the Zoom link to your email 24 hours before the session. See you Saturday!</p></div>';
+  if(typeof gtag!=='undefined')gtag('event','masterclass_signup',{event_category:'conversion'});
+}
+
+/* ── EXIT INTENT ───────────────────────────────────────────────── */
+(()=>{
+  if(sessionStorage.getItem('msc_exit'))return;
+  let fired=false;
+  function fire(){if(fired)return;fired=true;sessionStorage.setItem('msc_exit','1');openModal('exit-overlay')}
+  document.addEventListener('mouseleave',e=>{if(e.clientY<20)fire()});
+  
+  let st=false;
+  let cachedThreshold = 0;
+  
+  function updateThreshold() {
+    cachedThreshold = (document.body.scrollHeight - window.innerHeight) * 0.5;
+  }
+  
+  window.addEventListener('resize', updateThreshold, { passive: true });
+  window.addEventListener('load', updateThreshold, { passive: true });
+  updateThreshold();
+  
+  window.addEventListener('scroll',()=>{
+    if(st)return;
+    if(window.scrollY > cachedThreshold){
+      st=true;
+      setTimeout(fire,25000);
+    }
+  },{passive:true});
+})();
+
+/* ── ANALYTICS ─────────────────────────────────────────────────── */
+document.querySelectorAll('[data-track]').forEach(el=>el.addEventListener('click',()=>{
+  const ev=el.dataset.track;
+  console.log('[Track]',ev);
+  if(typeof gtag!=='undefined')gtag('event',ev,{event_category:'cta'});
+  // TODO: fbq('track','Lead') for conversion events
+}));
+
+/* ── 3D TILT EFFECT ON SALARY CARDS ────────────────────────────── */
+document.querySelectorAll('[data-tilt]').forEach(card => {
+  let rect = null;
+  card.addEventListener('mouseenter', () => {
+    rect = card.getBoundingClientRect();
+  });
+  card.addEventListener('mousemove', e => {
+    if (!rect) rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    const angleX = (yc - y) / 12;
+    const angleY = (x - xc) / 12;
+    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) scale3d(1.02, 1.02, 1.02)`;
+    card.style.setProperty('--x', `${x}px`);
+    card.style.setProperty('--y', `${y}px`);
+  });
+  card.addEventListener('mouseleave', () => {
+    rect = null;
+    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+  });
+});
+
+/* ── ROI CALCULATOR INTERACTIVITY ──────────────────────────────── */
+const currentSalaryInput = document.getElementById('currentSalaryInput');
+const targetSalaryInput = document.getElementById('targetSalaryInput');
+const currentSalaryVal = document.getElementById('currentSalaryVal');
+const targetSalaryVal = document.getElementById('targetSalaryVal');
+const roiRaiseVal = document.getElementById('roiRaiseVal');
+const roiThreeYrVal = document.getElementById('roiThreeYrVal');
+const roiPercentVal = document.getElementById('roiPercentVal');
+const roiPaybackVal = document.getElementById('roiPaybackVal');
+
+function updateRoiCalculations() {
+  if (!currentSalaryInput || !targetSalaryInput) return;
+  let currentVal = parseFloat(currentSalaryInput.value);
+  let targetVal = parseFloat(targetSalaryInput.value);
+
+  // Keep target at least current + 1
+  if (targetVal < currentVal + 1) {
+    targetVal = currentVal + 1;
+    targetSalaryInput.value = targetVal;
+  }
+
+  // Update slider text
+  currentSalaryVal.textContent = `₹${currentVal.toFixed(1)}L`;
+  targetSalaryVal.textContent = `₹${targetVal.toFixed(1)}L`;
+
+  // Calculations
+  const raiseLpa = targetVal - currentVal;
+  const raisePct = (raiseLpa / currentVal) * 100;
+  const threeYrRaise = raiseLpa * 3;
+  const tuitionLpa = 0.75;
+  const roiPct = (raiseLpa / tuitionLpa) * 100;
+  const paybackMonths = (tuitionLpa / raiseLpa) * 12;
+
+  // Format outputs
+  roiRaiseVal.textContent = `+₹${raiseLpa.toFixed(1)}L (+${Math.round(raisePct)}%)`;
+  roiThreeYrVal.textContent = `+₹${threeYrRaise.toFixed(1)}L`;
+  roiPercentVal.textContent = `${Math.round(roiPct)}%`;
+  roiPaybackVal.textContent = `${paybackMonths.toFixed(1)} months`;
+}
+
+if (currentSalaryInput && targetSalaryInput) {
+  currentSalaryInput.addEventListener('input', updateRoiCalculations);
+  targetSalaryInput.addEventListener('input', updateRoiCalculations);
+  updateRoiCalculations();
+}
+
+/* ── ROADMAP INTERACTIVITY (TIMER-DRIVEN AUTO-CYCLE) ─────────────────── */
+const steps = document.querySelectorAll('.roadmap-step');
+const panels = document.querySelectorAll('.roadmap-visual-panel');
+const progressLine = document.getElementById('roadmapLineProgress');
+
+const stepDurations = [4000, 3000, 3000, 3000]; // Duration for each step: 4s, 3s, 3s, 3s
+let currentStepIdx = 0;
+let roadmapTimer = null;
+
+function activateRoadmapStep(index) {
+  currentStepIdx = index;
+
+  steps.forEach((step, idx) => {
+    if (idx === index) {
+      step.classList.add('active');
+      const mobileVisual = step.querySelector('.roadmap-mobile-visual');
+      if (mobileVisual) mobileVisual.style.display = 'block';
+    } else {
+      step.classList.remove('active');
+      const mobileVisual = step.querySelector('.roadmap-mobile-visual');
+      if (mobileVisual) mobileVisual.style.display = 'none';
+    }
+  });
+
+  panels.forEach((panel, idx) => {
+    if (idx === index) {
+      panel.classList.add('active');
+    } else {
+      panel.classList.remove('active');
+    }
+  });
+
+  if (progressLine) {
+    // 0 -> 25%, 1 -> 50%, 2 -> 75%, 3 -> 100%
+    const progressPercent = ((index + 1) / steps.length) * 100;
+    progressLine.style.height = `${progressPercent}%`;
+  }
+}
+
+function startRoadmapCycle() {
+  clearTimeout(roadmapTimer);
+  
+  function nextCycle() {
+    activateRoadmapStep(currentStepIdx);
+    const duration = stepDurations[currentStepIdx];
+    
+    roadmapTimer = setTimeout(() => {
+      currentStepIdx = (currentStepIdx + 1) % steps.length;
+      nextCycle();
+    }, duration);
+  }
+  
+  nextCycle();
+}
+
+// Initial cycle boot
+startRoadmapCycle();
+
+// Handle user clicking directly on steps
+steps.forEach((step, idx) => {
+  step.addEventListener('click', () => {
+    currentStepIdx = idx;
+    startRoadmapCycle();
+    step.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+});
+</script>
+</body>
+</html>
