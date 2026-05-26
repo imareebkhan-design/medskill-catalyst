@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MedSkills Catalyst — Our LinkedIn Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg:           #F8FAFC;       /* Clean clinical slate off-white */
+      --surface:      #FFFFFF;
+      --ink:          #0B1315;       /* High contrast dark ink */
+      --ink-muted:    #475569;       /* Muted slate grey */
+      --brand:        #0A2226;       /* Deep forest clinical spruce */
+      --brand-mid:    #0D5C68;       /* Slate teal label secondary */
+      --brand-light:  #E6F2F4;       /* Soft spruce teal tint */
+      --cta:          #10B981;       /* Vibrant solid Emerald Green */
+      --border:       rgba(10, 34, 38, 0.08); /* Micro-fine light borders */
+      --radius-sm:    8px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-serif:   'Fraunces', Georgia, serif;
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    html, body {
+      width: 16in;
+      height: 9in;
+      background: var(--bg);
+      font-family: var(--font-sans);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Print-specific layout page boundaries */
+    @page {
+      size: 16in 9in;
+      margin: 0;
+    }
+
+    /* Slide Layout Container */
+    .slide {
+      width: 16in;
+      height: 9in;
+      padding: 1.0in 1.3in 0.9in 1.3in;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      background-color: var(--bg);
+      page-break-after: always;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    /* Theme Variants */
+    .slide.dark {
+      background-color: var(--brand);
+      color: #FFFFFF;
+      background-image: radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+    }
+
+    .slide.mid-teal {
+      background-color: var(--brand-mid);
+      color: #FFFFFF;
+    }
+
+    /* Fine details: subtle line grid overlay on cover pages */
+    .slide.dark::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(10, 34, 38, 0.06);
+      padding-bottom: 0.2in;
+      height: 0.5in;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .slide.dark .slide-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .nav-logo-mark {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    
+    .slide.dark .nav-logo-mark {
+      background: transparent;
+      border-color: transparent;
+    }
+
+    .nav-logo-mark svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .header-logo-text {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--brand);
+      letter-spacing: -0.01em;
+    }
+
+    .slide.dark .header-logo-text {
+      color: #FFFFFF;
+    }
+
+    .header-right {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--ink-muted);
+      opacity: 0.8;
+    }
+
+    .slide.dark .header-right {
+      color: var(--cta);
+    }
+
+    /* Slide Footer */
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(10, 34, 38, 0.06);
+      padding-top: 0.2in;
+      height: 0.4in;
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+      position: relative;
+      z-index: 10;
+    }
+
+    .slide.dark .slide-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .footer-left {
+      opacity: 0.85;
+    }
+
+    .footer-right {
+      font-weight: 700;
+    }
+
+    /* Content Layouts */
+    .slide-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 0.3in;
+      position: relative;
+      z-index: 5;
+    }
+
+    /* Typography */
+    .t-display {
+      font-family: var(--font-serif);
+      font-size: 3.8rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--brand);
+    }
+
+    .slide.dark .t-display {
+      color: #FFFFFF;
+    }
+
+    .t-h1-serif {
+      font-family: var(--font-serif);
+      font-size: 2.6rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--brand);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25in;
+    }
+
+    .slide.dark .t-h1-serif {
+      color: #FFFFFF;
+    }
+
+    .t-h2-sans {
+      font-family: var(--font-sans);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--brand-mid);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.2in;
+    }
+
+    .slide.dark .t-h2-sans {
+      color: var(--cta);
+    }
+
+    .t-body-premium {
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: var(--ink-muted);
+      font-weight: 400;
+    }
+
+    .slide.dark .t-body-premium {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .t-body-strong {
+      font-size: 1.25rem;
+      line-height: 1.65;
+      font-weight: 600;
+      color: var(--brand);
+    }
+
+    .slide.dark .t-body-strong {
+      color: #FFFFFF;
+    }
+
+    .accent-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      background: var(--brand-light);
+      color: var(--brand-mid);
+      margin-bottom: 0.2in;
+      width: fit-content;
+    }
+
+    .slide.dark .accent-pill {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--cta);
+      border-color: rgba(16, 185, 129, 0.25);
+    }
+
+    /* Quote Box */
+    .quote-box {
+      background: var(--brand-light);
+      border-left: 4px solid var(--cta);
+      padding: 0.3in 0.4in;
+      border-radius: 0 12px 12px 0;
+      margin-block: 0.15in;
+    }
+
+    .slide.dark .quote-box {
+      background: rgba(255, 255, 255, 0.05);
+      border-left-color: var(--cta);
+    }
+
+    .quote-box p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.35rem;
+      line-height: 1.6;
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .slide.dark .quote-box p {
+      color: #FFFFFF;
+    }
+
+    .quote-box cite {
+      display: block;
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--brand-mid);
+      margin-top: 0.1in;
+    }
+
+    .slide.dark .quote-box cite {
+      color: var(--cta);
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 0.6in;
+      align-items: center;
+    }
+
+    .grid-2-equal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5in;
+      align-items: stretch;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.35in;
+      align-items: stretch;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 0.25in;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.25in 0.3in;
+      box-shadow: 0 4px 12px rgba(10, 34, 38, 0.01);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card-number {
+      font-family: var(--font-serif);
+      font-size: 2.0rem;
+      font-weight: 700;
+      color: var(--cta);
+      margin-bottom: 0.05in;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 0.08in;
+    }
+
+    .card-body {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+
+    /* List styling */
+    .premium-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15in;
+    }
+
+    .premium-list li {
+      position: relative;
+      padding-left: 0.3in;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: var(--ink-muted);
+    }
+
+    .premium-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--cta);
+    }
+
+    /* Layout specific tweaks */
+    .divider-line {
+      width: 80px;
+      height: 2px;
+      background-color: var(--cta);
+      margin-block: 0.2in;
+    }
+
+    .slide-intro-paragraph {
+      font-size: 1.25rem;
+      line-height: 1.8;
+      color: var(--ink-muted);
+      margin-bottom: 0.25in;
+    }
+
+    .slide.dark .slide-intro-paragraph {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Divider Slide Specifics */
+    .divider-content {
+      text-align: center;
+      max-width: 9in;
+      margin-inline: auto;
+    }
+
+    .divider-content .accent-pill {
+      margin-inline: auto;
+    }
+
+    .divider-content .divider-line {
+      margin-inline: auto;
+      margin-block: 0.3in;
+    }
+
+    .divider-quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 0.2in;
+    }
+
+    /* Rule slide style tweaks */
+    .rule-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.25in;
+      padding-block: 0.15in;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .rule-row:last-child {
+      border-bottom: none;
+    }
+
+    .rule-num {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cta);
+      width: 0.4in;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .rule-desc-container {
+      flex-grow: 1;
+    }
+
+    .rule-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--brand);
+      margin-bottom: 0.04in;
+    }
+
+    .rule-body {
+      font-size: 0.95rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    /* Left accent vertical line style */
+    .accent-block {
+      border-left: 3px solid var(--cta);
+      padding-left: 0.25in;
+      margin-block: 0.1in;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SLIDE 1: COVER PAGE (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Internal Memo</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center; align-items: flex-start; max-width: 10.5in;">
+      <div class="accent-pill">MedSkills Brand System</div>
+      <h1 class="t-display" style="font-size: 4.2rem; margin-bottom: 0.2in;">Our LinkedIn Plan</h1>
+      <div class="divider-line" style="width: 120px; height: 3px; background-color: var(--cta); margin-block: 0.15in 0.25in;"></div>
+      <p class="slide-intro-paragraph" style="font-family: var(--font-serif); font-style: italic; font-size: 1.45rem; line-height: 1.7; color: rgba(255, 255, 255, 0.9); font-weight: 500;">
+        "A quick note from Areeb for the MedSkills team. Please read once, it's short, and it'll help us all pull in the same direction."
+      </p>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Confidential</div>
+      <div class="footer-right">01 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 2: INTRODUCTION (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Context</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif">Hi team,</h2>
+      
+      <div class="grid-2" style="grid-template-columns: 1.15fr 0.85fr; gap: 0.5in; align-items: start;">
+        <div>
+          <p class="t-body-premium" style="margin-bottom: 0.2in; font-size: 1.15rem;">
+            I spent the last couple of days properly studying two things: our own LinkedIn pages, and how LinkedIn actually works in 2026. It has changed a lot. 
+          </p>
+          <p class="t-body-premium" style="margin-bottom: 0.2in; font-size: 1.15rem;">
+            I want to share what I found in plain language, so we're all on the same page before we start posting seriously.
+          </p>
+          <p class="t-body-premium" style="font-size: 1.15rem;">
+            The good news is that the fixes are simple, and once we get them right, our reach can grow a lot without spending a rupee on ads. Let me walk you through it.
+          </p>
+        </div>
+        
+        <div class="quote-box" style="margin-top: 0; background: var(--brand-light); border-radius: 8px;">
+          <p style="font-size: 1.15rem; line-height: 1.5; font-family: var(--font-sans); font-style: normal; color: var(--brand); font-weight: 600;">
+            "First, the honest part: None of this is anyone's fault. What we've been posting is exactly what most companies post when they start out. We were doing our best with what we knew."
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">02 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 3: PART 1 DIVIDER (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part One</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center;">
+      <div class="divider-content">
+        <div class="accent-pill">Algorithmic Environment</div>
+        <h2 class="t-display" style="font-size: 3.4rem; margin-top: 0.1in;">How LinkedIn Works Now</h2>
+        <div class="divider-line"></div>
+        <p class="divider-quote">
+          "Think of LinkedIn like a shopkeeper deciding which products to put in the front window."
+        </p>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">03 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 4: SHOPKEEPER ANALOGY (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 1: The Algorithm</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif">The Front Window</h2>
+      
+      <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr; gap: 0.6in; align-items: center;">
+        <div class="premium-list">
+          <li style="margin-bottom: 0.1in;">
+            <strong>Initial Testing Phase:</strong> When you post something, LinkedIn first shows it to only a small handful of people.
+          </li>
+          <li style="margin-bottom: 0.1in;">
+            <strong>The Evaluation Loop:</strong> Then it watches what those people do.
+          </li>
+          <li style="margin-bottom: 0.1in;">
+            <strong>Positive Signal:</strong> If they stop and actually read it, LinkedIn thinks this is good and shows it to many more people.
+          </li>
+          <li>
+            <strong>Negative Signal:</strong> If they scroll past quickly, LinkedIn quietly buries it, and almost no one sees it.
+          </li>
+        </div>
+        
+        <div class="card" style="background: var(--brand-light); border-color: rgba(10, 34, 38, 0.1); justify-content: center; padding: 0.4in 0.4in; border-left: 4px solid var(--cta);">
+          <span class="accent-pill" style="margin-bottom: 0.15in;">The Core Objective</span>
+          <p class="t-h2-sans" style="font-family: var(--font-serif); font-size: 1.85rem; color: var(--brand); line-height: 1.3; font-weight: 700; margin-bottom: 0;">
+            "So the whole game is:<br>Make people stop and read."
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">04 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 5: KEY SIGNALS (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 1: The Algorithm</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif">Algorithms Measure Attention</h2>
+      
+      <div class="grid-2-equal" style="gap: 0.4in;">
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <div class="card-number">01</div>
+            <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.12in;">Comments Matter; Likes Barely Do</h3>
+            <p class="card-body" style="font-size: 1rem; margin-bottom: 0.15in;">
+              One real comment is worth about 15 likes to LinkedIn. A genuine conversation in the first hour is the single best thing that can happen to a post.
+            </p>
+          </div>
+          <div class="accent-block" style="border-left-color: var(--cta);">
+            <p class="t-body-strong" style="font-size: 1.05rem; font-style: italic; font-family: var(--font-serif); color: var(--brand);">
+              "Likes barely matter anymore."
+            </p>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <div class="card-number">02</div>
+            <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.12in;">Reading Time is the Biggest Signal</h3>
+            <p class="card-body" style="font-size: 1rem; margin-bottom: 0.15in;">
+              How long people read is the number one thing LinkedIn measures. Dwell time overrides simple mouse clicks and shallow likes.
+            </p>
+          </div>
+          <div class="accent-block" style="border-left-color: var(--cta);">
+            <p class="t-body-strong" style="font-size: 1.05rem; font-style: italic; font-family: var(--font-serif); color: var(--brand);">
+              "A post someone reads for a minute beats a post they like and forget in two seconds."
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">05 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 6: THE FOUR TRAPS (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 1: The Algorithm</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.15in;">What LinkedIn Quietly Hides</h2>
+      <p class="t-body-premium" style="margin-bottom: 0.25in; font-size: 1.1rem;">
+        The algorithm is designed to penalize content that lowers user retention or feels unnatural.
+      </p>
+      
+      <div class="grid-4" style="gap: 0.2in;">
+        <div class="card" style="padding: 0.2in 0.25in;">
+          <div class="header-left" style="margin-bottom: 0.05in;">
+            <span style="font-size: 1.2rem; margin-right: 0.1in;">🔗</span>
+            <h4 class="card-title" style="margin-bottom: 0;">Posts with a link inside them</h4>
+          </div>
+          <p class="card-body">LinkedIn wants to keep users on their platform. Outbound links in the post body result in heavily restricted organic distribution.</p>
+        </div>
+        
+        <div class="card" style="padding: 0.2in 0.25in;">
+          <div class="header-left" style="margin-bottom: 0.05in;">
+            <span style="font-size: 1.2rem; margin-right: 0.1in;">#️⃣</span>
+            <h4 class="card-title" style="margin-bottom: 0;">Posts with too many hashtags</h4>
+          </div>
+          <p class="card-body">Excessive hashtag clouds look spammy. They dilute relevance, triggering automated reach suppression filters.</p>
+        </div>
+        
+        <div class="card" style="padding: 0.2in 0.25in;">
+          <div class="header-left" style="margin-bottom: 0.05in;">
+            <span style="font-size: 1.2rem; margin-right: 0.1in;">🤖</span>
+            <h4 class="card-title" style="margin-bottom: 0;">Posts that feel copy-pasted or AI-written</h4>
+          </div>
+          <p class="card-body">Standard AI-generated structures, overly structured bullet lists, and corporate phrasing are heavily deprioritized in the feed.</p>
+        </div>
+        
+        <div class="card" style="padding: 0.2in 0.25in;">
+          <div class="header-left" style="margin-bottom: 0.05in;">
+            <span style="font-size: 1.2rem; margin-right: 0.1in;">👥</span>
+            <h4 class="card-title" style="margin-bottom: 0;">The same post coming from two accounts</h4>
+          </div>
+          <p class="card-body">Duplicated text is treated as spam. Direct reposting or copying verbatim splits the algorithm's focus and lowers overall impact.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">06 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 7: PART 2 DIVIDER (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part Two</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center;">
+      <div class="divider-content">
+        <div class="accent-pill">State of Play</div>
+        <h2 class="t-display" style="font-size: 3.4rem; margin-top: 0.1in;">What I Found on Our Pages</h2>
+        <div class="divider-line"></div>
+        <p class="divider-quote">
+          "An honest audit of the Company Page, Gagan sir’s profile, and Shilpi ma'am’s profile."
+        </p>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">07 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 8: THE AUDIT (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 2: Audit</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.2in;">Where We Stand Today</h2>
+      
+      <div class="grid-3" style="gap: 0.25in;">
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <span class="accent-pill" style="background: rgba(71, 85, 105, 0.08); color: var(--ink-muted); border-color: transparent;">The Safe Pitfall</span>
+            <h3 class="card-title" style="margin-top: 0.05in;">The "Safe" Content Trap</h3>
+            <p class="card-body" style="font-size: 0.88rem;">
+              Our posts right now are the "safe" kind LinkedIn ignores. Lots of neat bullet points, hashtags, and lines like <em>“At MedSkills, we believe…”</em> Nothing is wrong with them—they are just the kind of content people scroll past.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <span class="accent-pill" style="background: rgba(239, 68, 68, 0.08); color: #ef4444; border-color: transparent;">Distribution Loss</span>
+            <h3 class="card-title" style="margin-top: 0.05in;">Self-Competition</h3>
+            <p class="card-body" style="font-size: 0.88rem;">
+              Two of our accounts have been posting almost the same thing. When the company page posts something and a personal account reposts the same words, LinkedIn treats it as a duplicate and restricts visibility for both.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <span class="accent-pill" style="background: rgba(16, 185, 129, 0.08); color: var(--cta); border-color: transparent;">Underutilized Power</span>
+            <h3 class="card-title" style="margin-top: 0.05in;">Gagan Sir's Profile</h3>
+            <p class="card-body" style="font-size: 0.88rem;">
+              Honestly our biggest asset. He has 20,000+ followers, which is gold. But two things are holding it back: the posts are too short, and too many hashtags are being used. Small adjustments here will yield massive gains.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">08 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 9: THE GUARDRAIL: HONESTY (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 2: Audit</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center;">
+      <h2 class="t-h1-serif">One Thing We're Doing Right</h2>
+      
+      <div class="quote-box" style="padding: 0.45in 0.5in; border-left-width: 5px; background: var(--brand-light); border-radius: 8px;">
+        <p style="font-size: 1.45rem; line-height: 1.7; font-family: var(--font-serif); font-weight: 600; color: var(--brand); margin-bottom: 0.15in;">
+          "We are not making up fake results. No fake placements. No fake salary numbers. Until our first batch finishes in July and we have real stories, honesty is our proof."
+        </p>
+        <p style="font-family: var(--font-serif); font-style: italic; font-size: 1.35rem; color: var(--cta); font-weight: 700;">
+          "Please let’s never post a number we cannot stand behind."
+        </p>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">09 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 10: PART 3 DIVIDER (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part Three</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center;">
+      <div class="divider-content">
+        <div class="accent-pill">Channel Architecture</div>
+        <h2 class="t-display" style="font-size: 3.4rem; margin-top: 0.1in;">Three Voices, Three Different Jobs</h2>
+        <div class="divider-line"></div>
+        <p class="divider-quote">
+          "The biggest fix is this: We stop posting the same thing from everywhere. Instead, each of us plays a very different role."
+        </p>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">10 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 11: THREE VOICES (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 3: Strategy</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.25in;">Channel Segmentation Matrix</h2>
+      
+      <div class="grid-3" style="gap: 0.25in;">
+        <div class="card" style="justify-content: space-between; border-top: 3px solid var(--cta);">
+          <div>
+            <div class="accent-pill" style="margin-bottom: 0.1in;">Gagan Sir</div>
+            <h3 class="card-title" style="font-size: 1.15rem; margin-bottom: 0.1in;">The Lead Face</h3>
+            <p class="card-body" style="font-size: 0.88rem; margin-bottom: 0.12in;">
+              The initial connection point. His job is centered on the vision and the broader narrative.
+            </p>
+            <ul class="premium-list" style="gap: 0.06in;">
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Why MedTech & Why now</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Personal & professional stories</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Direct appeals to pharma pros</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between; border-top: 3px solid var(--brand-mid);">
+          <div>
+            <div class="accent-pill" style="margin-bottom: 0.1in; background-color: var(--brand-light); color: var(--brand-mid);">Shilpi Ma'am</div>
+            <h3 class="card-title" style="font-size: 1.15rem; margin-bottom: 0.1in;">The Co-Founder Face</h3>
+            <p class="card-body" style="font-size: 0.88rem; margin-bottom: 0.12in;">
+              The operational builder. Her job is to document the active reality of building MedSkills.
+            </p>
+            <ul class="premium-list" style="gap: 0.06in;">
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Behind the scenes</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">The student learning journey</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Documenting building process</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between; border-top: 3px solid var(--brand);">
+          <div>
+            <div class="accent-pill" style="margin-bottom: 0.1in; background-color: rgba(71, 85, 105, 0.08); color: var(--ink-muted);">Company Page</div>
+            <h3 class="card-title" style="font-size: 1.15rem; margin-bottom: 0.1in;">The Institution</h3>
+            <p class="card-body" style="font-size: 0.88rem; margin-bottom: 0.12in;">
+              The formal organization. Its job is validation, utility, and institutional authority.
+            </p>
+            <ul class="premium-list" style="gap: 0.06in;">
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Deep industry insights</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Career & hiring opportunities</li>
+              <li style="font-size: 0.85rem; padding-left: 0.2in;">Honest updates & educational content</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">11 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 12: THE SEPARATION RULE (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 3: Strategy</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif">Maintaining Content Integrity</h2>
+      
+      <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr; gap: 0.5in; align-items: center;">
+        <div>
+          <div class="quote-box" style="margin-top: 0; background: var(--brand-light); border-left-color: var(--cta); border-radius: 8px;">
+            <p style="font-size: 1.35rem; font-family: var(--font-serif); font-style: italic; font-weight: 600; color: var(--brand);">
+              "If Shilpi ma'am’s post could easily become Gagan sir’s post, we change it."
+            </p>
+          </div>
+          <p class="t-body-premium" style="margin-top: 0.2in; font-size: 1.05rem;">
+            This rule guarantees that we do not write generic content that could belong to anyone. It forces specificity, which drives reading time and authentic engagement.
+          </p>
+        </div>
+        
+        <div class="card" style="justify-content: center; background: #FFFFFF; border: 1px solid var(--border); padding: 0.35in;">
+          <h4 class="card-title" style="margin-bottom: 0.1in;">The Rationale</h4>
+          <p class="card-body" style="font-size: 0.95rem; margin-bottom: 0.1in;">
+            When everyone has a separate, distinct voice, we cover three different perspectives of the exact same journey.
+          </p>
+          <p class="card-body" style="font-size: 0.95rem;">
+            Instead of boring, repetitive copy, our audience sees a multi-dimensional startup being built in real time.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">12 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 13: PART 4 DIVIDER (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part Four</div>
+    </div>
+    
+    <div class="slide-content" style="justify-content: center;">
+      <div class="divider-content">
+        <div class="accent-pill">Operational Guidelines</div>
+        <h2 class="t-display" style="font-size: 3.4rem; margin-top: 0.1in;">The Simple Rules We’ll All Follow</h2>
+        <div class="divider-line"></div>
+        <p class="divider-quote">
+          "Practical execution guidelines designed to work with, rather than against, the 2026 algorithm."
+        </p>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">13 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 14: THE RULES 1-4 (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 4: Rules</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.15in;">Rules of Engagement (1 – 4)</h2>
+      
+      <div class="rule-row">
+        <div class="rule-num">01</div>
+        <div class="rule-desc-container">
+          <h4 class="rule-title">Write like a human talking to a friend</h4>
+          <p class="rule-body">Avoid corporate templates, marketing slogans, or dry press-release formats. Write as if talking directly to a peer.</p>
+        </div>
+      </div>
+      
+      <div class="rule-row">
+        <div class="rule-num">02</div>
+        <div class="rule-desc-container">
+          <h4 class="rule-title">No links inside the post</h4>
+          <p class="rule-body">Never include links in the body. If someone wants details or registration info, direct them to send a DM or reply in comments.</p>
+        </div>
+      </div>
+      
+      <div class="rule-row">
+        <div class="rule-num">03</div>
+        <div class="rule-desc-container">
+          <h4 class="rule-title">Maximum 5 hashtags</h4>
+          <p class="rule-body">Less hashtags equal better reach in 2026. Keep tags minimal and highly targeted to protect page authority.</p>
+        </div>
+      </div>
+      
+      <div class="rule-row">
+        <div class="rule-num">04</div>
+        <div class="rule-desc-container">
+          <h4 class="rule-title">Reply to every comment in the first hour</h4>
+          <p class="rule-body">Always reply to early comments as a real human. Early comment-reply chains signals the algorithm to distribute widely.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">14 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 15: THE RULES 5-7 (LIGHT) -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">Part 4: Rules</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.2in;">Rules of Engagement (5 – 7)</h2>
+      
+      <div class="grid-3" style="gap: 0.3in;">
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <div class="card-number">05</div>
+            <h3 class="card-title">Post steadily, not randomly</h3>
+            <p class="card-body" style="font-size: 0.9rem;">
+              Consistency builds algorithmic favor. Four highly polished posts spread evenly across the week beats random, sporadic bursts of content.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <div class="card-number">06</div>
+            <h3 class="card-title">Never post a result we cannot prove</h3>
+            <p class="card-body" style="font-size: 0.9rem;">
+              Honesty is our brand's greatest edge. If we publish a stat or success metric, it must be 100% auditable. We do not compromise on this.
+            </p>
+          </div>
+        </div>
+        
+        <div class="card" style="justify-content: space-between;">
+          <div>
+            <div class="card-number">07</div>
+            <h3 class="card-title">No two people post the same thing</h3>
+            <p class="card-body" style="font-size: 0.9rem;">
+              Keep our narrative fresh. When we share a theme, each account must tackle it from their own perspective. Never double-post text.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">15 / 16</div>
+    </div>
+  </div>
+
+
+  <!-- SLIDE 16: NEXT STEPS (DARK) -->
+  <div class="slide dark">
+    <div class="slide-header">
+      <div class="header-left">
+        <div class="nav-logo-mark">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
+  <defs>
+    
+    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
+    
+    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
+  </defs>
+
+  
+  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
+  
+  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
+  
+  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
+  
+  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
+
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
+    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
+  </text>
+  
+  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
+    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
+  </text>
+
+  
+  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
+  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
+
+  
+  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    
+    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
+    
+    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
+    
+    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
+    
+    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
+    
+    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
+
+    
+    
+    <line x1="138" y1="121" x2="148" y2="113"></line>
+    <line x1="148" y1="113" x2="156" y2="118"></line>
+    <line x1="148" y1="113" x2="148" y2="103"></line>
+    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+
+    
+    <line x1="93" y1="132" x2="84" y2="138"></line>
+    <line x1="84" y1="138" x2="78" y2="146"></line>
+    <line x1="84" y1="138" x2="84" y2="128"></line>
+    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
+    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
+
+    
+    <line x1="135" y1="148" x2="143" y2="155"></line>
+    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
+  </g>
+</svg>
+        </div>
+        <span class="header-logo-text">MedSkills Catalyst</span>
+      </div>
+      <div class="header-right">The Path Forward</div>
+    </div>
+    
+    <div class="slide-content">
+      <h2 class="t-h1-serif" style="margin-bottom: 0.2in;">What Happens Next</h2>
+      
+      <div class="grid-2" style="grid-template-columns: 0.95fr 1.05fr; gap: 0.6in; align-items: start;">
+        <div>
+          <span class="accent-pill" style="margin-bottom: 0.15in;">Operational Plan</span>
+          <p class="t-body-premium" style="font-size: 1.1rem; margin-bottom: 0.2in; line-height: 1.6;">
+            Now I will be building a full 30-day content plan.
+          </p>
+          <ul class="premium-list" style="gap: 0.08in;">
+            <li style="color: rgba(255,255,255,0.85); font-size: 0.95rem;"><strong>Who posts:</strong> Assigning precise owners.</li>
+            <li style="color: rgba(255,255,255,0.85); font-size: 0.95rem;"><strong>What they post:</strong> Defining the distinct topics.</li>
+            <li style="color: rgba(255,255,255,0.85); font-size: 0.95rem;"><strong>Which day they post:</strong> Setting a weekly cadence.</li>
+            <li style="color: rgba(255,255,255,0.85); font-size: 0.95rem;"><strong>The specific angle:</strong> Guarding distinct perspectives.</li>
+          </ul>
+          <p class="t-body-premium" style="font-size: 1.05rem; margin-top: 0.25in; line-height: 1.6;">
+            This note is simply so everyone understands the "why" before we begin. If anything is unclear, ask me.
+          </p>
+        </div>
+        
+        <div class="quote-box" style="margin-top: 0; background: rgba(255, 255, 255, 0.04); border-left-color: var(--cta); border-radius: 8px;">
+          <p style="font-size: 1.3rem; line-height: 1.6; font-family: var(--font-serif); font-style: italic; color: #FFFFFF; margin-bottom: 0.2in; font-weight: 500;">
+            "I genuinely believe that if we execute this properly and consistently for a few months, MedSkills can become the name people think of for MedTech careers in India. Let's build this honestly, publicly, and together."
+          </p>
+          <cite style="font-family: var(--font-sans); font-weight: 800; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--cta);">
+            &mdash; Areeb
+          </cite>
+        </div>
+      </div>
+    </div>
+    
+    <div class="slide-footer">
+      <div class="footer-left">Internal Strategy Document &middot; Our LinkedIn Plan</div>
+      <div class="footer-right">16 / 16</div>
+    </div>
+  </div>
+
+</body>
+</html>
