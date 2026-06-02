@@ -486,39 +486,73 @@ input,textarea,select{font-family:inherit}
   margin-top: 0.15rem;
   opacity: 0.75;
 }
-.outcome-transition-table {
+.outcome-transition-path {
   display: flex;
   flex-direction: column;
-  gap: 0.85rem;
+  gap: 0.5rem;
   margin-bottom: 2rem;
 }
-.outcome-table-row {
+.path-node {
+  background: var(--canvas);
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 }
-.table-col-label {
-  font-size: 0.75rem;
-  font-weight: 700;
+.path-node.node-after {
+  border-color: rgba(0, 88, 158, 0.12);
+  background: var(--pale-blue);
+}
+.node-label {
+  font-size: 0.65rem;
+  font-weight: 800;
   color: var(--ink-muted);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.25rem;
 }
-.table-col-value {
-  font-size: 0.92rem;
+.node-value {
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--brand);
 }
-.table-col-value.value-strikethrough {
-  text-decoration: line-through;
-  opacity: 0.65;
-  color: var(--ink-muted);
+.node-value.value-highlight {
+  color: var(--blue);
 }
-.table-col-value.value-highlight {
-  color: var(--brand-mid);
-  background: var(--brand-light);
-  padding: 0.15rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
+.path-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--blue);
+  height: 20px;
+}
+.path-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+.outcome-avatar-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(10, 92, 104, 0.18);
+  object-fit: cover;
+}
+.st-avatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(10, 42, 67, 0.12);
+}
+.testi-av-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(10, 42, 67, 0.12);
 }
 .outcome-salary-block {
   display: flex;
@@ -2579,25 +2613,25 @@ input,textarea,select{font-family:inherit}
         <div class="marquee-track">
           <!-- Card 1 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">NJ</div>
+            <img src="assets/neha_johari.png" alt="Neha Johari" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Neha Johari</div>
               <div class="st-path">Cardiology BD Exec ➔ Marketing Manager, Boston Scientific</div>
             </div>
-            <div class="st-badge">Target: ₹18–30 LPA</div>
+            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">GK</div>
+            <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Garvita Khurana</div>
               <div class="st-path">Biomedical Engineer ➔ Product Manager, Teleflex Medical</div>
             </div>
-            <div class="st-badge">Target: ₹15–25 LPA</div>
+            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">VS</div>
+            <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Vasudha Singh</div>
               <div class="st-path">Biotech Graduate ➔ Clinical Therapy Specialist, Medtronic</div>
@@ -2606,7 +2640,7 @@ input,textarea,select{font-family:inherit}
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">ST</div>
+            <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Shivam Tiwari</div>
               <div class="st-path">Pharma Representative ➔ Area Manager, Matrix Labs</div>
@@ -2617,25 +2651,25 @@ input,textarea,select{font-family:inherit}
           <!-- Duplicate cards for infinite loop -->
           <!-- Card 1 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">NJ</div>
+            <img src="assets/neha_johari.png" alt="Neha Johari" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Neha Johari</div>
               <div class="st-path">Cardiology BD Exec ➔ Marketing Manager, Boston Scientific</div>
             </div>
-            <div class="st-badge">Target: ₹18–30 LPA</div>
+            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">GK</div>
+            <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Garvita Khurana</div>
               <div class="st-path">Biomedical Engineer ➔ Product Manager, Teleflex Medical</div>
             </div>
-            <div class="st-badge">Target: ₹15–25 LPA</div>
+            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">VS</div>
+            <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Vasudha Singh</div>
               <div class="st-path">Biotech Graduate ➔ Clinical Therapy Specialist, Medtronic</div>
@@ -2644,7 +2678,7 @@ input,textarea,select{font-family:inherit}
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
-            <div class="st-avatar">ST</div>
+            <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="st-avatar-img">
             <div class="st-details">
               <div class="st-name">Shivam Tiwari</div>
               <div class="st-path">Pharma Representative ➔ Area Manager, Matrix Labs</div>
@@ -2673,29 +2707,28 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+250% Avg Jump</div>
+          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">NJ</div>
+          <img src="assets/neha_johari.png" alt="Neha Johari" class="outcome-avatar-img">
           <div>
             <div class="outcome-profile-name">Neha Johari</div>
             <div class="outcome-profile-meta">ALUMNI SUCCESS • CARDIOVASCULAR</div>
           </div>
         </div>
 
-        <div class="outcome-transition-table">
-          <div class="outcome-table-row">
-            <span class="table-col-label">PRIOR ROLE</span>
-            <span class="table-col-value">BD Exec, Cardiology (Apollo Hospitals)</span>
+        <div class="outcome-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS ROLE &amp; COMPANY</span>
+            <span class="node-value">BD Exec, Cardiology (Apollo Hospitals)</span>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">TRANSITION ROLE</span>
-            <span class="table-col-value value-highlight">Marketing Manager / Sr. PM (Boston Scientific)</span>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">CORE SKILL SHIFT</span>
-            <span class="table-col-value">Hospital Launch BD ➔ SEA Marketing Strategy</span>
+          <div class="path-node node-after">
+            <span class="node-label">TRANSITIONED TO</span>
+            <span class="node-value value-highlight">Marketing Manager / Sr. PM (Boston Scientific)</span>
           </div>
         </div>
 
@@ -2709,7 +2742,7 @@ input,textarea,select{font-family:inherit}
           </div>
           <div class="salary-box box-after" style="border-color: var(--blue);">
             <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹18–30 LPA</span>
+            <span class="sal-val" style="color: var(--blue);">₹8–15 LPA</span>
           </div>
         </div>
 
@@ -2734,29 +2767,28 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+200% Avg Jump</div>
+          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">GK</div>
+          <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="outcome-avatar-img">
           <div>
             <div class="outcome-profile-name">Garvita Khurana</div>
             <div class="outcome-profile-meta">ALUMNI SUCCESS • INTERVENTIONAL CARDIOLOGY</div>
           </div>
         </div>
 
-        <div class="outcome-transition-table">
-          <div class="outcome-table-row">
-            <span class="table-col-label">PRIOR ROLE</span>
-            <span class="table-col-value">Biomedical Engineer / Consultant</span>
+        <div class="outcome-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS ROLE &amp; COMPANY</span>
+            <span class="node-value">Biomedical Engineer / Consultant</span>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">TRANSITION ROLE</span>
-            <span class="table-col-value value-highlight">Product Manager (Teleflex Medical)</span>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">CORE SKILL SHIFT</span>
-            <span class="table-col-value">Biomedical Tech ➔ BIS Committee Rep & PM</span>
+          <div class="path-node node-after">
+            <span class="node-label">TRANSITIONED TO</span>
+            <span class="node-value value-highlight">Product Manager (Teleflex Medical)</span>
           </div>
         </div>
 
@@ -2770,7 +2802,7 @@ input,textarea,select{font-family:inherit}
           </div>
           <div class="salary-box box-after" style="border-color: var(--blue);">
             <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹15–25 LPA</span>
+            <span class="sal-val" style="color: var(--blue);">₹8–15 LPA</span>
           </div>
         </div>
 
@@ -2795,29 +2827,28 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+150% Avg Jump</div>
+          <div class="outcome-badge-multiplier">+130% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">VS</div>
+          <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="outcome-avatar-img">
           <div>
             <div class="outcome-profile-name">Vasudha Singh</div>
             <div class="outcome-profile-meta">ALUMNI SUCCESS • BIOTECH TO MEDTECH</div>
           </div>
         </div>
 
-        <div class="outcome-transition-table">
-          <div class="outcome-table-row">
-            <span class="table-col-label">PRIOR ROLE</span>
-            <span class="table-col-value">Biotechnology Graduate Student</span>
+        <div class="outcome-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS ROLE &amp; COMPANY</span>
+            <span class="node-value">Biotechnology Graduate Student</span>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">TRANSITION ROLE</span>
-            <span class="table-col-value value-highlight">Associate Therapy Specialist (Medtronic)</span>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">CORE SKILL SHIFT</span>
-            <span class="table-col-value">Biotechnology Study ➔ Clinical Application</span>
+          <div class="path-node node-after">
+            <span class="node-label">TRANSITIONED TO</span>
+            <span class="node-value value-highlight">Associate Therapy Specialist (Medtronic)</span>
           </div>
         </div>
 
@@ -2860,25 +2891,24 @@ input,textarea,select{font-family:inherit}
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">ST</div>
+          <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="outcome-avatar-img">
           <div>
             <div class="outcome-profile-name">Shivam Tiwari</div>
             <div class="outcome-profile-meta">ALUMNI SUCCESS • SCIENTIFIC SUPPORT</div>
           </div>
         </div>
 
-        <div class="outcome-transition-table">
-          <div class="outcome-table-row">
-            <span class="table-col-label">PRIOR ROLE</span>
-            <span class="table-col-value">Pharmaceutical Medical Representative</span>
+        <div class="outcome-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS ROLE &amp; COMPANY</span>
+            <span class="node-value">Pharmaceutical Medical Representative</span>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">TRANSITION ROLE</span>
-            <span class="table-col-value value-highlight">Area Manager – Scientific Support (Matrix Labs)</span>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </div>
-          <div class="outcome-table-row">
-            <span class="table-col-label">CORE SKILL SHIFT</span>
-            <span class="table-col-value">Pharma Sales ➔ Diagnostic Scientific Operations</span>
+          <div class="path-node node-after">
+            <span class="node-label">TRANSITIONED TO</span>
+            <span class="node-value value-highlight">Area Manager – Scientific Support (Matrix Labs)</span>
           </div>
         </div>
 
@@ -3564,7 +3594,7 @@ input,textarea,select{font-family:inherit}
         <div class="testi-stars">⭐⭐⭐⭐⭐</div>
         <p class="testi-quote">"Public testimonial unavailable."</p>
         <div class="testi-author">
-          <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:var(--pale-blue);display:grid;place-items:center;font-weight:bold;color:var(--blue);">NJ</div>
+          <img src="assets/neha_johari.png" alt="Neha Johari" class="testi-av-img">
           <div><div class="testi-name">Neha Johari</div><div class="testi-detail">Marketing Manager, Boston Scientific</div></div>
         </div>
       </div>
@@ -3572,7 +3602,7 @@ input,textarea,select{font-family:inherit}
         <div class="testi-stars">⭐⭐⭐⭐⭐</div>
         <p class="testi-quote">"Public testimonial unavailable."</p>
         <div class="testi-author">
-          <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:var(--pale-blue);display:grid;place-items:center;font-weight:bold;color:var(--blue);">GK</div>
+          <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="testi-av-img">
           <div><div class="testi-name">Garvita Khurana</div><div class="testi-detail">Product Manager, Teleflex Medical</div></div>
         </div>
       </div>
@@ -3580,7 +3610,7 @@ input,textarea,select{font-family:inherit}
         <div class="testi-stars">⭐⭐⭐⭐⭐</div>
         <p class="testi-quote">"Public testimonial unavailable."</p>
         <div class="testi-author">
-          <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:var(--pale-blue);display:grid;place-items:center;font-weight:bold;color:var(--blue);">VS</div>
+          <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="testi-av-img">
           <div><div class="testi-name">Vasudha Singh</div><div class="testi-detail">Therapy Specialist, Medtronic</div></div>
         </div>
       </div>
@@ -3588,7 +3618,7 @@ input,textarea,select{font-family:inherit}
         <div class="testi-stars">⭐⭐⭐⭐⭐</div>
         <p class="testi-quote">"Public testimonial unavailable."</p>
         <div class="testi-author">
-          <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:var(--pale-blue);display:grid;place-items:center;font-weight:bold;color:var(--blue);">ST</div>
+          <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="testi-av-img">
           <div><div class="testi-name">Shivam Tiwari</div><div class="testi-detail">Area Manager, Matrix Labs</div></div>
         </div>
       </div>
