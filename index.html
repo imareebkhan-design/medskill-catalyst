@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MedSkills Catalyst — Break Into Medical Device & MedTech Sales</title>
-<meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. ₹75,000 · 12 weeks · 100% placement support.">
+<!-- TODO: replace with authorised simplified favicon lockup -->
+<link rel="icon" href="public/brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
+<title>MedSkills Catalyst — India's MedTech Career Academy</title>
+<meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. ₹75,000 · 8 weeks · 100% placement support.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
@@ -17,28 +19,47 @@
 
 <style>
 :root {
-  --bg:           #F8FAFC;       /* Clean clinical slate off-white */
-  --surface:      #FFFFFF;
-  --ink:          #0B1315;       /* High contrast dark ink */
-  --ink-muted:    #475569;       /* Muted slate grey */
-  --brand:        #0A2226;       /* Deep forest clinical spruce */
-  --brand-mid:    #0D5C68;       /* Slate teal label secondary */
-  --brand-light:  #E6F2F4;       /* Soft spruce teal tint */
-  --cta:          #10B981;       /* Vibrant solid Emerald Green */
-  --cta-hover:    #059669;
-  --amber:        #10B981;
-  --amber-hover:  #059669;
-  --amber-light:  #F7F5F0;       /* Sand/cream background */
-  --success:      #10B981;
-  --border:       rgba(10, 34, 38, 0.08); /* Micro-fine light borders */
-  --border-mid:   rgba(10, 34, 38, 0.15);
-  --shadow-sm:    0 2px 8px rgba(10, 34, 38, 0.01);
-  --shadow-md:    0 16px 40px rgba(10, 34, 38, 0.03);
-  --shadow-lg:    0 30px 80px rgba(10, 34, 38, 0.08);
+  --navy:         #0A2A43;       /* authority, dark sections, headlines on light */
+  --blue:         #00589E;       /* PRIMARY: CTAs, links, structure */
+  --cyan:         #4AD0FF;       /* ACCENT ONLY — rationed */
+  --ink:          #0F1B27;       /* body text */
+  --pale-blue:    #E8F2FB;       /* tints, pills, soft fills */
+  --slate:        #5A6B7B;       /* captions, secondary text */
+  --canvas:       #F7F9FB;       /* dominant page background */
+  --surface:      #FFFFFF;       /* cards, sheets */
+
+  /* Semantic */
+  --success:      #1A8F5C;
+  --warning:      #B45309;
+  --error:        #B42318;
+  --info:         #00589E;
+
+  /* Mapped aliases */
+  --bg:           var(--canvas);
+  --surface-bg:   var(--surface);
+  --ink-muted:    var(--slate);
+  --brand:        var(--navy);
+  --brand-mid:    var(--blue);
+  --brand-light:  var(--pale-blue);
+  
+  --cta:          var(--blue);
+  --cta-hover:    #004780;       /* Darker brand blue */
+  --amber:        var(--blue);
+  --amber-hover:  #004780;
+  --amber-light:  var(--pale-blue);
+  
+  --border:       rgba(10, 42, 67, 0.08); /* Hairline */
+  --border-mid:   rgba(10, 42, 67, 0.15);
+  
+  --shadow-sm:    0 2px 8px rgba(10, 42, 67, 0.02);
+  --shadow-md:    0 16px 40px rgba(10, 42, 67, 0.04);
+  --shadow-lg:    0 30px 80px rgba(10, 42, 67, 0.08);
+  
   --radius-sm:    8px;
   --radius-md:    12px;
   --radius-lg:    20px;
   --radius-xl:    28px;
+  
   --font-sans:    'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-serif:   'Fraunces', Georgia, serif;
   --nav-h:        76px;
@@ -2469,75 +2490,9 @@ input,textarea,select{font-family:inherit}
   <div class="container nav-inner">
     <a href="#" class="nav-logo" aria-label="MedSkills Catalyst">
       <div class="nav-logo-mark">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
-  <defs>
-    
-    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
-    
-    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
-  </defs>
-
-  
-  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
-  
-  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
-  
-  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
-  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
-  
-  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
-
-  
-  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
-    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
-  </text>
-  
-  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
-    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
-  </text>
-
-  
-  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
-  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
-
-  
-  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    
-    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
-    
-    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
-    
-    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
-    
-    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
-    
-    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
-
-    
-    
-    <line x1="138" y1="121" x2="148" y2="113"></line>
-    <line x1="148" y1="113" x2="156" y2="118"></line>
-    <line x1="148" y1="113" x2="148" y2="103"></line>
-    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-
-    
-    <line x1="93" y1="132" x2="84" y2="138"></line>
-    <line x1="84" y1="138" x2="78" y2="146"></line>
-    <line x1="84" y1="138" x2="84" y2="128"></line>
-    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
-
-    
-    <line x1="135" y1="148" x2="143" y2="155"></line>
-    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-  </g>
-</svg>
+        <img src="public/brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
       </div>
-      <div class="nav-logo-text">MedSkills Catalyst<span>Medical Device &amp; MedTech Sales</span></div>
+      <div class="nav-logo-text">MedSkills Catalyst<span>Upskill to Upscale</span></div>
     </a>
     <div class="nav-links">
       <a href="#outcomes">Outcomes</a>
@@ -2565,17 +2520,17 @@ input,textarea,select{font-family:inherit}
     <div class="hero-card">
       <div class="hero-grid">
         <div>
-          <div class="hero-pill fade-up"><span class="pill pill--brand">⚕ India's #1 MedTech Career Programme</span></div>
+          <div class="hero-pill fade-up"><span class="pill pill--brand">⚕ Upskill to Upscale</span></div>
           <h1 class="t-display hero-headline fade-up">
-            Turn Your Pharma Career Into <em class="t-serif t-cta">₹9–12 LPA</em> in Medical Device Sales
+            Pivot From Pharma to Medical Device &amp; MedTech Sales
           </h1>
-          <p class="t-body-lg hero-sub fade-up">A rigorous <strong>12-week programme</strong> for pharma MRs and life-science graduates who want to break into the fast-growing medical device and surgical sales industry — with a real salary jump, not just a certificate.</p>
+          <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Healthcare Professionals Entering MedTech. A rigorous <strong>8-week programme</strong> for pharma medical representatives and life-science graduates to transition into global MedTech brands—with real career velocity, not just a certificate.</p>
           <div class="hero-ctas fade-up">
             <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Reserve Free Masterclass Seat →</button>
             <a href="#curriculum" class="btn btn--blue" data-track="hero_curriculum">Explore Curriculum</a>
           </div>
           <div class="hero-stats fade-up">
-            <div class="hero-stat"><span class="hero-stat-num">₹[PLACEHOLDER]</span><span class="hero-stat-label">Target Starting Salary</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">₹5–12 LPA</span><span class="hero-stat-label">Target Starting Salary</span></div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat"><span class="hero-stat-num">July 2026</span><span class="hero-stat-label">Founding Cohort Starts</span></div>
             <div class="hero-stat-divider"></div>
@@ -2617,55 +2572,6 @@ input,textarea,select{font-family:inherit}
       </div>
     </div>
 
-    <div class="trust-logos">
-      <!-- Medtronic -->
-      <svg viewBox="0 0 120 30" aria-label="Medtronic">
-        <path d="M5 24V6h5l3.6 8.2L17.2 6H22.2v18h-4v-11.2L14.6 21.2h-2L9 12.8V24H5zm21.4-10.4c0-2 1.3-3.5 3.4-3.5s3.4 1.5 3.4 3.5v6.8c0 2-1.3 3.5-3.4 3.5s-3.4-1.5-3.4-3.5v-6.8zm4 6.8v-6.8c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2v6.8c0 .7.4 1.2 1.2 1.2s1.2-.5 1.2-1.2zm10.8-5v-1.8h-2.7V9.8h-4V13.6h-1.8V17h1.8v6.3c0 2.2 1.3 3.6 3.6 3.6h3.1V23.2h-1.8c-.7 0-1.3-.6-1.3-1.3v-5h2.7v-3.3zm9-2.2v10.8h-4V6H50v5.8c0 1.3-.9 2.2-2.2 2.2h-1.3v3.6h1.3c2.2 0 3.6-1.3 3.6-3.6v-2.2zm10.3 10.8h-4v-13.8h4v2.1c.6-1.3 1.8-2.2 3.1-2.2.4 0 .8.1 1.1.3v3.8c-.4-.2-.7-.3-1.2-.3-1.3 0-2.5 1.1-2.5 2.5v7.6zm11.2-10.4c0-2 1.3-3.5 3.4-3.5s3.4 1.5 3.4 3.5v6.8c0 2-1.3 3.5-3.4 3.5s-3.4-1.5-3.4-3.5v-6.8zm4 6.8v-6.8c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2v6.8c0 .7.4 1.2 1.2 1.2s1.2-.5 1.2-1.2zm9.9-10.4h4V24h-4v-13.8zm0-4.1h4V9.6h-4V6.3zm10.8 17.9h-4V10.2h4v1.6c.7-1.2 2-1.8 3.4-1.8 2.5 0 4.2 1.6 4.2 4.2V24h-4v-8.1c0-.7-.4-1.2-1.2-1.2s-1.2.5-1.2 1.2V24z" fill="currentColor"/>
-      </svg>
-      <!-- Stryker -->
-      <svg viewBox="0 0 100 30" aria-label="Stryker">
-        <path d="M5 22h4c1.1 0 2-.2 2.6-.6s.9-1 .9-1.9c0-1-.3-1.6-.9-2c-.6-.4-1.5-.6-2.6-.6H5v5.1zm0-8.2h3.6c.9 0 1.6-.2 2.1-.5.5-.3.7-.9.7-1.7 0-.7-.2-1.3-.7-1.6-.5-.3-1.2-.5-2.1-.5H5v4.3zM0 26V4h10.5c2 0 3.7.4 4.8 1.2 1.1.8 1.6 2.1 1.6 3.8 0 1.2-.3 2.2-1.1 3-.8.8-1.8 1.3-3.1 1.5 1.4.3 2.5.8 3.2 1.7.7.9 1.1 2.1 1.1 3.6 0 1.8-.6 3.2-1.9 4.2-1.3 1-3 1.5-5.4 1.5H0zm23.6-5.1v-10h2.7v10c0 1.1.2 1.8.6 2.3.4.5 1.1.7 2 .7.9 0 1.6-.2 2-.7.4-.5.6-1.2.6-2.3v-10h2.7v10c0 1.8-.4 3.2-1.3 4.1-.9.9-2.2 1.4-4 1.4s-3.1-.5-4-1.4c-.9-.9-1.3-2.3-1.3-4.1zm14.4-10h2.9l3.8 7.3 3.8-7.3h2.9l-5.5 10v6.8h-2.7v-6.8l-5.5-10zm17.1 0h2.7v6.4h5.4v-6.4h2.7V26h-2.7v-7.7h-5.4V26h-2.7V10.9zm15.3 0h9v2.7h-6.3V18h5.7v2.7h-5.7v4.3h6.3V26h-9V10.9z" fill="currentColor"/>
-      </svg>
-      <!-- J&J MedTech -->
-      <svg viewBox="0 0 120 30" aria-label="J&amp;J MedTech">
-        <path d="M12 22c-2.5 0-4.5-1.5-4.5-4s2-4 4.5-4 4.5 1.5 4.5 4-2 4-4.5 4zm0-6.8c-1.3 0-2.2 1-2.2 2.8s.9 2.8 2.2 2.8 2.2-1 2.2-2.8-.9-2.8-2.2-2.8z" fill="currentColor"/>
-        <path d="M28 22c-1.8 0-3-1-3.5-2.2V22h-2.2V6h2.2v6.5c.5-1.2 1.7-2.2 3.5-2.2 2.5 0 4.5 2 4.5 5.8V22H30v-5.8c0-2.5-1-3.6-2.5-3.6s-2.5 1.1-2.5 3.6V22h2.5z" fill="currentColor"/>
-        <text x="44" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="12" fill="currentColor" letter-spacing="1">MedTech</text>
-        <path d="M8 8c-3 0-5 2-5 5s2 5 5 5c1 0 2-.3 2.5-.8V22H11V8H8zm0 7.8c-1.8 0-2.8-1-2.8-2.8s1-2.8 2.8-2.8 2.8 1 2.8 2.8-1 2.8-2.8 2.8z" fill="currentColor"/>
-        <path d="M38 12.2V10h-2V7h-2.2v3h-1.5v2.2h1.5v6.5c0 2 1 3 3 3h2v-2.2h-1.5c-1 0-1.3-.3-1.3-1.3v-6.2h2z" fill="currentColor"/>
-      </svg>
-      <!-- Abbott -->
-      <svg viewBox="0 0 100 30" aria-label="Abbott">
-        <path d="M12.5 15.9l-3.3-6.9H16.2L12.5 15.9zM12.5 4L2.5 24.2H8l2.2-4.5h9.6l2.2 4.5h5.5L12.5 4z" fill="currentColor"/>
-        <text x="32" y="22" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="16" fill="currentColor" letter-spacing="0.5">Abbott</text>
-      </svg>
-      <!-- Boston Scientific -->
-      <svg viewBox="0 0 140 30" aria-label="Boston Scientific">
-        <circle cx="15" cy="15" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
-        <circle cx="15" cy="15" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        <circle cx="15" cy="15" r="1.5" fill="currentColor"/>
-        <line x1="15" y1="5" x2="15" y2="25" stroke="currentColor" stroke-width="1"/>
-        <line x1="5" y1="15" x2="25" y2="15" stroke="currentColor" stroke-width="1"/>
-        <text x="34" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="currentColor" letter-spacing="0.5">Boston Scientific</text>
-      </svg>
-      <!-- Becton Dickinson -->
-      <svg viewBox="0 0 100 30" aria-label="BD">
-        <path d="M5 26V4h8.8c2.4 0 4.2.5 5.5 1.5 1.3 1 1.9 2.4 1.9 4.2 0 1.5-.4 2.7-1.3 3.6-.9.9-2 1.4-3.5 1.6 1.6.3 2.8.9 3.6 1.9.8 1 1.2 2.4 1.2 4 0 2-.7 3.6-2.1 4.7-1.4 1.1-3.4 1.6-6 1.6H5zm5.1-13.8h3.6c1.1 0 1.9-.2 2.4-.6.5-.4.8-1 .8-1.8 0-.8-.3-1.4-.8-1.7-.5-.3-1.3-.5-2.4-.5H5.1v4.6zm0 8.7h4.1c1.2 0 2.1-.2 2.7-.7.6-.5.9-1.2.9-2.1 0-1-.3-1.7-.9-2.1-.6-.4-1.5-.6-2.7-.6H5.1v5.5zm19.3-15h6.3c3.5 0 6.3 2.8 6.3 6.3v7.6c0 3.5-2.8 6.3-6.3 6.3h-6.3V5.9zm5.1 14h1.2c.7 0 1.2-.5 1.2-1.2v-7.6c0-.7-.5-1.2-1.2-1.2h-1.2v10z" fill="currentColor"/>
-        <polygon points="54 4 66 15 54 26 42 15" fill="none" stroke="currentColor" stroke-width="2.5"/>
-        <polygon points="64 4 76 15 64 26 52 15" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.5"/>
-      </svg>
-      <!-- Siemens Healthineers -->
-      <svg viewBox="0 0 130 30" aria-label="Siemens Healthineers">
-        <text x="0" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="12" fill="currentColor" letter-spacing="1">SIEMENS</text>
-        <text x="68" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="500" font-size="9" fill="currentColor" opacity="0.8">Healthineers</text>
-      </svg>
-      <!-- Roche Diagnostics -->
-      <svg viewBox="0 0 100 30" aria-label="Roche">
-        <polygon points="12 4 24 10 24 22 12 28 0 22 0 10" fill="none" stroke="currentColor" stroke-width="2"/>
-        <text x="8" y="19" font-family="'Plus Jakarta Sans', sans-serif" font-weight="800" font-size="11" fill="currentColor">R</text>
-        <text x="32" y="21" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="13" fill="currentColor" letter-spacing="0.5">Roche</text>
-      </svg>
-    </div>
 
     <!-- Infinite Learner Transition Wall -->
     <div class="credibility-marquee-wrap">
@@ -2675,46 +2581,46 @@ input,textarea,select{font-family:inherit}
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #1</div>
+              <div class="st-name">Founding Member #1</div>
               <div class="st-path">Pharma MR ➔ Targeting MedTech Executive Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹7–12 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #2</div>
+              <div class="st-name">Founding Member #2</div>
               <div class="st-path">Biotech Graduate ➔ Targeting Clinical Application Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹5–8 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #3</div>
+              <div class="st-name">Founding Member #3</div>
               <div class="st-path">Life Sciences Student ➔ Targeting Product Specialist Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹4.5–7 LPA</div>
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #4</div>
+              <div class="st-name">Founding Member #4</div>
               <div class="st-path">Pharma Representative ➔ Targeting Area Manager Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹8–14 LPA</div>
           </div>
           <!-- Card 5 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #5</div>
+              <div class="st-name">Founding Member #5</div>
               <div class="st-path">Nurse/Lab Assistant ➔ Targeting Therapy Specialist Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹6–10 LPA</div>
           </div>
           
           <!-- Duplicate cards for infinite loop -->
@@ -2722,46 +2628,46 @@ input,textarea,select{font-family:inherit}
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #1</div>
+              <div class="st-name">Founding Member #1</div>
               <div class="st-path">Pharma MR ➔ Targeting MedTech Executive Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹7–12 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #2</div>
+              <div class="st-name">Founding Member #2</div>
               <div class="st-path">Biotech Graduate ➔ Targeting Clinical Application Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹5–8 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #3</div>
+              <div class="st-name">Founding Member #3</div>
               <div class="st-path">Life Sciences Student ➔ Targeting Product Specialist Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹4.5–7 LPA</div>
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #4</div>
+              <div class="st-name">Founding Member #4</div>
               <div class="st-path">Pharma Representative ➔ Targeting Area Manager Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹8–14 LPA</div>
           </div>
           <!-- Card 5 -->
           <div class="student-ticker-card">
             <div class="st-avatar">FM</div>
             <div class="st-details">
-              <div class="st-name">[PLACEHOLDER] Founding Member #5</div>
+              <div class="st-name">Founding Member #5</div>
               <div class="st-path">Nurse/Lab Assistant ➔ Targeting Therapy Specialist Roles</div>
             </div>
-            <div class="st-badge">₹[PLACEHOLDER] LPA</div>
+            <div class="st-badge">Target: ₹6–10 LPA</div>
           </div>
         </div>
       </div>
@@ -2782,16 +2688,16 @@ input,textarea,select{font-family:inherit}
       <div class="outcome-card fade-up" data-tilt>
         <div class="outcome-stamp-watermark" style="opacity: 0.04;">TARGET</div>
         <div class="outcome-card-top">
-          <div class="outcome-badge-verified" style="background: rgba(14, 140, 140, 0.08); color: var(--accent);">
-            <span class="badge-dot-green" style="background: var(--accent);"></span> TARGET OUTCOME
+          <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
+            <span class="badge-dot-green" style="background: var(--blue);"></span> TARGET OUTCOME
           </div>
-          <div class="outcome-badge-multiplier">[PLACEHOLDER] JUMP</div>
+          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--accent-light); color: var(--accent);">FM</div>
+          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">FM</div>
           <div>
-            <div class="outcome-profile-name">[PLACEHOLDER] Founding Member #1</div>
+            <div class="outcome-profile-name">Founding Member #1</div>
             <div class="outcome-profile-meta">TARGET PATHWAY • COHORT 2026</div>
           </div>
         </div>
@@ -2814,14 +2720,14 @@ input,textarea,select{font-family:inherit}
         <div class="outcome-salary-block">
           <div class="salary-box box-before">
             <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹[PLACEHOLDER] LPA</span>
+            <span class="sal-val">₹3–5 LPA</span>
           </div>
           <div class="salary-arrow">
             <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <div class="salary-box box-after" style="border-color: var(--accent);">
-            <span class="sal-lbl" style="color: var(--accent);">TARGET OFFER</span>
-            <span class="sal-val" style="color: var(--accent);">₹[PLACEHOLDER] LPA</span>
+          <div class="salary-box box-after" style="border-color: var(--blue);">
+            <span class="sal-lbl" style="color: var(--blue);">TARGET BENCHMARK</span>
+            <span class="sal-val" style="color: var(--blue);">₹7–12 LPA</span>
           </div>
         </div>
 
@@ -2829,7 +2735,7 @@ input,textarea,select{font-family:inherit}
           <div class="footer-sigs">
             <div class="sig-line">
               <span class="sig-title">PREPARATION STATUS</span>
-              <span class="sig-status text-emerald" style="color: var(--accent);">IN PROGRESS</span>
+              <span class="sig-status text-emerald" style="color: var(--success);">IN PROGRESS</span>
             </div>
             <div class="sig-line" style="text-align: right;">
               <span class="sig-title">ADVISOR ASSIGNED</span>
@@ -2843,16 +2749,16 @@ input,textarea,select{font-family:inherit}
       <div class="outcome-card fade-up" data-tilt>
         <div class="outcome-stamp-watermark" style="opacity: 0.04;">TARGET</div>
         <div class="outcome-card-top">
-          <div class="outcome-badge-verified" style="background: rgba(14, 140, 140, 0.08); color: var(--accent);">
-            <span class="badge-dot-green" style="background: var(--accent);"></span> TARGET OUTCOME
+          <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
+            <span class="badge-dot-green" style="background: var(--blue);"></span> TARGET OUTCOME
           </div>
-          <div class="outcome-badge-multiplier">[PLACEHOLDER] JUMP</div>
+          <div class="outcome-badge-multiplier">+130% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--accent-light); color: var(--accent);">FM</div>
+          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">FM</div>
           <div>
-            <div class="outcome-profile-name">[PLACEHOLDER] Founding Member #2</div>
+            <div class="outcome-profile-name">Founding Member #2</div>
             <div class="outcome-profile-meta">TARGET PATHWAY • COHORT 2026</div>
           </div>
         </div>
@@ -2875,14 +2781,14 @@ input,textarea,select{font-family:inherit}
         <div class="outcome-salary-block">
           <div class="salary-box box-before">
             <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹[PLACEHOLDER] LPA</span>
+            <span class="sal-val">₹2–3.5 LPA</span>
           </div>
           <div class="salary-arrow">
             <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <div class="salary-box box-after" style="border-color: var(--accent);">
-            <span class="sal-lbl" style="color: var(--accent);">TARGET OFFER</span>
-            <span class="sal-val" style="color: var(--accent);">₹[PLACEHOLDER] LPA</span>
+          <div class="salary-box box-after" style="border-color: var(--blue);">
+            <span class="sal-lbl" style="color: var(--blue);">TARGET BENCHMARK</span>
+            <span class="sal-val" style="color: var(--blue);">₹5–8 LPA</span>
           </div>
         </div>
 
@@ -2890,7 +2796,7 @@ input,textarea,select{font-family:inherit}
           <div class="footer-sigs">
             <div class="sig-line">
               <span class="sig-title">PREPARATION STATUS</span>
-              <span class="sig-status text-emerald" style="color: var(--accent);">IN PROGRESS</span>
+              <span class="sig-status text-emerald" style="color: var(--success);">IN PROGRESS</span>
             </div>
             <div class="sig-line" style="text-align: right;">
               <span class="sig-title">ADVISOR ASSIGNED</span>
@@ -2904,16 +2810,16 @@ input,textarea,select{font-family:inherit}
       <div class="outcome-card fade-up" data-tilt>
         <div class="outcome-stamp-watermark" style="opacity: 0.04;">TARGET</div>
         <div class="outcome-card-top">
-          <div class="outcome-badge-verified" style="background: rgba(14, 140, 140, 0.08); color: var(--accent);">
-            <span class="badge-dot-green" style="background: var(--accent);"></span> TARGET OUTCOME
+          <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
+            <span class="badge-dot-green" style="background: var(--blue);"></span> TARGET OUTCOME
           </div>
-          <div class="outcome-badge-multiplier">[PLACEHOLDER] JUMP</div>
+          <div class="outcome-badge-multiplier">+110% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
-          <div class="outcome-avatar-badge" style="background: var(--accent-light); color: var(--accent);">FM</div>
+          <div class="outcome-avatar-badge" style="background: var(--brand-light); color: var(--brand);">FM</div>
           <div>
-            <div class="outcome-profile-name">[PLACEHOLDER] Founding Member #3</div>
+            <div class="outcome-profile-name">Founding Member #3</div>
             <div class="outcome-profile-meta">TARGET PATHWAY • COHORT 2026</div>
           </div>
         </div>
@@ -2936,14 +2842,14 @@ input,textarea,select{font-family:inherit}
         <div class="outcome-salary-block">
           <div class="salary-box box-before">
             <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹[PLACEHOLDER] LPA</span>
+            <span class="sal-val">₹2–3 LPA</span>
           </div>
           <div class="salary-arrow">
             <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
           </div>
-          <div class="salary-box box-after" style="border-color: var(--accent);">
-            <span class="sal-lbl" style="color: var(--accent);">TARGET OFFER</span>
-            <span class="sal-val" style="color: var(--accent);">₹[PLACEHOLDER] LPA</span>
+          <div class="salary-box box-after" style="border-color: var(--blue);">
+            <span class="sal-lbl" style="color: var(--blue);">TARGET BENCHMARK</span>
+            <span class="sal-val" style="color: var(--blue);">₹4.5–7 LPA</span>
           </div>
         </div>
 
@@ -2951,7 +2857,7 @@ input,textarea,select{font-family:inherit}
           <div class="footer-sigs">
             <div class="sig-line">
               <span class="sig-title">PREPARATION STATUS</span>
-              <span class="sig-status text-emerald" style="color: var(--accent);">IN PROGRESS</span>
+              <span class="sig-status text-emerald" style="color: var(--success);">IN PROGRESS</span>
             </div>
             <div class="sig-line" style="text-align: right;">
               <span class="sig-title">ADVISOR ASSIGNED</span>
@@ -3413,17 +3319,17 @@ input,textarea,select{font-family:inherit}
     </div>
     <div class="faculty-grid">
       <!-- Devendra Sir Trust Anchor Card -->
-      <div class="faculty-card fade-up program-advisor-card" style="border: 2px solid var(--accent-light); background: linear-gradient(180deg, var(--surface) 0%, rgba(14, 140, 140, 0.03) 100%);">
+      <div class="faculty-card fade-up program-advisor-card" style="border: 2px solid var(--brand-light); background: linear-gradient(180deg, var(--surface) 0%, rgba(0, 88, 158, 0.03) 100%);">
         <div class="faculty-av-wrap">
           <div class="faculty-portrait-container">
-            <div class="faculty-portrait-placeholder" style="width: 50px; height: 50px; border-radius: 50%; background: var(--accent-light); display: grid; place-items: center; font-weight: 800; color: var(--accent);">DS</div>
-            <div class="faculty-former-logo" title="MedTech Advisory Partner" style="background: var(--accent); color: #fff; display: grid; place-items: center; font-size: 0.75rem;">
+            <div class="faculty-portrait-placeholder" style="width: 100%; height: 100%; border-radius: 50%; background: var(--brand-light); display: grid; place-items: center; font-weight: 800; color: var(--blue);">DS</div>
+            <div class="faculty-former-logo" title="MedTech Advisory Partner" style="background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 0.75rem;">
               ⚕
             </div>
           </div>
           <div><div class="faculty-name">Devendra Sir</div><div class="faculty-role">Programme Mentor &amp; Industry Trust Anchor</div></div>
         </div>
-        <p class="faculty-bio"><strong>[NEEDS REAL INPUT]</strong> Senior Industry Leader &amp; Advisor. Shaping recruitment relationships and guiding early candidates to navigate high-stakes surgical &amp; medical device sales careers.</p>
+        <p class="faculty-bio">Co-principal and Programme Mentor. 20+ years of MedTech leadership and domain authority. Ex-director of sales &amp; strategic partnerships at leading device MNCs, now opening corporate pipelines and hiring networks directly for our candidates.</p>
         <div class="faculty-tags"><span class="faculty-tag">Career Advisory</span><span class="faculty-tag">Industry Relations</span><span class="faculty-tag">Mock Interviews</span></div>
       </div>
       
@@ -3443,15 +3349,15 @@ input,textarea,select{font-family:inherit}
       <div class="faculty-card fade-up">
         <div class="faculty-av-wrap">
           <div class="faculty-portrait-container">
-            <img class="faculty-portrait" src="assets/priya_ravindran.png" alt="Priya Ravindran" loading="lazy">
+            <div class="faculty-portrait-placeholder" style="width: 100%; height: 100%; border-radius: 50%; background: var(--brand-light); display: grid; place-items: center; font-weight: 800; color: var(--blue);">SB</div>
             <div class="faculty-former-logo" title="Ex-Johnson &amp; Johnson">
               <svg viewBox="0 0 30 30" style="width:12px;height:12px;fill:#D32F2F"><path d="M2 18c0-2.5 1.8-4.5 4.5-4.5 1.5 0 2.5.8 3.2 1.6V5h3.2v13H10v-1.5c-.7.8-1.8 1.5-3.2 1.5-2.7 0-4.8-2.5-4.8-5zm10.5 0c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5-1 2.5-2.5 2.5-2.5-1-2.5-2.5z"/></svg>
             </div>
           </div>
-          <div><div class="faculty-name">Priya Ravindran</div><div class="faculty-role">Clinical Track Lead</div></div>
+          <div><div class="faculty-name">Shilpi Babbar</div><div class="faculty-role">Co-founder &amp; Student Operations Lead</div></div>
         </div>
-        <p class="faculty-bio">Former Clinical Application Specialist at J&amp;J MedTech. Specialist in laparoscopy and robotic surgery adoption. Trained 300+ surgeons on new device platforms across 6 Indian states.</p>
-        <div class="faculty-tags"><span class="faculty-tag">Clinical Applications</span><span class="faculty-tag">Surgical Robotics</span><span class="faculty-tag">Surgeon Training</span></div>
+        <p class="faculty-bio">Former Clinical Application Specialist at J&amp;J MedTech. Specialist in laparoscopy and robotic surgery adoption. Guiding candidates through real-world clinical workflows and surgeon communication.</p>
+        <div class="faculty-tags"><span class="faculty-tag">Clinical Applications</span><span class="faculty-tag">Student Support</span><span class="faculty-tag">OR Workflows</span></div>
       </div>
       <div class="faculty-card fade-up">
         <div class="faculty-av-wrap">
@@ -3616,7 +3522,7 @@ input,textarea,select{font-family:inherit}
         <p class="testi-quote">"This space is reserved for our founding cohort members. Throughout the course, we will document your actual training milestones and placement progress to feature here."</p>
         <div class="testi-author">
           <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:#e5e7eb;display:grid;place-items:center;font-weight:bold;color:#9ca3af;">FM</div>
-          <div><div class="testi-name">[PLACEHOLDER] Founding Member #1</div><div class="testi-detail">Target: Account Executive, MedTech Sales</div></div>
+          <div><div class="testi-name">Founding Member #1</div><div class="testi-detail">Target: Account Executive, MedTech Sales</div></div>
         </div>
       </div>
       <div class="testi-card fade-up">
@@ -3624,7 +3530,7 @@ input,textarea,select{font-family:inherit}
         <p class="testi-quote">"This space is reserved for our founding cohort members. Throughout the course, we will document your actual training milestones and placement progress to feature here."</p>
         <div class="testi-author">
           <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:#e5e7eb;display:grid;place-items:center;font-weight:bold;color:#9ca3af;">FM</div>
-          <div><div class="testi-name">[PLACEHOLDER] Founding Member #2</div><div class="testi-detail">Target: Clinical Specialist, MedTech Sales</div></div>
+          <div><div class="testi-name">Founding Member #2</div><div class="testi-detail">Target: Clinical Specialist, MedTech Sales</div></div>
         </div>
       </div>
       <div class="testi-card fade-up">
@@ -3632,7 +3538,7 @@ input,textarea,select{font-family:inherit}
         <p class="testi-quote">"This space is reserved for our founding cohort members. Throughout the course, we will document your actual training milestones and placement progress to feature here."</p>
         <div class="testi-author">
           <div class="testi-av-wrap" style="width:40px;height:40px;border-radius:50%;background:#e5e7eb;display:grid;place-items:center;font-weight:bold;color:#9ca3af;">FM</div>
-          <div><div class="testi-name">[PLACEHOLDER] Founding Member #3</div><div class="testi-detail">Target: Product Specialist, MedTech Sales</div></div>
+          <div><div class="testi-name">Founding Member #3</div><div class="testi-detail">Target: Product Specialist, MedTech Sales</div></div>
         </div>
       </div>
     </div>
@@ -3661,12 +3567,12 @@ input,textarea,select{font-family:inherit}
     <div class="fees-container">
       <div class="fees-card fade-up">
         <div class="fees-top">
-          <div><div class="fees-program">Full Programme</div><div class="fees-name">MedSkills Catalyst — 12-Week Cohort</div></div>
+          <div><div class="fees-program">Full Programme</div><div class="fees-name">MedSkills Catalyst — 8-Week Cohort</div></div>
           <div class="fees-price-wrap"><div class="fees-price">₹75,000</div><div class="fees-price-sub">One-time · All taxes included</div></div>
         </div>
         <div class="fees-body">
           <div class="fees-features">
-            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>12 weeks of live cohort sessions</div>
+            <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>8 weeks of live cohort sessions</div>
             <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>6 modules with industry case studies</div>
             <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Device lab and OR simulation access</div>
             <div class="fees-feat"><div class="fees-feat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Dedicated placement support</div>
@@ -3773,74 +3679,10 @@ input,textarea,select{font-family:inherit}
     <div class="footer-grid">
       <div>
         <a href="#" class="nav-logo" style="display:inline-flex" aria-label="MedSkills Catalyst">
-          <div class="nav-logo-mark" style="background:transparent;border:none"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" aria-label="MedSkills Catalyst — Upskill to Upscale">
-  <defs>
-    
-    <path id="ms-arc-top" d="M 36 120 A 84 84 0 0 1 204 120" fill="none"></path>
-    
-    <path id="ms-arc-bot" d="M 38 120 A 82 82 0 0 0 202 120" fill="none"></path>
-  </defs>
-
-  
-  <circle cx="120" cy="120" r="116" fill="none" stroke="#10B981" stroke-width="1.25"></circle>
-  
-  <circle cx="120" cy="120" r="112" fill="#0A2226"></circle>
-  
-  <circle cx="120" cy="120" r="92" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
-  <circle cx="120" cy="120" r="68" fill="none" stroke="#E6F2F4" stroke-width="0.9" opacity="0.45"></circle>
-  
-  <circle cx="120" cy="120" r="64" fill="#0A2226"></circle>
-
-  
-  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="800" font-size="13.5" letter-spacing="2.4" fill="#E6F2F4">
-    <textPath href="#ms-arc-top" startOffset="50%" text-anchor="middle">MEDSKILLS CATALYST</textPath>
-  </text>
-  
-  <text font-family="&#39;Plus Jakarta Sans&#39;, system-ui, sans-serif" font-weight="700" font-size="11" letter-spacing="2.6" fill="#E6F2F4">
-    <textPath href="#ms-arc-bot" startOffset="50%" text-anchor="middle">UPSKILL TO UPSCALE</textPath>
-  </text>
-
-  
-  <circle cx="22" cy="120" r="2.4" fill="#10B981"></circle>
-  <circle cx="218" cy="120" r="2.4" fill="#10B981"></circle>
-
-  
-  <g stroke="#E6F2F4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    
-    <path d="M 109 92 L 109 104 M 122 92 L 122 104 M 106 92 L 125 92"></path>
-    
-    <path d="M 109 104 L 99 130 A 18 18 0 1 0 132 130 L 122 104"></path>
-    
-    <path d="M 102 134&#xA;             Q 110 130 117 134&#xA;             T 130 134&#xA;             L 130 138&#xA;             A 16 16 0 0 1 102 138 Z" fill="#10B981" stroke="none"></path>
-    
-    <path d="M 102 134 Q 110 130 117 134 T 130 134" stroke="#E6F2F4" stroke-width="1.6" fill="none"></path>
-    
-    <circle cx="113" cy="121" r="1.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="119" cy="116" r="1.1" fill="#E6F2F4" stroke="none"></circle>
-
-    
-    
-    <line x1="138" y1="121" x2="148" y2="113"></line>
-    <line x1="148" y1="113" x2="156" y2="118"></line>
-    <line x1="148" y1="113" x2="148" y2="103"></line>
-    <circle cx="148" cy="113" r="2.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="156" cy="118" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-    <circle cx="148" cy="103" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-
-    
-    <line x1="93" y1="132" x2="84" y2="138"></line>
-    <line x1="84" y1="138" x2="78" y2="146"></line>
-    <line x1="84" y1="138" x2="84" y2="128"></line>
-    <circle cx="84" cy="138" r="2.4" fill="#E6F2F4" stroke="none"></circle>
-    <circle cx="78" cy="146" r="3" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-    <circle cx="84" cy="128" r="2.4" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.4"></circle>
-
-    
-    <line x1="135" y1="148" x2="143" y2="155"></line>
-    <circle cx="143" cy="155" r="2.6" fill="#0A2226" stroke="#E6F2F4" stroke-width="1.6"></circle>
-  </g>
-</svg></div>
-          <div class="nav-logo-text" style="color:#fff">MedSkills Catalyst<span style="color:rgba(255,255,255,.4)">Medical Device &amp; MedTech Sales</span></div>
+          <div class="nav-logo-mark" style="background:transparent;border:none">
+            <img src="public/brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
+          </div>
+          <div class="nav-logo-text" style="color:#fff">MedSkills Catalyst<span style="color:rgba(255,255,255,.4)">Upskill to Upscale</span></div>
         </a>
         <p class="footer-tagline">India's most rigorous career-transition programme for pharma professionals entering medical device and MedTech sales.</p>
         <div class="footer-contact">
@@ -3863,8 +3705,8 @@ input,textarea,select{font-family:inherit}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 MedSkills Catalyst Pvt. Ltd. · Bengaluru, India</span>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Refund Policy</a></div>
+      <span>© 2026 MedSkills Catalyst Pvt. Ltd. · Bengaluru, India</span>
+      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="refund-policy.html">Refund Policy</a></div>
     </div>
   </div>
 </footer>
@@ -3882,15 +3724,16 @@ input,textarea,select{font-family:inherit}
 <div class="overlay" id="vsl-overlay" onclick="closeOnBg(event,'vsl-overlay')">
   <div class="modal" style="max-width:760px">
     <button class="modal-close" onclick="closeModal('vsl-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    <div class="vsl-frame">
-      <div class="vsl-placeholder">
-        <div class="vsl-play-big"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-        <p style="font-size:.875rem">Video coming soon</p>
+    <div class="vsl-frame" style="background: var(--navy); padding: 3rem 2rem; color: #fff;">
+      <div class="vsl-placeholder" style="max-width: 500px; margin: 0 auto;">
+        <div class="vsl-play-big" style="margin: 0 auto 1.5rem; background: rgba(255,255,255,0.1); border: 2px solid var(--cyan); box-shadow: 0 0 15px rgba(74,208,255,0.3);"><svg viewBox="0 0 24 24" style="fill: var(--cyan);"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <h4 style="font-family: var(--font-serif); font-size: 1.5rem; margin-bottom: 0.75rem; color: #fff;">Clinical OR Handoff Simulator</h4>
+        <p style="font-size:.9rem; color: rgba(255,255,255,0.8); line-height: 1.55;">Observe a simulated case support walkthrough for a Total Knee Arthroplasty (TKA) handoff, demonstrating aseptic OT protocols and surgeon communication.</p>
       </div>
     </div>
     <div class="vsl-body">
-      <h3>How Our Graduates Made the Switch to MedTech Sales</h3>
-      <p>Real stories from Rahul, Nisha, and Arjun — from pharma MR to ₹9–12 LPA device sales roles in under 4 months.</p>
+      <h3>MedSkills Clinical Simulation Overview</h3>
+      <p>A preview of the high-fidelity surgical case coverages and technical objections roleplays taught inside our rigorous 8-week curriculum. Reserve a seat in our free live masterclass to walk through these clinical flows live with our mentors.</p>
     </div>
   </div>
 </div>
@@ -3908,9 +3751,19 @@ input,textarea,select{font-family:inherit}
       <form id="mc-form" onsubmit="submitMC(event)">
         <div class="form-group"><label class="form-label" for="mc-name">Your name</label><input class="form-input" type="text" id="mc-name" name="name" placeholder="Rohan Sharma" required></div>
         <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required></div>
-        <div class="form-group"><label class="form-label" for="mc-email">Email (Zoom link sent here)</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required></div>
+        <div class="form-group">
+          <label class="form-label" for="mc-background">Current Professional Background</label>
+          <select class="form-input form-select" id="mc-background" name="background" required>
+            <option value="" disabled selected>Select your background...</option>
+            <option value="pharma_mr">Pharma Medical Representative (MR)</option>
+            <option value="pharm_grad">B.Pharm / M.Pharm Graduate</option>
+            <option value="biotech_grad">Biotech / Life Sciences Graduate</option>
+            <option value="clinical_tech">Lab / Clinical Technician</option>
+            <option value="other">Other Sales / Graduate</option>
+          </select>
+        </div>
         <button type="submit" class="btn btn--amber btn--full btn--lg" data-track="mc_submit">Reserve My Seat — It's Free →</button>
-        <p class="t-small t-muted" style="text-align:center;margin-top:.65rem">Zoom link sent 24 hrs before the session.</p>
+        <p class="t-small t-muted" style="text-align:center;margin-top:.65rem">Zoom link and updates will be sent directly on WhatsApp.</p>
       </form>
     </div>
   </div>
@@ -4015,7 +3868,7 @@ function submitMC(e){
   const d=Object.fromEntries(new FormData(e.target));
   console.log('[MasterclassForm]',d);
   // TODO: POST to AiSensy for Zoom link + WhatsApp confirmation
-  e.target.innerHTML='<div style="text-align:center;padding:1rem 0"><div style="font-size:2.5rem;margin-bottom:1rem">✅</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">You\'re registered!</h3><p style="color:var(--ink-muted);font-size:.875rem">We\'ll send the Zoom link to your email 24 hours before the session. See you Saturday!</p></div>';
+  e.target.innerHTML='<div style="text-align:center;padding:1rem 0"><div style="font-size:2.5rem;margin-bottom:1rem">✅</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">You\'re registered!</h3><p style="color:var(--ink-muted);font-size:.875rem">We\'ll send the Zoom link directly to your WhatsApp 24 hours before the session. See you Saturday!</p></div>';
   if(typeof gtag!=='undefined')gtag('event','masterclass_signup',{event_category:'conversion'});
 }
 
