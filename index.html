@@ -1629,12 +1629,29 @@ input,textarea,select{font-family:inherit}
 }
 
 /* ── FACULTY SECTION REDESIGN ═════════════════════ */
-.faculty-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.25rem}
-.faculty-card{background:var(--surface);border-radius:var(--radius-lg);padding:2.5rem;border:1px solid var(--border);display:flex;flex-direction:column;gap:1.5rem;box-shadow:var(--shadow-sm);transition:all .3s var(--easy-out)}
+.faculty-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:2.25rem;
+  align-items:start;
+}
+.faculty-card{
+  background:var(--surface);
+  border-radius:var(--radius-lg);
+  padding:2.5rem;
+  border:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+  box-shadow:var(--shadow-sm);
+  transition:all .3s var(--easy-out);
+}
 .faculty-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md);border-color:var(--border-mid)}
 .faculty-av-wrap{display:flex;align-items:center;gap:1.25rem}
+
+/* Standard small circle portrait (for non-featured cards) */
 .faculty-portrait-container{position:relative;width:72px;height:72px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#E2E8F0;border:2px solid var(--border)}
-.faculty-portrait{width:100%;height:100%;object-fit:cover}
+.faculty-portrait{width:100%;height:100%;object-fit:cover;object-position:top center;}
 .faculty-former-logo{position:absolute;bottom:0;right:0;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:var(--shadow-sm);display:grid;place-items:center;overflow:hidden;border:1px solid var(--border)}
 .faculty-former-logo svg{width:16px;height:auto}
 .faculty-name{font-family:var(--font-serif);font-weight:700;font-size:1.2rem;color:var(--brand)}
@@ -1642,6 +1659,152 @@ input,textarea,select{font-family:inherit}
 .faculty-bio{font-size:.95rem;color:var(--ink-muted);line-height:1.7;flex:1}
 .faculty-tags{display:flex;flex-wrap:wrap;gap:.5rem}
 .faculty-tag{font-size:.78rem;font-weight:600;background:var(--brand-light);color:var(--brand-mid);padding:.25rem .75rem;border-radius:100px;border:1px solid rgba(16,92,102,0.06)}
+
+/* ── FEATURED FACULTY PORTRAIT CARD (Gagan Victor) ── */
+.faculty-card--portrait {
+  padding: 0;
+  overflow: hidden;
+  gap: 0;
+  grid-column: span 1;
+}
+.faculty-portrait-photo-wrap {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: #07191C;
+  flex-shrink: 0;
+}
+.faculty-portrait-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.faculty-card--portrait:hover .faculty-portrait-photo-wrap img {
+  transform: scale(1.03);
+}
+.faculty-portrait-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.25rem 1.5rem 1rem;
+  background: linear-gradient(to top, rgba(4,14,16,0.95) 0%, rgba(4,14,16,0.5) 60%, transparent 100%);
+}
+.faculty-portrait-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+}
+.faculty-portrait-role {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--cta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.2rem;
+}
+.faculty-portrait-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(16,185,129,0.12);
+  border: 1px solid rgba(16,185,129,0.2);
+  color: var(--cta);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+  margin-bottom: 0.5rem;
+}
+.faculty-portrait-badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--cta);
+  animation: pulse 2s infinite;
+}
+.faculty-portrait-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.faculty-portrait-credentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.faculty-cred-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--canvas);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.faculty-cred-chip-icon {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.faculty-portrait-bio {
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  line-height: 1.7;
+}
+.faculty-portrait-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-top: 0.25rem;
+  border-top: 1px solid var(--border);
+}
+.faculty-portrait-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+  background: var(--canvas);
+  border-top: 1px solid var(--border);
+}
+.faculty-footer-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.faculty-footer-stat-num {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1;
+}
+.faculty-footer-stat-label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-top: 0.15rem;
+}
+.faculty-footer-divider {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+}
+@media (max-width: 768px) {
+  .faculty-portrait-photo-wrap { height: 240px; }
+}
 
 #masterclass {
   background: linear-gradient(135deg, #07191C 0%, #040E10 100%);
@@ -3441,18 +3604,49 @@ input,textarea,select{font-family:inherit}
         <div class="faculty-tags"><span class="faculty-tag">Career Advisory</span><span class="faculty-tag">Industry Relations</span><span class="faculty-tag">Mock Interviews</span></div>
       </div>
       
-      <div class="faculty-card fade-up">
-        <div class="faculty-av-wrap">
-          <div class="faculty-portrait-container">
-            <img class="faculty-portrait" src="assets/gagan_victor.png" alt="Gagan Victor" loading="lazy">
-            <div class="faculty-former-logo" title="Ex-Medtronic">
-              <svg viewBox="0 0 30 30" style="width:12px;height:12px;fill:var(--brand-mid)"><path d="M5 24V6h5l3.6 8.2L17.2 6H22.2v18h-4v-11.2L14.6 21.2h-2L9 12.8V24H5z"/></svg>
+      <!-- Gagan Victor — Featured Portrait Card -->
+      <div class="faculty-card faculty-card--portrait fade-up">
+        <div class="faculty-portrait-photo-wrap">
+          <img src="assets/gagan_victor.png" alt="Gagan Victor — Lead Faculty, MedSkills Catalyst" loading="lazy">
+          <div class="faculty-portrait-overlay">
+            <div class="faculty-portrait-badge">
+              <span class="faculty-portrait-badge-dot"></span>
+              LEAD FACULTY
             </div>
+            <div class="faculty-portrait-name">Gagan Victor</div>
+            <div class="faculty-portrait-role">Programme Director &amp; Lead Mentor</div>
           </div>
-          <div><div class="faculty-name">Gagan Victor</div><div class="faculty-role">Lead Faculty &amp; Programme Director</div></div>
         </div>
-        <p class="faculty-bio">14 years in MedTech sales. Former Regional Sales Manager at Medtronic India, overseeing cardiovascular and surgical portfolios across South India. Led a team of 22 before moving into training full-time.</p>
-        <div class="faculty-tags"><span class="faculty-tag">Cardiovascular</span><span class="faculty-tag">Surgical Sales</span><span class="faculty-tag">Team Leadership</span></div>
+        <div class="faculty-portrait-body">
+          <div class="faculty-portrait-credentials">
+            <div class="faculty-cred-chip"><span class="faculty-cred-chip-icon">🏥</span>Ex-Medtronic India</div>
+            <div class="faculty-cred-chip"><span class="faculty-cred-chip-icon">📊</span>14 Yrs MedTech Sales</div>
+            <div class="faculty-cred-chip"><span class="faculty-cred-chip-icon">👥</span>Led Team of 22</div>
+          </div>
+          <p class="faculty-portrait-bio">Former Regional Sales Manager at Medtronic India, overseeing cardiovascular and surgical device portfolios across South India. Transitioned from corporate MedTech leadership to full-time training to build India's next generation of medical device professionals.</p>
+          <div class="faculty-portrait-tags">
+            <span class="faculty-tag">Cardiovascular Devices</span>
+            <span class="faculty-tag">Surgical Sales</span>
+            <span class="faculty-tag">OR Protocol</span>
+            <span class="faculty-tag">Team Leadership</span>
+          </div>
+        </div>
+        <div class="faculty-portrait-footer">
+          <div class="faculty-footer-stat">
+            <span class="faculty-footer-stat-num">14</span>
+            <span class="faculty-footer-stat-label">Years in MedTech</span>
+          </div>
+          <div class="faculty-footer-divider"></div>
+          <div class="faculty-footer-stat">
+            <span class="faculty-footer-stat-num">22+</span>
+            <span class="faculty-footer-stat-label">Team Size Led</span>
+          </div>
+          <div class="faculty-footer-divider"></div>
+          <div class="faculty-footer-stat">
+            <span class="faculty-footer-stat-num">6+</span>
+            <span class="faculty-footer-stat-label">MNCs Covered</span>
+          </div>
+        </div>
       </div>
       <div class="faculty-card fade-up">
         <div class="faculty-av-wrap">
