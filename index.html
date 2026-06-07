@@ -3114,7 +3114,7 @@ input,textarea,select{font-family:inherit}
 </section>
 
 <!-- HOW IT WORKS ────────────────────────────────────────────────── -->
-<section id="how" class="section section--dark">
+<section id="how" class="section section--dark" style="display: none;">
   <div class="container">
     <div class="section-header fade-up">
       <p class="section-eyebrow">THE ROADMAP</p>
@@ -4291,13 +4291,14 @@ function activateRoadmapStep(index) {
     }
   });
 
-  if (progressLine) {
+  if (progressLine && steps.length > 0) {
     const progressPercent = ((index + 1) / steps.length) * 100;
     progressLine.style.height = `${progressPercent}%`;
   }
 }
 
 function startRoadmapCycle() {
+  if (steps.length === 0) return;
   clearTimeout(roadmapTimer);
   
   function nextCycle() {
@@ -4313,17 +4314,19 @@ function startRoadmapCycle() {
   nextCycle();
 }
 
-// Initial cycle boot
-startRoadmapCycle();
+if (steps.length > 0) {
+  // Initial cycle boot
+  startRoadmapCycle();
 
-// Handle user clicking directly on steps
-steps.forEach((step, idx) => {
-  step.addEventListener('click', () => {
-    currentStepIdx = idx;
-    startRoadmapCycle();
-    step.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  // Handle user clicking directly on steps
+  steps.forEach((step, idx) => {
+    step.addEventListener('click', () => {
+      currentStepIdx = idx;
+      startRoadmapCycle();
+      step.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
   });
-});
+}
 
 /* ── CONVERSATIONAL DIAGNOSTIC WIZARD ───────────────────────────── */
 let quizAnswers = {
