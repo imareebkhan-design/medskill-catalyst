@@ -624,6 +624,38 @@ input,textarea,select{font-family:inherit}
   stroke-width: 3;
   fill: none;
 }
+.outcome-velocity-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--radius-md);
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+.velocity-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.velocity-lbl {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--ink-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.velocity-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1.4;
+}
+.velocity-val.value-highlight {
+  color: var(--blue);
+}
 .outcome-card-footer {
   border-top: 1px solid var(--border);
   padding-top: 1.25rem;
@@ -2875,7 +2907,7 @@ input,textarea,select{font-family:inherit}
     <div class="section-header fade-up">
       <p class="section-eyebrow">CAREER PATHWAYS</p>
       <h2 class="t-h2">Target MedTech Roles &amp; Outcomes</h2>
-      <p class="section-sub">Illustrative career transition paths and target salaries based on industry standards for device sales positions in India.</p>
+      <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles. Compensation histories omitted for privacy compliance.</p>
     </div>
     <div class="outcomes-grid">
       <!-- Card 1 -->
@@ -2885,7 +2917,6 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
@@ -2915,17 +2946,14 @@ input,textarea,select{font-family:inherit}
           </div>
         </div>
 
-        <div class="outcome-salary-block">
-          <div class="salary-box box-before">
-            <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹4–6 LPA</span>
+        <div class="outcome-velocity-block">
+          <div class="velocity-row">
+            <span class="velocity-lbl">Scope Shift</span>
+            <span class="velocity-val">Regional Account Management ➔ Strategic Portfolio Marketing</span>
           </div>
-          <div class="salary-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="salary-box box-after" style="border-color: var(--blue);">
-            <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹8–15 LPA</span>
+          <div class="velocity-row">
+            <span class="velocity-lbl">Velocity</span>
+            <span class="velocity-val value-highlight">Completed in 8 Weeks</span>
           </div>
         </div>
 
@@ -2950,7 +2978,6 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
@@ -2980,17 +3007,14 @@ input,textarea,select{font-family:inherit}
           </div>
         </div>
 
-        <div class="outcome-salary-block">
-          <div class="salary-box box-before">
-            <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹3–5 LPA</span>
+        <div class="outcome-velocity-block">
+          <div class="velocity-row">
+            <span class="velocity-lbl">Scope Shift</span>
+            <span class="velocity-val">Technical Application Support ➔ Lifecycle Product Management</span>
           </div>
-          <div class="salary-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="salary-box box-after" style="border-color: var(--blue);">
-            <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹8–15 LPA</span>
+          <div class="velocity-row">
+            <span class="velocity-lbl">Velocity</span>
+            <span class="velocity-val value-highlight">Completed in 8 Weeks</span>
           </div>
         </div>
 
@@ -3015,7 +3039,6 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+130% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
@@ -3045,17 +3068,14 @@ input,textarea,select{font-family:inherit}
           </div>
         </div>
 
-        <div class="outcome-salary-block">
-          <div class="salary-box box-before">
-            <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹2–3.5 LPA</span>
+        <div class="outcome-velocity-block">
+          <div class="velocity-row">
+            <span class="velocity-lbl">Scope Shift</span>
+            <span class="velocity-val">Academic Lab Research ➔ Clinical Therapy Specialization</span>
           </div>
-          <div class="salary-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="salary-box box-after" style="border-color: var(--blue);">
-            <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹5–8 LPA</span>
+          <div class="velocity-row">
+            <span class="velocity-lbl">Velocity</span>
+            <span class="velocity-val value-highlight">Completed in 8 Weeks</span>
           </div>
         </div>
 
@@ -3080,7 +3100,6 @@ input,textarea,select{font-family:inherit}
           <div class="outcome-badge-verified" style="background: var(--pale-blue); color: var(--blue);">
             <span class="badge-dot-green" style="background: var(--blue);"></span> VERIFIED TRANSITION
           </div>
-          <div class="outcome-badge-multiplier">+120% Avg Jump</div>
         </div>
         
         <div class="outcome-profile-row">
@@ -3110,17 +3129,14 @@ input,textarea,select{font-family:inherit}
           </div>
         </div>
 
-        <div class="outcome-salary-block">
-          <div class="salary-box box-before">
-            <span class="sal-lbl">PREVIOUS</span>
-            <span class="sal-val">₹3–5 LPA</span>
+        <div class="outcome-velocity-block">
+          <div class="velocity-row">
+            <span class="velocity-lbl">Scope Shift</span>
+            <span class="velocity-val">Volume-Based Retail Sales ➔ Institutional Enterprise Deals</span>
           </div>
-          <div class="salary-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-          <div class="salary-box box-after" style="border-color: var(--blue);">
-            <span class="sal-lbl" style="color: var(--blue);">NEW PACKAGE</span>
-            <span class="sal-val" style="color: var(--blue);">₹7–12 LPA</span>
+          <div class="velocity-row">
+            <span class="velocity-lbl">Velocity</span>
+            <span class="velocity-val value-highlight">Completed in 8 Weeks</span>
           </div>
         </div>
 
