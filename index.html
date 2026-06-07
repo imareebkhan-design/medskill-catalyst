@@ -1252,133 +1252,126 @@ input,textarea,select{font-family:inherit}
 /* ── CURRICULUM SECTION REDESIGN ══════════════════ */
 .curriculum-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.75rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3.5rem;
 }
-.module {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  overflow: hidden;
+@media(max-width:950px) {
+  .curriculum-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media(max-width:650px) {
+  .curriculum-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.module-card {
   background: var(--surface);
-  box-shadow: var(--shadow-sm);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.module:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-mid);
-  transform: translateY(-2px);
-}
-.module-header {
+  border: 1px solid rgba(10, 42, 67, 0.06);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 2rem;
   display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  padding: 1.5rem 1.75rem;
-  cursor: pointer;
-  user-select: none;
-  transition: background .2s;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.02);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  text-align: left;
 }
-.module-header:hover {
-  background: var(--bg);
+.module-card:hover {
+  border-color: rgba(0, 88, 158, 0.18);
+  box-shadow: 0 12px 30px rgba(0, 88, 158, 0.05);
+  transform: translateY(-3px);
 }
-.module-num {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: var(--brand-light);
-  color: var(--brand-mid);
+.module-card-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.module-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 30px;
+  background: var(--pale-blue);
+  color: var(--blue);
+  letter-spacing: 0.01em;
+  border: 1px solid rgba(0, 88, 158, 0.08);
+}
+.module-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.module-card-num {
+  font-size: 0.78rem;
   font-weight: 800;
-  font-size: .95rem;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  transition: all 0.3s;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
-.module-title {
-  font-size: 1.1rem;
+.module-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--brand);
+  line-height: 1.3;
+}
+.module-card-hook {
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--brand-mid);
+  line-height: 1.55;
+  margin: 0;
+  font-style: italic;
   flex: 1;
-  line-height: 1.35;
-  letter-spacing: -.01em;
 }
-.module-toggle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--bg);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  transition: all 0.3s;
-}
-.module-toggle svg {
-  width: 14px;
-  height: 14px;
-  stroke: var(--brand-mid);
-  stroke-width: 2.5;
-  fill: none;
-}
-.module.open {
-  border-color: var(--cta);
-  box-shadow: 0 15px 35px rgba(16, 185, 129, 0.06);
-}
-.module.open .module-toggle {
-  transform: rotate(180deg);
-  background: var(--cta);
-  color: #fff;
-}
-.module.open .module-toggle svg {
-  stroke: #fff;
-}
-.module-body-wrap {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.module.open .module-body-wrap {
-  grid-template-rows: 1fr;
-}
-.module-body {
-  overflow: hidden;
-}
-.module-body-inner {
-  padding: 0 1.75rem 1.75rem;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-.module-topics {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+.module-card-deep-dive {
+  border-top: 1px solid rgba(10, 42, 67, 0.06);
   padding-top: 1.25rem;
+  margin-top: auto;
 }
-.module-topic {
+.deep-dive-trigger {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.92rem;
-  color: var(--ink-muted);
-  line-height: 1.5;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
 }
-.module-topic-icon {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(16,92,102,0.06);
-  border: 1px solid rgba(16,92,102,0.15);
-  display: inline-grid;
-  place-items: center;
-  flex-shrink: 0;
+.deep-dive-trigger:hover {
+  color: var(--brand-mid);
 }
-.module-topic-icon svg {
-  width: 10px;
-  height: 10px;
+.deep-dive-trigger svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2.5;
   fill: none;
-  stroke: var(--brand-mid);
-  stroke-width: 3.5;
+  transition: transform 0.3s;
+}
+.module-card-deep-dive.open .deep-dive-trigger svg {
+  transform: rotate(180deg);
+}
+.deep-dive-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+  overflow: hidden;
+}
+.module-card-deep-dive.open .deep-dive-content {
+  grid-template-rows: 1fr;
+}
+.deep-dive-inner {
+  min-height: 0;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  padding-top: 0.75rem;
 }
 .module-project-card {
   background: rgba(16, 92, 102, 0.03);
@@ -1423,6 +1416,95 @@ input,textarea,select{font-family:inherit}
   line-height: 1.45;
 }
 @media(max-width:850px){.curriculum-grid{grid-template-columns:1fr}}
+
+/* ── SYLLABUS BREAKDOWN DROPDOWN ══════════════════ */
+.syllabus-breakdown-wrapper {
+  margin-top: 3.5rem;
+  text-align: center;
+}
+.syllabus-toggle-btn {
+  background: none;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+.syllabus-toggle-btn:hover {
+  color: var(--brand-mid);
+}
+.syllabus-dropdown-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  text-align: left;
+}
+.syllabus-dropdown-content.open {
+  grid-template-rows: 1fr;
+}
+.syllabus-inner {
+  min-height: 0;
+  padding-top: 1.5rem;
+}
+.syllabus-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 2.25rem;
+  background: var(--surface);
+  border: 1px solid rgba(10, 42, 67, 0.08);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.02);
+}
+.syllabus-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.syllabus-col-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid rgba(10, 42, 67, 0.06);
+  padding-bottom: 0.5rem;
+}
+.syllabus-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.syllabus-col-item {
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.syllabus-col-item::before {
+  content: "•";
+  color: var(--blue);
+  font-weight: bold;
+}
+@media(max-width:768px) {
+  .syllabus-grid {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+}
+
 
 /* ── CONVERSATIONAL ONBOARDING WIZARD ══════════════ */
 .quiz-wizard {
@@ -3455,6 +3537,18 @@ input,textarea,select{font-family:inherit}
       <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
     </div>
     <div class="curriculum-grid" id="curriculum-grid"></div>
+
+    <!-- Syllabus Breakdown Dropdown -->
+    <div class="syllabus-breakdown-wrapper fade-up">
+      <button class="syllabus-toggle-btn" onclick="toggleSyllabusBreakdown()">
+        <span>View Comprehensive Technical Syllabus Breakdown (PDF / Expand)</span> ➔
+      </button>
+      <div id="syllabus-dropdown" class="syllabus-dropdown-content">
+        <div class="syllabus-inner">
+          <div class="syllabus-grid" id="syllabus-grid"></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -4073,12 +4167,90 @@ input,textarea,select{font-family:inherit}
 <script>
 /* ── DATA ──────────────────────────────────────────────────────── */
 const MODULES = [
-  {num:'01',title:'Anatomy & Surgical Field Navigation',topics:['Reading surgical maps and approaching key anatomical landmarks','How scrub nurses, technicians, and surgeons divide OR responsibility','Sterile field etiquette — when to speak vs. observe','High-stakes case support: ortho, cardio, laparoscopy']},
-  {num:'02',title:'Multi-Stakeholder Hospital Procurement',topics:['Mapping the buying committee: CNO, CMO, procurement, HOD','How public vs. private hospital purchasing works differently','Navigating tender processes and formulary addition','Building champions at every level of the hierarchy']},
-  {num:'03',title:'Consultative Enterprise Sales',topics:['The difference between pharma detailing and device consultative selling','Needs-discovery frameworks used by top Stryker reps','Handling "we already have a vendor" and other stalls','Building long-cycle deals across 3–9 month buying windows']},
-  {num:'04',title:'Device Portfolio & Competitive Selling',topics:['How to learn a new product portfolio in 2 weeks','Reading a clinical study — what matters for device sales','Competitive landscape: knowing your rivals\' weaknesses','Objection handling for price, efficacy, and switching costs']},
-  {num:'05',title:'Clinical Data Interpretation',topics:['Reading a clinical paper like a sales professional','Regulatory basics: CE Mark, 510(k), CDSCO registration','Post-market surveillance: using real-world data in selling','Translating evidence for surgeons and administrators alike']},
-  {num:'06',title:'Career Architecture & Placement Sprint',topics:['Rebuilding your resume from pharma MR to MedTech AE','LinkedIn optimisation for inbound recruiter attention','60-min mock interviews with actual MedTech hiring managers','Offer negotiation: base, variables, and benefits — what to push on']}
+  {
+    num: '01',
+    title: 'Foundations of Medical Devices & The Ecosystem',
+    badges: ['CDSCO / ISO Compliance', 'MNC vs. Domestic PLI'],
+    hook: 'Transition from retail pill volume to high-value medical device classification asset management.',
+    deepDive: 'Class A-D risk routing, diagnostic vs. therapeutic device profiles, domestic PLI schemes, and global MNC (GE, Siemens, Philips) import supply chains.',
+    originalTopics: [
+      'Reading surgical maps and approaching key anatomical landmarks',
+      'How scrub nurses, technicians, and surgeons divide OR responsibility',
+      'Sterile field etiquette — when to speak vs. observe',
+      'High-stakes case support: ortho, cardio, laparoscopy'
+    ],
+    originalTitle: 'Anatomy & Surgical Field Navigation'
+  },
+  {
+    num: '02',
+    title: 'Healthcare Environments & Multi-Stakeholder Procurement',
+    badges: ['OR & Cath Lab Flows', 'HCP Personas'],
+    hook: 'Command authority in complex hospital setups and align multi-stakeholder purchasing loops.',
+    deepDive: 'Sterile field protocols, CSSD tracking, ER/ICU workflows, and building consensus across Surgeons, Biomedical Engineers, and Administrative boards.',
+    originalTopics: [
+      'Mapping the buying committee: CNO, CMO, procurement, HOD',
+      'How public vs. private hospital purchasing works differently',
+      'Navigating tender processes and formulary addition',
+      'Building champions at every level of the hierarchy'
+    ],
+    originalTitle: 'Multi-Stakeholder Hospital Procurement'
+  },
+  {
+    num: '03',
+    title: 'Consultative Medical Device Enterprise Sales Dynamics',
+    badges: ['B2B Capital Cycles', 'KOL Alignment'],
+    hook: 'Bypass transactional retail scripts. Master extended corporate sales cycles and engage senior specialists.',
+    deepDive: 'Capital equipment pricing frameworks, mapping hospital influence hierarchies, managing cross-functional GPOs, and strategic KOL trial workshops.',
+    originalTopics: [
+      'The difference between pharma detailing and device consultative selling',
+      'Needs-discovery frameworks used by top Stryker reps',
+      'Handling "we already have a vendor" and other stalls',
+      'Building long-cycle deals across 3–9 month buying windows'
+    ],
+    originalTitle: 'Consultative Enterprise Sales'
+  },
+  {
+    num: '04',
+    title: 'Device Portfolio Strategy & Competitive Selling',
+    badges: ['In-Theatre Trials', 'Objection Dominance'],
+    hook: 'Run bulletproof surgical account demonstrations and systematically displace entrenched global competitors.',
+    deepDive: 'Specialty lines (Cardiology, Orthopedics, Radiology), live OT trial handoffs, navigating technology adoption friction, and structuring bundled commercial financing.',
+    originalTopics: [
+      'How to learn a new product portfolio in 2 weeks',
+      'Reading a clinical study — what matters for device sales',
+      'Competitive landscape: knowing your rivals\' weaknesses',
+      'Objection handling for price, efficacy, and switching costs'
+    ],
+    originalTitle: 'Device Portfolio & Competitive Selling'
+  },
+  {
+    num: '05',
+    title: 'Distribution Channels & Supply Chain Logistics',
+    badges: ['Channel Partner ROI', 'Cold-Chain Logistics'],
+    hook: 'Govern regional distributor territories and maintain absolute control over product inventory velocity.',
+    deepDive: 'Super-stockist structures, indirect vs. direct logistics, setting partner KPI metrics, margin protection, and managing reverse logistics pipelines.',
+    originalTopics: [
+      'Reading a clinical paper like a sales professional',
+      'Regulatory basics: CE Mark, 510(k), CDSCO registration',
+      'Post-market surveillance: using real-world data in selling',
+      'Translating evidence for surgeons and administrators alike'
+    ],
+    originalTitle: 'Clinical Data Interpretation'
+  },
+  {
+    num: '06',
+    title: 'Clinical Data Interpretation & RAQA Metrics',
+    badges: ['Evidence-Based Value', 'Quality Assurance'],
+    hook: 'Back up your commercial pitch with verified clinical trial data, medical journals, and strict regulatory benchmarks.',
+    deepDive: 'Analyzing clinical trial efficacy metrics, leveraging peer-reviewed safety studies to counter price friction, and managing baseline ISO quality frameworks.',
+    originalTopics: [
+      'Rebuilding your resume from pharma MR to MedTech AE',
+      'LinkedIn optimisation for inbound recruiter attention',
+      '60-min mock interviews with actual MedTech hiring managers',
+      'Offer negotiation: base, variables, and benefits — what to push on'
+    ],
+    originalTitle: 'Career Architecture & Placement Sprint'
+  }
 ];
 
 const FAQS = [
@@ -4095,9 +4267,46 @@ const FAQS = [
 const cgrid = document.getElementById('curriculum-grid');
 MODULES.forEach(m=>{
   const el=document.createElement('div');
-  el.className='module fade-up';
-  el.innerHTML=`<div class="module-header" onclick="toggleModule(this)"><div class="module-num">${m.num}</div><div class="module-title">${m.title}</div><div class="module-toggle"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="module-body-wrap"><div class="module-body"><div class="module-body-inner"><div class="module-topics">${m.topics.map(t=>`<div class="module-topic"><span class="module-topic-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>${t}</div>`).join('')}</div></div></div></div>`;
+  el.className='module-card fade-up';
+  
+  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
+  
+  el.innerHTML = `
+    <div class="module-card-badges">
+      ${badgesHtml}
+    </div>
+    <div class="module-card-header">
+      <div class="module-card-num">Module ${m.num}</div>
+      <h3 class="module-card-title">${m.title}</h3>
+    </div>
+    <p class="module-card-hook">"${m.hook}"</p>
+    <div class="module-card-deep-dive">
+      <div class="deep-dive-trigger" onclick="toggleDeepDive(this)">
+        <span>Show Details</span>
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="deep-dive-content">
+        <div class="deep-dive-inner">
+          ${m.deepDive}
+        </div>
+      </div>
+    </div>
+  `;
   cgrid.appendChild(el);
+});
+
+/* ── BUILD SYLLABUS BREAKDOWN ──────────────────────────────────── */
+const sgrid = document.getElementById('syllabus-grid');
+MODULES.forEach(m => {
+  const col = document.createElement('div');
+  col.className = 'syllabus-col';
+  col.innerHTML = `
+    <div class="syllabus-col-title">Module ${m.num}: ${m.originalTitle}</div>
+    <ul class="syllabus-col-list">
+      ${m.originalTopics.map(t => `<li class="syllabus-col-item">${t}</li>`).join('')}
+    </ul>
+  `;
+  sgrid.appendChild(col);
 });
 
 /* ── BUILD FAQ ─────────────────────────────────────────────────── */
@@ -4111,6 +4320,27 @@ FAQS.forEach(f=>{
 
 /* ── ACCORDIONS ────────────────────────────────────────────────── */
 function toggleModule(h){h.closest('.module').classList.toggle('open')}
+function toggleDeepDive(trigger) {
+  const container = trigger.closest('.module-card-deep-dive');
+  const isOpen = container.classList.toggle('open');
+  const span = trigger.querySelector('span');
+  if (span) {
+    span.textContent = isOpen ? 'Hide Details' : 'Show Details';
+  }
+}
+function toggleSyllabusBreakdown() {
+  const dropdown = document.getElementById('syllabus-dropdown');
+  const btn = document.querySelector('.syllabus-toggle-btn');
+  const isOpen = dropdown.classList.toggle('open');
+  if (btn) {
+    const span = btn.querySelector('span');
+    if (span) {
+      span.textContent = isOpen 
+        ? 'Hide Comprehensive Technical Syllabus Breakdown' 
+        : 'View Comprehensive Technical Syllabus Breakdown (PDF / Expand)';
+    }
+  }
+}
 function toggleFaq(b){b.closest('.faq-item').classList.toggle('open')}
 
 /* ── MODALS ────────────────────────────────────────────────────── */
