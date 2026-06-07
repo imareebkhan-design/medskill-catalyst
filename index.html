@@ -1921,11 +1921,10 @@ input,textarea,select{font-family:inherit}
 }
 
 #masterclass {
-  background: linear-gradient(135deg, #07191C 0%, #040E10 100%);
-  overflow: hidden;
+  background: #040e10;
   position: relative;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  padding: 6.5rem 0;
 }
 #masterclass::before {
   content: '';
@@ -1935,30 +1934,32 @@ input,textarea,select{font-family:inherit}
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.07) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 88, 158, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 .masterclass-inner {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 4.5rem;
-  align-items: center;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 5rem;
+  align-items: flex-start;
   position: relative;
   z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .mc-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  background: rgba(16, 185, 129, 0.06);
-  color: var(--cta);
+  background: rgba(74, 208, 255, 0.08);
+  color: var(--cyan);
   padding: 0.45rem 1.15rem;
   border-radius: 100px;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(16, 185, 129, 0.15);
+  margin-bottom: 1.75rem;
+  border: 1px solid rgba(74, 208, 255, 0.15);
 }
 .mc-live-dot {
   width: 8px;
@@ -1974,309 +1975,194 @@ input,textarea,select{font-family:inherit}
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
 }
 .mc-h {
-  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
-  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 800;
   color: #fff;
-  line-height: 1.25;
-  margin-bottom: 1rem;
+  line-height: 1.35;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.02em;
 }
 .mc-sub {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 1.1rem;
-  margin-bottom: 2.25rem;
-  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 1.15rem;
+  margin-bottom: 3rem;
+  line-height: 1.75;
 }
 
-/* Masterclass Agenda Timeline */
+/* Masterclass Value Blocks */
 .mc-agenda {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin-bottom: 2.5rem;
-  position: relative;
-  padding-left: 1.25rem;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding-left: 0;
 }
-.mc-agenda::before {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 0.25rem;
-  bottom: 0.25rem;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.1);
-}
-.mc-agenda-item {
-  position: relative;
+.mc-value-block {
   display: flex;
-  gap: 1.25rem;
-}
-.mc-agenda-dot {
-  position: absolute;
-  left: -21px;
-  top: 0.35rem;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid #07191C;
-}
-.mc-agenda-item.active .mc-agenda-dot {
-  background: var(--cta);
-  box-shadow: 0 0 8px var(--cta);
-}
-.mc-agenda-time {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--cta);
-  font-family: monospace;
-  letter-spacing: 0.05em;
-  flex-shrink: 0;
-  width: 75px;
-}
-.mc-agenda-detail {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.4;
+  flex-direction: column;
+  gap: 0.5rem;
   text-align: left;
 }
-.mc-agenda-detail strong {
-  font-weight: 700;
+.mc-value-time {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--cyan);
+  font-family: var(--font-sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.mc-value-title {
+  font-size: 1.2rem;
+  font-weight: 800;
   color: #fff;
+  line-height: 1.3;
+}
+.mc-value-desc {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.55;
 }
 
-/* Speaker Credibility Badging */
+/* Social Proof visitor badge */
 .mc-speaker-badge {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-.mc-speaker-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-.mc-speaker-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.mc-speaker-info {
-  text-align: left;
-}
-.mc-speaker-name {
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: #fff;
-}
-.mc-speaker-title {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1.25rem;
+  border-radius: 100px;
+  align-self: flex-start;
+  display: inline-flex;
 }
 
-/* Event Admission Ticket Mockup */
-.mc-ticket-container {
-  perspective: 1000px;
-  width: 100%;
-  max-width: 380px;
-  margin: 0 auto;
-}
-.mc-ticket {
-  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+/* Floating Card */
+.mc-floating-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: 0 30px 60px rgba(0, 88, 158, 0.12), 0 10px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(12px);
+  gap: 1.5rem;
   position: relative;
-  transition: all 0.15s ease-out;
-  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.ticket-speaker-photo-wrap {
-  position: relative;
-  width: 100%;
-  height: 250px;
+.mc-floating-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 35px 70px rgba(0, 88, 158, 0.16), 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+.mc-card-speaker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 1.5rem;
+}
+.mc-card-speaker-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
   overflow: hidden;
-  background: #040E10;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(74, 208, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(74, 208, 255, 0.1);
 }
-.ticket-speaker-img {
+.mc-card-speaker-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
 }
-.ticket-speaker-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1.5rem 1.75rem 1.25rem;
-  background: linear-gradient(to top, rgba(4,14,16,1) 0%, rgba(4,14,16,0.6) 50%, rgba(4,14,16,0) 100%);
-  text-align: left;
+.mc-card-speaker-info {
+  text-align: center;
 }
-.ticket-speaker-overlay .speaker-name {
-  font-family: var(--font-sans);
-  font-size: 1.15rem;
+.mc-card-speaker-name {
+  font-size: 1.25rem;
   font-weight: 800;
   color: #fff;
-  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
 }
-.ticket-speaker-overlay .speaker-title {
-  font-size: 0.75rem;
-  color: var(--cta);
+.mc-card-speaker-title {
+  font-size: 0.8rem;
+  color: var(--cyan);
   font-weight: 700;
-  margin-top: 0.15rem;
   letter-spacing: 0.03em;
-}
-.mc-ticket-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(16, 185, 129, 0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
-.mc-ticket-top {
-  padding: 1.75rem;
-  border-bottom: 1.5px dashed rgba(255, 255, 255, 0.12);
-  position: relative;
-  text-align: left;
-}
-.mc-ticket-top::before, .mc-ticket-top::after {
-  content: '';
-  position: absolute;
-  bottom: -9px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #040E10;
-  z-index: 2;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.mc-ticket-top::before {
-  left: -10px;
-}
-.mc-ticket-top::after {
-  right: -10px;
-}
-.ticket-logo {
-  font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.45);
-  margin-bottom: 1.25rem;
   text-transform: uppercase;
 }
-.ticket-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 0.85rem;
+
+/* Micro Grid details */
+.mc-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem 1rem;
+  text-align: left;
 }
-.ticket-label {
+.mc-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.mc-detail-label {
   font-size: 0.68rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.4);
-  text-transform: uppercase;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
-.ticket-val {
-  font-size: 0.8rem;
+.mc-detail-val {
+  font-size: 0.88rem;
   font-weight: 700;
   color: #fff;
-  text-align: right;
 }
-.ticket-val.highlight {
-  color: var(--cta);
+.mc-detail-val.highlight {
+  color: var(--cyan);
 }
-.mc-ticket-bottom {
-  padding: 1.75rem;
-  background: rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.mc-barcode-wrap {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  opacity: 0.65;
-}
-.mc-barcode {
-  height: 38px;
-  width: 80%;
-  background: linear-gradient(90deg, 
-    #fff 0%, #fff 2%, transparent 2%, transparent 4%,
-    #fff 4%, #fff 8%, transparent 8%, transparent 10%,
-    #fff 10%, #fff 11%, transparent 11%, transparent 14%,
-    #fff 14%, #fff 15%, transparent 15%, transparent 18%,
-    #fff 18%, #fff 22%, transparent 22%, transparent 25%,
-    #fff 25%, #fff 27%, transparent 27%, transparent 30%,
-    #fff 30%, #fff 35%, transparent 35%, transparent 38%,
-    #fff 38%, #fff 40%, transparent 40%, transparent 44%,
-    #fff 44%, #fff 45%, transparent 45%, transparent 48%,
-    #fff 48%, #fff 52%, transparent 52%, transparent 55%,
-    #fff 55%, #fff 58%, transparent 58%, transparent 60%,
-    #fff 60%, #fff 64%, transparent 64%, transparent 68%,
-    #fff 68%, #fff 70%, transparent 70%, transparent 74%,
-    #fff 74%, #fff 75%, transparent 75%, transparent 78%,
-    #fff 78%, #fff 82%, transparent 82%, transparent 85%,
-    #fff 85%, #fff 88%, transparent 88%, transparent 90%,
-    #fff 90%, #fff 95%, transparent 95%, transparent 98%,
-    #fff 98%, #fff 100%
-  );
-}
-.mc-ticket-id {
-  font-family: monospace;
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.35);
-  margin-top: 0.4rem;
-  letter-spacing: 0.1em;
-}
+
+/* Seats indicator */
 .mc-seats-ticker {
   width: 100%;
-  margin-bottom: 1.25rem;
   text-align: left;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1.25rem;
 }
-.mc-seats-ticker .mc-seats-lbl {
+.mc-seats-lbl {
   font-size: 0.72rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.45);
   letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
-.mc-seats-ticker .mc-seats-bar {
+.mc-seats-bar {
   background: rgba(255, 255, 255, 0.08);
-  height: 5px;
-  border-radius: 3px;
+  height: 6px;
+  border-radius: 100px;
   overflow: hidden;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
-.mc-seats-ticker .mc-seats-fill {
-  background: var(--cta);
-  width: 22%;
+.mc-seats-fill {
+  background: var(--blue);
+  width: 82%;
   height: 100%;
-  border-radius: 3px;
-  box-shadow: 0 0 8px var(--cta);
+  border-radius: 100px;
+  box-shadow: 0 0 12px rgba(0, 88, 158, 0.5);
 }
-.mc-seats-ticker .mc-seats-note {
+.mc-seats-note {
   font-size: 0.75rem;
-  color: var(--cta);
+  color: var(--cyan);
   font-weight: 700;
 }
-@media(max-width:900px){
+
+@media(max-width:900px) {
   .masterclass-inner {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 4rem;
   }
-  .mc-ticket-container {
-    max-width: 340px;
+  #masterclass {
+    padding: 4.5rem 0;
   }
 }
 
@@ -3564,22 +3450,22 @@ input,textarea,select{font-family:inherit}
         <h2 class="mc-h">Break Into MedTech Sales in 90 Days — Without Prior Device Experience</h2>
         <p class="mc-sub">Gagan Victor shares the exact, unwritten playbook our graduates use to secure interviews and offers at industry leaders like Stryker, Medtronic, and J&amp;J MedTech.</p>
         
-        <!-- Live Timeline Agenda -->
+        <!-- Live Value Blocks -->
         <div class="mc-agenda">
-          <div class="mc-agenda-item active">
-            <div class="mc-agenda-dot"></div>
-            <div class="mc-agenda-time">11:00 AM</div>
-            <div class="mc-agenda-detail"><strong>The MedTech Map:</strong> Why Stryker, Medtronic, and J&amp;J are hiring career-switchers right now & what they look for.</div>
+          <div class="mc-value-block">
+            <div class="mc-value-time">11:00 AM</div>
+            <h3 class="mc-value-title">The MedTech Map</h3>
+            <p class="mc-value-desc">Why Stryker, Medtronic, and J&amp;J are hiring career-switchers right now &amp; what they look for.</p>
           </div>
-          <div class="mc-agenda-item">
-            <div class="mc-agenda-dot"></div>
-            <div class="mc-agenda-time">11:30 AM</div>
-            <div class="mc-agenda-detail"><strong>The Resume Pivot:</strong> Re-engineering your non-device sales experience into a high-intent MedTech sales profile.</div>
+          <div class="mc-value-block">
+            <div class="mc-value-time">11:30 AM</div>
+            <h3 class="mc-value-title">The Resume Pivot</h3>
+            <p class="mc-value-desc">Re-engineering your non-device sales experience into a high-intent MedTech sales profile.</p>
           </div>
-          <div class="mc-agenda-item">
-            <div class="mc-agenda-dot"></div>
-            <div class="mc-agenda-time">12:00 PM</div>
-            <div class="mc-agenda-detail"><strong>OR Protocols & Q&A:</strong> Live simulation case study breakdown & interactive student Q&A.</div>
+          <div class="mc-value-block">
+            <div class="mc-value-time">12:00 PM</div>
+            <h3 class="mc-value-title">OR Protocols &amp; Q&amp;A</h3>
+            <p class="mc-value-desc">Live simulation case study breakdown &amp; interactive student Q&A.</p>
           </div>
         </div>
 
@@ -3597,49 +3483,44 @@ input,textarea,select{font-family:inherit}
       </div>
       
       <div class="fade-up">
-        <!-- Event Admission Ticket Mockup -->
-        <div class="mc-ticket-container" id="mcTicketPass">
-          <div class="mc-ticket" data-tilt>
-            <div class="mc-ticket-glow"></div>
-            <div class="ticket-speaker-photo-wrap">
-              <img src="assets/gagan_victor.png" alt="Gagan Victor" class="ticket-speaker-img" loading="lazy">
-              <div class="ticket-speaker-overlay">
-                <div class="speaker-name">Gagan Victor</div>
-                <div class="speaker-title">Ex-Regional Sales Manager, Medtronic</div>
-              </div>
+        <!-- Floating Registration Card -->
+        <div class="mc-floating-card">
+          <div class="mc-card-speaker">
+            <div class="mc-card-speaker-avatar">
+              <img src="assets/gagan_victor.png" alt="Gagan Victor" loading="lazy">
             </div>
-            <div class="mc-ticket-top">
-              <div class="ticket-logo">MEDSKILLS CATALYST</div>
-              <div class="ticket-row">
-                <div class="ticket-label">EVENT</div>
-                <div class="ticket-val highlight">VIP LIVE ADMISSION</div>
-              </div>
-              <div class="ticket-row">
-                <div class="ticket-label">DATE</div>
-                <div class="ticket-val">Saturday, 7th June</div>
-              </div>
-              <div class="ticket-row">
-                <div class="ticket-label">TIME</div>
-                <div class="ticket-val">11:00 AM IST</div>
-              </div>
-              <div class="ticket-row">
-                <div class="ticket-label">PORTAL</div>
-                <div class="ticket-val" style="color: #60A5FA;">Zoom Broadcast Live</div>
-              </div>
-            </div>
-            <div class="mc-ticket-bottom">
-              <div class="mc-seats-ticker">
-                <p class="mc-seats-lbl">SEATS ALLOCATED</p>
-                <div class="mc-seats-bar"><div class="mc-seats-fill" style="width: 82%;"></div></div>
-                <p class="mc-seats-note">Limited Seats · Free Registration</p>
-              </div>
-              <button class="btn btn--amber btn--full" onclick="openModal('mc-overlay')" data-track="masterclass_ticket_rsvp" style="border-radius: 8px; margin-bottom: 1.25rem;">Claim your free spot today →</button>
-              <div class="mc-barcode-wrap" style="margin-bottom: 0;">
-                <div class="mc-barcode"></div>
-                <div class="mc-ticket-id">PASS# MC-2026-LIVE</div>
-              </div>
+            <div class="mc-card-speaker-info">
+              <h4 class="mc-card-speaker-name">Gagan Victor</h4>
+              <p class="mc-card-speaker-title">Ex-Regional Sales Manager, Medtronic</p>
             </div>
           </div>
+          
+          <div class="mc-details-grid">
+            <div class="mc-detail-item">
+              <span class="mc-detail-label">EVENT</span>
+              <span class="mc-detail-val highlight">VIP LIVE ADMISSION</span>
+            </div>
+            <div class="mc-detail-item">
+              <span class="mc-detail-label">DATE</span>
+              <span class="mc-detail-val">Saturday, 7th June</span>
+            </div>
+            <div class="mc-detail-item">
+              <span class="mc-detail-label">TIME</span>
+              <span class="mc-detail-val">11:00 AM IST</span>
+            </div>
+            <div class="mc-detail-item">
+              <span class="mc-detail-label">PORTAL</span>
+              <span class="mc-detail-val highlight">Zoom Broadcast Live</span>
+            </div>
+          </div>
+          
+          <div class="mc-seats-ticker">
+            <p class="mc-seats-lbl">SEATS ALLOCATED</p>
+            <div class="mc-seats-bar"><div class="mc-seats-fill" style="width: 82%;"></div></div>
+            <p class="mc-seats-note">Limited Seats · Free Registration</p>
+          </div>
+          
+          <button class="btn btn--blue btn--full btn--lg" onclick="openModal('mc-overlay')" data-track="masterclass_card_rsvp" style="padding: 1.15rem; font-weight: 800; font-size: 1rem; margin-top: 0.5rem;">Claim your free spot today ➔</button>
         </div>
       </div>
     </div>
