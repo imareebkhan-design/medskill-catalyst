@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- TODO: replace with authorised simplified favicon lockup -->
-<link rel="icon" href="public/brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
+<link rel="icon" href="brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
 <title>MedSkills Catalyst — India's MedTech Career Academy</title>
 <meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. 8 weeks · 100% placement support.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
   --cyan:         #4AD0FF;       /* ACCENT ONLY — rationed */
   --ink:          #0F1B27;       /* body text */
   --pale-blue:    #E8F2FB;       /* tints, pills, soft fills */
-  --slate:        #5A6B7B;       /* captions, secondary text */
+  --slate:        #3A4D60;       /* captions, secondary text - contrast boosted */
   --canvas:       #F7F9FB;       /* dominant page background */
   --surface:      #FFFFFF;       /* cards, sheets */
 
@@ -52,8 +52,9 @@
   --border-mid:   rgba(10, 42, 67, 0.15);
   
   --shadow-sm:    0 2px 8px rgba(10, 42, 67, 0.02);
-  --shadow-md:    0 16px 40px rgba(10, 42, 67, 0.04);
-  --shadow-lg:    0 30px 80px rgba(10, 42, 67, 0.08);
+  --shadow-md:    0 12px 32px rgba(10, 42, 67, 0.05);
+  --shadow-lg:    0 24px 60px rgba(10, 42, 67, 0.08);
+  --shadow-glow:  0 8px 30px rgba(0, 88, 158, 0.25);
   
   --radius-sm:    8px;
   --radius-md:    12px;
@@ -79,15 +80,15 @@ input,textarea,select{font-family:inherit}
 /* ── LAYOUT & CONTAINER ──────────────────────────────────────────── */
 .container{width:min(1200px,100% - 3rem);margin-inline:auto}
 .container--narrow{width:min(760px,100% - 3rem);margin-inline:auto}
-.section{padding-block:clamp(6rem,11vw,9.5rem)}
+.section{padding-block:clamp(3.5rem,8vw,9.5rem)}
 .section--alt{background:var(--surface)}
 .section--brand{background:var(--brand)}
 .section--dark{background:#081318; position:relative; overflow:hidden}
 
 /* ── TYPOGRAPHY ──────────────────────────────────────────────────── */
-.t-display{font-family:var(--font-serif);font-size:clamp(2.5rem,6.8vw,5rem);font-weight:700;line-height:1.06;letter-spacing:-.03em;color:var(--brand)}
-.t-h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5.2vw,3.8rem);font-weight:700;line-height:1.1;letter-spacing:-.02em}
-.t-h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;line-height:1.15;letter-spacing:-.02em;color:var(--brand)}
+.t-display{font-family:var(--font-serif);font-size:clamp(2.5rem,6.8vw,5rem);font-weight:700;line-height:1.15;letter-spacing:-.015em;color:var(--brand)}
+.t-h1{font-family:var(--font-serif);font-size:clamp(2.2rem,5.2vw,3.8rem);font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.t-h2{font-family:var(--font-serif);font-size:clamp(1.8rem,3.8vw,2.8rem);font-weight:700;line-height:1.25;letter-spacing:-.01em;color:var(--brand)}
 .t-h3{font-family:var(--font-sans);font-size:clamp(1.15rem,2vw,1.45rem);font-weight:700;line-height:1.3;letter-spacing:-.01em}
 .t-body-lg{font-size:1.15rem;line-height:1.75;font-weight:400;color:var(--ink-muted)}
 .t-body{font-size:1rem;line-height:1.68;color:var(--ink-muted)}
@@ -131,8 +132,8 @@ input,textarea,select{font-family:inherit}
 .fade-up.visible{opacity:1;transform:none}
 
 /* ══════════════════ NAV OVERHAUL ═════════════════════════════════ */
-#nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all .3s var(--easy-out)}
-#nav.scrolled{border-color:var(--border);background:rgba(255,255,255,0.92);box-shadow:0 4px 20px rgba(15,23,42,0.03)}
+#nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all 0.4s var(--easy-out)}
+#nav.scrolled{border-color:rgba(10, 42, 67, 0.06);background:rgba(255, 255, 255, 0.92);box-shadow:0 10px 30px rgba(10, 42, 67, 0.04);height:calc(var(--nav-h) - 8px);}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:100%}
 .nav-logo{display:flex;align-items:center;gap:.75rem}
 .nav-logo-mark{width:40px;height:40px;display:grid;place-items:center;flex-shrink:0}
@@ -151,7 +152,75 @@ input,textarea,select{font-family:inherit}
 .nav-wa{display:flex;align-items:center;gap:.4rem;font-size:.875rem;font-weight:700;color:#128C7E;transition:color .2s}
 .nav-wa:hover{color:#075E54}
 .nav-wa svg{width:16px;height:16px;fill:currentColor}
-@media(max-width:850px){.nav-links,.nav-phone,.nav-wa{display:none}}
+.nav-cta-mobile{display:none;padding:0.5rem 1.15rem;font-size:0.8rem;border-radius:var(--radius-sm);background:var(--blue);color:#fff;font-weight:700;box-shadow:var(--shadow-sm);transition:all 0.2s;}
+.nav-cta-mobile:hover{background:var(--cta-hover);box-shadow:var(--shadow-glow);transform:translateY(-1px);}
+@media(max-width:850px){
+  .nav-links,.nav-phone,.nav-wa{display:none}
+  .nav-cta-mobile{display:inline-flex}
+}
+
+/* ── MOBILE STICKY CTA ─────────────────────────────────────────── */
+#mobile-sticky-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(10, 42, 67, 0.08);
+  padding: 0.75rem 1.25rem;
+  z-index: 1000;
+  box-shadow: 0 -8px 30px rgba(10, 42, 67, 0.06);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#mobile-sticky-cta.reveal {
+  transform: translateY(0);
+}
+.mobile-sticky-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 1.25rem;
+}
+.mobile-sticky-cta-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.mobile-sticky-cta-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1.25;
+}
+.mobile-sticky-cta-sub {
+  font-size: 0.72rem;
+  color: var(--slate);
+  margin-top: 0.15rem;
+  font-weight: 500;
+}
+.btn--mobile-cta {
+  padding: 0.65rem 1.25rem;
+  font-size: 0.82rem;
+  border-radius: var(--radius-sm);
+  background: var(--blue);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+.btn--mobile-cta:hover {
+  background: var(--cta-hover);
+  box-shadow: var(--shadow-glow);
+}
+@media (min-width: 769px) {
+  #mobile-sticky-cta {
+    display: none !important;
+  }
+}
 
 /* ══════════════════ HERO SECTION REDESIGN ════════════════════════ */
 #hero{position:relative;padding-top:calc(var(--nav-h) + clamp(1.5rem,4vw,3rem));padding-bottom:clamp(2rem,5vw,4rem);background:var(--bg);overflow:hidden}
@@ -381,27 +450,64 @@ input,textarea,select{font-family:inherit}
   text-align: center;
   max-width: 720px;
   margin-inline: auto;
-  margin-bottom: 5rem;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
 .outcomes-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
   gap: 2.5rem;
 }
+@media (min-width: 990px) {
+  .outcomes-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .outcome-card:nth-child(1), .outcome-card:nth-child(4) {
+    grid-column: span 2;
+  }
+  .outcome-card:nth-child(1) .outcome-transition-path,
+  .outcome-card:nth-child(4) .outcome-transition-path {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .outcome-card:nth-child(1) .path-arrow,
+  .outcome-card:nth-child(4) .path-arrow {
+    transform: rotate(-90deg);
+  }
+}
+@media (max-width: 989px) {
+  .outcome-card .outcome-transition-path {
+    display: flex;
+    flex-direction: column;
+  }
+  .outcome-card .path-arrow {
+    transform: none !important;
+  }
+}
 .outcome-card {
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 2.25rem;
+  padding: 2.5rem;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.4s var(--easy-out), box-shadow 0.4s var(--easy-out), border-color 0.4s var(--easy-out);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .outcome-card:hover {
   box-shadow: var(--shadow-lg);
   border-color: var(--border-mid);
   transform: translateY(-4px);
+}
+.outcome-card:nth-child(1), .outcome-card:nth-child(4) {
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+              linear-gradient(135deg, rgba(0, 88, 158, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%) border-box;
+  border: 1px solid transparent;
 }
 .card-linkedin-link {
   display: inline-flex;
@@ -1918,6 +2024,13 @@ input,textarea,select{font-family:inherit}
   margin-bottom: 2.25rem;
   align-items: center;
 }
+@media (max-width: 550px) {
+  .lead-book-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
+}
 .book-mockup {
   width: 130px;
   height: 175px;
@@ -1974,13 +2087,13 @@ input,textarea,select{font-family:inherit}
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 .book-title {
-  font-family: var(--font-serif);
-  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
   font-weight: 700;
   color: #fff;
   line-height: 1.35;
   margin-top: 0.3rem;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 .book-meta {
   font-size: 0.5rem;
@@ -2235,7 +2348,7 @@ input,textarea,select{font-family:inherit}
 }
 .roi-card-desc {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.8);
 }
 .roi-sliders {
   display: flex;
@@ -2316,7 +2429,7 @@ input,textarea,select{font-family:inherit}
 }
 .roi-disclaimer {
   font-size: 0.76rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.75);
   line-height: 1.4;
   text-align: left;
   margin-top: 1.5rem;
@@ -2472,7 +2585,7 @@ input,textarea,select{font-family:inherit}
   <div class="container nav-inner">
     <a href="#" class="nav-logo" aria-label="MedSkills Catalyst">
       <div class="nav-logo-mark">
-        <img src="public/brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
+        <img src="brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
       </div>
       <div class="nav-logo-text">MedSkills Catalyst<span>Upskill to Upscale</span></div>
     </a>
@@ -2484,6 +2597,7 @@ input,textarea,select{font-family:inherit}
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-actions">
+      <button class="btn nav-cta-mobile" onclick="openModal('mc-overlay')" data-track="nav_mobile_rsvp">Reserve Spot</button>
       <a class="nav-phone" href="tel:+919900000000">
         <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.32 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.49 5.49l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         +91 99000 00000
@@ -2514,7 +2628,7 @@ input,textarea,select{font-family:inherit}
           <div class="hero-stats fade-up">
             <div class="hero-stat"><span class="hero-stat-num">₹5–15 LPA</span><span class="hero-stat-label">Target Starting Salary</span></div>
             <div class="hero-stat-divider"></div>
-            <div class="hero-stat"><span class="hero-stat-num">July 2026</span><span class="hero-stat-label">Founding Cohort Starts</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">July 2026</span><span class="hero-stat-label">Cohort Starts</span></div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat"><span class="hero-stat-num">Limited Seats</span><span class="hero-stat-label">Batch Size Limit</span></div>
           </div>
@@ -2548,7 +2662,7 @@ input,textarea,select{font-family:inherit}
           ⚕
         </div>
         <div>
-          <div class="badge-title">Founding Cohort</div>
+          <div class="badge-title">Cohort</div>
           <div class="badge-desc">Strictly limited to 6 seats for clinical mentoring</div>
         </div>
       </div>
@@ -2566,7 +2680,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Neha Johari</div>
               <div class="st-path">Cardiology BD Exec ➔ Marketing Manager, Boston Scientific</div>
             </div>
-            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
@@ -2575,7 +2688,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Garvita Khurana</div>
               <div class="st-path">Biomedical Engineer ➔ Product Manager, Teleflex Medical</div>
             </div>
-            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
@@ -2584,7 +2696,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Vasudha Singh</div>
               <div class="st-path">Biotech Graduate ➔ Clinical Therapy Specialist, Medtronic</div>
             </div>
-            <div class="st-badge">Target: ₹5–8 LPA</div>
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
@@ -2593,7 +2704,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Shivam Tiwari</div>
               <div class="st-path">Pharma Representative ➔ Area Manager, Matrix Labs</div>
             </div>
-            <div class="st-badge">Target: ₹7–12 LPA</div>
           </div>
           
           <!-- Duplicate cards for infinite loop -->
@@ -2604,7 +2714,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Neha Johari</div>
               <div class="st-path">Cardiology BD Exec ➔ Marketing Manager, Boston Scientific</div>
             </div>
-            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 2 -->
           <div class="student-ticker-card">
@@ -2613,7 +2722,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Garvita Khurana</div>
               <div class="st-path">Biomedical Engineer ➔ Product Manager, Teleflex Medical</div>
             </div>
-            <div class="st-badge">Target: ₹8–15 LPA</div>
           </div>
           <!-- Card 3 -->
           <div class="student-ticker-card">
@@ -2622,7 +2730,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Vasudha Singh</div>
               <div class="st-path">Biotech Graduate ➔ Clinical Therapy Specialist, Medtronic</div>
             </div>
-            <div class="st-badge">Target: ₹5–8 LPA</div>
           </div>
           <!-- Card 4 -->
           <div class="student-ticker-card">
@@ -2631,7 +2738,6 @@ input,textarea,select{font-family:inherit}
               <div class="st-name">Shivam Tiwari</div>
               <div class="st-path">Pharma Representative ➔ Area Manager, Matrix Labs</div>
             </div>
-            <div class="st-badge">Target: ₹7–12 LPA</div>
           </div>
         </div>
       </div>
@@ -3053,7 +3159,6 @@ input,textarea,select{font-family:inherit}
                 <div class="offer-divider"></div>
                 <div class="offer-details-table">
                   <div class="offer-row"><span class="off-lbl">COMPANY:</span><span class="off-val">Stryker India Pvt Ltd</span></div>
-                  <div class="offer-row"><span class="off-lbl">PACKAGE:</span><span class="off-val text-emerald">₹8.2 LPA + Incentives</span></div>
                   <div class="offer-row"><span class="off-lbl">ROLE:</span><span class="off-val">Application Specialist</span></div>
                 </div>
               </div>
@@ -3174,7 +3279,6 @@ input,textarea,select{font-family:inherit}
             <div class="offer-divider"></div>
             <div class="offer-details-table">
               <div class="offer-row"><span class="off-lbl">COMPANY:</span><span class="off-val">Stryker India Pvt Ltd</span></div>
-              <div class="offer-row"><span class="off-lbl">PACKAGE:</span><span class="off-val text-emerald" style="font-weight:800;">₹8.2 LPA + Incentives</span></div>
               <div class="offer-row"><span class="off-lbl">ROLE:</span><span class="off-val">Application Specialist</span></div>
             </div>
           </div>
@@ -3295,25 +3399,6 @@ input,textarea,select{font-family:inherit}
     </div>
     
     <div class="faculty-grid">
-      <!-- Dr. Vincent Keny, PhD Card -->
-      <div class="faculty-card fade-up">
-        <div class="faculty-av-wrap">
-          <div class="faculty-portrait-container">
-            <img class="faculty-portrait" src="assets/vincent_keny.png" alt="Dr. Vincent Keny, PhD" loading="lazy">
-          </div>
-        </div>
-        <div class="faculty-details">
-          <div class="faculty-name">Dr. Vincent Keny, PhD</div>
-          <div class="faculty-role">Executive Coach &amp; Leadership Mentor</div>
-          <div class="faculty-badges">
-            <span class="faculty-badge">Ex-Boston Scientific</span>
-            <span class="faculty-badge">ICF Certified Coach</span>
-            <span class="faculty-badge">MIT Sloan Alumnus</span>
-          </div>
-          <p class="faculty-bio">With over 25 years of global corporate experience driving business and personal excellence, Dr. Keny brings elite leadership frameworks to MedSkills. An ICF Certified Coach and alumnus of MIT Sloan, he specializes in Spiritual &amp; Emotional Business Intelligence, helping candidates master emotional resilience, interpersonal communication, and high-stakes MedTech corporate dynamics.</p>
-        </div>
-      </div>
-
       <!-- Gagan Victor Card -->
       <div class="faculty-card fade-up">
         <div class="faculty-av-wrap">
@@ -3334,17 +3419,38 @@ input,textarea,select{font-family:inherit}
       <!-- Shilpi Babbar Card -->
       <div class="faculty-card fade-up">
         <div class="faculty-av-wrap">
-          <div class="faculty-portrait-container" style="display: grid; place-items: center; background: var(--brand-light); font-weight: 800; color: var(--blue); font-size: 2rem;">
-            SB
+          <div class="faculty-portrait-container">
+            <img class="faculty-portrait" src="assets/shilpi_babbar.jpg" alt="Shilpi Babbar" loading="lazy">
           </div>
         </div>
         <div class="faculty-details">
           <div class="faculty-name">Shilpi Babbar</div>
-          <div class="faculty-role">Co-founder &amp; Student Operations Lead</div>
+          <div class="faculty-role">Co-founder &amp; Skills Enhancement Coach</div>
           <div class="faculty-badges">
-            <span class="faculty-badge">Ex-J&amp;J</span>
+            <span class="faculty-badge">Co-founder</span>
+            <span class="faculty-badge">Skills &amp; Career Coach</span>
+            <span class="faculty-badge">11+ Years Experience</span>
           </div>
-          <p class="faculty-bio">Former Clinical Application Specialist at J&amp;J MedTech. Specialist in laparoscopy and robotic surgery adoption. Guiding candidates through real-world clinical workflows and surgeon communication.</p>
+          <p class="faculty-bio">Co-founder and Skills Enhancement Coach at MedSkills Catalyst. With over 11 years of experience in mathematics education and career counseling across Delhi NCR’s premier institutions (including St. Xavier's and St. Thomas), Shilpi specializes in student operations, stress management, and emotional intelligence. She helps candidates bridge the transition gap by mastering the vital interpersonal skills, communication strategies, and mental resilience required to thrive in high-pressure MedTech corporate environments.</p>
+        </div>
+      </div>
+
+      <!-- Dr. Vincent Keny, PhD Card -->
+      <div class="faculty-card fade-up">
+        <div class="faculty-av-wrap">
+          <div class="faculty-portrait-container">
+            <img class="faculty-portrait" src="assets/vincent_keny.png" alt="Dr. Vincent Keny, PhD" loading="lazy">
+          </div>
+        </div>
+        <div class="faculty-details">
+          <div class="faculty-name">Dr. Vincent Keny, PhD</div>
+          <div class="faculty-role">Executive Coach &amp; Leadership Mentor</div>
+          <div class="faculty-badges">
+            <span class="faculty-badge">Ex-Boston Scientific</span>
+            <span class="faculty-badge">ICF Certified Coach</span>
+            <span class="faculty-badge">MIT Sloan Alumnus</span>
+          </div>
+          <p class="faculty-bio">With over 25 years of global corporate experience driving business and personal excellence, Dr. Keny brings elite leadership frameworks to MedSkills. An ICF Certified Coach and alumnus of MIT Sloan, he specializes in Spiritual &amp; Emotional Business Intelligence, helping candidates master emotional resilience, interpersonal communication, and high-stakes MedTech corporate dynamics.</p>
         </div>
       </div>
     </div>
@@ -3384,22 +3490,22 @@ input,textarea,select{font-family:inherit}
             
             <div style="display: flex; flex-direction: column; gap: 0.4rem;">
               <label for="lm-name" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Full Name</label>
-              <input type="text" id="lm-name" name="name" required placeholder="e.g. Rohan Sharma" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
+              <input type="text" id="lm-name" name="name" required placeholder="e.g. Rohan Sharma" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4rem;">
               <label for="lm-email" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Email Address</label>
-              <input type="email" id="lm-email" name="email" required placeholder="e.g. rohan@gmail.com" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
+              <input type="email" id="lm-email" name="email" required placeholder="e.g. rohan@gmail.com" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4rem;">
               <label for="lm-phone" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">WhatsApp Number</label>
-              <input type="tel" id="lm-phone" name="phone" required placeholder="e.g. +91 98765 43210" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
+              <input type="tel" id="lm-phone" name="phone" required placeholder="e.g. +91 98765 43210" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 0.4rem;">
               <label for="lm-status" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Current Status</label>
-              <select id="lm-status" name="status" required style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.95rem; outline: none; background: #F8FAFC; color: var(--navy); transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
+              <select id="lm-status" name="status" required style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; color: var(--navy); transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
                 <option value="" disabled selected>Select status...</option>
                 <option value="Working Professional">Working Professional</option>
                 <option value="Student">Student</option>
@@ -3408,7 +3514,7 @@ input,textarea,select{font-family:inherit}
 
             <div style="display: flex; flex-direction: column; gap: 0.4rem;">
               <label for="lm-org" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Current Company / College</label>
-              <input type="text" id="lm-org" name="organization" required placeholder="e.g. Apex Biotech or Delhi University" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.85rem 1rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
+              <input type="text" id="lm-org" name="organization" required placeholder="e.g. Apex Biotech or Delhi University" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
             </div>
 
             <button type="submit" class="btn btn--amber btn--full animate-lift" style="margin-top: 0.5rem; background: var(--blue); color: #fff; padding: 0.95rem; font-weight: 700; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; font-size: 1rem; transition: background 0.2s, transform 0.2s;">
@@ -3569,7 +3675,7 @@ END PLACEMENT HIDDEN -->
     <div class="final-cta-inner fade-up">
       <p class="final-cta-eyebrow">Next Batch · Limited Seats</p>
       <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
-      <p class="final-cta-sub">Every month you wait is a month someone else is getting the role and the salary you deserve. Applications for our exclusive founding cohort close when the 6 available seats are filled.</p>
+      <p class="final-cta-sub">Every month you wait is a month someone else is getting the role and the salary you deserve. Applications for our exclusive cohort close when the 6 available seats are filled.</p>
       <div class="final-cta-actions">
         <a href="#lead" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
         <button class="btn btn--ghost btn--lg" onclick="openModal('mc-overlay')" data-track="finalcta_masterclass">Free Masterclass First</button>
@@ -3585,7 +3691,7 @@ END PLACEMENT HIDDEN -->
       <div>
         <a href="#" class="nav-logo" style="display:inline-flex" aria-label="MedSkills Catalyst">
           <div class="nav-logo-mark" style="background:transparent;border:none">
-            <img src="public/brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
+            <img src="brand/logo/MedSkills-Catalyst_Logo-01.svg" alt="MedSkills Catalyst Logo" style="height: 100%; width: auto; object-fit: contain;">
           </div>
           <div class="nav-logo-text" style="color:#fff">MedSkills Catalyst<span style="color:rgba(255,255,255,.4)">Upskill to Upscale</span></div>
         </a>
@@ -3786,9 +3892,9 @@ const FAQS = [
   {q:'Do I need to quit my current job to join?',a:'No. All sessions run evenings (7–9 PM IST) and Saturday mornings (9 AM–12 PM). The programme is designed for working professionals. About 80% of our cohort attends while still employed.'},
   {q:'Is this right for me if I have no sales experience?',a:'Yes, if you have a life-science background. Several of our most successful graduates were lab technicians or fresh graduates with zero sales history. We look for curiosity, coachability, and communication — not a polished sales CV.'},
   {q:'How is this different from a regular MBA or PGDM?',a:'We are a career-outcome programme, not an academic credential. We do not teach marketing theory. We teach you exactly how to get hired and excel at companies like Stryker and J&J MedTech. Our measure of success is your offer letter, not your grade sheet.'},
-  {q:'What happens if I don\'t get placed?',a:'We work with you directly, reviewing your interviews and refining your applications until you land a role. Since you are part of our exclusive founding cohort, you will get concierge, day-to-day outcome tracking and application strategy support from our lead mentors.'},
+  {q:'What happens if I don\'t get placed?',a:'We work with you directly, reviewing your interviews and refining your applications until you land a role. Since you are part of our exclusive cohort, you will get concierge, day-to-day outcome tracking and application strategy support from our lead mentors.'},
   {q:'Can I pay in EMI?',a:'Yes. EMI options are available through leading cards and credit partners. You can sort out the custom payment structure on your admission call.'},
-  {q:'When is the next batch? How many seats are available?',a:'The founding cohort starts July 2026. We are strictly capping this batch at 6 students to ensure maximum placement concierge attention and direct mentoring. Applications close as soon as the 6 seats are filled.'},
+  {q:'When is the next batch? How many seats are available?',a:'The cohort starts July 2026. We are strictly capping this batch at 6 students to ensure maximum placement concierge attention and direct mentoring. Applications close as soon as the 6 seats are filled.'},
   {q:'Is there a refund policy?',a:'If you attend the orientation and decide MedSkills Catalyst is not the right fit within the first 7 days, we refund 100% — no questions asked. After 7 days, refunds are not available.'}
 ];
 
@@ -3880,11 +3986,25 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelect
 
 /* ── NAV SCROLL ────────────────────────────────────────────────── */
 let isNavScrolled = false;
+const heroSection = document.getElementById('hero');
+const mobileStickyCta = document.getElementById('mobile-sticky-cta');
+
 window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY > 40;
+  const scrollPos = window.scrollY;
+  const scrolled = scrollPos > 40;
+  
   if (scrolled !== isNavScrolled) {
     isNavScrolled = scrolled;
     document.getElementById('nav').classList.toggle('scrolled', scrolled);
+  }
+  
+  if (heroSection && mobileStickyCta) {
+    const heroHeight = heroSection.offsetHeight;
+    if (scrollPos > heroHeight - 80) {
+      mobileStickyCta.classList.add('reveal');
+    } else {
+      mobileStickyCta.classList.remove('reveal');
+    }
   }
 }, { passive: true });
 
@@ -4155,5 +4275,19 @@ async function submitLeadMagnetForm(e) {
   }
 }
 </script>
+
+<!-- MOBILE STICKY CTA -->
+<div id="mobile-sticky-cta">
+  <div class="mobile-sticky-cta-inner">
+    <div class="mobile-sticky-cta-text">
+      <span class="mobile-sticky-cta-title">Batch · July 2026</span>
+      <span class="mobile-sticky-cta-sub">Strictly limited to 6 seats</span>
+    </div>
+    <button class="btn btn--mobile-cta" onclick="openModal('mc-overlay')" data-track="mobile_sticky_rsvp">
+      Reserve Spot
+    </button>
+  </div>
+</div>
+
 </body>
 </html>
