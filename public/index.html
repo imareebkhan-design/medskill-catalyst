@@ -2788,7 +2788,7 @@ input,textarea,select{font-family:inherit}
     <div class="section-header fade-up">
       <p class="section-eyebrow">CAREER PATHWAYS</p>
       <h2 class="t-h2">Target MedTech Roles &amp; Outcomes</h2>
-      <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles. Compensation histories omitted for privacy compliance.</p>
+      <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles.</p>
     </div>
     <div class="outcomes-grid">
       <!-- Card 1 -->
@@ -3177,6 +3177,7 @@ input,textarea,select{font-family:inherit}
                 <div class="concierge-item"><span class="concierge-company">J&amp;J Medical</span><span class="concierge-status success">Profile Shortlisted</span></div>
                 <div class="concierge-item"><span class="concierge-company">Medtronic</span><span class="concierge-status active">Round 2 Ready</span></div>
               </div>
+              <p style="font-size:0.72rem;color:var(--ink-muted);margin-top:0.6rem;line-height:1.4;">*Illustrative examples. Actual placements depend on candidate readiness and market availability.</p>
             </div>
           </div>
         </div>
@@ -3305,6 +3306,7 @@ input,textarea,select{font-family:inherit}
               <div class="concierge-item"><span class="concierge-company">J&amp;J Medical</span><span class="concierge-status success">Profile Shortlisted</span></div>
               <div class="concierge-item"><span class="concierge-company">Medtronic</span><span class="concierge-status active">Round 2 Ready</span></div>
             </div>
+            <p style="font-size:0.72rem;color:rgba(255,255,255,0.6);margin-top:0.6rem;line-height:1.4;">*Illustrative examples. Actual placements depend on candidate readiness and market availability.</p>
           </div>
         </div>
         
@@ -3330,7 +3332,7 @@ input,textarea,select{font-family:inherit}
   <div class="container">
     <div class="section-header fade-up">
       <p class="section-eyebrow">The Curriculum</p>
-      <h2 class="t-h2">6 Modules. Built With Hiring Managers, Not Just Academics.</h2>
+      <h2 class="t-h2">6 Modules. Built by Industry Leaders, Not Just Academics.</h2>
       <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
     </div>
     <div class="curriculum-grid" id="curriculum-grid"></div>
@@ -3418,7 +3420,7 @@ input,textarea,select{font-family:inherit}
           
           <div class="mc-media-overlay">
             <h4 class="mc-media-name">Gagan Victor</h4>
-            <p class="mc-media-title">Ex-Regional Sales Manager, Medtronic</p>
+            <p class="mc-media-title">Co-Founder &amp; Program Director, MedSkills Catalyst</p>
           </div>
         </div>
       </div>
@@ -3517,7 +3519,7 @@ input,textarea,select{font-family:inherit}
         <div class="lead-checklist">
           <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Which MedTech segment is hiring most aggressively right now</span>
           <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>How to rewrite your pharma resume for device companies</span>
-          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>The 5 things interviewers at Stryker and Medtronic always probe</span>
+          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>5 core things top-tier MedTech companies assess you on in interviews</span>
           <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Real salary bands by city, role, and company size</span>
         </div>
       </div>
@@ -3782,7 +3784,7 @@ END PLACEMENT HIDDEN -->
     </div>
     <div class="vsl-body">
       <h3>MedSkills Clinical Simulation Overview</h3>
-      <p>A preview of the high-fidelity surgical case coverages and technical objections roleplays taught inside our rigorous 8-week curriculum. Reserve a seat in our free live masterclass to walk through these clinical flows live with our mentors.</p>
+      <p>A preview of the high-fidelity surgical case coverages and technical objections roleplays taught inside our rigorous 6-week curriculum. Reserve a seat in our free live masterclass to walk through these clinical flows live with our mentors.</p>
     </div>
   </div>
 </div>
@@ -3886,7 +3888,8 @@ function updateRegistrationState(registered) {
 /* ── DATA ──────────────────────────────────────────────────────── */
 const MODULES = [
   {
-    num: '01',
+    num: 'Foundational',
+    label: 'Foundational Module',
     title: 'Foundations of Medical Devices & The Ecosystem',
     badges: ['CDSCO / ISO Compliance', 'MNC vs. Domestic PLI'],
     hook: 'Transition from retail pill volume to high-value medical device classification asset management.',
@@ -3895,12 +3898,13 @@ const MODULES = [
       'Risk-based categorization (Class A to D) and specialized segments (Diagnostic, Therapeutic, Implantable, Imaging)',
       'Regulatory compliance frameworks (CDSCO, ISO standards) and import licensing rules',
       'Navigating MNC vs. domestic manufacturer supply chains and PLI scheme advantages',
-      'Mapping global medtech leaders: GE Healthcare, Siemens Healthineers, Philips, Stryker, J&J MedTech'
+      'High-stakes case support across key MedTech specialty areas'
     ],
-    originalTitle: 'Foundations of Medical Devices & The Ecosystem'
+    originalTitle: 'Foundational Module: Foundations of Medical Devices & The Ecosystem'
   },
   {
-    num: '02',
+    num: '01',
+    label: 'Module 1',
     title: 'Healthcare Environments & Multi-Stakeholder Procurement',
     badges: ['OR & Cath Lab Flows', 'HCP Personas'],
     hook: 'Command authority in complex hospital setups and align multi-stakeholder purchasing loops.',
@@ -3909,40 +3913,43 @@ const MODULES = [
       'Navigating OT, Cath Lab, ICU, and OPD environments with confidence',
       'Sterile field protocols, CSSD workflows, and biomedical department coordination',
       'Understanding HCP personas: Surgeons, Nurses, Biomedical Engineers, and Hospital Administrators',
-      'Mapping multi-stakeholder procurement loops in public vs. private hospital systems'
+      'Mapping multi-stakeholder procurement loops: Chief Nursing Officer (CNO), Chief Medical Officer (CMO), procurement, Head of Department (HOD)'
     ],
-    originalTitle: 'Healthcare Environments & Multi-Stakeholder Procurement'
+    originalTitle: 'Module 1: Healthcare Environments & Multi-Stakeholder Procurement'
   },
   {
-    num: '03',
+    num: '02',
+    label: 'Module 2',
     title: 'Consultative Medical Device Enterprise Sales Dynamics',
     badges: ['B2B Capital Cycles', 'KOL Alignment'],
     hook: 'Bypass transactional retail scripts. Master extended corporate sales cycles and engage senior specialists.',
     deepDive: 'Capital equipment pricing frameworks, mapping hospital influence hierarchies, managing cross-functional GPOs, and strategic KOL trial workshops.',
     originalTopics: [
-      'Pharma MR vs. MedTech AE — understanding the core shift in selling approach',
+      'Pharma Medical Representative (MR) vs. MedTech Account Executive (AE) — understanding the core shift in selling approach',
       'Running long-cycle B2B deals: 3–9 month buying windows and multi-touch nurturing',
-      'Key Opinion Leader (KOL) strategy — identifying, engaging, and leveraging champions',
-      'Capital equipment pricing frameworks and budget cycle alignment with hospital finance'
+      'Needs-discovery frameworks used by top industry reps',
+      "Smart comebacks for when the hospital says 'we already buy from someone else'"
     ],
-    originalTitle: 'Consultative Medical Device Enterprise Sales Dynamics'
+    originalTitle: 'Module 2: Consultative Medical Device Enterprise Sales Dynamics'
   },
   {
-    num: '04',
+    num: '03',
+    label: 'Module 3',
     title: 'Device Portfolio Strategy & Competitive Selling',
     badges: ['In-Theatre Trials', 'Objection Dominance'],
     hook: 'Run bulletproof surgical account demonstrations and systematically displace entrenched global competitors.',
-    deepDive: 'Specialty lines (Cardiology, Orthopedics, Radiology), live OT trial handoffs, navigating technology adoption friction, and structuring bundled commercial financing.',
+    deepDive: 'Across specialty lines — with live OT trial handoffs in select specialty areas, navigating technology adoption friction, and structuring commercial financing.',
     originalTopics: [
       'Specialty portfolio mastery: Cardiology, Orthopedics, Radiology, and Surgical segments',
       'Executing live OT trials and in-theatre product demonstrations with surgeons',
       'Competitive displacement strategies: overcoming incumbent vendor lock-in',
       'Objection-handling frameworks for price sensitivity, efficacy doubts, and switching costs'
     ],
-    originalTitle: 'Device Portfolio Strategy & Competitive Selling'
+    originalTitle: 'Module 3: Device Portfolio Strategy & Competitive Selling'
   },
   {
-    num: '05',
+    num: '04',
+    label: 'Module 4',
     title: 'Distribution Channels & Supply Chain Logistics',
     badges: ['Channel Partner ROI', 'Cold-Chain Logistics'],
     hook: 'Govern regional distributor territories and maintain absolute control over product inventory velocity.',
@@ -3953,21 +3960,22 @@ const MODULES = [
       'Cold-chain logistics for biologics, diagnostics, and temperature-sensitive devices',
       'Setting distributor KPIs, tracking inventory velocity, and managing reverse logistics'
     ],
-    originalTitle: 'Distribution Channels & Supply Chain Logistics'
+    originalTitle: 'Module 4: Distribution Channels & Supply Chain Logistics'
   },
   {
-    num: '06',
+    num: '05',
+    label: 'Module 5',
     title: 'Clinical Data Interpretation & RAQA Metrics',
     badges: ['Evidence-Based Value', 'Quality Assurance'],
     hook: 'Back up your commercial pitch with verified clinical trial data, medical journals, and strict regulatory benchmarks.',
     deepDive: 'Analyzing clinical trial efficacy metrics, leveraging peer-reviewed safety studies to counter price friction, and managing baseline ISO quality frameworks.',
     originalTopics: [
-      'Reading clinical trials and peer-reviewed journals as a sales professional',
+      'Reading a clinical paper like a MedTech professional',
       'Translating efficacy and safety data into compelling value arguments for HCPs',
       'RAQA fundamentals: ISO 13485, post-market surveillance, and adverse event reporting',
       'Using regulatory compliance as a competitive differentiator in tenders and formulary bids'
     ],
-    originalTitle: 'Clinical Data Interpretation & RAQA Metrics'
+    originalTitle: 'Module 5: Clinical Data Interpretation & RAQA Metrics'
   }
 ];
 
@@ -3994,7 +4002,7 @@ MODULES.forEach(m=>{
       ${badgesHtml}
     </div>
     <div class="module-card-header">
-      <div class="module-card-num">Module ${m.num}</div>
+      <div class="module-card-num">${m.label || 'Module ' + m.num}</div>
       <h3 class="module-card-title">${m.title}</h3>
     </div>
     <p class="module-card-hook">"${m.hook}"</p>
@@ -4019,7 +4027,7 @@ MODULES.forEach(m => {
   const col = document.createElement('div');
   col.className = 'syllabus-col';
   col.innerHTML = `
-    <div class="syllabus-col-title">Module ${m.num}: ${m.originalTitle}</div>
+    <div class="syllabus-col-title">${m.originalTitle}</div>
     <ul class="syllabus-col-list">
       ${m.originalTopics.map(t => `<li class="syllabus-col-item">${t}</li>`).join('')}
     </ul>

@@ -114,7 +114,7 @@ export function LeadMagnet({ isRegistered = false, onRegisterSuccess }: LeadMagn
               {[
                 "Which MedTech segment is hiring most aggressively right now",
                 "How to rewrite your pharma resume for device companies",
-                "The 5 things interviewers at Stryker and Medtronic always probe",
+                "5 core things top-tier MedTech companies assess you on in interviews",
                 "Real salary bands by city, role, and company size"
               ].map((bullet, idx) => (
                 <div key={idx} className="flex items-start gap-3 text-sm sm:text-base text-ink/80">
