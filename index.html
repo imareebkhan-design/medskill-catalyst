@@ -1390,6 +1390,22 @@ input,textarea,select{font-family:inherit}
   box-shadow: 0 12px 30px rgba(0, 88, 158, 0.05);
   transform: translateY(-3px);
 }
+.module-card--capstone {
+  border-color: rgba(0, 88, 158, 0.35);
+  border-width: 2px;
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(0, 88, 158, 0.04) 100%);
+  grid-column: 1 / -1;
+}
+.module-card--capstone:hover {
+  border-color: rgba(0, 88, 158, 0.55);
+  box-shadow: 0 16px 40px rgba(0, 88, 158, 0.10);
+}
+.module-card--capstone .module-card-num {
+  color: var(--blue);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
 .module-card-badges {
   display: flex;
   flex-wrap: wrap;
@@ -3332,7 +3348,7 @@ input,textarea,select{font-family:inherit}
   <div class="container">
     <div class="section-header fade-up">
       <p class="section-eyebrow">The Curriculum</p>
-      <h2 class="t-h2">6 Modules. Built by Industry Leaders, Not Just Academics.</h2>
+      <h2 class="t-h2">Foundational to Placement: A Curriculum Designed by the People Who Actually Hire in MedTech.</h2>
       <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
     </div>
     <div class="curriculum-grid" id="curriculum-grid"></div>
@@ -3888,94 +3904,91 @@ function updateRegistrationState(registered) {
 /* ── DATA ──────────────────────────────────────────────────────── */
 const MODULES = [
   {
-    num: 'Foundational',
-    label: 'Foundational Module',
-    title: 'Foundations of Medical Devices & The Ecosystem',
-    badges: ['CDSCO / ISO Compliance', 'MNC vs. Domestic PLI'],
-    hook: 'Transition from retail pill volume to high-value medical device classification asset management.',
-    deepDive: 'Class A-D risk routing, diagnostic vs. therapeutic device profiles, domestic PLI schemes, and global MNC (GE, Siemens, Philips) import supply chains.',
-    originalTopics: [
-      'Risk-based categorization (Class A to D) and specialized segments (Diagnostic, Therapeutic, Implantable, Imaging)',
-      'Regulatory compliance frameworks (CDSCO, ISO standards) and import licensing rules',
-      'Navigating MNC vs. domestic manufacturer supply chains and PLI scheme advantages',
-      'High-stakes case support across key MedTech specialty areas'
-    ],
-    originalTitle: 'Foundational Module: Foundations of Medical Devices & The Ecosystem'
+    num: 'F',
+    title: 'Foundations of Medical Devices',
+    badges: ['Class A–D Devices', 'Make in India / PLI'],
+    hook: 'Move from pill volume to the device world — understand what you\'ll actually be selling and where it comes from.',
+    topics: [
+      'The full device map: diagnostic, therapeutic, surgical, implantable, monitoring — and how Class A–D risk levels work',
+      'Devices across specialties: cardiology, ortho, neuro, radiology, critical care',
+      'Who makes what in India — manufacturers, MedTech parks, PLI schemes, and why it matters to your career',
+      'The import ecosystem: global MNCs, distributors, and where the high-value roles sit'
+    ]
   },
   {
     num: '01',
-    label: 'Module 1',
-    title: 'Healthcare Environments & Multi-Stakeholder Procurement',
-    badges: ['OR & Cath Lab Flows', 'HCP Personas'],
-    hook: 'Command authority in complex hospital setups and align multi-stakeholder purchasing loops.',
-    deepDive: 'Sterile field protocols, CSSD tracking, ER/ICU workflows, and building consensus across Surgeons, Biomedical Engineers, and Administrative boards.',
-    originalTopics: [
-      'Navigating OT, Cath Lab, ICU, and OPD environments with confidence',
-      'Sterile field protocols, CSSD workflows, and biomedical department coordination',
-      'Understanding HCP personas: Surgeons, Nurses, Biomedical Engineers, and Hospital Administrators',
-      'Mapping multi-stakeholder procurement loops: Chief Nursing Officer (CNO), Chief Medical Officer (CMO), procurement, Head of Department (HOD)'
-    ],
-    originalTitle: 'Module 1: Healthcare Environments & Multi-Stakeholder Procurement'
+    title: 'Healthcare Setup & Multi-Stakeholder Management (HCPs, Procurement & Supply Chain)',
+    badges: ['OR · ICU · Cath Lab', 'Buying Committees'],
+    hook: 'Walk into any hospital — OR, ICU, Cath Lab — and know exactly who decides, who influences, and who signs.',
+    topics: [
+      'Working areas of a hospital: OR, ER, ICU, Cath Lab, Imaging, Labs, CSSD — and the devices that live in each',
+      'Mapping the buying committee: CNO (Chief Nursing Officer), CMO (Chief Medical Officer), procurement, HOD (Head of Department)',
+      'How public vs. private hospital purchasing actually works — tenders, formulary addition, budget cycles',
+      'Building champions at every level of the hierarchy'
+    ]
   },
   {
     num: '02',
-    label: 'Module 2',
-    title: 'Consultative Medical Device Enterprise Sales Dynamics',
-    badges: ['B2B Capital Cycles', 'KOL Alignment'],
-    hook: 'Bypass transactional retail scripts. Master extended corporate sales cycles and engage senior specialists.',
-    deepDive: 'Capital equipment pricing frameworks, mapping hospital influence hierarchies, managing cross-functional GPOs, and strategic KOL trial workshops.',
-    originalTopics: [
-      'Pharma Medical Representative (MR) vs. MedTech Account Executive (AE) — understanding the core shift in selling approach',
-      'Running long-cycle B2B deals: 3–9 month buying windows and multi-touch nurturing',
+    title: 'Consultative Medical Device Enterprise Dynamics',
+    badges: ['B2B Capital Cycles', 'KOL Engagement'],
+    hook: 'Unlearn pharma detailing. Learn how high-value, multi-stakeholder device deals are actually won.',
+    topics: [
+      'The real difference between pharma detailing and device consultative selling',
+      'Every sales channel in MedTech: direct, distributor, government tenders, GPOs, institutional',
       'Needs-discovery frameworks used by top industry reps',
-      "Smart comebacks for when the hospital says 'we already buy from someone else'"
-    ],
-    originalTitle: 'Module 2: Consultative Medical Device Enterprise Sales Dynamics'
+      'Smart comebacks for when the hospital says “we already buy from someone else”',
+      'Building long-cycle deals across 3–9 month buying windows — and the KOLs who decide them'
+    ]
   },
   {
     num: '03',
-    label: 'Module 3',
-    title: 'Device Portfolio Strategy & Competitive Selling',
-    badges: ['In-Theatre Trials', 'Objection Dominance'],
-    hook: 'Run bulletproof surgical account demonstrations and systematically displace entrenched global competitors.',
-    deepDive: 'Across specialty lines — with live OT trial handoffs in select specialty areas, navigating technology adoption friction, and structuring commercial financing.',
-    originalTopics: [
-      'Specialty portfolio mastery: Cardiology, Orthopedics, Radiology, and Surgical segments',
-      'Executing live OT trials and in-theatre product demonstrations with surgeons',
-      'Competitive displacement strategies: overcoming incumbent vendor lock-in',
-      'Objection-handling frameworks for price sensitivity, efficacy doubts, and switching costs'
-    ],
-    originalTitle: 'Module 3: Device Portfolio Strategy & Competitive Selling'
+    title: 'Device Portfolio & Competitive Selling',
+    badges: ['In-Account Trials', 'Objection Dominance'],
+    hook: 'Master a new product portfolio in two weeks and displace competitors who\'ve owned the account for years.',
+    topics: [
+      'How to learn a new product portfolio in 2 weeks',
+      'Reading a clinical study — what actually matters for device selling',
+      'Competitive landscape: knowing your rivals’ weaknesses',
+      'Objection handling for price, efficacy, and switching costs'
+    ]
   },
   {
     num: '04',
-    label: 'Module 4',
-    title: 'Distribution Channels & Supply Chain Logistics',
+    title: 'Distribution & Supply Chain in MedTech',
     badges: ['Channel Partner ROI', 'Cold-Chain Logistics'],
-    hook: 'Govern regional distributor territories and maintain absolute control over product inventory velocity.',
-    deepDive: 'Super-stockist structures, indirect vs. direct logistics, setting partner KPI metrics, margin protection, and managing reverse logistics pipelines.',
-    originalTopics: [
-      'Super-stockist and sub-distributor network architecture across Indian geographies',
-      'Direct vs. indirect channel economics: margin structures and territory management',
-      'Cold-chain logistics for biologics, diagnostics, and temperature-sensitive devices',
-      'Setting distributor KPIs, tracking inventory velocity, and managing reverse logistics'
-    ],
-    originalTitle: 'Module 4: Distribution Channels & Supply Chain Logistics'
+    hook: 'Understand how devices actually move — from manufacturer to super-stockist to the hospital shelf — and the roles that run it.',
+    topics: [
+      'The flow: manufacturer → super-stockist → distributor → hospital, and where each role fits',
+      'Managing channel partners: targets, margins, KPIs, and keeping ROI honest',
+      'Cold-chain and storage realities for sensitive devices',
+      'Reverse logistics: returns, servicing, replacements'
+    ]
   },
   {
     num: '05',
-    label: 'Module 5',
-    title: 'Clinical Data Interpretation & RAQA Metrics',
-    badges: ['Evidence-Based Value', 'Quality Assurance'],
-    hook: 'Back up your commercial pitch with verified clinical trial data, medical journals, and strict regulatory benchmarks.',
-    deepDive: 'Analyzing clinical trial efficacy metrics, leveraging peer-reviewed safety studies to counter price friction, and managing baseline ISO quality frameworks.',
-    originalTopics: [
+    title: 'Clinical Data, Regulatory & Quality (RAQA)',
+    badges: ['CDSCO · CE · 510(k)', 'ISO / QMS'],
+    hook: 'Back every pitch with evidence — and open the door to Regulatory Affairs & Quality Assurance careers.',
+    topics: [
       'Reading a clinical paper like a MedTech professional',
-      'Translating efficacy and safety data into compelling value arguments for HCPs',
-      'RAQA fundamentals: ISO 13485, post-market surveillance, and adverse event reporting',
-      'Using regulatory compliance as a competitive differentiator in tenders and formulary bids'
-    ],
-    originalTitle: 'Module 5: Clinical Data Interpretation & RAQA Metrics'
+      'Regulatory essentials: CDSCO registration, CE Mark, 510(k)',
+      'ISO standards and Quality Management Systems — the language of RAQA roles',
+      'Post-market surveillance: using real-world data in selling',
+      'Translating evidence for surgeons and administrators alike'
+    ]
+  },
+  {
+    num: 'C',
+    title: 'Career Architecture & Placement Sprint',
+    badges: ['Mock Interviews', 'Offer Negotiation'],
+    hook: 'Everything converges here: your new identity, your resume, your interviews, your offer.',
+    topics: [
+      'Rebuilding your resume from pharma Medical Representative (MR) to MedTech Account Executive (AE)',
+      'LinkedIn optimisation for inbound recruiter attention',
+      '60-min mock interviews with actual MedTech hiring managers',
+      'Offer negotiation: base, variables, and benefits — what to push on',
+      'Career paths mapped: sales executive → territory manager → regional manager → product & marketing roles'
+    ]
   }
 ];
 
@@ -3993,16 +4006,18 @@ const FAQS = [
 const cgrid = document.getElementById('curriculum-grid');
 MODULES.forEach(m=>{
   const el=document.createElement('div');
-  el.className='module-card fade-up';
-  
+  const numLabel = m.num === 'F' ? 'Foundational Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
+  el.className = 'module-card fade-up' + (m.num === 'C' ? ' module-card--capstone' : '');
+
   const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
-  
+  const topicsHtml = m.topics ? m.topics.map(t => `<li>${t}</li>`).join('') : '';
+
   el.innerHTML = `
     <div class="module-card-badges">
       ${badgesHtml}
     </div>
     <div class="module-card-header">
-      <div class="module-card-num">${m.label || 'Module ' + m.num}</div>
+      <div class="module-card-num">${numLabel}</div>
       <h3 class="module-card-title">${m.title}</h3>
     </div>
     <p class="module-card-hook">"${m.hook}"</p>
@@ -4013,7 +4028,7 @@ MODULES.forEach(m=>{
       </div>
       <div class="deep-dive-content">
         <div class="deep-dive-inner">
-          ${m.deepDive}
+          <ul>${topicsHtml}</ul>
         </div>
       </div>
     </div>
@@ -4026,10 +4041,11 @@ const sgrid = document.getElementById('syllabus-grid');
 MODULES.forEach(m => {
   const col = document.createElement('div');
   col.className = 'syllabus-col';
+  const sNumLabel = m.num === 'F' ? 'Foundational Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
   col.innerHTML = `
-    <div class="syllabus-col-title">${m.originalTitle}</div>
+    <div class="syllabus-col-title">${sNumLabel}: ${m.title}</div>
     <ul class="syllabus-col-list">
-      ${m.originalTopics.map(t => `<li class="syllabus-col-item">${t}</li>`).join('')}
+      ${(m.topics || []).map(t => `<li class="syllabus-col-item">${t}</li>`).join('')}
     </ul>
   `;
   sgrid.appendChild(col);
