@@ -235,7 +235,7 @@ input,textarea,select{font-family:inherit}
 .hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
 .hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
 .hero-stat{display:flex;flex-direction:column}
-.hero-stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--cta);line-height:1;letter-spacing:-.02em}
+.hero-stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--cyan);line-height:1;letter-spacing:-.02em}
 .hero-stat-label{font-size:.8rem;color:rgba(255,255,255,0.5);font-weight:600;margin-top:.4rem;text-transform:uppercase;letter-spacing:.05em}
 .hero-stat-divider{width:1px;background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);align-self:stretch;min-height:48px}
 
@@ -1761,6 +1761,43 @@ input,textarea,select{font-family:inherit}
   background: #ffffff;
   padding: 7rem 0;
 }
+.mc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+.mc-live-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #4ADE80;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  animation: mcLivePulse 1.8s infinite ease-in-out;
+}
+@keyframes mcLivePulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(74, 222, 128, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
+  }
+}
 .mc-bento-box {
   background-color: var(--brand);
   background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
@@ -2618,11 +2655,11 @@ input,textarea,select{font-family:inherit}
         <div>
           <div class="hero-pill fade-up"><span class="pill pill--brand">⚕ Upskill to Upscale</span></div>
           <h1 class="t-display hero-headline fade-up">
-            Pivot From Pharma to Medical Device &amp; MedTech Space
+            Pivot From Pharma to MedTech Space
           </h1>
-          <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Graduates and Healthcare Professionals Entering MedTech. A rigorous <strong>8-week programme</strong> for pharma medical representatives and life-science graduates to transition into global MedTech brands—with real career velocity, not just a certificate.</p>
+          <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Life Science Graduates and Healthcare Professionals Entering MedTech. A rigorous <strong>6-week programme</strong> to transition into global MedTech brands with real career velocity, not just a certificate.</p>
           <div class="hero-ctas fade-up">
-            <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Reserve Free Masterclass Seat →</button>
+            <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Reserve Masterclass Seat →</button>
             <a href="#curriculum" class="btn btn--blue" data-track="hero_curriculum">Explore Curriculum</a>
           </div>
           <div class="hero-stats fade-up">
@@ -3408,11 +3445,13 @@ input,textarea,select{font-family:inherit}
         </div>
         <div class="faculty-details">
           <div class="faculty-name">Gagan Victor</div>
-          <div class="faculty-role">Programme Director &amp; Lead Mentor</div>
+          <div class="faculty-role">Co-Founder and Program Director</div>
           <div class="faculty-badges">
+            <span class="faculty-badge">Ex-Pfizer</span>
             <span class="faculty-badge">Ex-Medtronic</span>
+            <span class="faculty-badge">Ex-Stryker</span>
           </div>
-          <p class="faculty-bio">Former Regional Sales Manager at Medtronic India, overseeing cardiovascular and surgical device portfolios across South India. Transitioned from corporate MedTech leadership to full-time training to build India's next generation of medical device professionals.</p>
+          <p class="faculty-bio">Former leader at Pfizer, Medtronic India, Stryker, overseeing Cardiovascular and Surgical device portfolio. Transitioned from Medical Rep to Corporate Medtech Leader to full time training, coaching, mentoring to build India’s next generation of Medtech ready professionals.</p>
         </div>
       </div>
 
@@ -3425,13 +3464,12 @@ input,textarea,select{font-family:inherit}
         </div>
         <div class="faculty-details">
           <div class="faculty-name">Shilpi Babbar</div>
-          <div class="faculty-role">Co-founder &amp; Skills Enhancement Coach</div>
+          <div class="faculty-role">Co-founder and Skills Enhancement Coach</div>
           <div class="faculty-badges">
-            <span class="faculty-badge">Co-founder</span>
-            <span class="faculty-badge">Skills &amp; Career Coach</span>
-            <span class="faculty-badge">11+ Years Experience</span>
+            <span class="faculty-badge">ICBI-NABET Certified</span>
+            <span class="faculty-badge">Ex-J&amp;J MedTech</span>
           </div>
-          <p class="faculty-bio">Co-founder and Skills Enhancement Coach at MedSkills Catalyst. With over 11 years of experience in mathematics education and career counseling across Delhi NCR’s premier institutions (including St. Xavier's and St. Thomas), Shilpi specializes in student operations, stress management, and emotional intelligence. She helps candidates bridge the transition gap by mastering the vital interpersonal skills, communication strategies, and mental resilience required to thrive in high-pressure MedTech corporate environments.</p>
+          <p class="faculty-bio">Co-founder and Skills Enhancement coach at Medskills Catalyst, with experience of more than a decade in coaching and career counselling certified by ICBI-NABET. Shilpi specialises in laparoscopy and robotic surgery adoption, guiding candidates through real-world clinical workflows and surgeon communication.</p>
         </div>
       </div>
 
@@ -3444,7 +3482,7 @@ input,textarea,select{font-family:inherit}
         </div>
         <div class="faculty-details">
           <div class="faculty-name">Dr. Vincent Keny, PhD</div>
-          <div class="faculty-role">Executive Coach &amp; Leadership Mentor</div>
+          <div class="faculty-role">AI Transformational Leader, Executive Coach &amp; Leadership Mentor</div>
           <div class="faculty-badges">
             <span class="faculty-badge">Ex-Boston Scientific</span>
             <span class="faculty-badge">ICF Certified Coach</span>
@@ -3472,7 +3510,7 @@ input,textarea,select{font-family:inherit}
             </div>
           </div>
           <div>
-            <h2 class="t-h2 lead-h">Register for the Masterclass &amp; Get the Career Transition Guide <span class="t-serif t-brand-mid">— Free</span></h2>
+            <h2 class="t-h2 lead-h">Register &amp; Get the Career Transition Guide <span class="t-serif t-brand-mid">— Free</span></h2>
             <p class="lead-sub" style="margin-bottom: 0;">Secure your seat for the live session and we will instantly email you our 28-page playbook covering the highest-paying roles, exact interview questions, and salary negotiation scripts.</p>
           </div>
         </div>
@@ -3760,8 +3798,10 @@ END PLACEMENT HIDDEN -->
     </div>
     <div class="mc-modal-body">
       <form id="mc-form" onsubmit="submitMC(event)">
+        <div id="mc-form-error" style="display: none; padding: 0.75rem; border-radius: var(--radius-sm); background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; font-size: 0.85rem; margin-bottom: 1rem;"></div>
         <div class="form-group"><label class="form-label" for="mc-name">Your name</label><input class="form-input" type="text" id="mc-name" name="name" placeholder="Rohan Sharma" required></div>
         <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required></div>
+        <div class="form-group"><label class="form-label" for="mc-email">Your email</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required></div>
         <div class="form-group">
           <label class="form-label" for="mc-background">Current Professional Background</label>
           <select class="form-input form-select" id="mc-background" name="background" required>
@@ -3773,7 +3813,7 @@ END PLACEMENT HIDDEN -->
             <option value="other">Other Sales / Graduate</option>
           </select>
         </div>
-        <button type="submit" class="btn btn--amber btn--full btn--lg" data-track="mc_submit">Reserve My Seat — It's Free →</button>
+        <button type="submit" class="btn btn--amber btn--full btn--lg" data-track="mc_submit">Submit</button>
         <p class="t-small t-muted" style="text-align:center;margin-top:.65rem">Zoom link and updates will be sent directly on WhatsApp.</p>
       </form>
     </div>
@@ -3800,6 +3840,49 @@ END PLACEMENT HIDDEN -->
 </div>
 
 <script>
+let isRegistered = false;
+
+function updateRegistrationState(registered) {
+  if (!registered) return;
+  isRegistered = true;
+
+  // Update Bottom Lead Magnet Form
+  const lmFormCard = document.querySelector('.lead-form-card');
+  if (lmFormCard) {
+    lmFormCard.innerHTML = `
+      <div style="text-align:center;padding:3rem 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;">
+        <div style="width:4rem;height:4rem;background:#ECFDF5;color:#10B981;border-radius:9999px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:1px solid #A7F3D0;box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+          <svg style="width:2rem;height:2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 style="font-size:1.4rem;font-weight:800;color:var(--brand);margin-bottom:0.75rem;">Registration Complete.</h3>
+        <p style="color:var(--ink-muted);font-size:0.95rem;line-height:1.6;max-width:360px;margin-bottom:0;text-align:center;">
+          Your seat is secured and your MedTech Career Transition Guide is on its way to your inbox.
+        </p>
+      </div>
+    `;
+  }
+
+  // Update Top Masterclass Modal Form
+  const mcModalBody = document.querySelector('.mc-modal-body');
+  if (mcModalBody) {
+    mcModalBody.innerHTML = `
+      <div style="text-align:center;padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:250px;">
+        <div style="width:4rem;height:4rem;background:#ECFDF5;color:#10B981;border-radius:9999px;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;border:1px solid #A7F3D0;box-shadow:0 1px 2px 0 rgba(0, 0, 0, 0.05);">
+          <svg style="width:2rem;height:2rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 style="font-size:1.4rem;font-weight:800;color:var(--brand);margin-bottom:0.75rem;">Registration Complete.</h3>
+        <p style="color:var(--ink-muted);font-size:0.95rem;line-height:1.6;max-width:360px;margin-bottom:0;text-align:center;">
+          Your seat is secured and your MedTech Career Transition Guide is on its way to your inbox.
+        </p>
+      </div>
+    `;
+  }
+}
+
 /* ── DATA ──────────────────────────────────────────────────────── */
 const MODULES = [
   {
@@ -4024,13 +4107,61 @@ function submitLead(e){
   if(typeof gtag!=='undefined')gtag('event','lead_form_submit',{event_category:'conversion'});
 }
 
-function submitMC(e){
+async function submitMC(e) {
   e.preventDefault();
-  const d=Object.fromEntries(new FormData(e.target));
-  console.log('[MasterclassForm]',d);
-  // TODO: POST to AiSensy for Zoom link + WhatsApp confirmation
-  e.target.innerHTML='<div style="text-align:center;padding:1rem 0"><div style="font-size:2.5rem;margin-bottom:1rem">✅</div><h3 style="font-size:1.1rem;font-weight:800;margin-bottom:.5rem">You\'re registered!</h3><p style="color:var(--ink-muted);font-size:.875rem">We\'ll send the Zoom link directly to your WhatsApp 24 hours before the session. See you Saturday!</p></div>';
-  if(typeof gtag!=='undefined')gtag('event','masterclass_signup',{event_category:'conversion'});
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const errorDiv = document.getElementById('mc-form-error');
+  
+  errorDiv.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Processing...';
+
+  const formData = new FormData(form);
+  const background = formData.get('background');
+  
+  const payload = {
+    full_name: formData.get('name'),
+    email: formData.get('email'),
+    mobile: formData.get('phone'),
+    user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
+    company_name: '',
+    college_name: '',
+    course: 'N/A',
+    graduation_year: '2026',
+    job_title: 'N/A',
+    experience: '1-3'
+  };
+
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (response.ok) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'masterclass_signup', {
+          event_category: 'conversion'
+        });
+      }
+      updateRegistrationState(true);
+    } else {
+      const data = await response.json();
+      errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
+      errorDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit';
+    }
+  } catch (err) {
+    errorDiv.textContent = 'Network error. Please check your connection and try again.';
+    errorDiv.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Submit';
+  }
 }
 
 /* ── EXIT INTENT ───────────────────────────────────────────────── */
@@ -4249,17 +4380,7 @@ async function submitLeadMagnetForm(e) {
           user_type: payload.user_type
         });
       }
-      
-      const parent = form.parentNode;
-      parent.innerHTML = `
-        <div style="text-align:center;padding:3rem 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;">
-          <div style="font-size:3.5rem;margin-bottom:1.5rem;color:var(--success);">✓</div>
-          <h3 style="font-size:1.4rem;font-weight:800;color:var(--brand);margin-bottom:0.75rem;">Seat Reserved!</h3>
-          <p style="color:var(--ink-muted);font-size:0.95rem;line-height:1.6;max-width:360px;margin-bottom:1.5rem;">
-            Your spot is confirmed. Check your email for the Zoom link and your PDF copy of the Career Transition Guide.
-          </p>
-        </div>
-      `;
+      updateRegistrationState(true);
     } else {
       const data = await response.json();
       errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
