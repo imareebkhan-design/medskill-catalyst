@@ -1,0 +1,22 @@
+[
+  {
+    "full_name": "Test User",
+    "email": "test@example.com",
+    "mobile": "9876543210",
+    "user_type": "professional",
+    "company_name": "",
+    "college_name": "",
+    "id": "60vxvsk",
+    "created_at": "2026-06-10T06:05:53.265Z"
+  },
+  {
+    "full_name": "Masterclass Attendee",
+    "email": "attendee@example.com",
+    "mobile": "1234567890",
+    "user_type": "professional",
+    "company_name": "",
+    "college_name": "",
+    "id": "ui0zoc3",
+    "created_at": "2026-06-10T06:20:00.134Z"
+  }
+]

@@ -1,0 +1,72 @@
+import posthog from "posthog-js";
+import type { TrackingFields, UserType } from "./types";
+
+/**
+ * Typed analytics layer. All six required events flow through `track`.
+ * If PostHog isn't initialised (e.g. key missing) calls no-op safely,
+ * and everything is also pushed to window.dataLayer so GTM/GA4 can
+ * pick it up without code changes.
+ */
+
+export type WebinarEvent =
+  | "page_visit"
+  | "cta_click"
+  | "form_start"
+  | "form_submit"
+  | "whatsapp_join"
+  | "lead_magnet_download";
+
+type EventProps = Record<string, unknown>;
+
+let initialised = false;
+
+export function initAnalytics() {
+  if (initialised || typeof window === "undefined") return;
+  const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  if (key) {
+    posthog.init(key, {
+      api_host:
+        process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+      capture_pageview: false, // we fire page_visit explicitly
+      person_profiles: "always",
+    });
+  }
+  initialised = true;
+}
+
+export function track(event: WebinarEvent, props: EventProps = {}) {
+  if (typeof window === "undefined") return;
+  const payload = { ...props, surface: "webinar_landing" };
+
+  if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+    try {
+      posthog.capture(event, payload);
+    } catch {
+      /* ignore */
+    }
+  }
+  // Mirror to dataLayer for GA4 / GTM.
+  (window as unknown as { dataLayer?: unknown[] }).dataLayer =
+    (window as unknown as { dataLayer?: unknown[] }).dataLayer || [];
+  (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
+    event,
+    ...payload,
+  });
+}
+
+/** Convenience wrappers used across components. */
+export const trackPageVisit = (t: TrackingFields) =>
+  track("page_visit", { ...t });
+
+export const trackCtaClick = (label: string, location: string) =>
+  track("cta_click", { label, location });
+
+export const trackFormStart = () => track("form_start", {});
+
+export const trackFormSubmit = (userType: UserType, t: TrackingFields) =>
+  track("form_submit", { user_type: userType, ...t });
+
+export const trackWhatsappJoin = () => track("whatsapp_join", {});
+
+export const trackLeadMagnetDownload = () =>
+  track("lead_magnet_download", {});

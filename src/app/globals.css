@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Google Fonts loaded via layout.tsx next/font — these CSS vars are
+     set by Next.js font loader and consumed by Tailwind's fontFamily config. */
+}

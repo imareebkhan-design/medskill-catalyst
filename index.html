@@ -3892,12 +3892,12 @@ const MODULES = [
     hook: 'Transition from retail pill volume to high-value medical device classification asset management.',
     deepDive: 'Class A-D risk routing, diagnostic vs. therapeutic device profiles, domestic PLI schemes, and global MNC (GE, Siemens, Philips) import supply chains.',
     originalTopics: [
-      'Reading surgical maps and approaching key anatomical landmarks',
-      'How scrub nurses, technicians, and surgeons divide OR responsibility',
-      'Sterile field etiquette — when to speak vs. observe',
-      'High-stakes case support: ortho, cardio, laparoscopy'
+      'Risk-based categorization (Class A to D) and specialized segments (Diagnostic, Therapeutic, Implantable, Imaging)',
+      'Regulatory compliance frameworks (CDSCO, ISO standards) and import licensing rules',
+      'Navigating MNC vs. domestic manufacturer supply chains and PLI scheme advantages',
+      'Mapping global medtech leaders: GE Healthcare, Siemens Healthineers, Philips, Stryker, J&J MedTech'
     ],
-    originalTitle: 'Anatomy & Surgical Field Navigation'
+    originalTitle: 'Foundations of Medical Devices & The Ecosystem'
   },
   {
     num: '02',
@@ -3906,12 +3906,12 @@ const MODULES = [
     hook: 'Command authority in complex hospital setups and align multi-stakeholder purchasing loops.',
     deepDive: 'Sterile field protocols, CSSD tracking, ER/ICU workflows, and building consensus across Surgeons, Biomedical Engineers, and Administrative boards.',
     originalTopics: [
-      'Mapping the buying committee: CNO, CMO, procurement, HOD',
-      'How public vs. private hospital purchasing works differently',
-      'Navigating tender processes and formulary addition',
-      'Building champions at every level of the hierarchy'
+      'Navigating OT, Cath Lab, ICU, and OPD environments with confidence',
+      'Sterile field protocols, CSSD workflows, and biomedical department coordination',
+      'Understanding HCP personas: Surgeons, Nurses, Biomedical Engineers, and Hospital Administrators',
+      'Mapping multi-stakeholder procurement loops in public vs. private hospital systems'
     ],
-    originalTitle: 'Multi-Stakeholder Hospital Procurement'
+    originalTitle: 'Healthcare Environments & Multi-Stakeholder Procurement'
   },
   {
     num: '03',
@@ -3920,12 +3920,12 @@ const MODULES = [
     hook: 'Bypass transactional retail scripts. Master extended corporate sales cycles and engage senior specialists.',
     deepDive: 'Capital equipment pricing frameworks, mapping hospital influence hierarchies, managing cross-functional GPOs, and strategic KOL trial workshops.',
     originalTopics: [
-      'The difference between pharma detailing and device consultative selling',
-      'Needs-discovery frameworks used by top Stryker reps',
-      'Handling "we already have a vendor" and other stalls',
-      'Building long-cycle deals across 3–9 month buying windows'
+      'Pharma MR vs. MedTech AE — understanding the core shift in selling approach',
+      'Running long-cycle B2B deals: 3–9 month buying windows and multi-touch nurturing',
+      'Key Opinion Leader (KOL) strategy — identifying, engaging, and leveraging champions',
+      'Capital equipment pricing frameworks and budget cycle alignment with hospital finance'
     ],
-    originalTitle: 'Consultative Enterprise Sales'
+    originalTitle: 'Consultative Medical Device Enterprise Sales Dynamics'
   },
   {
     num: '04',
@@ -3934,12 +3934,12 @@ const MODULES = [
     hook: 'Run bulletproof surgical account demonstrations and systematically displace entrenched global competitors.',
     deepDive: 'Specialty lines (Cardiology, Orthopedics, Radiology), live OT trial handoffs, navigating technology adoption friction, and structuring bundled commercial financing.',
     originalTopics: [
-      'How to learn a new product portfolio in 2 weeks',
-      'Reading a clinical study — what matters for device sales',
-      'Competitive landscape: knowing your rivals\' weaknesses',
-      'Objection handling for price, efficacy, and switching costs'
+      'Specialty portfolio mastery: Cardiology, Orthopedics, Radiology, and Surgical segments',
+      'Executing live OT trials and in-theatre product demonstrations with surgeons',
+      'Competitive displacement strategies: overcoming incumbent vendor lock-in',
+      'Objection-handling frameworks for price sensitivity, efficacy doubts, and switching costs'
     ],
-    originalTitle: 'Device Portfolio & Competitive Selling'
+    originalTitle: 'Device Portfolio Strategy & Competitive Selling'
   },
   {
     num: '05',
@@ -3948,12 +3948,12 @@ const MODULES = [
     hook: 'Govern regional distributor territories and maintain absolute control over product inventory velocity.',
     deepDive: 'Super-stockist structures, indirect vs. direct logistics, setting partner KPI metrics, margin protection, and managing reverse logistics pipelines.',
     originalTopics: [
-      'Reading a clinical paper like a sales professional',
-      'Regulatory basics: CE Mark, 510(k), CDSCO registration',
-      'Post-market surveillance: using real-world data in selling',
-      'Translating evidence for surgeons and administrators alike'
+      'Super-stockist and sub-distributor network architecture across Indian geographies',
+      'Direct vs. indirect channel economics: margin structures and territory management',
+      'Cold-chain logistics for biologics, diagnostics, and temperature-sensitive devices',
+      'Setting distributor KPIs, tracking inventory velocity, and managing reverse logistics'
     ],
-    originalTitle: 'Clinical Data Interpretation'
+    originalTitle: 'Distribution Channels & Supply Chain Logistics'
   },
   {
     num: '06',
@@ -3962,12 +3962,12 @@ const MODULES = [
     hook: 'Back up your commercial pitch with verified clinical trial data, medical journals, and strict regulatory benchmarks.',
     deepDive: 'Analyzing clinical trial efficacy metrics, leveraging peer-reviewed safety studies to counter price friction, and managing baseline ISO quality frameworks.',
     originalTopics: [
-      'Rebuilding your resume from pharma MR to MedTech AE',
-      'LinkedIn optimisation for inbound recruiter attention',
-      '60-min mock interviews with actual MedTech hiring managers',
-      'Offer negotiation: base, variables, and benefits — what to push on'
+      'Reading clinical trials and peer-reviewed journals as a sales professional',
+      'Translating efficacy and safety data into compelling value arguments for HCPs',
+      'RAQA fundamentals: ISO 13485, post-market surveillance, and adverse event reporting',
+      'Using regulatory compliance as a competitive differentiator in tenders and formulary bids'
     ],
-    originalTitle: 'Career Architecture & Placement Sprint'
+    originalTitle: 'Clinical Data Interpretation & RAQA Metrics'
   }
 ];
 
@@ -4150,8 +4150,16 @@ async function submitMC(e) {
       }
       updateRegistrationState(true);
     } else {
-      const data = await response.json();
-      errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
+      let errorMessage = 'Something went wrong. Please try again.';
+      try {
+        const data = await response.json();
+        if (data && data.error) {
+          errorMessage = data.error;
+        }
+      } catch (e) {
+        errorMessage = 'Server error. Please try again later.';
+      }
+      errorDiv.textContent = errorMessage;
       errorDiv.style.display = 'block';
       submitBtn.disabled = false;
       submitBtn.textContent = 'Submit';
@@ -4382,8 +4390,16 @@ async function submitLeadMagnetForm(e) {
       }
       updateRegistrationState(true);
     } else {
-      const data = await response.json();
-      errorDiv.textContent = data.error || 'Something went wrong. Please try again.';
+      let errorMessage = 'Something went wrong. Please try again.';
+      try {
+        const data = await response.json();
+        if (data && data.error) {
+          errorMessage = data.error;
+        }
+      } catch (e) {
+        errorMessage = 'Server error. Please try again later.';
+      }
+      errorDiv.textContent = errorMessage;
       errorDiv.style.display = 'block';
       submitBtn.disabled = false;
       submitBtn.textContent = 'Register & Send My Free Guide ➔';
