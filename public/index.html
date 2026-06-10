@@ -6,7 +6,7 @@
 <!-- TODO: replace with authorised simplified favicon lockup -->
 <link rel="icon" href="brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
 <title>MedSkills Catalyst — India's MedTech Career Academy</title>
-<meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. 8 weeks · 100% placement support.">
+<meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. 6 weeks · dedicated placement assistance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
@@ -1355,46 +1355,174 @@ input,textarea,select{font-family:inherit}
   }
 }
 
-/* ── CURRICULUM SECTION REDESIGN ══════════════════ */
-.curriculum-grid {
+/* ── CURRICULUM SECTION — SNAPSHOT RAIL + ACCORDION ══════════════ */
+.curriculum-layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-columns: 320px 1fr;
+  gap: 2.5rem;
   margin-top: 3.5rem;
+  align-items: start;
 }
-@media(max-width:950px) {
-  .curriculum-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media(max-width:650px) {
-  .curriculum-grid {
-    grid-template-columns: 1fr;
-  }
-}
-.module-card {
+.cur-rail { position: sticky; top: 96px; }
+.cur-rail-card {
   background: var(--surface);
-  border: 1px solid rgba(10, 42, 67, 0.06);
+  border: 1px solid rgba(10, 42, 67, 0.08);
   border-radius: var(--radius-lg);
-  padding: 2.25rem 2rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.02);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
+  gap: 1.1rem;
   text-align: left;
 }
-.module-card:hover {
-  border-color: rgba(0, 88, 158, 0.18);
-  box-shadow: 0 12px 30px rgba(0, 88, 158, 0.05);
-  transform: translateY(-3px);
+.cur-rail-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin: 0;
 }
-.module-card-badges {
-  display: flex;
-  flex-wrap: wrap;
+.cur-rail-meta { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; }
+.cur-rail-meta li {
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.cur-rail-meta li::before { content: "✓"; position: absolute; left: 0; color: var(--cta); font-weight: 800; }
+.cur-rail-meta li strong { color: var(--brand); font-weight: 700; }
+.cur-rail-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.5rem;
+  background: var(--cta);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: background 0.2s;
 }
+.cur-rail-btn:hover { background: var(--cta-hover); }
+.cur-rail-link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  text-align: center;
+  transition: color 0.2s;
+}
+.cur-rail-link:hover { color: var(--brand-mid); }
+
+.cur-acc { display: flex; flex-direction: column; gap: 0.9rem; }
+.cur-item {
+  background: var(--surface);
+  border: 1px solid rgba(10, 42, 67, 0.08);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  text-align: left;
+}
+.cur-item:hover { border-color: rgba(0, 88, 158, 0.25); }
+.cur-item.open { border-color: rgba(0, 88, 158, 0.35); box-shadow: 0 10px 28px rgba(0, 88, 158, 0.06); }
+.cur-item-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.15rem 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+}
+.cur-item-num {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--pale-blue);
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+}
+.cur-item-titlewrap { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
+.cur-item-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+.cur-item-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--brand);
+  line-height: 1.3;
+}
+.cur-item-chev {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  stroke: var(--blue);
+  stroke-width: 2.5;
+  fill: none;
+  transition: transform 0.3s;
+}
+.cur-item.open .cur-item-chev { transform: rotate(180deg); }
+.cur-item-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cur-item.open .cur-item-body { grid-template-rows: 1fr; }
+.cur-item-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 1.4rem 0 calc(1.4rem + 44px + 1.1rem);
+}
+.cur-item-hook {
+  font-style: italic;
+  color: var(--brand-mid);
+  font-size: 0.92rem;
+  line-height: 1.55;
+  margin: 0 0 0.9rem;
+}
+.cur-topics {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.cur-topics li {
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.cur-topics li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.cur-item-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1.3rem; }
 .module-badge {
   font-size: 0.72rem;
   font-weight: 700;
@@ -1405,210 +1533,19 @@ input,textarea,select{font-family:inherit}
   letter-spacing: 0.01em;
   border: 1px solid rgba(0, 88, 158, 0.08);
 }
-.module-card-header {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+.cur-item--capstone {
+  border: 2px solid rgba(0, 88, 158, 0.35);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(0, 88, 158, 0.05) 100%);
 }
-.module-card-num {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--ink-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.module-card-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--brand);
-  line-height: 1.3;
-}
-.module-card-hook {
-  font-size: 0.94rem;
-  font-weight: 500;
-  color: var(--brand-mid);
-  line-height: 1.55;
-  margin: 0;
-  font-style: italic;
-  flex: 1;
-}
-.module-card-deep-dive {
-  border-top: 1px solid rgba(10, 42, 67, 0.06);
-  padding-top: 1.25rem;
-  margin-top: auto;
-}
-.deep-dive-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--blue);
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s;
-}
-.deep-dive-trigger:hover {
-  color: var(--brand-mid);
-}
-.deep-dive-trigger svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  fill: none;
-  transition: transform 0.3s;
-}
-.module-card-deep-dive.open .deep-dive-trigger svg {
-  transform: rotate(180deg);
-}
-.deep-dive-content {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.3s ease;
-  overflow: hidden;
-}
-.module-card-deep-dive.open .deep-dive-content {
-  grid-template-rows: 1fr;
-}
-.deep-dive-inner {
-  min-height: 0;
-  font-size: 0.85rem;
-  color: var(--ink-muted);
-  line-height: 1.6;
-  padding-top: 0.75rem;
-}
-.module-project-card {
-  background: rgba(16, 92, 102, 0.03);
-  border: 1px solid rgba(16, 92, 102, 0.08);
-  border-radius: var(--radius-sm);
-  padding: 1rem 1.25rem;
-  margin-top: 0.5rem;
-}
-.module-project-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--brand-mid);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.4rem;
-}
-.module-project-title {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--brand);
-}
-.module-mentor-quote {
-  border-left: 2px solid var(--cta);
-  padding-left: 0.75rem;
-  margin-top: 0.25rem;
-}
-.module-mentor-lbl {
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: var(--cta);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.2rem;
-}
-.module-mentor-text {
-  font-size: 0.82rem;
-  color: var(--ink-muted);
-  font-style: italic;
-  line-height: 1.45;
-}
-@media(max-width:850px){.curriculum-grid{grid-template-columns:1fr}}
+.cur-item--capstone .cur-item-num { background: var(--blue); color: #fff; }
+.cur-item--capstone .cur-item-label { color: var(--blue); }
 
-/* ── SYLLABUS BREAKDOWN DROPDOWN ══════════════════ */
-.syllabus-breakdown-wrapper {
-  margin-top: 3.5rem;
-  text-align: center;
-}
-.syllabus-toggle-btn {
-  background: none;
-  border: none;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--blue);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-}
-.syllabus-toggle-btn:hover {
-  color: var(--brand-mid);
-}
-.syllabus-dropdown-content {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  overflow: hidden;
-  text-align: left;
-}
-.syllabus-dropdown-content.open {
-  grid-template-rows: 1fr;
-}
-.syllabus-inner {
-  min-height: 0;
-  padding-top: 1.5rem;
-}
-.syllabus-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 2.25rem;
-  background: var(--surface);
-  border: 1px solid rgba(10, 42, 67, 0.08);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.02);
-}
-.syllabus-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.syllabus-col-title {
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: var(--brand);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  border-bottom: 1px solid rgba(10, 42, 67, 0.06);
-  padding-bottom: 0.5rem;
-}
-.syllabus-col-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.syllabus-col-item {
-  font-size: 0.85rem;
-  color: var(--ink-muted);
-  line-height: 1.45;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-}
-.syllabus-col-item::before {
-  content: "•";
-  color: var(--blue);
-  font-weight: bold;
-}
-@media(max-width:768px) {
-  .syllabus-grid {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-  }
+@media(max-width: 950px) {
+  .curriculum-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  .cur-rail { position: static; }
+  .cur-item-inner { padding: 0 1.25rem; }
+  .cur-item-head { padding: 1rem 1.25rem; gap: 0.85rem; }
+  .cur-item-num { width: 38px; height: 38px; font-size: 0.85rem; }
 }
 
 /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
@@ -2630,7 +2567,7 @@ input,textarea,select{font-family:inherit}
       <a href="#outcomes">Outcomes</a>
       <a href="#curriculum">Curriculum</a>
       <a href="#faculty">Faculty</a>
-      <a href="#fees">Fees</a>
+      <a href="#fees">ROI Calculator</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-actions">
@@ -3187,7 +3124,7 @@ input,textarea,select{font-family:inherit}
           <div class="roadmap-step-num">9</div>
           <div class="roadmap-step-content">
             <h3 class="roadmap-step-title">Offer Secured &amp; 90-Day Integration</h3>
-            <p class="roadmap-step-desc">Sign your placement contract. We provide active salary negotiation coaching and 90 days of corporate onboarding support to guarantee your first-quarter success.</p>
+            <p class="roadmap-step-desc">Sign your placement contract. We provide active salary negotiation coaching and 90 days of corporate onboarding support to set up your first-quarter success.</p>
             
             <!-- Mobile visual -->
             <div class="roadmap-mobile-visual" style="display: none;">
@@ -3332,21 +3269,24 @@ input,textarea,select{font-family:inherit}
   <div class="container">
     <div class="section-header fade-up">
       <p class="section-eyebrow">The Curriculum</p>
-      <h2 class="t-h2">6 Modules. Built by Industry Leaders, Not Just Academics.</h2>
+      <h2 class="t-h2">Foundational to Placement: A Curriculum Designed by the People Who Actually Hire in MedTech.</h2>
       <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
     </div>
-    <div class="curriculum-grid" id="curriculum-grid"></div>
-
-    <!-- Syllabus Breakdown Dropdown -->
-    <div class="syllabus-breakdown-wrapper fade-up">
-      <button class="syllabus-toggle-btn" onclick="toggleSyllabusBreakdown()">
-        <span>View Comprehensive Technical Syllabus Breakdown (PDF / Expand)</span> ➔
-      </button>
-      <div id="syllabus-dropdown" class="syllabus-dropdown-content">
-        <div class="syllabus-inner">
-          <div class="syllabus-grid" id="syllabus-grid"></div>
+    <div class="curriculum-layout">
+      <aside class="cur-rail fade-up">
+        <div class="cur-rail-card">
+          <p class="cur-rail-eyebrow">Programme Snapshot</p>
+          <ul class="cur-rail-meta">
+            <li><strong>6-week</strong> live online programme</li>
+            <li><strong>Foundational + 5 modules + Capstone</strong> placement sprint</li>
+            <li>Evening &amp; Saturday sessions — built for working professionals</li>
+            <li>Shaped with hiring managers from leading MedTech companies</li>
+          </ul>
+          <a class="cur-rail-btn" href="assets/MedSkills-Catalyst-Detailed-Syllabus.pdf" download>Download Detailed Syllabus (PDF)</a>
+          <a class="cur-rail-link" href="#lead">Reserve a Masterclass Seat →</a>
         </div>
-      </div>
+      </aside>
+      <div class="cur-acc" id="curriculum-acc"></div>
     </div>
   </div>
 </section>
@@ -3383,7 +3323,7 @@ input,textarea,select{font-family:inherit}
               <line x1="8" y1="2" x2="8" y2="6"></line>
               <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
-            STARTS 7TH JUN
+            STARTS 4TH JUL
           </span>
           <span class="mc-bento-pill">
             <svg class="mc-tag-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
@@ -3490,7 +3430,7 @@ input,textarea,select{font-family:inherit}
             <span class="faculty-badge">ICF Certified Coach</span>
             <span class="faculty-badge">MIT Sloan Alumnus</span>
           </div>
-          <p class="faculty-bio">With over 25 years of global corporate experience driving business and personal excellence, Dr. Keny brings elite leadership frameworks to MedSkills. An ICF Certified Coach and alumnus of MIT Sloan, he specializes in Spiritual &amp; Emotional Business Intelligence, helping candidates master emotional resilience, interpersonal communication, and high-stakes MedTech corporate dynamics.</p>
+          <p class="faculty-bio">With over 25 years of global corporate leadership experience, Dr. Keny brings executive-grade coaching to MedSkills. An ICF Certified Coach and MIT Sloan alumnus, he works with candidates on interview composure, executive communication, and the interpersonal dynamics that determine performance in high-stakes MedTech corporate environments.</p>
         </div>
       </div>
     </div>
@@ -3643,7 +3583,7 @@ input,textarea,select{font-family:inherit}
       <div class="roi-card roi-card--hero">
         <div class="roi-card-header">
           <h3 class="roi-card-title">Career ROI Simulator</h3>
-          <p class="roi-card-desc">Based on verified salary data from MedSkills Catalyst alumni across device sales and clinical specialist roles.</p>
+          <p class="roi-card-desc">Illustrative model based on published industry salary ranges for MedTech device sales and clinical specialist roles in India.</p>
         </div>
         <div class="roi-sliders">
           <div class="roi-slider-group">
@@ -3796,7 +3736,7 @@ END PLACEMENT HIDDEN -->
     <div class="mc-modal-head">
       <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Free Live Masterclass</p>
       <h3>Break Into MedTech Sales in 90 Days</h3>
-      <p>Saturday, 7th June · 11 AM IST · Zoom · Free</p>
+      <p>Saturday, 4th July · 11 AM IST · Zoom · Free</p>
     </div>
     <div class="mc-modal-body">
       <form id="mc-form" onsubmit="submitMC(event)">
@@ -3834,7 +3774,7 @@ END PLACEMENT HIDDEN -->
         </svg>
       </div>
       <h3>Before you go — one quick thing</h3>
-      <p>Still wondering whether your background qualifies you for MedTech? Join the free masterclass and get that question answered live by our Lead Faculty (former Regional Sales Manager at Medtronic).</p>
+      <p>Still wondering whether your background qualifies you for MedTech? Join the free masterclass and get that question answered live by our Lead Faculty (Co-Founder &amp; Program Director, Ex-Medtronic, Ex-Stryker, Ex-Pfizer).</p>
       <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openModal('mc-overlay')" data-track="exit_masterclass">Yes, Reserve a Free Seat →</button>
       <button class="exit-dismiss" onclick="closeModal('exit-overlay')">No thanks, I'll figure it out myself</button>
     </div>
@@ -3888,94 +3828,91 @@ function updateRegistrationState(registered) {
 /* ── DATA ──────────────────────────────────────────────────────── */
 const MODULES = [
   {
-    num: 'Foundational',
-    label: 'Foundational Module',
-    title: 'Foundations of Medical Devices & The Ecosystem',
-    badges: ['CDSCO / ISO Compliance', 'MNC vs. Domestic PLI'],
-    hook: 'Transition from retail pill volume to high-value medical device classification asset management.',
-    deepDive: 'Class A-D risk routing, diagnostic vs. therapeutic device profiles, domestic PLI schemes, and global MNC (GE, Siemens, Philips) import supply chains.',
-    originalTopics: [
-      'Risk-based categorization (Class A to D) and specialized segments (Diagnostic, Therapeutic, Implantable, Imaging)',
-      'Regulatory compliance frameworks (CDSCO, ISO standards) and import licensing rules',
-      'Navigating MNC vs. domestic manufacturer supply chains and PLI scheme advantages',
-      'High-stakes case support across key MedTech specialty areas'
-    ],
-    originalTitle: 'Foundational Module: Foundations of Medical Devices & The Ecosystem'
+    num: 'F',
+    title: 'Foundations of Medical Devices',
+    badges: ['Class A–D Devices', 'Make in India / PLI'],
+    hook: 'Move from pill volume to the device world — understand what you\'ll actually be selling and where it comes from.',
+    topics: [
+      'The full device map: diagnostic, therapeutic, surgical, implantable, monitoring — and how Class A–D risk levels work',
+      'Devices across specialties: cardiology, ortho, neuro, radiology, critical care',
+      'Who makes what in India — manufacturers, MedTech parks, PLI schemes, and why it matters to your career',
+      'The import ecosystem: global MNCs, distributors, and where the high-value roles sit'
+    ]
   },
   {
     num: '01',
-    label: 'Module 1',
-    title: 'Healthcare Environments & Multi-Stakeholder Procurement',
-    badges: ['OR & Cath Lab Flows', 'HCP Personas'],
-    hook: 'Command authority in complex hospital setups and align multi-stakeholder purchasing loops.',
-    deepDive: 'Sterile field protocols, CSSD tracking, ER/ICU workflows, and building consensus across Surgeons, Biomedical Engineers, and Administrative boards.',
-    originalTopics: [
-      'Navigating OT, Cath Lab, ICU, and OPD environments with confidence',
-      'Sterile field protocols, CSSD workflows, and biomedical department coordination',
-      'Understanding HCP personas: Surgeons, Nurses, Biomedical Engineers, and Hospital Administrators',
-      'Mapping multi-stakeholder procurement loops: Chief Nursing Officer (CNO), Chief Medical Officer (CMO), procurement, Head of Department (HOD)'
-    ],
-    originalTitle: 'Module 1: Healthcare Environments & Multi-Stakeholder Procurement'
+    title: 'Healthcare Setup & Multi-Stakeholder Management (HCPs, Procurement & Supply Chain)',
+    badges: ['OR · ICU · Cath Lab', 'Buying Committees'],
+    hook: 'Walk into any hospital — OR, ICU, Cath Lab — and know exactly who decides, who influences, and who signs.',
+    topics: [
+      'Working areas of a hospital: OR, ER, ICU, Cath Lab, Imaging, Labs, CSSD — and the devices that live in each',
+      'Mapping the buying committee: CNO (Chief Nursing Officer), CMO (Chief Medical Officer), procurement, HOD (Head of Department)',
+      'How public vs. private hospital purchasing actually works — tenders, formulary addition, budget cycles',
+      'Building champions at every level of the hierarchy'
+    ]
   },
   {
     num: '02',
-    label: 'Module 2',
-    title: 'Consultative Medical Device Enterprise Sales Dynamics',
-    badges: ['B2B Capital Cycles', 'KOL Alignment'],
-    hook: 'Bypass transactional retail scripts. Master extended corporate sales cycles and engage senior specialists.',
-    deepDive: 'Capital equipment pricing frameworks, mapping hospital influence hierarchies, managing cross-functional GPOs, and strategic KOL trial workshops.',
-    originalTopics: [
-      'Pharma Medical Representative (MR) vs. MedTech Account Executive (AE) — understanding the core shift in selling approach',
-      'Running long-cycle B2B deals: 3–9 month buying windows and multi-touch nurturing',
+    title: 'Consultative Medical Device Enterprise Dynamics',
+    badges: ['B2B Capital Cycles', 'KOL Engagement'],
+    hook: 'Unlearn pharma detailing. Learn how high-value, multi-stakeholder device deals are actually won.',
+    topics: [
+      'The real difference between pharma detailing and device consultative selling',
+      'Every sales channel in MedTech: direct, distributor, government tenders, GPOs, institutional',
       'Needs-discovery frameworks used by top industry reps',
-      "Smart comebacks for when the hospital says 'we already buy from someone else'"
-    ],
-    originalTitle: 'Module 2: Consultative Medical Device Enterprise Sales Dynamics'
+      'Smart comebacks for when the hospital says “we already buy from someone else”',
+      'Building long-cycle deals across 3–9 month buying windows — and the KOLs who decide them'
+    ]
   },
   {
     num: '03',
-    label: 'Module 3',
-    title: 'Device Portfolio Strategy & Competitive Selling',
-    badges: ['In-Theatre Trials', 'Objection Dominance'],
-    hook: 'Run bulletproof surgical account demonstrations and systematically displace entrenched global competitors.',
-    deepDive: 'Across specialty lines — with live OT trial handoffs in select specialty areas, navigating technology adoption friction, and structuring commercial financing.',
-    originalTopics: [
-      'Specialty portfolio mastery: Cardiology, Orthopedics, Radiology, and Surgical segments',
-      'Executing live OT trials and in-theatre product demonstrations with surgeons',
-      'Competitive displacement strategies: overcoming incumbent vendor lock-in',
-      'Objection-handling frameworks for price sensitivity, efficacy doubts, and switching costs'
-    ],
-    originalTitle: 'Module 3: Device Portfolio Strategy & Competitive Selling'
+    title: 'Device Portfolio & Competitive Selling',
+    badges: ['In-Account Trials', 'Objection Dominance'],
+    hook: 'Master a new product portfolio in two weeks and displace competitors who\'ve owned the account for years.',
+    topics: [
+      'How to learn a new product portfolio in 2 weeks',
+      'Reading a clinical study — what actually matters for device selling',
+      'Competitive landscape: knowing your rivals’ weaknesses',
+      'Objection handling for price, efficacy, and switching costs'
+    ]
   },
   {
     num: '04',
-    label: 'Module 4',
-    title: 'Distribution Channels & Supply Chain Logistics',
+    title: 'Distribution & Supply Chain in MedTech',
     badges: ['Channel Partner ROI', 'Cold-Chain Logistics'],
-    hook: 'Govern regional distributor territories and maintain absolute control over product inventory velocity.',
-    deepDive: 'Super-stockist structures, indirect vs. direct logistics, setting partner KPI metrics, margin protection, and managing reverse logistics pipelines.',
-    originalTopics: [
-      'Super-stockist and sub-distributor network architecture across Indian geographies',
-      'Direct vs. indirect channel economics: margin structures and territory management',
-      'Cold-chain logistics for biologics, diagnostics, and temperature-sensitive devices',
-      'Setting distributor KPIs, tracking inventory velocity, and managing reverse logistics'
-    ],
-    originalTitle: 'Module 4: Distribution Channels & Supply Chain Logistics'
+    hook: 'Understand how devices actually move — from manufacturer to super-stockist to the hospital shelf — and the roles that run it.',
+    topics: [
+      'The flow: manufacturer → super-stockist → distributor → hospital, and where each role fits',
+      'Managing channel partners: targets, margins, KPIs, and keeping ROI honest',
+      'Cold-chain and storage realities for sensitive devices',
+      'Reverse logistics: returns, servicing, replacements'
+    ]
   },
   {
     num: '05',
-    label: 'Module 5',
-    title: 'Clinical Data Interpretation & RAQA Metrics',
-    badges: ['Evidence-Based Value', 'Quality Assurance'],
-    hook: 'Back up your commercial pitch with verified clinical trial data, medical journals, and strict regulatory benchmarks.',
-    deepDive: 'Analyzing clinical trial efficacy metrics, leveraging peer-reviewed safety studies to counter price friction, and managing baseline ISO quality frameworks.',
-    originalTopics: [
+    title: 'Clinical Data, Regulatory & Quality (RAQA)',
+    badges: ['CDSCO · CE · 510(k)', 'ISO / QMS'],
+    hook: 'Back every pitch with evidence — and open the door to Regulatory Affairs & Quality Assurance careers.',
+    topics: [
       'Reading a clinical paper like a MedTech professional',
-      'Translating efficacy and safety data into compelling value arguments for HCPs',
-      'RAQA fundamentals: ISO 13485, post-market surveillance, and adverse event reporting',
-      'Using regulatory compliance as a competitive differentiator in tenders and formulary bids'
-    ],
-    originalTitle: 'Module 5: Clinical Data Interpretation & RAQA Metrics'
+      'Regulatory essentials: CDSCO registration, CE Mark, 510(k)',
+      'ISO standards and Quality Management Systems — the language of RAQA roles',
+      'Post-market surveillance: using real-world data in selling',
+      'Translating evidence for surgeons and administrators alike'
+    ]
+  },
+  {
+    num: 'C',
+    title: 'Career Architecture & Placement Sprint',
+    badges: ['Mock Interviews', 'Offer Negotiation'],
+    hook: 'Everything converges here: your new identity, your resume, your interviews, your offer.',
+    topics: [
+      'Rebuilding your resume from pharma Medical Representative (MR) to MedTech Account Executive (AE)',
+      'LinkedIn optimisation for inbound recruiter attention',
+      '60-min mock interviews with actual MedTech hiring managers',
+      'Offer negotiation: base, variables, and benefits — what to push on',
+      'Career paths mapped: sales executive → territory manager → regional manager → product & marketing roles'
+    ]
   }
 ];
 
@@ -3989,50 +3926,31 @@ const FAQS = [
   {q:'Is there a refund policy?',a:'If you attend the orientation and decide MedSkills Catalyst is not the right fit within the first 7 days, we refund 100% — no questions asked. After 7 days, refunds are not available.'}
 ];
 
-/* ── BUILD CURRICULUM ──────────────────────────────────────────── */
-const cgrid = document.getElementById('curriculum-grid');
-MODULES.forEach(m=>{
-  const el=document.createElement('div');
-  el.className='module-card fade-up';
-  
+/* ── BUILD CURRICULUM (accordion) ─────────────────────────────── */
+const cacc = document.getElementById('curriculum-acc');
+MODULES.forEach((m, i) => {
+  const numLabel = m.num === 'F' ? 'Foundational Module' : m.num === 'C' ? 'Capstone — The Placement Sprint' : 'Module ' + m.num;
+  const el = document.createElement('div');
+  el.className = 'cur-item fade-up' + (m.num === 'C' ? ' cur-item--capstone' : '') + (i === 0 ? ' open' : '');
   const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
-  
+  const topicsHtml = (m.topics || []).map(t => `<li>${t}</li>`).join('');
   el.innerHTML = `
-    <div class="module-card-badges">
-      ${badgesHtml}
-    </div>
-    <div class="module-card-header">
-      <div class="module-card-num">${m.label || 'Module ' + m.num}</div>
-      <h3 class="module-card-title">${m.title}</h3>
-    </div>
-    <p class="module-card-hook">"${m.hook}"</p>
-    <div class="module-card-deep-dive">
-      <div class="deep-dive-trigger" onclick="toggleDeepDive(this)">
-        <span>Show Details</span>
-        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    <button class="cur-item-head" onclick="toggleCur(this)" aria-expanded="${i === 0}">
+      <span class="cur-item-num">${m.num}</span>
+      <span class="cur-item-titlewrap">
+        <span class="cur-item-label">${numLabel}</span>
+        <span class="cur-item-title">${m.title}</span>
+      </span>
+      <svg class="cur-item-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="cur-item-body">
+      <div class="cur-item-inner">
+        <p class="cur-item-hook">“${m.hook}”</p>
+        <ul class="cur-topics">${topicsHtml}</ul>
+        <div class="cur-item-badges">${badgesHtml}</div>
       </div>
-      <div class="deep-dive-content">
-        <div class="deep-dive-inner">
-          ${m.deepDive}
-        </div>
-      </div>
-    </div>
-  `;
-  cgrid.appendChild(el);
-});
-
-/* ── BUILD SYLLABUS BREAKDOWN ──────────────────────────────────── */
-const sgrid = document.getElementById('syllabus-grid');
-MODULES.forEach(m => {
-  const col = document.createElement('div');
-  col.className = 'syllabus-col';
-  col.innerHTML = `
-    <div class="syllabus-col-title">${m.originalTitle}</div>
-    <ul class="syllabus-col-list">
-      ${m.originalTopics.map(t => `<li class="syllabus-col-item">${t}</li>`).join('')}
-    </ul>
-  `;
-  sgrid.appendChild(col);
+    </div>`;
+  cacc.appendChild(el);
 });
 
 /* ── BUILD FAQ ─────────────────────────────────────────────────── */
@@ -4046,25 +3964,16 @@ FAQS.forEach(f=>{
 
 /* ── ACCORDIONS ────────────────────────────────────────────────── */
 function toggleModule(h){h.closest('.module').classList.toggle('open')}
-function toggleDeepDive(trigger) {
-  const container = trigger.closest('.module-card-deep-dive');
-  const isOpen = container.classList.toggle('open');
-  const span = trigger.querySelector('span');
-  if (span) {
-    span.textContent = isOpen ? 'Hide Details' : 'Show Details';
-  }
-}
-function toggleSyllabusBreakdown() {
-  const dropdown = document.getElementById('syllabus-dropdown');
-  const btn = document.querySelector('.syllabus-toggle-btn');
-  const isOpen = dropdown.classList.toggle('open');
-  if (btn) {
-    const span = btn.querySelector('span');
-    if (span) {
-      span.textContent = isOpen 
-        ? 'Hide Comprehensive Technical Syllabus Breakdown' 
-        : 'View Comprehensive Technical Syllabus Breakdown (PDF / Expand)';
-    }
+function toggleCur(head) {
+  const item = head.closest('.cur-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('#curriculum-acc .cur-item.open').forEach(o => {
+    o.classList.remove('open');
+    o.querySelector('.cur-item-head').setAttribute('aria-expanded', 'false');
+  });
+  if (!wasOpen) {
+    item.classList.add('open');
+    head.setAttribute('aria-expanded', 'true');
   }
 }
 function toggleFaq(b){b.closest('.faq-item').classList.toggle('open')}
