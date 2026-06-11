@@ -3241,79 +3241,7 @@ input,textarea,select{font-family:inherit}
   </div>
 </section>
 
-<!-- LEAD FORM ───────────────────────────────────────────────────── -->
-<section id="lead" class="section">
-  <div class="container">
-    <div class="lead-inner">
-      <div class="fade-up">
-        <div class="lead-book-container">
-          <div class="book-mockup">
-            <div class="book-spine-effect"></div>
-            <div class="book-cover">
-              <span class="book-tag">HANDBOOK</span>
-              <h4 class="book-title">MedTech Career Transition Guide</h4>
-              <span class="book-meta">2026 EDITION</span>
-            </div>
-          </div>
-          <div>
-            <h2 class="t-h2 lead-h">Register &amp; Get the Career Transition Guide <span class="t-serif t-brand-mid">— Free</span></h2>
-            <p class="lead-sub" style="margin-bottom: 0;">Secure your seat for the live session and we will instantly email you our 28-page playbook covering the highest-paying roles, exact interview questions, and salary negotiation scripts.</p>
-          </div>
-        </div>
-        <div class="lead-checklist">
-          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Which MedTech segment is hiring most aggressively right now</span>
-          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>How to rewrite your pharma resume for device companies</span>
-          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>5 core things top-tier MedTech companies assess you on in interviews</span>
-          <span class="lead-check"><span class="lead-check-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>Real salary bands by city, role, and company size</span>
-        </div>
-      </div>
-      <div class="fade-up">
-        <div class="lead-form-card">
-          <form id="lead-magnet-form" onsubmit="submitLeadMagnetForm(event)" style="display: flex; flex-direction: column; gap: 1.25rem;">
-            <div id="lead-form-error" style="display: none; padding: 0.75rem; border-radius: var(--radius-sm); background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; font-size: 0.85rem;"></div>
-            
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <label for="lm-name" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Full Name</label>
-              <input type="text" id="lm-name" name="name" required placeholder="e.g. Rohan Sharma" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
-            </div>
 
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <label for="lm-email" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Email Address</label>
-              <input type="email" id="lm-email" name="email" required placeholder="e.g. rohan@gmail.com" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <label for="lm-phone" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">WhatsApp Number</label>
-              <input type="tel" id="lm-phone" name="phone" required placeholder="e.g. +91 98765 43210" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <label for="lm-status" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Current Status</label>
-              <select id="lm-status" name="status" required style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; color: var(--navy); transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
-                <option value="" disabled selected>Select status...</option>
-                <option value="Working Professional">Working Professional</option>
-                <option value="Student">Student</option>
-              </select>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 0.4rem;">
-              <label for="lm-org" style="font-size: 0.75rem; font-weight: 700; color: var(--navy); text-transform: uppercase; letter-spacing: 0.05em;">Current Company / College</label>
-              <input type="text" id="lm-org" name="organization" required placeholder="e.g. Apex Biotech or Delhi University" style="width: 100%; border: 1px solid var(--border-mid); border-radius: var(--radius-md); padding: 0.95rem 1.25rem; font-size: 0.95rem; outline: none; background: #F8FAFC; transition: all 0.2s;" onfocus="this.style.borderColor='var(--blue)'; this.style.background='#fff';" onblur="this.style.borderColor='var(--border-mid)'; this.style.background='#F8FAFC';">
-            </div>
-
-            <button type="submit" class="btn btn--amber btn--full animate-lift" style="margin-top: 0.5rem; background: var(--blue); color: #fff; padding: 0.95rem; font-weight: 700; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; font-size: 1rem; transition: background 0.2s, transform 0.2s;">
-              Register &amp; Send My Free Guide ➔
-            </button>
-            
-            <p style="text-align: center; font-size: 0.75rem; color: var(--slate); margin-top: 0.25rem;">
-              The Zoom link and your PDF guide will be sent directly to your inbox.
-            </p>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
     </div>
   </div>
 </section>
@@ -3419,7 +3347,7 @@ input,textarea,select{font-family:inherit}
         </div>
         <p class="roi-disclaimer">Illustrative calculation based on target industry salary ranges for device sales positions. Actual results may vary depending on student background and interview performance.</p>
         <div class="roi-cta-wrap">
-          <a href="#lead" class="btn btn--amber btn--lg" data-track="roi_apply">Apply for the Next Cohort ➔</a>
+          <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Apply for the Next Cohort ➔</a>
         </div>
       </div>
     </div>
@@ -3455,7 +3383,7 @@ END PLACEMENT HIDDEN -->
       <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
       <p class="final-cta-sub">Every month you wait is a month someone else is getting the role and the salary you deserve. Applications for our exclusive cohort close when the 6 available seats are filled.</p>
       <div class="final-cta-actions">
-        <a href="#lead" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
+        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
         <button class="btn btn--ghost btn--lg" onclick="openModal('mc-overlay')" data-track="finalcta_masterclass">Attend the Masterclass First</button>
       </div>
     </div>
@@ -3502,7 +3430,7 @@ END PLACEMENT HIDDEN -->
 
 <!-- MOBILE STICKY BAR ───────────────────────────────────────────── -->
 <div id="sticky-bar">
-  <a href="#lead" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
+  <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
   <a class="sticky-wa" href="https://wa.me/919900000000?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="sticky_wa">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
     WhatsApp
