@@ -2520,7 +2520,7 @@ input,textarea,select{font-family:inherit}
 /* ── PREMIUM OVERLAYS & MODALS ─────────────────── */
 .overlay{position:fixed;inset:0;background:rgba(4,9,12,0.8);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:1000;display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .3s var(--easy-out)}
 .overlay.show{opacity:1;pointer-events:all}
-.modal{background:var(--surface);border-radius:var(--radius-xl);max-width:540px;width:100%;overflow:hidden;transform:translateY(32px);transition:transform .4s var(--easy-out);box-shadow:var(--shadow-lg);position:relative;border:1px solid rgba(11,19,23,0.08)}
+.modal{background:var(--surface);border-radius:var(--radius-xl);max-width:640px;width:100%;overflow:hidden;transform:translateY(32px);transition:transform .4s var(--easy-out);box-shadow:var(--shadow-lg);position:relative;border:1px solid rgba(11,19,23,0.08)}
 .modal::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--cta);z-index:5}
 .overlay.show .modal{transform:none}
 .modal-close{position:absolute;top:1.25rem;right:1.25rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;cursor:pointer;z-index:10;transition:all .2s;border:1px solid rgba(255,255,255,0.25)}
@@ -2538,10 +2538,13 @@ input,textarea,select{font-family:inherit}
 .mc-modal-body{padding:2rem 2.5rem}
 
 /* Exit Intent Modal */
-.exit-inner{padding:3rem 2.5rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+.exit-inner{padding:2.5rem 3rem;text-align:center;display:flex;flex-direction:column;align-items:center}
 .exit-inner-icon{margin-bottom:1.25rem;display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--amber-light);border:1.25px solid rgba(16,185,129,0.18)}
 .exit-inner h3{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:var(--brand)}
-.exit-inner p{font-size:.95rem;color:var(--ink-muted);margin-bottom:2rem;line-height:1.65;max-width:440px}
+.exit-inner .exit-line1{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:520px;white-space:nowrap}
+.exit-inner .exit-line2{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:520px}
+.exit-inner .exit-attribution{font-size:.82rem;font-weight:700;color:var(--brand);margin-bottom:2rem;letter-spacing:.01em}
+.exit-inner p{font-size:.95rem;color:var(--ink-muted);margin-bottom:2rem;line-height:1.65;max-width:520px}
 .exit-dismiss{width:100%;margin-top:.75rem;color:var(--ink-muted);font-size:.85rem;padding:.5rem;font-weight:600;transition:color .2s}
 .exit-dismiss:hover{color:var(--brand-mid)}
 .modal-close--light{background:var(--bg);border-color:var(--border)}
@@ -3567,7 +3570,9 @@ END PLACEMENT HIDDEN -->
         </svg>
       </div>
       <h3>Before you go — one quick thing</h3>
-      <p>Still wondering whether your background qualifies you for MedTech? Join the live masterclass and get that question answered live by our Lead Faculty (Co-Founder &amp; Program Director, Ex-Medtronic, Ex-Stryker, Ex-Pfizer).</p>
+      <p class="exit-line1">Still wondering whether your background qualifies you for MedTech?</p>
+      <p class="exit-line2">Join the live masterclass and get that question answered live by <strong>Gagan Victor</strong></p>
+      <p class="exit-attribution">Co-Founder &amp; Program Director &nbsp;·&nbsp; Former Medtronic, Stryker, Pfizer &amp; BMS</p>
       <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openModal('mc-overlay')" data-track="exit_masterclass">Yes, Reserve My Seat →</button>
       <button class="exit-dismiss" onclick="closeModal('exit-overlay')">No thanks, I'll figure it out myself</button>
     </div>
