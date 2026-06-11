@@ -26,7 +26,7 @@ export const WEBINAR = {
   leadMagnetTitle: "MedTech Career Transition Guide (28-page PDF)",
 
   // TODO: Replace with real support email.
-  supportEmail: "hello@medskillscatalyst.com",
+  supportEmail: "info@medskillscatalyst.com",
 
   // Social proof — keep honest. Use real running counts or leave the
   // counter hidden. Do NOT hardcode an inflated number.
