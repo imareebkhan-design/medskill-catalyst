@@ -28,7 +28,7 @@ const mentors: Mentor[] = [
     name: "Dr. Vincent Keny, PhD",
     role: "AI Transformational Leader, Executive Coach & Leadership Mentor",
     badges: ["Ex-Boston Scientific", "ICF Certified Coach", "MIT Sloan Alumnus"],
-    bio: "With over 25 years of global corporate experience driving business and personal excellence, Dr. Keny brings elite leadership frameworks to MedSkills. An ICF Certified Coach and alumnus of MIT Sloan, he specializes in Spiritual & Emotional Business Intelligence, helping candidates master emotional resilience, interpersonal communication, and high-stakes MedTech corporate dynamics.",
+    bio: "With over 25 years of global corporate leadership experience, Dr. Keny brings executive-grade coaching to MedSkills. An ICF Certified Coach and MIT Sloan alumnus, he works with candidates on behavioral orientation, executive communication, and the interpersonal dynamics that determine performance in high-stakes MedTech corporate environments.",
     image: "/assets/vincent_keny.png",
   },
 ];
