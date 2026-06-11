@@ -13,7 +13,7 @@ const mentors: Mentor[] = [
   {
     name: "Gagan Victor",
     role: "Co-Founder and Program Director",
-    badges: ["Ex-Pfizer", "Ex-Medtronic", "Ex-Stryker"],
+    badges: ["Former Pfizer, Medtronic, Stryker & BMS"],
     bio: "Former leader at Pfizer, Medtronic India, Stryker, overseeing Cardiovascular and Surgical device portfolio. Transitioned from Medical Rep to Corporate Medtech Leader to full time training, coaching, mentoring to build India’s next generation of Medtech ready professionals.",
     image: "/assets/gagan_victor.png",
   },
@@ -46,7 +46,7 @@ export function Faculty() {
             Break into Medtech sales with industry experts.
           </h2>
           <p className="mt-5 text-lg sm:text-[1.15rem] leading-[1.7] font-normal text-ink/70">
-            Mentored by Medtech Insiders, No Academics. Learn directly from leaders who have spent decades building, selling, and hiring at the world's top medtech companies.
+            Mentored by Medtech Leaders, No Academics.... Learn directly from leaders who have spent decades building, selling, and hiring at the world's top medtech companies.
           </p>
         </header>
 
