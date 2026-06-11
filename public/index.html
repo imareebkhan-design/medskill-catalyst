@@ -1355,174 +1355,73 @@ input,textarea,select{font-family:inherit}
   }
 }
 
-/* ── CURRICULUM SECTION — SNAPSHOT RAIL + ACCORDION ══════════════ */
-.curriculum-layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 2.5rem;
-  margin-top: 3.5rem;
-  align-items: start;
-}
-.cur-rail { position: sticky; top: 96px; }
-.cur-rail-card {
-  background: var(--surface);
-  border: 1px solid rgba(10, 42, 67, 0.08);
-  border-radius: var(--radius-lg);
-  padding: 1.75rem;
-  box-shadow: 0 4px 20px rgba(10, 42, 67, 0.03);
+/* ── CURRICULUM SECTION — GROWTH SCHOOL STYLE MODULE LIST ════════ */
+.cur-list {
+  max-width: 880px;
+  margin: 3.5rem auto 0;
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
   text-align: left;
 }
-.cur-rail-eyebrow {
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin: 0;
-}
-.cur-rail-meta { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; }
-.cur-rail-meta li {
-  font-size: 0.88rem;
-  color: var(--ink-muted);
-  line-height: 1.5;
-  padding-left: 1.2rem;
-  position: relative;
-}
-.cur-rail-meta li::before { content: "✓"; position: absolute; left: 0; color: var(--cta); font-weight: 800; }
-.cur-rail-meta li strong { color: var(--brand); font-weight: 700; }
-.cur-rail-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: var(--cta);
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.88rem;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  transition: background 0.2s;
-}
-.cur-rail-btn:hover { background: var(--cta-hover); }
-.cur-rail-link {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--blue);
-  text-decoration: none;
-  text-align: center;
-  transition: color 0.2s;
-}
-.cur-rail-link:hover { color: var(--brand-mid); }
-
-.cur-acc { display: flex; flex-direction: column; gap: 0.9rem; }
-.cur-item {
-  background: var(--surface);
-  border: 1px solid rgba(10, 42, 67, 0.08);
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  transition: border-color 0.25s, box-shadow 0.25s;
-  text-align: left;
-}
-.cur-item:hover { border-color: rgba(0, 88, 158, 0.25); }
-.cur-item.open { border-color: rgba(0, 88, 158, 0.35); box-shadow: 0 10px 28px rgba(0, 88, 158, 0.06); }
-.cur-item-head {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  padding: 1.15rem 1.4rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  text-align: left;
-}
-.cur-item-num {
-  flex: 0 0 auto;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+.cur-row {
   display: grid;
-  place-items: center;
-  background: var(--pale-blue);
-  color: var(--blue);
-  font-weight: 800;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
+  grid-template-columns: 170px 1fr;
+  gap: 2.25rem;
+  padding: 2.5rem 0;
+  border-top: 1px solid rgba(10, 42, 67, 0.10);
 }
-.cur-item-titlewrap { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; min-width: 0; }
-.cur-item-label {
-  font-size: 0.7rem;
+.cur-row:first-child { border-top: none; padding-top: 0.5rem; }
+.cur-row-tag {
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--ink-muted);
+  letter-spacing: 0.07em;
+  color: var(--blue);
+  padding-top: 0.45rem;
+  line-height: 1.5;
 }
-.cur-item-title {
+.cur-row-body { min-width: 0; }
+.cur-row-title {
   font-family: var(--font-serif);
-  font-size: 1.08rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--brand);
   line-height: 1.3;
+  margin: 0 0 0.5rem;
 }
-.cur-item-chev {
-  flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
-  stroke: var(--blue);
-  stroke-width: 2.5;
-  fill: none;
-  transition: transform 0.3s;
-}
-.cur-item.open .cur-item-chev { transform: rotate(180deg); }
-.cur-item-body {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.cur-item.open .cur-item-body { grid-template-rows: 1fr; }
-.cur-item-inner {
-  min-height: 0;
-  overflow: hidden;
-  padding: 0 1.4rem 0 calc(1.4rem + 44px + 1.1rem);
-}
-.cur-item-hook {
+.cur-row-hook {
+  font-size: 0.92rem;
   font-style: italic;
   color: var(--brand-mid);
-  font-size: 0.92rem;
   line-height: 1.55;
-  margin: 0 0 0.9rem;
+  margin: 0 0 1.1rem;
 }
 .cur-topics {
   list-style: none;
-  margin: 0 0 1rem;
+  margin: 0 0 1.1rem;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.55rem;
+  gap: 0.6rem;
 }
 .cur-topics li {
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   color: var(--ink-muted);
-  line-height: 1.55;
-  padding-left: 1.2rem;
+  line-height: 1.6;
+  padding-left: 1.3rem;
   position: relative;
 }
 .cur-topics li::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 0.55em;
+  top: 0.58em;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--blue);
 }
-.cur-item-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; padding-bottom: 1.3rem; }
+.cur-row-badges { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .module-badge {
   font-size: 0.72rem;
   font-weight: 700;
@@ -1533,19 +1432,33 @@ input,textarea,select{font-family:inherit}
   letter-spacing: 0.01em;
   border: 1px solid rgba(0, 88, 158, 0.08);
 }
-.cur-item--capstone {
+.cur-row--capstone {
   border: 2px solid rgba(0, 88, 158, 0.35);
+  border-radius: var(--radius-lg);
   background: linear-gradient(135deg, var(--surface) 0%, rgba(0, 88, 158, 0.05) 100%);
+  padding: 2.5rem 2.25rem;
+  margin-top: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 88, 158, 0.06);
 }
-.cur-item--capstone .cur-item-num { background: var(--blue); color: #fff; }
-.cur-item--capstone .cur-item-label { color: var(--blue); }
+.cur-row--capstone .cur-row-tag { color: var(--blue); }
+.cur-cta-row {
+  margin-top: 3rem;
+  text-align: center;
+}
+.cur-cta-row a {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--blue);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.cur-cta-row a:hover { color: var(--brand-mid); }
 
-@media(max-width: 950px) {
-  .curriculum-layout { grid-template-columns: 1fr; gap: 1.5rem; }
-  .cur-rail { position: static; }
-  .cur-item-inner { padding: 0 1.25rem; }
-  .cur-item-head { padding: 1rem 1.25rem; gap: 0.85rem; }
-  .cur-item-num { width: 38px; height: 38px; font-size: 0.85rem; }
+@media(max-width: 760px) {
+  .cur-row { grid-template-columns: 1fr; gap: 0.6rem; padding: 2rem 0; }
+  .cur-row-tag { padding-top: 0; }
+  .cur-row-title { font-size: 1.2rem; }
+  .cur-row--capstone { padding: 1.75rem 1.4rem; }
 }
 
 /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
@@ -3272,21 +3185,9 @@ input,textarea,select{font-family:inherit}
       <h2 class="t-h2">Foundational to Placement: A Curriculum Designed by the People Who Actually Hire in MedTech.</h2>
       <p class="section-sub">Every module was shaped in direct collaboration with MedTech sales directors who told us exactly what they wish new hires already knew.</p>
     </div>
-    <div class="curriculum-layout">
-      <aside class="cur-rail fade-up">
-        <div class="cur-rail-card">
-          <p class="cur-rail-eyebrow">Programme Snapshot</p>
-          <ul class="cur-rail-meta">
-            <li><strong>6-week</strong> live online programme</li>
-            <li><strong>Foundational + 5 modules + Capstone</strong> placement sprint</li>
-            <li>Evening &amp; Saturday sessions — built for working professionals</li>
-            <li>Shaped with hiring managers from leading MedTech companies</li>
-          </ul>
-          <a class="cur-rail-btn" href="assets/MedSkills-Catalyst-Detailed-Syllabus.pdf" download>Download Detailed Syllabus (PDF)</a>
-          <a class="cur-rail-link" href="#lead">Reserve a Masterclass Seat →</a>
-        </div>
-      </aside>
-      <div class="cur-acc" id="curriculum-acc"></div>
+    <div class="cur-list" id="curriculum-list"></div>
+    <div class="cur-cta-row fade-up">
+      <a href="#lead">Walk through the full curriculum live — Reserve a Masterclass Seat →</a>
     </div>
   </div>
 </section>
@@ -3926,31 +3827,23 @@ const FAQS = [
   {q:'Is there a refund policy?',a:'If you attend the orientation and decide MedSkills Catalyst is not the right fit within the first 7 days, we refund 100% — no questions asked. After 7 days, refunds are not available.'}
 ];
 
-/* ── BUILD CURRICULUM (accordion) ─────────────────────────────── */
-const cacc = document.getElementById('curriculum-acc');
-MODULES.forEach((m, i) => {
-  const numLabel = m.num === 'F' ? 'Foundational Module' : m.num === 'C' ? 'Capstone — The Placement Sprint' : 'Module ' + m.num;
-  const el = document.createElement('div');
-  el.className = 'cur-item fade-up' + (m.num === 'C' ? ' cur-item--capstone' : '') + (i === 0 ? ' open' : '');
-  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
+/* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
+const clist = document.getElementById('curriculum-list');
+MODULES.forEach(m => {
+  const tag = m.num === 'F' ? 'Foundational<br>Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
+  const row = document.createElement('div');
+  row.className = 'cur-row fade-up' + (m.num === 'C' ? ' cur-row--capstone' : '');
   const topicsHtml = (m.topics || []).map(t => `<li>${t}</li>`).join('');
-  el.innerHTML = `
-    <button class="cur-item-head" onclick="toggleCur(this)" aria-expanded="${i === 0}">
-      <span class="cur-item-num">${m.num}</span>
-      <span class="cur-item-titlewrap">
-        <span class="cur-item-label">${numLabel}</span>
-        <span class="cur-item-title">${m.title}</span>
-      </span>
-      <svg class="cur-item-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="cur-item-body">
-      <div class="cur-item-inner">
-        <p class="cur-item-hook">“${m.hook}”</p>
-        <ul class="cur-topics">${topicsHtml}</ul>
-        <div class="cur-item-badges">${badgesHtml}</div>
-      </div>
+  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
+  row.innerHTML = `
+    <div class="cur-row-tag">${tag}</div>
+    <div class="cur-row-body">
+      <h3 class="cur-row-title">${m.title}</h3>
+      <p class="cur-row-hook">${m.hook}</p>
+      <ul class="cur-topics">${topicsHtml}</ul>
+      <div class="cur-row-badges">${badgesHtml}</div>
     </div>`;
-  cacc.appendChild(el);
+  clist.appendChild(row);
 });
 
 /* ── BUILD FAQ ─────────────────────────────────────────────────── */
@@ -3964,18 +3857,6 @@ FAQS.forEach(f=>{
 
 /* ── ACCORDIONS ────────────────────────────────────────────────── */
 function toggleModule(h){h.closest('.module').classList.toggle('open')}
-function toggleCur(head) {
-  const item = head.closest('.cur-item');
-  const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('#curriculum-acc .cur-item.open').forEach(o => {
-    o.classList.remove('open');
-    o.querySelector('.cur-item-head').setAttribute('aria-expanded', 'false');
-  });
-  if (!wasOpen) {
-    item.classList.add('open');
-    head.setAttribute('aria-expanded', 'true');
-  }
-}
 function toggleFaq(b){b.closest('.faq-item').classList.toggle('open')}
 
 /* ── MODALS ────────────────────────────────────────────────────── */
