@@ -20,8 +20,8 @@ const mentors: Mentor[] = [
   {
     name: "Shilpi Babbar",
     role: "Co-founder and Skills Enhancement Coach",
-    badges: ["ICBI-NABET Certified", "Ex-J&J MedTech"],
-    bio: "Co-founder and Skills Enhancement coach at Medskills Catalyst, with experience of more than a decade in coaching and career counselling certified by ICBI-NABET. Shilpi specialises in laparoscopy and robotic surgery adoption, guiding candidates through real-world clinical workflows and surgeon communication.",
+    badges: ["ICBI-NABET Certified", "Skills & Career Coach", "11+ Years Experience"],
+    bio: "Co-founder and Skills Enhancement Coach at MedSkills Catalyst, with experience of more than a decade in coaching and career counselling certified by ICBI-NABET. Shilpi specialises in stress management, emotional intelligence, and helping candidates bridge the transition gap by mastering the vital interpersonal skills, communication strategies, and mental resilience required to thrive in high-pressure MedTech corporate environments.",
     image: "/assets/shilpi_babbar.jpg",
   },
   {
