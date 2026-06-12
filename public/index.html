@@ -624,10 +624,10 @@ input,textarea,select{font-family:inherit}
   100% { transform: translateX(0); }
 }
 .track-1 {
-  animation: scroll-left 45s linear infinite;
+  animation: scroll-right 45s linear infinite;
 }
 .track-2 {
-  animation: scroll-right 45s linear infinite;
+  animation: scroll-left 45s linear infinite;
 }
 .success-marquee-container:hover .track-1,
 .success-marquee-container:hover .track-2 {
@@ -647,8 +647,8 @@ input,textarea,select{font-family:inherit}
   transition: transform 0.4s var(--easy-out), box-shadow 0.4s var(--easy-out), border-color 0.4s var(--easy-out);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: left;
+  min-height: 480px;
 }
 .success-card:hover {
   box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.04);
@@ -753,83 +753,121 @@ input,textarea,select{font-family:inherit}
   letter-spacing: 0.02em;
   margin-top: 0.2rem;
 }
-.success-transition-path {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-.path-node {
+/* Growth Journey single-container */
+.growth-journey {
   background: var(--canvas);
   border: 1px solid var(--border);
-  padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
   display: flex;
   flex-direction: column;
+  gap: 0.35rem;
+  transition: border-color 0.3s ease;
 }
-.path-node.node-after {
-  border-color: rgba(0, 88, 158, 0.12);
-  background: var(--pale-blue);
+.success-card:hover .growth-journey {
+  border-color: rgba(0, 88, 158, 0.15);
 }
-.node-label {
+.growth-journey-title {
   font-size: 0.65rem;
   font-weight: 800;
   color: var(--ink-muted);
   letter-spacing: 0.08em;
-  margin-bottom: 0.25rem;
-}
-.node-value {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--brand);
-}
-.node-value.value-highlight {
-  color: var(--blue);
-}
-.path-arrow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--blue);
-  height: 20px;
-}
-.path-arrow svg {
-  width: 16px;
-  height: 16px;
-  stroke: currentColor;
-  stroke-width: 2.5;
-  fill: none;
-}
-.success-card-footer {
-  border-top: 1px solid var(--border);
-  padding-top: 1.25rem;
-  margin-top: auto;
-}
-.footer-sigs {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.sig-line {
-  display: flex;
-  flex-direction: column;
-}
-.sig-title {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: var(--ink-muted);
-  letter-spacing: 0.05em;
+  text-transform: uppercase;
   margin-bottom: 0.15rem;
 }
-.sig-status {
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--success);
-}
-.sig-value {
-  font-size: 0.78rem;
-  font-weight: 700;
+.growth-journey-node {
+  font-size: 0.88rem;
+  font-weight: 600;
   color: var(--brand);
+  line-height: 1.3;
+}
+.growth-journey-node.node-before {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+.growth-journey-node.node-after {
+  color: var(--blue);
+  font-weight: 700;
+}
+.growth-journey-arrow-down {
+  display: flex;
+  align-items: center;
+  color: var(--blue);
+  padding-left: 0.1rem;
+  margin-block: 0.1rem;
+}
+.growth-journey-arrow-down svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3;
+}
+
+/* Testimonial Section with Expand/Collapse */
+.success-testimonial-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+.success-testimonial-wrapper {
+  max-height: 4.5em; /* roughly 3 lines */
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.success-testimonial-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1.5em;
+  background: linear-gradient(transparent, var(--surface));
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.success-testimonial-text {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+  margin: 0;
+  font-style: italic;
+}
+.success-card.expanded .success-testimonial-wrapper {
+  max-height: 350px; /* sufficiently large for full text */
+}
+.success-card.expanded .success-testimonial-wrapper::after {
+  opacity: 0;
+}
+.success-story-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--cta);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+  outline: none;
+}
+.success-story-toggle-btn:hover {
+  color: var(--brand-mid);
+}
+.success-story-toggle-btn span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.success-story-toggle-btn:hover span {
+  transform: translateX(3px);
+}
+.success-card.expanded .success-story-toggle-btn span {
+  transform: rotate(-90deg);
 }
 @media (max-width: 600px) {
   .success-card {
@@ -2583,7 +2621,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <!-- Row 1: Left-to-Right / Right-to-Left -->
       <div class="success-marquee-track track-1">
         <div class="success-marquee-content">
-          <!-- Card 1: Garvita Khurana -->
+          <!-- Card: Garvita Khurana -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2605,35 +2643,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Sales Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Product Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Product Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 2: Shivam Tiwari -->
+          <!-- Card: Shivam Tiwari -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2655,35 +2682,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Territory Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Territory Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 3: Vasudha Singh -->
+          <!-- Card: Vasudha Singh -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2705,38 +2721,27 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Zonal Account Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Zonal Account Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
         </div>
         
         <!-- Duplicated content for infinite loop -->
         <div class="success-marquee-content" aria-hidden="true">
-          <!-- Card 1: Garvita Khurana -->
+          <!-- Card: Garvita Khurana -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2758,35 +2763,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Sales Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Product Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Product Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 2: Shivam Tiwari -->
+          <!-- Card: Shivam Tiwari -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2808,35 +2802,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Territory Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Territory Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 3: Vasudha Singh -->
+          <!-- Card: Vasudha Singh -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2858,31 +2841,20 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Zonal Account Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Zonal Account Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
         </div>
@@ -2891,7 +2863,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <!-- Row 2: Right-to-Left -->
       <div class="success-marquee-track track-2">
         <div class="success-marquee-content">
-          <!-- Card 1: Vasudha Singh -->
+          <!-- Card: Vasudha Singh -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2913,35 +2885,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Zonal Account Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Zonal Account Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 2: Garvita Khurana -->
+          <!-- Card: Garvita Khurana -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -2963,35 +2924,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Sales Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Product Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Product Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 3: Shivam Tiwari -->
+          <!-- Card: Shivam Tiwari -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -3013,38 +2963,27 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Territory Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Territory Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
         </div>
         
         <!-- Duplicated content for infinite loop -->
         <div class="success-marquee-content" aria-hidden="true">
-          <!-- Card 1: Vasudha Singh -->
+          <!-- Card: Vasudha Singh -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -3066,35 +3005,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Zonal Account Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Zonal Account Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 2: Garvita Khurana -->
+          <!-- Card: Garvita Khurana -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -3116,35 +3044,24 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Senior Territory Sales Manager</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Product Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Product Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
 
-          <!-- Card 3: Shivam Tiwari -->
+          <!-- Card: Shivam Tiwari -->
           <div class="success-card">
             <div class="success-stamp-watermark">TRANSITIONED</div>
             <div class="success-card-top">
@@ -3166,31 +3083,20 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
               </div>
             </div>
             
-            <div class="success-transition-path">
-              <div class="path-node node-before">
-                <span class="node-label">PREVIOUS DESIGNATION</span>
-                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
-              </div>
-              <div class="path-arrow">
-                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-              </div>
-              <div class="path-node node-after">
-                <span class="node-label">CURRENT DESIGNATION</span>
-                <span class="node-value value-highlight">Territory Manager</span>
-              </div>
+            <div class="growth-journey">
+              <span class="growth-journey-title">Growth Journey</span>
+              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
+              <span class="growth-journey-arrow-down">
+                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="growth-journey-node node-after">Territory Manager</span>
             </div>
 
-            <div class="success-card-footer">
-              <div class="footer-sigs">
-                <div class="sig-line">
-                  <span class="sig-title">TRANSITION STATUS</span>
-                  <span class="sig-status">COMPLETED</span>
-                </div>
-                <div class="sig-line" style="text-align: right;">
-                  <span class="sig-title">AUDIT STATUS</span>
-                  <span class="sig-value">Verified Profile</span>
-                </div>
+            <div class="success-testimonial-section">
+              <div class="success-testimonial-wrapper">
+                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
               </div>
+              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
           </div>
         </div>
@@ -3902,6 +3808,17 @@ END PLACEMENT HIDDEN -->
 </div>
 
 <script>
+function toggleTestimonial(btn) {
+  const card = btn.closest('.success-card');
+  if (!card) return;
+  const isExpanded = card.classList.toggle('expanded');
+  if (isExpanded) {
+    btn.innerHTML = 'Show Less <span>↑</span>';
+  } else {
+    btn.innerHTML = 'Read Full Story <span>→</span>';
+  }
+}
+
 function toggleMobileMenu() {
   const drawer = document.getElementById('mobile-menu-drawer');
   const backdrop = document.getElementById('mobile-menu-backdrop');
