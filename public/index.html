@@ -2514,7 +2514,8 @@ input,textarea,select{font-family:inherit}
 .exit-inner-icon{margin-bottom:1.25rem;display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--amber-light);border:1.25px solid rgba(16,185,129,0.18)}
 .exit-inner h3{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:var(--brand)}
 .exit-inner .exit-line1{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:520px;white-space:nowrap}
-.exit-inner .exit-line2{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:520px}
+.exit-inner .exit-line2{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:none;white-space:nowrap}
+@media(max-width:680px){.exit-line1,.exit-line2{white-space:normal;max-width:100%}}
 .exit-inner .exit-attribution{font-size:.82rem;font-weight:700;color:var(--brand);margin-bottom:2rem;letter-spacing:.01em}
 .exit-inner p{font-size:.95rem;color:var(--ink-muted);margin-bottom:2rem;line-height:1.65;max-width:520px}
 .exit-dismiss{width:100%;margin-top:.75rem;color:var(--ink-muted);font-size:.85rem;padding:.5rem;font-weight:600;transition:color .2s}
@@ -3798,8 +3799,8 @@ END PLACEMENT HIDDEN -->
       </div>
       <h3>Before you go — one quick thing</h3>
       <p class="exit-line1">Still wondering whether your background qualifies you for MedTech?</p>
-      <p class="exit-line2">Join the live masterclass and get that question answered live by <strong>Gagan Victor</strong></p>
-      <p class="exit-attribution">Co-Founder &amp; Program Director &nbsp;·&nbsp; Former Medtronic, Stryker, Pfizer &amp; BMS</p>
+      <p class="exit-line2">Join the live masterclass and get that question answered live by <strong>Gagan&nbsp;Victor</strong></p>
+      <p class="exit-attribution">Co-Founder &amp; Program Director &nbsp;·&nbsp; Former Pfizer, BMS, Medtronic &amp; Stryker</p>
       <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openModal('mc-overlay')" data-track="exit_masterclass">Yes, Reserve My Seat →</button>
       <button class="exit-dismiss" onclick="closeModal('exit-overlay')">No thanks, I'll figure it out myself</button>
     </div>
