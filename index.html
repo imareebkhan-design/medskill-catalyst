@@ -3648,7 +3648,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
         </div>
         <p class="roi-disclaimer">Illustrative calculation based on target industry salary ranges for device sales positions. Actual results may vary depending on student background and interview performance.</p>
         <div class="roi-cta-wrap">
-          <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Apply for the Next Cohort ➔</a>
+          <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Apply for the Next Cohort ➔</a>
         </div>
       </div>
     </div>
@@ -3694,7 +3694,7 @@ END PLACEMENT HIDDEN -->
       <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
       <p class="final-cta-sub">Every month you wait is a month someone else is getting the role and the salary you deserve. Applications for our exclusive cohort close when the 6 available seats are filled.</p>
       <div class="final-cta-actions">
-        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
+        <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
         <button class="btn btn--ghost btn--lg" onclick="openModal('mc-overlay')" data-track="finalcta_masterclass">Attend the Masterclass First</button>
       </div>
     </div>
@@ -3738,7 +3738,7 @@ END PLACEMENT HIDDEN -->
 
 <!-- MOBILE STICKY BAR ───────────────────────────────────────────── -->
 <div id="sticky-bar">
-  <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
+  <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
   <a class="sticky-wa" href="https://wa.me/919759249395?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="sticky_wa">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
     WhatsApp
@@ -3779,6 +3779,45 @@ END PLACEMENT HIDDEN -->
 </div>
 
 <!-- EXIT POPUP ──────────────────────────────────────────────────── -->
+<div class="overlay" id="apply-overlay" onclick="closeOnBg(event,'apply-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('apply-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="mc-modal-head">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">July 2026 Cohort · Limited to 6 Seats</p>
+      <h3>Book Your One-on-One Counseling Session</h3>
+      <p>Speak directly with our counselor — fit, curriculum and admission, everything answered.</p>
+    </div>
+    <div class="mc-modal-body">
+      <form id="apply-form" onsubmit="submitApply(event)">
+        <div id="apply-form-error" style="display: none; padding: 0.75rem; border-radius: var(--radius-sm); background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; font-size: 0.85rem; margin-bottom: 1rem;"></div>
+        <div class="form-group"><label class="form-label" for="apply-name">Your name</label><input class="form-input" type="text" id="apply-name" name="name" placeholder="Rohan Sharma" required></div>
+        <div class="form-group"><label class="form-label" for="apply-phone">WhatsApp number</label><input class="form-input" type="tel" id="apply-phone" name="phone" placeholder="+91 98765 43210" required></div>
+        <div class="form-group"><label class="form-label" for="apply-email">Your email</label><input class="form-input" type="email" id="apply-email" name="email" placeholder="rohan@gmail.com" required></div>
+        <div class="form-group">
+          <label class="form-label" for="apply-background">Current Professional Background</label>
+          <select class="form-input form-select" id="apply-background" name="background" required>
+            <option value="" disabled selected>Select your background...</option>
+            <option value="pharma_mr">Pharma Medical Representative (MR)</option>
+            <option value="pharm_grad">B.Pharm / M.Pharm Graduate</option>
+            <option value="biotech_grad">B.Tech/M.Tech/Life science graduate</option>
+            <option value="clinical_tech">Lab / Clinical Technician</option>
+            <option value="other">Other Sales / Graduate</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn--amber btn--full btn--lg" data-track="apply_submit">Request My Counseling Call →</button>
+        <p class="t-small t-muted" style="text-align:center;margin-top:.65rem">Our counselor will reach out on WhatsApp to schedule your session.</p>
+      </form>
+      <div id="apply-success" style="display:none; text-align:center; padding: 1.5rem 0.5rem;">
+        <div style="width:56px;height:56px;border-radius:50%;background:#ECFDF5;border:2px solid #10B981;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
+          <svg viewBox="0 0 24 24" width="26" height="26" stroke="#10B981" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h4 style="font-family:var(--font-serif);font-size:1.2rem;color:var(--brand);margin-bottom:.5rem;">Application received</h4>
+        <p style="font-size:.92rem;color:var(--ink-muted);line-height:1.6;">Our counselor will call you shortly on WhatsApp to schedule your one-on-one session and walk you through the admission process.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="exit-overlay" onclick="closeOnBg(event,'exit-overlay')">
   <div class="modal">
     <button class="modal-close modal-close--light" onclick="closeModal('exit-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -4098,6 +4137,57 @@ async function submitMC(e) {
     errorDiv.style.display = 'block';
     submitBtn.disabled = false;
     submitBtn.textContent = 'Submit';
+  }
+}
+
+
+async function submitApply(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const errorDiv = document.getElementById('apply-form-error');
+  errorDiv.style.display = 'none';
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Processing...';
+  const formData = new FormData(form);
+  const background = formData.get('background');
+  const payload = {
+    full_name: formData.get('name'),
+    email: formData.get('email'),
+    mobile: formData.get('phone'),
+    user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
+    company_name: '',
+    college_name: '',
+    course: 'COHORT_APPLICATION',
+    graduation_year: '2026',
+    job_title: 'N/A',
+    experience: '1-3'
+  };
+  try {
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'cohort_application', { event_category: 'conversion' });
+      }
+      form.style.display = 'none';
+      document.getElementById('apply-success').style.display = 'block';
+    } else {
+      let errorMessage = 'Something went wrong. Please try again.';
+      try { const data = await response.json(); if (data && data.error) errorMessage = data.error; } catch (e2) {}
+      errorDiv.textContent = errorMessage;
+      errorDiv.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Request My Counseling Call →';
+    }
+  } catch (err) {
+    errorDiv.textContent = 'Network error. Please check your connection and try again.';
+    errorDiv.style.display = 'block';
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Request My Counseling Call →';
   }
 }
 
