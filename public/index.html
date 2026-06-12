@@ -556,7 +556,22 @@ input,textarea,select{font-family:inherit}
   }
 }
 
-/* ── OUTCOMES SECTION REDESIGN ════════════════════ */
+/* ── SUCCESS STORIES SECTION REDESIGN ════════════════════ */
+#success-stories.section {
+  padding-block: clamp(2rem, 5vw, 4.5rem);
+}
+#success-stories .section-header {
+  text-align: center;
+  max-width: 720px;
+  margin-inline: auto;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+}
+#success-stories .section-eyebrow {
+  margin-bottom: 0.5rem;
+}
+#success-stories .section-sub {
+  margin-top: 0.75rem;
+}
 .section-header {
   text-align: center;
   max-width: 720px;
@@ -2575,7 +2590,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <div class="nav-logo-text">MedSkills Catalyst<span>Upskill to Upscale</span></div>
     </a>
     <div class="nav-links">
-      <a href="#outcomes">Outcomes</a>
+      <a href="#success-stories">Success Stories</a>
       <a href="#curriculum">Curriculum</a>
       <a href="#faculty">Faculty</a>
       <a href="#fees">ROI Calculator</a>
@@ -2637,12 +2652,12 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
   </div>
 </section>
 
-<!-- OUTCOMES ────────────────────────────────────────────────────── -->
-<section id="outcomes" class="section">
+<!-- SUCCESS STORIES ──────────────────────────────────────────────── -->
+<section id="success-stories" class="section">
   <div class="container">
     <div class="section-header fade-up">
-      <p class="section-eyebrow">CAREER PATHWAYS</p>
-      <h2 class="t-h2">Target MedTech Roles &amp; Outcomes</h2>
+      <p class="section-eyebrow">Success Stories</p>
+      <h2 class="t-h2">Target MedTech Roles</h2>
       <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles.</p>
     </div>
     <div class="outcomes-grid">
@@ -3418,7 +3433,7 @@ END PLACEMENT HIDDEN -->
       </div>
       <div>
         <p class="footer-col-title">Programme</p>
-        <div class="footer-links"><a href="#outcomes">Outcomes</a><a href="#curriculum">Curriculum</a><a href="#faculty">Faculty</a><a href="#fees">ROI Simulator</a></div>
+        <div class="footer-links"><a href="#success-stories">Success Stories</a><a href="#curriculum">Curriculum</a><a href="#faculty">Faculty</a><a href="#fees">ROI Simulator</a></div>
       </div>
       <div>
         <p class="footer-col-title">Company</p>
@@ -4058,7 +4073,7 @@ async function submitLeadMagnetForm(e) {
     </button>
   </div>
   <div class="mobile-menu-links">
-    <a href="#outcomes" onclick="closeMobileMenu()">Outcomes</a>
+    <a href="#success-stories" onclick="closeMobileMenu()">Success Stories</a>
     <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
     <a href="#faculty" onclick="closeMobileMenu()">Faculty</a>
     <a href="#fees" onclick="closeMobileMenu()">ROI Calculator</a>
