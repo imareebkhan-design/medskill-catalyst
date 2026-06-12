@@ -578,26 +578,65 @@ input,textarea,select{font-family:inherit}
   margin-inline: auto;
   margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
-.success-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  margin-top: 3.5rem;
+.success-marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: hidden;
+  width: 100%;
+  padding-block: 1rem;
+  position: relative;
 }
-@media (max-width: 991px) {
-  .success-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
+.success-marquee-container::before,
+.success-marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 150px;
+  z-index: 10;
+  pointer-events: none;
 }
-@media (max-width: 767px) {
-  .success-grid {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
+.success-marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+}
+.success-marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
+}
+.success-marquee-track {
+  display: flex;
+  width: max-content;
+  user-select: none;
+}
+.success-marquee-content {
+  display: flex;
+  gap: 2rem;
+  padding-inline: 1rem;
+}
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.track-1 {
+  animation: scroll-left 45s linear infinite;
+}
+.track-2 {
+  animation: scroll-right 45s linear infinite;
+}
+.success-marquee-container:hover .track-1,
+.success-marquee-container:hover .track-2 {
+  animation-play-state: paused;
 }
 
 .success-card {
+  width: 380px;
+  flex-shrink: 0;
   background: var(--surface);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
@@ -791,6 +830,19 @@ input,textarea,select{font-family:inherit}
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--brand);
+}
+@media (max-width: 600px) {
+  .success-card {
+    width: 310px;
+    padding: 1.5rem;
+  }
+  .success-marquee-container {
+    gap: 1rem;
+  }
+  .success-marquee-container::before,
+  .success-marquee-container::after {
+    width: 50px;
+  }
 }
 
 
@@ -2527,152 +2579,618 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <h2 class="t-h2">Target MedTech Roles</h2>
       <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles.</p>
     </div>
-    <div class="success-grid fade-up">
-      <!-- Card 1: Garvita Khurana -->
-      <div class="success-card">
-        <div class="success-stamp-watermark">TRANSITIONED</div>
-        <div class="success-card-top">
-          <div class="success-badge-verified">
-            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-          </div>
-        </div>
-        
-        <div class="success-profile-row">
-          <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
-          <div class="success-profile-info">
-            <div class="success-card-name-row">
-              <span class="success-card-name">Garvita Khurana</span>
-              <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </a>
+    <div class="success-marquee-container fade-up">
+      <!-- Row 1: Left-to-Right / Right-to-Left -->
+      <div class="success-marquee-track track-1">
+        <div class="success-marquee-content">
+          <!-- Card 1: Garvita Khurana -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
             </div>
-            <span class="success-card-category">Sales → Product Management</span>
-          </div>
-        </div>
-        
-        <div class="success-transition-path">
-          <div class="path-node node-before">
-            <span class="node-label">PREVIOUS DESIGNATION</span>
-            <span class="node-value">Senior Territory Sales Manager</span>
-          </div>
-          <div class="path-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="path-node node-after">
-            <span class="node-label">CURRENT DESIGNATION</span>
-            <span class="node-value value-highlight">Product Manager</span>
-          </div>
-        </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Garvita Khurana</span>
+                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Sales → Product Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Sales Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Product Manager</span>
+              </div>
+            </div>
 
-        <div class="success-card-footer">
-          <div class="footer-sigs">
-            <div class="sig-line">
-              <span class="sig-title">TRANSITION STATUS</span>
-              <span class="sig-status">COMPLETED</span>
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
             </div>
-            <div class="sig-line" style="text-align: right;">
-              <span class="sig-title">AUDIT STATUS</span>
-              <span class="sig-value">Verified Profile</span>
+          </div>
+
+          <!-- Card 2: Shivam Tiwari -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Shivam Tiwari</span>
+                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Clinical Support → Territory Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Territory Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Vasudha Singh -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Vasudha Singh</span>
+                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Biotech → MedTech</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Zonal Account Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Duplicated content for infinite loop -->
+        <div class="success-marquee-content" aria-hidden="true">
+          <!-- Card 1: Garvita Khurana -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Garvita Khurana</span>
+                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Sales → Product Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Sales Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Product Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Shivam Tiwari -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Shivam Tiwari</span>
+                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Clinical Support → Territory Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Territory Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Vasudha Singh -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Vasudha Singh</span>
+                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Biotech → MedTech</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Zonal Account Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Row 2: Right-to-Left -->
+      <div class="success-marquee-track track-2">
+        <div class="success-marquee-content">
+          <!-- Card 1: Vasudha Singh -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Vasudha Singh</span>
+                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Biotech → MedTech</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Zonal Account Manager</span>
+              </div>
+            </div>
 
-      <!-- Card 2: Vasudha Singh -->
-      <div class="success-card">
-        <div class="success-stamp-watermark">TRANSITIONED</div>
-        <div class="success-card-top">
-          <div class="success-badge-verified">
-            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Garvita Khurana -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Garvita Khurana</span>
+                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Sales → Product Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Sales Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Product Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Shivam Tiwari -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Shivam Tiwari</span>
+                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Clinical Support → Territory Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Territory Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         
-        <div class="success-profile-row">
-          <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
-          <div class="success-profile-info">
-            <div class="success-card-name-row">
-              <span class="success-card-name">Vasudha Singh</span>
-              <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </a>
+        <!-- Duplicated content for infinite loop -->
+        <div class="success-marquee-content" aria-hidden="true">
+          <!-- Card 1: Vasudha Singh -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
             </div>
-            <span class="success-card-category">Biotech → MedTech</span>
-          </div>
-        </div>
-        
-        <div class="success-transition-path">
-          <div class="path-node node-before">
-            <span class="node-label">PREVIOUS DESIGNATION</span>
-            <span class="node-value">Senior Territory Manager</span>
-          </div>
-          <div class="path-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="path-node node-after">
-            <span class="node-label">CURRENT DESIGNATION</span>
-            <span class="node-value value-highlight">Zonal Account Manager</span>
-          </div>
-        </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Vasudha Singh</span>
+                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Biotech → MedTech</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Zonal Account Manager</span>
+              </div>
+            </div>
 
-        <div class="success-card-footer">
-          <div class="footer-sigs">
-            <div class="sig-line">
-              <span class="sig-title">TRANSITION STATUS</span>
-              <span class="sig-status">COMPLETED</span>
-            </div>
-            <div class="sig-line" style="text-align: right;">
-              <span class="sig-title">AUDIT STATUS</span>
-              <span class="sig-value">Verified Profile</span>
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Card 3: Shivam Tiwari -->
-      <div class="success-card">
-        <div class="success-stamp-watermark">TRANSITIONED</div>
-        <div class="success-card-top">
-          <div class="success-badge-verified">
-            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-          </div>
-        </div>
-        
-        <div class="success-profile-row">
-          <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
-          <div class="success-profile-info">
-            <div class="success-card-name-row">
-              <span class="success-card-name">Shivam Tiwari</span>
-              <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-              </a>
+          <!-- Card 2: Garvita Khurana -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
             </div>
-            <span class="success-card-category">Clinical Support → Territory Management</span>
-          </div>
-        </div>
-        
-        <div class="success-transition-path">
-          <div class="path-node node-before">
-            <span class="node-label">PREVIOUS DESIGNATION</span>
-            <span class="node-value">Product Specialist / Field Clinical Specialist</span>
-          </div>
-          <div class="path-arrow">
-            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="path-node node-after">
-            <span class="node-label">CURRENT DESIGNATION</span>
-            <span class="node-value value-highlight">Territory Manager</span>
-          </div>
-        </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Garvita Khurana</span>
+                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Sales → Product Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Senior Territory Sales Manager</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Product Manager</span>
+              </div>
+            </div>
 
-        <div class="success-card-footer">
-          <div class="footer-sigs">
-            <div class="sig-line">
-              <span class="sig-title">TRANSITION STATUS</span>
-              <span class="sig-status">COMPLETED</span>
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
             </div>
-            <div class="sig-line" style="text-align: right;">
-              <span class="sig-title">AUDIT STATUS</span>
-              <span class="sig-value">Verified Profile</span>
+          </div>
+
+          <!-- Card 3: Shivam Tiwari -->
+          <div class="success-card">
+            <div class="success-stamp-watermark">TRANSITIONED</div>
+            <div class="success-card-top">
+              <div class="success-badge-verified">
+                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+              </div>
+            </div>
+            
+            <div class="success-profile-row">
+              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+              <div class="success-profile-info">
+                <div class="success-card-name-row">
+                  <span class="success-card-name">Shivam Tiwari</span>
+                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                  </a>
+                </div>
+                <span class="success-card-category">Clinical Support → Territory Management</span>
+              </div>
+            </div>
+            
+            <div class="success-transition-path">
+              <div class="path-node node-before">
+                <span class="node-label">PREVIOUS DESIGNATION</span>
+                <span class="node-value">Product Specialist / Field Clinical Specialist</span>
+              </div>
+              <div class="path-arrow">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+              <div class="path-node node-after">
+                <span class="node-label">CURRENT DESIGNATION</span>
+                <span class="node-value value-highlight">Territory Manager</span>
+              </div>
+            </div>
+
+            <div class="success-card-footer">
+              <div class="footer-sigs">
+                <div class="sig-line">
+                  <span class="sig-title">TRANSITION STATUS</span>
+                  <span class="sig-status">COMPLETED</span>
+                </div>
+                <div class="sig-line" style="text-align: right;">
+                  <span class="sig-title">AUDIT STATUS</span>
+                  <span class="sig-value">Verified Profile</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
