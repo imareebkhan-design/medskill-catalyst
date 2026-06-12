@@ -578,95 +578,105 @@ input,textarea,select{font-family:inherit}
   margin-inline: auto;
   margin-bottom: clamp(2.5rem, 6vw, 5rem);
 }
-.success-marquee-container {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  overflow: hidden;
-  width: 100%;
-  padding-block: 1rem;
-  position: relative;
+.success-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  margin-top: 3.5rem;
 }
-.success-marquee-container::before,
-.success-marquee-container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 150px;
-  z-index: 10;
-  pointer-events: none;
+@media (max-width: 991px) {
+  .success-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
 }
-.success-marquee-container::before {
-  left: 0;
-  background: linear-gradient(to right, var(--bg) 0%, transparent 100%);
+@media (max-width: 767px) {
+  .success-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
 }
-.success-marquee-container::after {
-  right: 0;
-  background: linear-gradient(to left, var(--bg) 0%, transparent 100%);
-}
-.success-marquee-track {
-  display: flex;
-  width: max-content;
-  user-select: none;
-}
-.success-marquee-content {
-  display: flex;
-  gap: 2rem;
-  padding-inline: 1rem;
-}
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-@keyframes scroll-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
-}
-.track-1 {
-  animation: scroll-left 45s linear infinite;
-}
-.track-2 {
-  animation: scroll-right 45s linear infinite;
-}
-.success-marquee-container:hover .track-1,
-.success-marquee-container:hover .track-2 {
-  animation-play-state: paused;
-}
+
 .success-card {
-  width: 380px;
-  flex-shrink: 0;
   background: var(--surface);
-  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 2rem 2.25rem;
+  padding: 2.5rem;
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--easy-out), box-shadow 0.4s var(--easy-out), border-color 0.4s var(--easy-out);
   display: flex;
   flex-direction: column;
-  position: relative;
-  transition: transform 0.4s var(--easy-out), box-shadow 0.4s var(--easy-out), border-color 0.4s var(--easy-out);
+  justify-content: space-between;
   text-align: left;
 }
 .success-card:hover {
-  transform: translateY(-6px);
   box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.04);
   border-color: var(--brand-mid);
+  transform: translateY(-6px);
 }
-.success-card-header {
+.success-card {
+  background: linear-gradient(var(--surface), var(--surface)) padding-box,
+              linear-gradient(135deg, rgba(0, 88, 158, 0.08) 0%, rgba(16, 185, 129, 0.08) 100%) border-box;
+  border: 1px solid transparent;
+}
+.success-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.success-badge-verified {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: var(--cta);
+  letter-spacing: 0.08em;
+  background: rgba(0, 88, 158, 0.05);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(0, 88, 158, 0.1);
+}
+.badge-dot-blue {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cta);
+  box-shadow: 0 0 8px var(--cta);
+}
+.success-stamp-watermark {
+  position: absolute;
+  right: -2.5rem;
+  bottom: 0.5rem;
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: rgba(16, 185, 129, 0.04);
+  transform: rotate(-12deg);
+  pointer-events: none;
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.success-profile-row {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
 }
-.success-card-avatar {
-  width: 56px;
-  height: 56px;
+.success-avatar-img {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
+  border: 1.5px solid var(--border);
   object-fit: cover;
-  border: 1.5px solid rgba(0, 88, 158, 0.15);
   flex-shrink: 0;
 }
-.success-card-info {
+.success-profile-info {
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -704,88 +714,83 @@ input,textarea,select{font-family:inherit}
   letter-spacing: 0.02em;
   margin-top: 0.2rem;
 }
-.growth-journey {
+.success-transition-path {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+.path-node {
   background: var(--canvas);
   border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
-  padding: 1.15rem 1.25rem;
-  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
 }
-.growth-journey-title {
+.path-node.node-after {
+  border-color: rgba(0, 88, 158, 0.12);
+  background: var(--pale-blue);
+}
+.node-label {
   font-size: 0.65rem;
   font-weight: 800;
   color: var(--ink-muted);
-  text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin-bottom: 0.6rem;
-  display: block;
+  margin-bottom: 0.25rem;
 }
-.growth-journey-path {
+.node-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.node-value.value-highlight {
+  color: var(--blue);
+}
+.path-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--blue);
+  height: 20px;
+}
+.path-arrow svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+.success-card-footer {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+.footer-sigs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.sig-line {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
 }
-.growth-journey-node {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--brand);
-  line-height: 1.3;
-}
-.growth-journey-node.node-after {
-  color: var(--blue);
+.sig-title {
+  font-size: 0.65rem;
   font-weight: 700;
-}
-.growth-journey-arrow {
-  font-size: 0.75rem;
   color: var(--ink-muted);
-  line-height: 1;
-  padding-left: 0.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
 }
-.success-testimonial-area {
-  margin-bottom: 1.5rem;
-  flex: 1;
-  display: flex;
-  align-items: center;
+.sig-status {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--success);
 }
-.success-quote {
-  font-size: 0.88rem;
-  color: var(--ink-muted);
-  line-height: 1.6;
-  font-style: italic;
-  position: relative;
-  padding-left: 1rem;
-  border-left: 3px solid rgba(16, 185, 129, 0.3);
-  margin: 0;
-}
-.success-story-cta {
-  font-size: 0.82rem;
+.sig-value {
+  font-size: 0.78rem;
   font-weight: 700;
-  color: var(--blue);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  transition: color 0.2s ease, gap 0.2s ease;
-  margin-top: auto;
-  align-self: flex-start;
-  cursor: pointer;
-}
-.success-story-cta:hover {
   color: var(--brand);
-  gap: 0.5rem;
-}
-@media (max-width: 600px) {
-  .success-card {
-    width: 310px;
-    padding: 1.5rem;
-  }
-  .success-marquee-container {
-    gap: 1rem;
-  }
-  .success-marquee-container::before,
-  .success-marquee-container::after {
-    width: 50px;
-  }
 }
 
 
@@ -2522,417 +2527,157 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <h2 class="t-h2">Target MedTech Roles</h2>
       <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles.</p>
     </div>
-    <div class="success-marquee-container fade-up">
-      <!-- Row 1: Left-to-Right / Right-to-Left -->
-      <div class="success-marquee-track track-1">
-        <div class="success-marquee-content">
-          <!-- Card 1: Garvita Khurana -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Garvita Khurana</span>
-                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Product Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Senior Territory Sales Manager</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Product Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Transitioning into MedTech felt overwhelming initially, but the structured pathway helped me secure a leadership role faster than expected."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
-
-          <!-- Card 2: Amit Kulkarni -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/amit_kulkarni.png" alt="Amit Kulkarni" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Amit Kulkarni</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Pharma → Sales Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Pharma Medical Representative</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Territory Sales Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Moving from daily pharma visits to scrub-in device demonstration in the OR was a massive leap, but the coaching prepared me fully."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
-
-          <!-- Card 3: Shivam Tiwari -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Shivam Tiwari</span>
-                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Clinical Support → Territory Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Product Specialist / Field Clinical Specialist</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Territory Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Unlearning pharma detailing and adopting consultative device selling was the key. Highly recommend for any field professional."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
+    <div class="success-grid fade-up">
+      <!-- Card 1: Garvita Khurana -->
+      <div class="success-card">
+        <div class="success-stamp-watermark">TRANSITIONED</div>
+        <div class="success-card-top">
+          <div class="success-badge-verified">
+            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
           </div>
         </div>
         
-        <!-- Duplicated content for infinite loop -->
-        <div class="success-marquee-content" aria-hidden="true">
-          <!-- Card 1: Garvita Khurana -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Garvita Khurana</span>
-                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Product Management</span>
-              </div>
+        <div class="success-profile-row">
+          <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+          <div class="success-profile-info">
+            <div class="success-card-name-row">
+              <span class="success-card-name">Garvita Khurana</span>
+              <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
             </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Senior Territory Sales Manager</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Product Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Transitioning into MedTech felt overwhelming initially, but the structured pathway helped me secure a leadership role faster than expected."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
+            <span class="success-card-category">Sales → Product Management</span>
           </div>
-
-          <!-- Card 2: Amit Kulkarni -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/amit_kulkarni.png" alt="Amit Kulkarni" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Amit Kulkarni</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Pharma → Sales Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Pharma Medical Representative</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Territory Sales Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Moving from daily pharma visits to scrub-in device demonstration in the OR was a massive leap, but the coaching prepared me fully."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
+        </div>
+        
+        <div class="success-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS DESIGNATION</span>
+            <span class="node-value">Senior Territory Sales Manager</span>
           </div>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="path-node node-after">
+            <span class="node-label">CURRENT DESIGNATION</span>
+            <span class="node-value value-highlight">Product Manager</span>
+          </div>
+        </div>
 
-          <!-- Card 3: Shivam Tiwari -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Shivam Tiwari</span>
-                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Clinical Support → Territory Management</span>
-              </div>
+        <div class="success-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">TRANSITION STATUS</span>
+              <span class="sig-status">COMPLETED</span>
             </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Product Specialist / Field Clinical Specialist</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Territory Manager</div>
-              </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDIT STATUS</span>
+              <span class="sig-value">Verified Profile</span>
             </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"Unlearning pharma detailing and adopting consultative device selling was the key. Highly recommend for any field professional."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
           </div>
         </div>
       </div>
-      
-      <!-- Row 2: Right-to-Left -->
-      <div class="success-marquee-track track-2">
-        <div class="success-marquee-content">
-          <!-- Card 4: Vasudha Singh -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Vasudha Singh</span>
-                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Biotech → MedTech</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Senior Territory Manager</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Zonal Account Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"The clinical device training and surgeon communication modules gave me the confidence to handle high-stakes hospital meetings."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
 
-          <!-- Card 5: Nisha Kapoor -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/nisha_kapoor.png" alt="Nisha Kapoor" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Nisha Kapoor</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Nursing → Clinical Support</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Staff Nurse / ICU Nurse</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Clinical Application Specialist</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"My clinical background was valuable, but translating that into product discussions was the gap this program beautifully closed."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
-
-          <!-- Card 6: Rahul Sinha -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/rahul_sinha.png" alt="Rahul Sinha" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Rahul Sinha</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Key Account Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Territory Sales Executive</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Key Account Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"The procurement and multi-stakeholder navigation blueprints helped me close major capital equipment hospital deals."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
+      <!-- Card 2: Vasudha Singh -->
+      <div class="success-card">
+        <div class="success-stamp-watermark">TRANSITIONED</div>
+        <div class="success-card-top">
+          <div class="success-badge-verified">
+            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
           </div>
         </div>
         
-        <!-- Duplicated content for infinite loop -->
-        <div class="success-marquee-content" aria-hidden="true">
-          <!-- Card 4: Vasudha Singh -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Vasudha Singh</span>
-                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Biotech → MedTech</span>
-              </div>
+        <div class="success-profile-row">
+          <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+          <div class="success-profile-info">
+            <div class="success-card-name-row">
+              <span class="success-card-name">Vasudha Singh</span>
+              <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
             </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Senior Territory Manager</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Zonal Account Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"The clinical device training and surgeon communication modules gave me the confidence to handle high-stakes hospital meetings."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
-
-          <!-- Card 5: Nisha Kapoor -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/nisha_kapoor.png" alt="Nisha Kapoor" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Nisha Kapoor</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Nursing → Clinical Support</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Staff Nurse / ICU Nurse</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Clinical Application Specialist</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"My clinical background was valuable, but translating that into product discussions was the gap this program beautifully closed."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
-          </div>
-
-          <!-- Card 6: Rahul Sinha -->
-          <div class="success-card">
-            <div class="success-card-header">
-              <img src="assets/rahul_sinha.png" alt="Rahul Sinha" class="success-card-avatar" loading="lazy">
-              <div class="success-card-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Rahul Sinha</span>
-                  <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Key Account Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <div class="growth-journey-path">
-                <div class="growth-journey-node">Territory Sales Executive</div>
-                <div class="growth-journey-arrow">↓</div>
-                <div class="growth-journey-node node-after">Key Account Manager</div>
-              </div>
-            </div>
-            
-            <div class="success-testimonial-area">
-              <p class="success-quote">"The procurement and multi-stakeholder navigation blueprints helped me close major capital equipment hospital deals."</p>
-            </div>
-            
-            <a onclick="openModal('mc-overlay')" class="success-story-cta">
-              Read Full Story <span>→</span>
-            </a>
+            <span class="success-card-category">Biotech → MedTech</span>
           </div>
         </div>
+        
+        <div class="success-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS DESIGNATION</span>
+            <span class="node-value">Senior Territory Manager</span>
+          </div>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="path-node node-after">
+            <span class="node-label">CURRENT DESIGNATION</span>
+            <span class="node-value value-highlight">Zonal Account Manager</span>
+          </div>
+        </div>
+
+        <div class="success-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">TRANSITION STATUS</span>
+              <span class="sig-status">COMPLETED</span>
+            </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDIT STATUS</span>
+              <span class="sig-value">Verified Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Shivam Tiwari -->
+      <div class="success-card">
+        <div class="success-stamp-watermark">TRANSITIONED</div>
+        <div class="success-card-top">
+          <div class="success-badge-verified">
+            <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+          </div>
+        </div>
+        
+        <div class="success-profile-row">
+          <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+          <div class="success-profile-info">
+            <div class="success-card-name-row">
+              <span class="success-card-name">Shivam Tiwari</span>
+              <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+                <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+            </div>
+            <span class="success-card-category">Clinical Support → Territory Management</span>
+          </div>
+        </div>
+        
+        <div class="success-transition-path">
+          <div class="path-node node-before">
+            <span class="node-label">PREVIOUS DESIGNATION</span>
+            <span class="node-value">Product Specialist / Field Clinical Specialist</span>
+          </div>
+          <div class="path-arrow">
+            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="path-node node-after">
+            <span class="node-label">CURRENT DESIGNATION</span>
+            <span class="node-value value-highlight">Territory Manager</span>
+          </div>
+        </div>
+
+        <div class="success-card-footer">
+          <div class="footer-sigs">
+            <div class="sig-line">
+              <span class="sig-title">TRANSITION STATUS</span>
+              <span class="sig-status">COMPLETED</span>
+            </div>
+            <div class="sig-line" style="text-align: right;">
+              <span class="sig-title">AUDIT STATUS</span>
+              <span class="sig-value">Verified Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
       </div>
     </div>
   </div>
