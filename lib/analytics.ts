@@ -46,12 +46,24 @@ export function track(event: WebinarEvent, props: EventProps = {}) {
     }
   }
   // Mirror to dataLayer for GA4 / GTM.
-  (window as unknown as { dataLayer?: unknown[] }).dataLayer =
-    (window as unknown as { dataLayer?: unknown[] }).dataLayer || [];
-  (window as unknown as { dataLayer: unknown[] }).dataLayer.push({
+  const win = window as unknown as {
+    dataLayer?: unknown[];
+    gtag?: (command: string, action: string, params?: Record<string, unknown>) => void;
+  };
+  win.dataLayer = win.dataLayer || [];
+  win.dataLayer.push({
     event,
     ...payload,
   });
+
+  // Direct call to GA4 if initialized
+  if (typeof win.gtag === "function") {
+    try {
+      win.gtag("event", event, payload);
+    } catch {
+      /* ignore */
+    }
+  }
 }
 
 /** Convenience wrappers used across components. */
