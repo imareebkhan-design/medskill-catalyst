@@ -1,7 +1,72 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
-import path from "path";
-import { getServiceClient } from "@/lib/supabase";
+
+/**
+ * Lead capture → HubSpot CRM.
+ *
+ * Forms POST here. We upsert the lead as a HubSpot contact (keyed on email)
+ * with the custom properties created for MedSkills:
+ *   form_type, background, consent, utm_source, utm_medium, utm_campaign, landing_page
+ *
+ * Requires env var HUBSPOT_ACCESS_TOKEN (a HubSpot private-app token with
+ * crm.objects.contacts.write + crm.objects.contacts.read scopes).
+ */
+
+const HUBSPOT_BASE = "https://api.hubapi.com/crm/v3/objects/contacts";
+
+// Map the form's <select> codes to readable labels stored in HubSpot.
+const BACKGROUND_LABELS: Record<string, string> = {
+  pharma_mr: "Pharma Medical Representative (MR)",
+  pharm_grad: "B.Pharm / M.Pharm Graduate",
+  biotech_grad: "B.Tech / M.Tech / Life Science Graduate",
+  clinical_tech: "Lab / Clinical Technician",
+  other: "Other Sales / Graduate",
+};
+
+function normalizeMobile(raw: string): string {
+  const digits = String(raw || "").replace(/\D/g, "");
+  let ten = digits;
+  if (ten.length > 10 && ten.startsWith("0")) ten = ten.slice(1);
+  if (ten.length === 12 && ten.startsWith("91")) ten = ten.slice(2);
+  ten = ten.slice(-10);
+  return ten.length === 10 ? `+91${ten}` : String(raw || "").trim();
+}
+
+function splitName(full: string): { firstname: string; lastname: string } {
+  const parts = String(full || "").trim().split(/\s+/);
+  return { firstname: parts[0] || "", lastname: parts.slice(1).join(" ") };
+}
+
+async function hubspotUpsert(
+  token: string,
+  email: string,
+  properties: Record<string, string>
+): Promise<{ ok: boolean; status: number; detail?: string }> {
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
+
+  // Try create first.
+  const createRes = await fetch(HUBSPOT_BASE, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ properties: { email, ...properties } }),
+  });
+
+  if (createRes.ok) return { ok: true, status: createRes.status };
+
+  // 409 = contact already exists -> update it by email.
+  if (createRes.status === 409) {
+    const updateRes = await fetch(
+      HUBSPOT_BASE + "/" + encodeURIComponent(email) + "?idProperty=email",
+      { method: "PATCH", headers, body: JSON.stringify({ properties }) }
+    );
+    if (updateRes.ok) return { ok: true, status: updateRes.status };
+    return { ok: false, status: updateRes.status, detail: await updateRes.text() };
+  }
+
+  return { ok: false, status: createRes.status, detail: await createRes.text() };
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,80 +76,61 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  try {
-    const { full_name, email, mobile, user_type, company_name, college_name } = req.body;
+  const token = process.env.HUBSPOT_ACCESS_TOKEN;
+  if (!token) {
+    console.error("[HubSpot] Missing HUBSPOT_ACCESS_TOKEN env var.");
+    return res
+      .status(500)
+      .json({ error: "Lead storage is not configured. Please contact us on WhatsApp." });
+  }
 
-    // Validate request
+  try {
+    const {
+      full_name,
+      email,
+      mobile,
+      background,
+      form_type,
+      consent,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      landing_page,
+    } = req.body || {};
+
     if (!email || !full_name) {
       return res.status(422).json({ error: "Name and email are required." });
     }
 
-    const leadId = Math.random().toString(36).substring(2, 9);
-    const createdAt = new Date().toISOString();
+    const { firstname, lastname } = splitName(full_name);
 
-    const newLead = {
-      id: leadId,
-      full_name,
-      email,
-      mobile: mobile || "",
-      user_type: user_type || "professional",
-      company_name: company_name || "",
-      college_name: college_name || "",
-      created_at: createdAt
+    const properties: Record<string, string> = {
+      firstname,
+      lastname,
+      phone: normalizeMobile(mobile),
+      form_type: form_type === "counseling" ? "counseling" : "masterclass",
+      background: BACKGROUND_LABELS[background] || String(background || ""),
+      consent: consent === false ? "false" : "true",
+      utm_source: utm_source || "",
+      utm_medium: utm_medium || "",
+      utm_campaign: utm_campaign || "",
+      landing_page: landing_page || "",
     };
 
-    // 1. Save to local data/leads.json
-    try {
-      const dataDir = path.join(process.cwd(), "data");
-      if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir, { recursive: true });
-      }
-      
-      const filePath = path.join(dataDir, "leads.json");
-      let leads = [];
-      if (fs.existsSync(filePath)) {
-        const fileContent = fs.readFileSync(filePath, "utf8");
-        leads = JSON.parse(fileContent || "[]");
-      }
-      leads.push(newLead);
-      fs.writeFileSync(filePath, JSON.stringify(leads, null, 2), "utf8");
-      console.log(`[Local Database] Saved lead successfully to data/leads.json: ${email}`);
-    } catch (dbError) {
-      console.error("Local storage save error:", dbError);
+    const result = await hubspotUpsert(
+      token,
+      String(email).trim().toLowerCase(),
+      properties
+    );
+
+    if (!result.ok) {
+      console.error("[HubSpot] Upsert failed (" + result.status + "):", result.detail);
+      return res
+        .status(502)
+        .json({ error: "Could not save your details. Please WhatsApp us." });
     }
 
-    // 2. Save to Supabase (if keys are configured in environment)
-    if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      try {
-        const supabase = getServiceClient();
-        const { error } = await supabase
-          .from("webinar_registrations")
-          .upsert({
-            full_name,
-            email,
-            mobile: mobile || "",
-            user_type: user_type || "professional",
-            company_name: company_name || "",
-            college_name: college_name || "",
-            course: "N/A",
-            graduation_year: "2026",
-            job_title: "N/A",
-            experience: "1-3"
-          }, { onConflict: "email" });
-
-        if (error) {
-          console.error("Supabase write error:", error);
-        } else {
-          console.log(`[Supabase Database] Saved lead successfully: ${email}`);
-        }
-      } catch (supabaseError) {
-        console.error("Supabase client init/write error:", supabaseError);
-      }
-    }
-
-    // 3. Scaffold email dispatch
-    console.log(`[Email Dispatch] Triggering welcome/guide email to: ${email}`);
-
+    console.log("[HubSpot] Lead upserted: " + email + " (" + properties.form_type + ")");
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error("API error:", error);
