@@ -4077,6 +4077,16 @@ function submitLead(e){
   if(typeof gtag!=='undefined')gtag('event','lead_form_submit',{event_category:'conversion'});
 }
 
+function getUTM() {
+  const p = new URLSearchParams(window.location.search);
+  return {
+    utm_source: p.get('utm_source') || '',
+    utm_medium: p.get('utm_medium') || '',
+    utm_campaign: p.get('utm_campaign') || '',
+    landing_page: window.location.pathname
+  };
+}
+
 async function submitMC(e) {
   e.preventDefault();
   const form = e.target;
@@ -4097,7 +4107,7 @@ async function submitMC(e) {
     user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
     company_name: '',
     college_name: '',
-    course: 'N/A',
+    course: 'N/A', form_type: 'masterclass', background: background, consent: true, ...getUTM(),
     graduation_year: '2026',
     job_title: 'N/A',
     experience: '1-3'
@@ -4160,7 +4170,7 @@ async function submitApply(e) {
     user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
     company_name: '',
     college_name: '',
-    course: 'COHORT_APPLICATION',
+    course: 'COHORT_APPLICATION', form_type: 'counseling', background: background, consent: true, ...getUTM(),
     graduation_year: '2026',
     job_title: 'N/A',
     experience: '1-3'
