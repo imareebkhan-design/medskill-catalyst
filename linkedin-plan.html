@@ -18,15 +18,25 @@
   
   <style>
     :root {
-      --bg:           #F8FAFC;       /* Clean clinical slate off-white */
-      --surface:      #FFFFFF;
-      --ink:          #0B1315;       /* High contrast dark ink */
-      --ink-muted:    #475569;       /* Muted slate grey */
-      --brand:        #0A2226;       /* Deep forest clinical spruce */
-      --brand-mid:    #0D5C68;       /* Slate teal label secondary */
-      --brand-light:  #E6F2F4;       /* Soft spruce teal tint */
-      --cta:          #10B981;       /* Vibrant solid Emerald Green */
-      --border:       rgba(10, 34, 38, 0.08); /* Micro-fine light borders */
+      /* Core Brand Tokens */
+      --navy:         #0A2A43;       /* authority, dark sections, headlines on light */
+      --blue:         #00589E;       /* PRIMARY: CTAs, links, structure */
+      --cyan:         #4AD0FF;       /* ACCENT ONLY — rationed */
+      --ink:          #0F1B27;       /* body text */
+      --pale-blue:    #E8F2FB;       /* tints, pills, soft fills */
+      --slate:        #3A4D60;       /* captions, secondary text - contrast boosted */
+      --canvas:       #F7F9FB;       /* dominant page background */
+      --surface:      #FFFFFF;       /* cards, sheets */
+
+      /* Mapped aliases used in presentation styles */
+      --bg:           var(--canvas);
+      --ink-muted:    var(--slate);
+      --brand:        var(--navy);
+      --brand-mid:    var(--blue);
+      --brand-light:  var(--pale-blue);
+      --cta:          var(--blue);
+      
+      --border:       rgba(10, 42, 67, 0.08); /* Hairline */
       --radius-sm:    8px;
       --radius-md:    12px;
       --radius-lg:    20px;
@@ -79,7 +89,7 @@
     .slide.dark {
       background-color: var(--brand);
       color: #FFFFFF;
-      background-image: radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.1) 0%, transparent 60%);
+      background-image: radial-gradient(circle at 100% 100%, rgba(74, 208, 255, 0.08) 0%, transparent 60%);
     }
 
     .slide.mid-teal {
@@ -209,8 +219,8 @@
       font-family: var(--font-serif);
       font-size: 3.8rem;
       font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
       color: var(--brand);
     }
 
@@ -222,9 +232,9 @@
       font-family: var(--font-serif);
       font-size: 2.6rem;
       font-weight: 700;
-      line-height: 1.2;
+      line-height: 1.15;
       color: var(--brand);
-      letter-spacing: -0.02em;
+      letter-spacing: -0.015em;
       margin-bottom: 0.25in;
     }
 
@@ -236,14 +246,14 @@
       font-family: var(--font-sans);
       font-size: 1.6rem;
       font-weight: 700;
-      line-height: 1.3;
+      line-height: 1.25;
       color: var(--brand-mid);
       letter-spacing: -0.01em;
       margin-bottom: 0.2in;
     }
 
     .slide.dark .t-h2-sans {
-      color: var(--cta);
+      color: var(--cyan);
     }
 
     .t-body-premium {
@@ -286,9 +296,9 @@
     }
 
     .slide.dark .accent-pill {
-      background: rgba(16, 185, 129, 0.12);
-      color: var(--cta);
-      border-color: rgba(16, 185, 129, 0.25);
+      background: rgba(74, 208, 255, 0.08);
+      color: var(--cyan);
+      border-color: rgba(74, 208, 255, 0.15);
     }
 
     /* Quote Box */
@@ -301,8 +311,8 @@
     }
 
     .slide.dark .quote-box {
-      background: rgba(255, 255, 255, 0.05);
-      border-left-color: var(--cta);
+      background: rgba(255, 255, 255, 0.03);
+      border-left-color: var(--cyan);
     }
 
     .quote-box p {
@@ -329,7 +339,7 @@
     }
 
     .slide.dark .quote-box cite {
-      color: var(--cta);
+      color: var(--cyan);
     }
 
     /* Grid Layouts */
@@ -420,6 +430,14 @@
       height: 8px;
       border-radius: 50%;
       background-color: var(--cta);
+    }
+
+    .slide.dark .premium-list li {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .slide.dark .premium-list li::before {
+      background-color: var(--cyan);
     }
 
     /* Layout specific tweaks */
