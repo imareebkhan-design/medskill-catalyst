@@ -4041,7 +4041,7 @@ const MODULES = [
   },
   {
     num: '01',
-    title: 'Healthcare Setup & Multi-Stakeholder Management<br>(HCPs, Procurement & Supply Chain)',
+    title: 'Healthcare Setup &amp; Multi-Stakeholder Management<br>HCPs, Procurement &amp; Supply Chain',
     badges: ['OR · ICU · Cath Lab', 'Procurement', 'Supply Chain Process'],
     hook: 'Walk into any hospital — OR, ICU, Cath Lab — and know exactly who decides, who influences, and who signs.',
     topics: [
@@ -4127,7 +4127,7 @@ const FAQS = [
 ];
 
 /* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
-function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').textContent=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
+function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').innerHTML=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
 const clist = document.getElementById('curriculum-list');
 const PANEL_SHORT = {'F':'Foundations of Medical Devices','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
 const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
