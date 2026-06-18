@@ -1577,6 +1577,24 @@ input,textarea,select{font-family:inherit}
   .cur-row-title { font-size: 1.2rem; }
 }
 
+/* ── CURRICULUM ACCORDION (redesign) ─────────────────────────── */
+.cur-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;}
+.cur-list::-webkit-scrollbar{height:7px;}
+.cur-list::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
+.cur-panel{flex:1 1 0;min-width:210px;scroll-snap-align:start;border-radius:var(--radius-lg);padding:1.6rem 1.4rem;display:flex;flex-direction:column;min-height:360px;transition:transform .3s var(--easy-out);}
+.cur-panel:hover{transform:translateY(-3px);}
+.cur-panel--pale{background:var(--pale-blue);color:var(--brand);}
+.cur-panel--blue{background:var(--blue);color:#fff;}
+.cur-panel--navy{background:var(--brand);color:#fff;}
+.cur-panel-num{width:38px;height:38px;border-radius:50%;border:1.6px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;letter-spacing:-.02em;margin-bottom:auto;}
+.cur-panel-h{font-family:var(--font-sans);font-size:1.18rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;text-transform:uppercase;margin:1.1rem 0 1rem;}
+.cur-panel-chips{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem;}
+.cur-panel-chip{display:flex;align-items:center;gap:.5rem;border:1.4px solid currentColor;border-radius:30px;padding:.45rem .75rem;font-size:.66rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;}
+.cur-panel-dot{width:10px;height:10px;border-radius:50%;border:1.4px solid currentColor;flex-shrink:0;}
+.cur-panel-vd{margin-top:auto;background:none;border:none;color:inherit;font-family:inherit;font-size:.72rem;font-weight:800;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;padding:0;opacity:.9;transition:opacity .2s ease,gap .2s ease;}
+.cur-panel-vd:hover{opacity:1;gap:.6rem;}
+@media(max-width:900px){.cur-panel{flex:0 0 240px;}}
+
 /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
 .lead-form-card {
   background: var(--surface);
@@ -3793,6 +3811,21 @@ END PLACEMENT HIDDEN -->
 </div>
 
 <!-- MASTERCLASS MODAL ───────────────────────────────────────────── -->
+<!-- MODULE DETAIL MODAL -->
+<div class="overlay" id="module-detail-overlay" onclick="closeOnBg(event,'module-detail-overlay')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('module-detail-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="mc-modal-head">
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Curriculum Module</p>
+      <h3 id="md-title"></h3>
+      <p id="md-hook" style="font-style:italic;"></p>
+    </div>
+    <div class="mc-modal-body">
+      <ul id="md-topics" class="cur-topics"></ul>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="mc-overlay" onclick="closeOnBg(event,'mc-overlay')">
   <div class="modal">
     <button class="modal-close" onclick="closeModal('mc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -4059,22 +4092,22 @@ const FAQS = [
 ];
 
 /* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
+function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').textContent=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
 const clist = document.getElementById('curriculum-list');
-MODULES.forEach(m => {
-  const tag = m.num === 'F' ? 'Foundational<br>Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
-  const row = document.createElement('div');
-  row.className = 'cur-row fade-up';
-  const topicsHtml = (m.topics || []).map(t => `<li>${t}</li>`).join('');
-  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
-  row.innerHTML = `
-    <div class="cur-row-tag">${tag}</div>
-    <div class="cur-row-body">
-      <h3 class="cur-row-title">${m.title}</h3>
-      <p class="cur-row-hook">${m.hook}</p>
-      <ul class="cur-topics">${topicsHtml}</ul>
-      <div class="cur-row-badges">${badgesHtml}</div>
-    </div>`;
-  clist.appendChild(row);
+const PANEL_SHORT = {'F':'Foundations of Medical Devices','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
+const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
+MODULES.forEach((m, i) => {
+  const shortTitle = PANEL_SHORT[m.num] || m.title;
+  const tone = PANEL_TONES[i % 3];
+  const chipsHtml = m.badges.map(b => `<span class="cur-panel-chip"><span class="cur-panel-dot"></span>${b}</span>`).join('');
+  const p = document.createElement('div');
+  p.className = 'cur-panel fade-up ' + tone;
+  p.innerHTML = `
+    <div class="cur-panel-num">${m.num}</div>
+    <h3 class="cur-panel-h">${shortTitle}</h3>
+    <div class="cur-panel-chips">${chipsHtml}</div>
+    <button class="cur-panel-vd" type="button" onclick="openModuleDetail(${i})">View details <span aria-hidden="true">&rarr;</span></button>`;
+  clist.appendChild(p);
 });
 
 /* ── BUILD FAQ ─────────────────────────────────────────────────── */
