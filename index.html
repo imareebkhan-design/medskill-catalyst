@@ -7,6 +7,20 @@
 <link rel="icon" href="brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
 <title>MedSkills Catalyst — India's MedTech Career Academy</title>
 <meta name="description" content="India's most rigorous career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. 6 weeks · dedicated career support.">
+
+<!-- Social share / canonical (added in pre-launch audit) -->
+<link rel="canonical" href="https://www.medskillscatalyst.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MedSkills Catalyst">
+<meta property="og:title" content="MedSkills Catalyst — India's MedTech Career Academy">
+<meta property="og:description" content="India's most rigorous 6-week career-transition programme for pharma MRs and life-science graduates entering medical device and MedTech sales. Mentored by ex-Medtronic, Stryker & J&J leaders.">
+<meta property="og:url" content="https://www.medskillscatalyst.com/">
+<meta property="og:image" content="https://www.medskillscatalyst.com/assets/hero_training.png">
+<meta property="og:image:alt" content="Hands-on clinical device simulation training">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MedSkills Catalyst — India's MedTech Career Academy">
+<meta name="twitter:description" content="Transition from pharma into global MedTech brands. A rigorous 6-week programme with dedicated career support.">
+<meta name="twitter:image" content="https://www.medskillscatalyst.com/assets/hero_training.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
@@ -133,6 +147,7 @@ input,textarea,select{font-family:inherit}
 /* ── SCROLL FADE ANIMATION ───────────────────────────────────────── */
 .fade-up{opacity:0;transform:translateY(24px);transition:opacity .75s var(--easy-out),transform .75s var(--easy-out)}
 .fade-up.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.fade-up{opacity:1 !important;transform:none !important;transition:none !important}}
 
 /* ══════════════════ NAV OVERHAUL ═════════════════════════════════ */
 #nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all 0.4s var(--easy-out)}
@@ -348,20 +363,20 @@ input,textarea,select{font-family:inherit}
 }
 
 /* ══════════════════ HERO SECTION REDESIGN ════════════════════════ */
-#hero{position:relative;padding-top:clamp(0.75rem,2vw,1.5rem);padding-bottom:clamp(2rem,5vw,4rem);background:var(--bg);overflow:hidden}
-.hero-card{position:relative;background-color:var(--brand);background-image:radial-gradient(circle at 100% 150%, rgba(16,185,129,0.15) 15%, transparent 50%),linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);background-size:100% 100%, 24px 24px, 24px 24px;border-radius:var(--radius-xl);padding:clamp(2.5rem,6vw,4.5rem) clamp(2rem,5vw,4rem);border:1px solid rgba(255,255,255,0.04);overflow:hidden;color:#FAF9F6;box-shadow:var(--shadow-lg)}
+#hero{position:relative;padding-top:clamp(0.5rem,1.4vw,1rem);padding-bottom:clamp(1.5rem,3vw,2.5rem);background:var(--bg);overflow:hidden}
+.hero-card{position:relative;background-color:var(--brand);background-image:radial-gradient(circle at 100% 150%, rgba(16,185,129,0.15) 15%, transparent 50%),linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);background-size:100% 100%, 24px 24px, 24px 24px;border-radius:var(--radius-xl);padding:clamp(2rem,4vw,3.25rem) clamp(2rem,5vw,4rem);border:1px solid rgba(255,255,255,0.04);overflow:hidden;color:#FAF9F6;box-shadow:var(--shadow-lg)}
 .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center;position:relative;z-index:2}
-.hero-pill{margin-bottom:1.75rem}
-.hero-headline{margin-bottom:1.5rem;color:#fff}
+.hero-pill{margin-bottom:1.1rem}
+.hero-headline{font-size:clamp(2.2rem,4.8vw,3.7rem);line-height:1.08;margin-bottom:1rem;color:#fff}
 .hero-headline em{display:inline-block;position:relative;z-index:1}
 .hero-headline em::after{content:'';position:absolute;bottom:8px;left:0;width:100%;height:8px;background:rgba(16,185,129,0.18);z-index:-1}
-.hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.7);margin-bottom:2.5rem;max-width:580px;line-height:1.75}
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;max-width:560px;line-height:1.6}
 .hero-sub strong{color:#fff;font-weight:700}
-.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:3rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1.75rem}
 .hero-stats{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center}
 .hero-stat{display:flex;flex-direction:column}
-.hero-stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:var(--cyan);line-height:1;letter-spacing:-.02em}
-.hero-stat-label{font-size:.8rem;color:rgba(255,255,255,0.5);font-weight:600;margin-top:.4rem;text-transform:uppercase;letter-spacing:.05em}
+.hero-stat-num{font-family:var(--font-serif);font-size:2.5rem;font-weight:700;color:#fff;line-height:1;letter-spacing:-.02em}
+.hero-stat-label{font-size:.8rem;color:rgba(255,255,255,0.72);font-weight:600;margin-top:.4rem;text-transform:uppercase;letter-spacing:.05em}
 .hero-stat-divider{width:1px;background:linear-gradient(to bottom, transparent, rgba(255,255,255,0.15), transparent);align-self:stretch;min-height:48px}
 
 /* Hero visual */
@@ -756,6 +771,20 @@ input,textarea,select{font-family:inherit}
   letter-spacing: 0.02em;
   margin-top: 0.2rem;
 }
+/* Pre-launch audit: center-align testimonial cards + larger LinkedIn icon */
+.success-card{text-align:center;}
+.success-card-top{justify-content:center;}
+.success-profile-row{flex-direction:column;align-items:center;gap:.75rem;}
+.success-profile-info{align-items:center;text-align:center;flex:0 0 auto;width:100%;}
+.success-card-name-row{justify-content:center;}
+.success-card-name{white-space:normal;overflow:visible;text-overflow:clip;}
+.success-card-linkedin svg,.card-linkedin-icon{width:18px !important;height:18px !important;}
+.growth-journey{align-items:center;text-align:center;}
+.growth-journey-arrow-down{padding-left:0;}
+.success-testimonial-section{align-items:center;}
+.success-testimonial-text{text-align:center;}
+.success-story-toggle-btn{align-self:center;}
+
 /* Growth Journey single-container */
 .growth-journey {
   background: var(--canvas);
@@ -1813,25 +1842,25 @@ input,textarea,select{font-family:inherit}
 }
 /* High-contrast CTA Button */
 .mc-bento-cta {
-  background: #4ADE80 !important;
-  color: #0f172a !important;
+  background: #ffffff !important;
+  color: #0A2A43 !important;
   font-weight: 800 !important;
   font-size: 1.15rem !important;
   padding: 1.15rem 2.5rem !important;
   border: none !important;
-  border-bottom: 4px solid #16a34a !important;
+  border-bottom: 4px solid #cbd5e1 !important;
   border-radius: 12px !important;
   cursor: pointer;
   align-self: flex-start;
   transition: all 0.15s ease-in-out;
-  box-shadow: 0 4px 12px rgba(74, 222, 128, 0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
 }
 .mc-bento-cta:hover {
-  background: #22c55e !important;
-  border-bottom-color: #15803d !important;
+  background: #f1f5f9 !important;
+  border-bottom-color: #94a3b8 !important;
   transform: translateY(-1px);
 }
 .mc-bento-cta:active {
@@ -1952,6 +1981,15 @@ input,textarea,select{font-family:inherit}
   }
 }
 
+
+/* Pre-launch audit: prevent masterclass bento overflow on phones */
+@media(max-width:991px){
+  .mc-bento-box{grid-template-columns:1fr;}
+  .mc-bento-left,.mc-bento-right{grid-column:auto;min-width:0;max-width:100%;}
+  .mc-bento-pills{max-width:100%;}
+  .mc-bento-cta{width:100%;justify-content:center;white-space:normal;align-self:stretch;}
+  .mc-bento-seats{max-width:100%;}
+}
 
 /* ── LEAD CAPTURE WIDGET REDESIGN ──────────────── */
 .lead-inner {
@@ -2585,14 +2623,14 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
           <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Life Science Graduates and Healthcare Professionals Entering MedTech. A rigorous <strong>6-week programme</strong> to transition into global MedTech brands with real career velocity, not just a certificate.</p>
           <div class="hero-ctas fade-up">
             <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Reserve Masterclass Seat →</button>
-            <a href="#curriculum" class="btn btn--blue" data-track="hero_curriculum">Explore Curriculum</a>
+            <a href="#curriculum" class="btn btn--ghost" data-track="hero_curriculum">Explore Curriculum</a>
           </div>
           <div class="hero-stats fade-up">
             <div class="hero-stat"><span class="hero-stat-num">₹5–15 LPA</span><span class="hero-stat-label">Target Starting Salary</span></div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat"><span class="hero-stat-num">July 2026</span><span class="hero-stat-label">Cohort Starts</span></div>
             <div class="hero-stat-divider"></div>
-            <div class="hero-stat"><span class="hero-stat-num">Limited Seats</span><span class="hero-stat-label">Batch Size Limit</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">6 Seats</span><span class="hero-stat-label">Batch Size Limit</span></div>
           </div>
         </div>
         <div class="fade-up">
@@ -2614,7 +2652,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
   <div class="container">
     <div class="section-header fade-up">
       <p class="section-eyebrow">Success Stories</p>
-      <h2 class="t-h2">Target MedTech Roles</h2>
+      <h2 class="t-h2">Where Our Graduates Are Now</h2>
       <p class="section-sub">Verified career progression trajectories from non-device backgrounds into cross-functional MedTech leadership roles.</p>
     </div>
     <div class="success-marquee-container fade-up">
@@ -2863,242 +2901,247 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <!-- Row 2: Right-to-Left -->
       <div class="success-marquee-track track-2">
         <div class="success-marquee-content">
-          <!-- Card: Vasudha Singh -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Vasudha Singh</span>
-                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Biotech → MedTech</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Senior Territory Manager</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Zonal Account Manager</span>
-            </div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
+          <!-- ===== Anand Gupta  (consent + testimonial on file) ===== -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
 
-          <!-- Card: Garvita Khurana -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Garvita Khurana</span>
-                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Product Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Product Manager</span>
-            </div>
+  <div class="success-profile-row">
+    <img src="assets/anand_gupta.png" alt="Anand Gupta" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Anand Gupta</span>
+        <a href="https://www.linkedin.com/in/anand-gupta-79326a66" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">MedTech Marketing → Founder</span>
+    </div>
+  </div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Marketing Manager, Medtronic India</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Founder, Sarathi Consulting Solutions</span>
+  </div>
 
-          <!-- Card: Shivam Tiwari -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Shivam Tiwari</span>
-                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Clinical Support → Territory Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Territory Manager</span>
-            </div>
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"After 14 years at Medtronic, I had deep product knowledge but needed to think like a business owner, not a marketing manager. MedSkills Catalyst helped me make that shift. The programme gave me frameworks for commercial strategy and market positioning that I use every day running my consulting practice. For anyone in MedTech thinking about entrepreneurship, it sharpens your thinking in ways corporate training rarely does."</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Duplicated content for infinite loop -->
+<!-- ===== Sandeep Kumar  (consent + testimonial on file) ===== -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
+
+  <div class="success-profile-row">
+    <img src="assets/sandeep_kumar.png" alt="Sandeep Kumar" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Sandeep Kumar</span>
+        <a href="https://www.linkedin.com/in/sandeep-kumar-3378911a" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">Key Accounts → Regional Sales</span>
+    </div>
+  </div>
+
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Senior Key Account Manager, Ortho Clinical Diagnostics</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Regional Sales Manager, Diasorin</span>
+  </div>
+
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"Moving from key account management to a regional sales role is a real step up, and I needed to think differently about team leadership and commercial planning. MedSkills Catalyst gave me that. The programme is not just about selling — it builds how you think about markets and growth. That preparation made a difference when I stepped into the RSM role at Diasorin."</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
+
+<!-- ===== Pramit Shrestha  ⚠️ DO NOT PUBLISH YET =====
+     TODO 1: replace the placeholder quote below with Pramit's OWN words.
+     TODO 2: obtain a signed consent letter from Pramit like the other two before going live.
+     Journey below is taken from his public LinkedIn — confirm it's how he wants to be framed. -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
+
+  <div class="success-profile-row">
+    <img src="assets/pramit_shrestha.png" alt="Pramit Shrestha" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Pramit Shrestha</span>
+        <a href="https://www.linkedin.com/in/pramit-shrestha/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">Territory Management → Sales Leadership</span>
+    </div>
+  </div>
+
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Territory Manager, Werfen</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Sales Team Leader, Werfen</span>
+  </div>
+
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"[ TODO — paste Pramit Shrestha's own testimonial here before publishing. Do not invent a quote. ]"</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
         <div class="success-marquee-content" aria-hidden="true">
-          <!-- Card: Vasudha Singh -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Vasudha Singh</span>
-                  <a href="https://www.linkedin.com/in/vasudha-singh2503" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Biotech → MedTech</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Senior Territory Manager</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Zonal Account Manager</span>
-            </div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"I was a sales representative when I joined, and my goal was to grow into a more senior commercial role. The founders of MedSkills Catalyst helped me understand account strategy, not just account management. The Stratafix portfolio at Johnson & Johnson demands a different kind of thinking from field sales, and their mentorship prepared me for that. If you're in pharma or an entry-level MedTech field role and want to move up, this is where you start."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
+          <!-- ===== Anand Gupta  (consent + testimonial on file) ===== -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
 
-          <!-- Card: Garvita Khurana -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Garvita Khurana</span>
-                  <a href="https://www.linkedin.com/in/garvita-khurana-33b60434" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Sales → Product Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Senior Territory Sales Manager</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Product Manager</span>
-            </div>
+  <div class="success-profile-row">
+    <img src="assets/anand_gupta.png" alt="Anand Gupta" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Anand Gupta</span>
+        <a href="https://www.linkedin.com/in/anand-gupta-79326a66" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">MedTech Marketing → Founder</span>
+    </div>
+  </div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"I spent years in sales and assumed product management was an entirely different world. The founders of MedSkills Catalyst helped me see the connection. Their mentorship gave me a structured way to think about product development, clinical workflows, and what it actually takes to bring a device to market. That grounding is why I was able to make the switch to a Product Manager role at Teleflex."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Marketing Manager, Medtronic India</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Founder, Sarathi Consulting Solutions</span>
+  </div>
 
-          <!-- Card: Shivam Tiwari -->
-          <div class="success-card">
-            <div class="success-stamp-watermark">TRANSITIONED</div>
-            <div class="success-card-top">
-              <div class="success-badge-verified">
-                <span class="badge-dot-blue"></span> VERIFIED TRANSITION
-              </div>
-            </div>
-            
-            <div class="success-profile-row">
-              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
-              <div class="success-profile-info">
-                <div class="success-card-name-row">
-                  <span class="success-card-name">Shivam Tiwari</span>
-                  <a href="https://www.linkedin.com/in/shivam-tiwari-41a4331a0" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
-                    <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                  </a>
-                </div>
-                <span class="success-card-category">Clinical Support → Territory Management</span>
-              </div>
-            </div>
-            
-            <div class="growth-journey">
-              <span class="growth-journey-title">Growth Journey</span>
-              <span class="growth-journey-node node-before">Product Specialist / Field Clinical Specialist</span>
-              <span class="growth-journey-arrow-down">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </span>
-              <span class="growth-journey-node node-after">Territory Manager</span>
-            </div>
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"After 14 years at Medtronic, I had deep product knowledge but needed to think like a business owner, not a marketing manager. MedSkills Catalyst helped me make that shift. The programme gave me frameworks for commercial strategy and market positioning that I use every day running my consulting practice. For anyone in MedTech thinking about entrepreneurship, it sharpens your thinking in ways corporate training rarely does."</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
 
-            <div class="success-testimonial-section">
-              <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">"Coming from a clinical background, the commercial side of MedTech felt like a different language. The founders of MedSkills Catalyst taught me how to think like a Territory Manager. The training on cardiovascular devices and commercial strategy directly prepared me for my current role at Abbott. I would not have made this transition as quickly on my own without the guidance and mentorship from the MedSkills Catalyst founders."</p>
-              </div>
-              <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
-            </div>
-          </div>
+<!-- ===== Sandeep Kumar  (consent + testimonial on file) ===== -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
+
+  <div class="success-profile-row">
+    <img src="assets/sandeep_kumar.png" alt="Sandeep Kumar" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Sandeep Kumar</span>
+        <a href="https://www.linkedin.com/in/sandeep-kumar-3378911a" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">Key Accounts → Regional Sales</span>
+    </div>
+  </div>
+
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Senior Key Account Manager, Ortho Clinical Diagnostics</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Regional Sales Manager, Diasorin</span>
+  </div>
+
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"Moving from key account management to a regional sales role is a real step up, and I needed to think differently about team leadership and commercial planning. MedSkills Catalyst gave me that. The programme is not just about selling — it builds how you think about markets and growth. That preparation made a difference when I stepped into the RSM role at Diasorin."</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
+
+<!-- ===== Pramit Shrestha  ⚠️ DO NOT PUBLISH YET =====
+     TODO 1: replace the placeholder quote below with Pramit's OWN words.
+     TODO 2: obtain a signed consent letter from Pramit like the other two before going live.
+     Journey below is taken from his public LinkedIn — confirm it's how he wants to be framed. -->
+<div class="success-card">
+  <div class="success-stamp-watermark">TRANSITIONED</div>
+  <div class="success-card-top">
+    <div class="success-badge-verified">
+      <span class="badge-dot-blue"></span> VERIFIED TRANSITION
+    </div>
+  </div>
+
+  <div class="success-profile-row">
+    <img src="assets/pramit_shrestha.png" alt="Pramit Shrestha" class="success-avatar-img">
+    <div class="success-profile-info">
+      <div class="success-card-name-row">
+        <span class="success-card-name">Pramit Shrestha</span>
+        <a href="https://www.linkedin.com/in/pramit-shrestha/" target="_blank" rel="noopener noreferrer" class="success-card-linkedin" title="LinkedIn Profile">
+          <svg class="card-linkedin-icon" viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+        </a>
+      </div>
+      <span class="success-card-category">Territory Management → Sales Leadership</span>
+    </div>
+  </div>
+
+  <div class="growth-journey">
+    <span class="growth-journey-title">Growth Journey</span>
+    <span class="growth-journey-node node-before">Territory Manager, Werfen</span>
+    <span class="growth-journey-arrow-down">
+      <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <span class="growth-journey-node node-after">Sales Team Leader, Werfen</span>
+  </div>
+
+  <div class="success-testimonial-section">
+    <div class="success-testimonial-wrapper">
+      <p class="success-testimonial-text">"[ TODO — paste Pramit Shrestha's own testimonial here before publishing. Do not invent a quote. ]"</p>
+    </div>
+    <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -3530,7 +3573,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
   <div class="container">
     <div class="section-header fade-up" style="text-align: left; margin-left: 0; max-width: 100%;">
       <h2 class="t-h2">Mentored by MedTech Leaders.</h2>
-      <p class="section-sub" style="margin-left: 0;">No academics.... Learn directly from leaders who have spent decades building, selling, and hiring at the world's top medical device companies.</p>
+      <p class="section-sub" style="margin-left: 0;">No academics. Just leaders who have spent decades building, selling, and hiring at the world's top medical device companies.</p>
       <p class="section-eyebrow" style="margin-top: 1.75rem; margin-bottom: 0; font-size: 0.82rem; letter-spacing: 0.16em; display: inline-flex; align-items: center;">The Faculty</p>
     </div>
     
@@ -3548,7 +3591,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
           <div class="faculty-badges">
             <span class="faculty-badge">Former Pfizer, BMS, Medtronic & Stryker</span>
           </div>
-          <p class="faculty-bio">Former leader at Pfizer, BMS, Medtronic India and Stryker, overseeing Cardiovascular and Surgical device portfolio. Transitioned from Medical Rep to Corporate Medtech Leader to full time training, coaching, mentoring to build India’s next generation of Medtech ready professionals.</p>
+          <p class="faculty-bio">Former leader at Pfizer, BMS, Medtronic India and Stryker, overseeing Cardiovascular and Surgical device portfolio. Transitioned from Medical Rep to Corporate MedTech Leader to full time training, coaching, mentoring to build India’s next generation of MedTech ready professionals.</p>
         </div>
       </div>
 
@@ -3612,7 +3655,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
       <!-- ROI Calculator Card (full-width, centre stage) -->
       <div class="roi-card roi-card--hero">
         <div class="roi-card-header">
-          <h3 class="roi-card-title">Career ROI Simulator</h3>
+          <h3 class="roi-card-title">Career ROI Calculator</h3>
           <p class="roi-card-desc">Illustrative model based on published industry salary ranges for MedTech device sales and clinical specialist roles in India.</p>
         </div>
         <div class="roi-sliders">
@@ -3651,7 +3694,8 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
         </div>
         <p class="roi-disclaimer">Illustrative calculation based on target industry salary ranges for device sales positions. Actual results may vary depending on student background and interview performance.</p>
         <div class="roi-cta-wrap">
-          <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Apply for the Next Cohort ➔</a>
+          <p class="roi-fee-note" style="margin:0 0 1rem;font-size:.95rem;color:var(--ink-muted);font-weight:600;">Programme fee: <strong style="color:var(--brand);">from &#8377;XX,XXX</strong> &middot; EMI options available <!-- TODO: replace XX,XXX with the real starting fee before launch --></p>
+          <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Book a Counseling Call &rarr;</a>
         </div>
       </div>
     </div>
@@ -3697,7 +3741,7 @@ END PLACEMENT HIDDEN -->
       <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
       <p class="final-cta-sub">Every month you wait is a month someone else is getting the role and the salary you deserve. Applications for our exclusive cohort close when the 6 available seats are filled.</p>
       <div class="final-cta-actions">
-        <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Apply for July Cohort →</a>
+        <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Book a Counseling Call →</a>
         <button class="btn btn--ghost btn--lg" onclick="openModal('mc-overlay')" data-track="finalcta_masterclass">Attend the Masterclass First</button>
       </div>
     </div>
@@ -3725,7 +3769,7 @@ END PLACEMENT HIDDEN -->
       </div>
       <div>
         <p class="footer-col-title">Programme</p>
-        <div class="footer-links"><a href="#success-stories">Success Stories</a><a href="#curriculum">Curriculum</a><a href="#faculty">Faculty</a><a href="#fees">ROI Simulator</a></div>
+        <div class="footer-links"><a href="#success-stories">Success Stories</a><a href="#curriculum">Curriculum</a><a href="#faculty">Faculty</a><a href="#fees">ROI Calculator</a></div>
       </div>
       <div>
         <p class="footer-col-title">Support</p>
@@ -3734,14 +3778,14 @@ END PLACEMENT HIDDEN -->
     </div>
     <div class="footer-bottom">
       <span>© 2026 MedSkills Catalyst Pvt. Ltd. · Bengaluru, India</span>
-      <div class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="refund-policy.html">Refund Policy</a></div>
+      <div class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><a href="terms-of-use.html">Terms of Use</a><a href="refund-policy.html">Refund Policy</a></div>
     </div>
   </div>
 </footer>
 
 <!-- MOBILE STICKY BAR ───────────────────────────────────────────── -->
 <div id="sticky-bar">
-  <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="sticky-cta" data-track="sticky_apply">Apply Now</a>
+  <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="sticky-cta" data-track="sticky_apply">Book a Call</a>
   <a class="sticky-wa" href="https://wa.me/919759249395?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="sticky_wa">
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
     WhatsApp
@@ -3754,7 +3798,7 @@ END PLACEMENT HIDDEN -->
     <button class="modal-close" onclick="closeModal('mc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="mc-modal-head">
       <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Live Masterclass</p>
-      <h3>Break-in to Medtech Industry</h3>
+      <h3>Break-in to MedTech Industry</h3>
       <p>Saturday, 4th July · 6 PM IST - 7 PM IST · Live on Zoom</p>
     </div>
     <div class="mc-modal-body">
@@ -4065,6 +4109,9 @@ window.addEventListener('scroll', () => {
 /* ── INTERSECTION OBSERVER ─────────────────────────────────────── */
 const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
+// Pre-launch audit: reveal anything already in view so the hero never sits blank on load
+function revealInView(){document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el){if(el.getBoundingClientRect().top < window.innerHeight*0.9){el.classList.add('visible');io.unobserve(el);}});}
+revealInView();window.addEventListener('load',revealInView);
 
 /* ── FORMS ─────────────────────────────────────────────────────── */
 function submitLead(e){
