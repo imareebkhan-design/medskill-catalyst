@@ -2611,9 +2611,43 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
 .node-label, .sig-title { font-size: 0.72rem; }
 .live-widget-badge { font-size: 0.72rem; }
 
+/* ── ACCESSIBILITY & UX AUDIT FIXES ─────────────────────────────── */
+
+/* Skip link — keyboard users bypass nav */
+.skip-link{position:absolute;left:-9999px;top:1rem;z-index:9999;padding:.6rem 1.2rem;background:var(--brand);color:#fff;font-weight:700;font-size:.9rem;border-radius:var(--radius-sm);text-decoration:none;transition:left 0s}
+.skip-link:focus{left:1rem}
+
+/* Focus-visible ring for all buttons */
+.btn:focus-visible{outline:3px solid var(--cta);outline-offset:3px}
+button:focus-visible{outline:2px solid var(--cta);outline-offset:2px}
+a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3px}
+
+/* Toggle button — restore focus ring (outline:none was set inline) */
+.success-story-toggle-btn:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3px}
+
+/* FAQ rows — keyboard focus ring (tabindex="0" set via JS) */
+.faq-q:focus-visible{outline:2px solid var(--cta);outline-offset:-2px;border-radius:var(--radius-sm)}
+
+/* ROI slider — restore focus ring (outline:none was set inline) */
+.roi-slider-input:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3px}
+
+/* Mobile sticky CTA — iOS safe-area bottom clearance */
+#mobile-sticky-cta{padding-bottom:calc(0.75rem + env(safe-area-inset-bottom, 0px))}
+
+/* Mobile menu — use dvh so iOS toolbar doesn't clip */
+.mobile-menu-drawer{height:100dvh}
+
+/* Prefers-reduced-motion — pause all marquee + pulse animations */
+@media(prefers-reduced-motion:reduce){
+  .marquee-track,.success-marquee-track,.track-1,.track-2{animation:none!important}
+  .footer-mc-dot,.nav-live-dot{animation:none!important}
+  *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
+}
+
 </style>
 </head>
 <body>
+<a href="#hero" class="skip-link">Skip to main content</a>
 
 <!-- NAV ─────────────────────────────────────────────────────────── -->
 <nav id="nav">
@@ -2638,7 +2672,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
         WhatsApp
       </a>
-      <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+      <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu-drawer">
         <span></span>
         <span></span>
         <span></span>
@@ -2672,7 +2706,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
         </div>
         <div class="fade-up">
           <div class="hero-visual">
-            <img src="assets/hero_training.png" alt="Hands-on clinical device simulation training" loading="lazy">
+            <img src="assets/hero_training.png" alt="Hands-on clinical device simulation training" loading="eager" fetchpriority="high">
             <div class="hero-visual-caption">
               <span class="hero-visual-caption-label">The world you're stepping into</span>
               <span class="hero-visual-caption-sub">OR protocols · device handling · surgeon communication</span>
@@ -3872,9 +3906,9 @@ END PLACEMENT HIDDEN -->
     <div class="mc-modal-body">
       <form id="mc-form" onsubmit="submitMC(event)">
         <div id="mc-form-error" style="display: none; padding: 0.75rem; border-radius: var(--radius-sm); background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; font-size: 0.85rem; margin-bottom: 1rem;"></div>
-        <div class="form-group"><label class="form-label" for="mc-name">Your name</label><input class="form-input" type="text" id="mc-name" name="name" placeholder="Rohan Sharma" required></div>
-        <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required></div>
-        <div class="form-group"><label class="form-label" for="mc-email">Your email</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required></div>
+        <div class="form-group"><label class="form-label" for="mc-name">Your name</label><input class="form-input" type="text" id="mc-name" name="name" placeholder="Rohan Sharma" required autocomplete="name"></div>
+        <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel"></div>
+        <div class="form-group"><label class="form-label" for="mc-email">Your email</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required autocomplete="email"></div>
         <div class="form-group">
           <label class="form-label" for="mc-background">Current Professional Background</label>
           <select class="form-input form-select" id="mc-background" name="background" required>
@@ -3905,9 +3939,9 @@ END PLACEMENT HIDDEN -->
     <div class="mc-modal-body">
       <form id="apply-form" onsubmit="submitApply(event)">
         <div id="apply-form-error" style="display: none; padding: 0.75rem; border-radius: var(--radius-sm); background: #FEF2F2; border: 1px solid #FCA5A5; color: #991B1B; font-size: 0.85rem; margin-bottom: 1rem;"></div>
-        <div class="form-group"><label class="form-label" for="apply-name">Your name</label><input class="form-input" type="text" id="apply-name" name="name" placeholder="Rohan Sharma" required></div>
-        <div class="form-group"><label class="form-label" for="apply-phone">WhatsApp number</label><input class="form-input" type="tel" id="apply-phone" name="phone" placeholder="+91 98765 43210" required></div>
-        <div class="form-group"><label class="form-label" for="apply-email">Your email</label><input class="form-input" type="email" id="apply-email" name="email" placeholder="rohan@gmail.com" required></div>
+        <div class="form-group"><label class="form-label" for="apply-name">Your name</label><input class="form-input" type="text" id="apply-name" name="name" placeholder="Rohan Sharma" required autocomplete="name"></div>
+        <div class="form-group"><label class="form-label" for="apply-phone">WhatsApp number</label><input class="form-input" type="tel" id="apply-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel"></div>
+        <div class="form-group"><label class="form-label" for="apply-email">Your email</label><input class="form-input" type="email" id="apply-email" name="email" placeholder="rohan@gmail.com" required autocomplete="email"></div>
         <div class="form-group">
           <label class="form-label" for="apply-background">Current Professional Background</label>
           <select class="form-input form-select" id="apply-background" name="background" required>
@@ -3969,9 +4003,10 @@ function toggleMobileMenu() {
   const drawer = document.getElementById('mobile-menu-drawer');
   const backdrop = document.getElementById('mobile-menu-backdrop');
   const burger = document.getElementById('nav-hamburger');
+  const isOpen = drawer && drawer.classList.contains('active');
   if (drawer) drawer.classList.toggle('active');
   if (backdrop) backdrop.classList.toggle('active');
-  if (burger) burger.classList.toggle('active');
+  if (burger) { burger.classList.toggle('active'); burger.setAttribute('aria-expanded', String(!isOpen)); burger.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu'); }
 }
 function closeMobileMenu() {
   const drawer = document.getElementById('mobile-menu-drawer');
@@ -3979,7 +4014,7 @@ function closeMobileMenu() {
   const burger = document.getElementById('nav-hamburger');
   if (drawer) drawer.classList.remove('active');
   if (backdrop) backdrop.classList.remove('active');
-  if (burger) burger.classList.remove('active');
+  if (burger) { burger.classList.remove('active'); burger.setAttribute('aria-expanded', 'false'); burger.setAttribute('aria-label', 'Open navigation menu'); }
 }
 
 let isRegistered = false;
@@ -4150,13 +4185,13 @@ const flist=document.getElementById('faq-list');
 FAQS.forEach(f=>{
   const el=document.createElement('div');
   el.className='faq-item fade-up';
-  el.innerHTML=`<div class="faq-q" onclick="toggleFaq(this)"><span>${f.q}</span><div class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-body-wrap"><div class="faq-body"><div class="faq-body-inner"><p>${f.a}</p></div></div></div>`;
+  el.innerHTML=`<div class="faq-q" role="button" tabindex="0" aria-expanded="false" onclick="toggleFaq(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleFaq(this)}"><span>${f.q}</span><div class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div></div><div class="faq-body-wrap"><div class="faq-body"><div class="faq-body-inner"><p>${f.a}</p></div></div></div>`;
   flist.appendChild(el);
 });
 
 /* ── ACCORDIONS ────────────────────────────────────────────────── */
 function toggleModule(h){h.closest('.module').classList.toggle('open')}
-function toggleFaq(b){b.closest('.faq-item').classList.toggle('open')}
+function toggleFaq(b){const item=b.closest('.faq-item');item.classList.toggle('open');b.setAttribute('aria-expanded',item.classList.contains('open')?'true':'false')}
 
 /* ── MODALS ────────────────────────────────────────────────────── */
 function openModal(id){document.getElementById(id).classList.add('show');document.body.style.overflow='hidden'}
@@ -4583,12 +4618,13 @@ async function submitLeadMagnetForm(e) {
     </div>
     <button class="btn btn--mobile-cta" onclick="openModal('mc-overlay')" data-track="mobile_sticky_rsvp">
       Reserve Spot
+    </button>
   </div>
 </div>
 
 <!-- MOBILE MENU DRAWER ───────────────────────────────────────────── -->
 <div class="mobile-menu-backdrop" id="mobile-menu-backdrop" onclick="closeMobileMenu()"></div>
-<div class="mobile-menu-drawer" id="mobile-menu-drawer">
+<div class="mobile-menu-drawer" id="mobile-menu-drawer" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="mobile-menu-header">
     <a href="#hero" class="nav-logo" onclick="closeMobileMenu()" aria-label="MedSkills Catalyst Home">
       <div class="nav-logo-mark" style="background:transparent;border:none">
