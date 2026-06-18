@@ -1889,18 +1889,20 @@ input,textarea,select{font-family:inherit}
 .mc-media-hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.1;
+  aspect-ratio: 4 / 5;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(74, 208, 255, 0.25);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 6px rgba(74, 208, 255, 0.06);
 }
 .mc-media-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 15%;
+  transition: transform 0.5s ease;
 }
+.mc-media-hero:hover .mc-media-img { transform: scale(1.04); }
 /* Soft dark gradient overlay at the bottom */
 .mc-media-overlay {
   position: absolute;
@@ -1925,6 +1927,13 @@ input,textarea,select{font-family:inherit}
   margin: 0.25rem 0 0 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+.mc-media-org {
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: 700;
+  margin: 0.3rem 0 0 0;
+  letter-spacing: 0.01em;
 }
 /* Pulser play button indicator layered directly in the middle */
 @keyframes mcPlayPulse {
@@ -1987,7 +1996,7 @@ input,textarea,select{font-family:inherit}
     width: 100%;
   }
   .mc-media-hero {
-    aspect-ratio: 1.15;
+    aspect-ratio: 4 / 5;
   }
   .mc-bento-h {
     font-size: 1.8rem;
@@ -2532,6 +2541,14 @@ input,textarea,select{font-family:inherit}
 .footer-links{display:flex;flex-direction:column;gap:.75rem}
 .footer-links a{font-size:.9rem;transition:color .2s;color:rgba(255,255,255,0.65)}
 .footer-links a:hover{color:#fff}
+.footer-mc{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;padding:.8rem 1.1rem;border-radius:12px;background:rgba(74,208,255,0.06);border:1px solid rgba(74,208,255,0.25);transition:background .2s,border-color .2s,transform .2s;text-decoration:none}
+.footer-mc:hover{background:rgba(74,208,255,0.12);border-color:rgba(74,208,255,0.5);transform:translateY(-1px)}
+.footer-mc-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
+.footer-mc-text{display:flex;flex-direction:column;line-height:1.35}
+.footer-mc-text strong{color:#fff;font-size:.9rem;font-weight:700}
+.footer-mc-text span{color:rgba(255,255,255,0.6);font-size:.78rem}
+.nav-link-live{display:inline-flex;align-items:center;gap:.4rem}
+.nav-live-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;display:inline-block;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:2rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem;color:rgba(255,255,255,.3)}
 .footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
 .footer-legal a{transition:color .2s;color:rgba(255,255,255,0.45)}
@@ -2609,6 +2626,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
     <div class="nav-links">
       <a href="#success-stories">Success Stories</a>
       <a href="#curriculum">Curriculum</a>
+      <a href="#masterclass" class="nav-link-live"><span class="nav-live-dot"></span>Live Masterclass</a>
       <a href="#faculty">Faculty</a>
       <a href="#fees">ROI Calculator</a>
       <a href="#faq">FAQ</a>
@@ -3516,6 +3534,11 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
 <!-- MASTERCLASS ─────────────────────────────────────────────────── -->
 <section id="masterclass" class="section">
   <div class="container">
+    <div class="section-header fade-up">
+      <p class="section-eyebrow">Free Live Masterclass</p>
+      <h2 class="t-h2">Start With a Free Live Session</h2>
+      <p class="section-sub">See exactly how Life-Science graduates break into MedTech &mdash; live, free, and no obligation, before you commit to the programme.</p>
+    </div>
     <div class="mc-bento-box fade-up">
       <!-- Left Column: Typography & Interaction -->
       <div class="mc-bento-left">
@@ -3578,7 +3601,8 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
           
           <div class="mc-media-overlay">
             <h4 class="mc-media-name">Gagan Victor</h4>
-            <p class="mc-media-title">Co-Founder &amp; Program Director, MedSkills Catalyst</p>
+            <p class="mc-media-title">Co-Founder &amp; Program Director</p>
+            <p class="mc-media-org">MedSkills Catalyst</p>
           </div>
         </div>
       </div>
@@ -3784,6 +3808,10 @@ END PLACEMENT HIDDEN -->
           <a href="mailto:info@medskillscatalyst.com">✉ info@medskillscatalyst.com</a>
           <a href="https://wa.me/919759249395" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
         </div>
+        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="footer-mc" data-track="footer_masterclass">
+          <span class="footer-mc-dot"></span>
+          <span class="footer-mc-text"><strong>Free Live Masterclass</strong><span>Sat, 4 Jul · 6 PM IST · Reserve your seat &rarr;</span></span>
+        </a>
       </div>
       <div>
         <p class="footer-col-title">Programme</p>
@@ -4568,6 +4596,7 @@ async function submitLeadMagnetForm(e) {
   <div class="mobile-menu-links">
     <a href="#success-stories" onclick="closeMobileMenu()">Success Stories</a>
     <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
+    <a href="#masterclass" class="nav-link-live" onclick="closeMobileMenu()"><span class="nav-live-dot"></span>Live Masterclass</a>
     <a href="#faculty" onclick="closeMobileMenu()">Faculty</a>
     <a href="#fees" onclick="closeMobileMenu()">ROI Calculator</a>
     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
