@@ -3089,7 +3089,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 
   <div class="success-testimonial-section">
     <div class="success-testimonial-wrapper">
-      <p class="success-testimonial-text">"[ TODO — paste Pramit Shrestha's own testimonial here before publishing. Do not invent a quote. ]"</p>
+      <p class="success-testimonial-text">From field sales to sales leadership — Pramit's transition from Territory Manager to Sales Team Leader at Werfen. His full story is coming soon.</p>
     </div>
     <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
   </div>
@@ -3210,7 +3210,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 
   <div class="success-testimonial-section">
     <div class="success-testimonial-wrapper">
-      <p class="success-testimonial-text">"[ TODO — paste Pramit Shrestha's own testimonial here before publishing. Do not invent a quote. ]"</p>
+      <p class="success-testimonial-text">From field sales to sales leadership — Pramit's transition from Territory Manager to Sales Team Leader at Werfen. His full story is coming soon.</p>
     </div>
     <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
   </div>
@@ -4231,6 +4231,23 @@ document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 // Pre-launch audit: reveal anything already in view so the hero never sits blank on load
 function revealInView(){document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el){if(el.getBoundingClientRect().top < window.innerHeight*0.9){el.classList.add('visible');io.unobserve(el);}});}
 revealInView();window.addEventListener('load',revealInView);
+
+/* Success stories: randomize card order within each row on every page load */
+(function(){
+  function shuffleTrack(track){
+    var blocks = track.querySelectorAll('.success-marquee-content');
+    if(!blocks.length) return;
+    var n = blocks[0].querySelectorAll('.success-card').length;
+    if(n < 2) return;
+    var perm = []; for(var k=0;k<n;k++) perm.push(k);
+    for(var i=n-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=perm[i]; perm[i]=perm[j]; perm[j]=t; }
+    blocks.forEach(function(block){
+      var cards = [].slice.call(block.querySelectorAll('.success-card'));
+      perm.forEach(function(idx){ block.appendChild(cards[idx]); });
+    });
+  }
+  document.querySelectorAll('.success-marquee-track').forEach(shuffleTrack);
+})();
 /* Hero caption: rotate through the curriculum module names */
 const HERO_ROTATE = ['Foundations of Medical Devices','Healthcare & Stakeholders','Consultative Device Selling','Portfolio & Competitive Selling','Distribution & Supply Chain','Clinical Data & Regulatory','Leadership & Careers'];
 const heroRotEl = document.getElementById('heroRotatingText');
