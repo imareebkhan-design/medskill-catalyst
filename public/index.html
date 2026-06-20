@@ -2449,6 +2449,8 @@ input,textarea,select{font-family:inherit}
   text-transform: uppercase;
   letter-spacing: 0.05em;
   font-weight: 700;
+  line-height: 1.3;
+  min-height: 2.4em;
 }
 .roi-stat-val {
   font-size: 1.4rem;
@@ -3764,13 +3766,13 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
               <span class="roi-slider-lbl">Target MedTech Role Salary (LPA)</span>
               <span class="roi-slider-val" id="targetSalaryVal">₹9.5L</span>
             </div>
-            <input type="range" class="roi-slider-input" id="targetSalaryInput" min="6" max="25" step="0.5" value="9.5">
+            <input type="range" class="roi-slider-input" id="targetSalaryInput" min="6" max="35" step="0.5" value="9.5">
           </div>
         </div>
         <div class="roi-grid">
           <div class="roi-stat-box">
             <span class="roi-stat-lbl">Projected Annual Raise</span>
-            <span class="roi-stat-val highlight" id="roiRaiseVal">+₹4.5L (+90%)</span>
+            <span class="roi-stat-val highlight" id="roiRaiseVal">+₹4.5L</span>
           </div>
           <div class="roi-stat-box">
             <span class="roi-stat-lbl">3-Year Net Raise</span>
@@ -3787,7 +3789,6 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         </div>
         <p class="roi-disclaimer">Illustrative calculation based on target industry salary ranges for device sales positions. Actual results may vary depending on student background and interview performance.</p>
         <div class="roi-cta-wrap">
-          <p class="roi-fee-note" style="margin:0 0 1rem;font-size:.95rem;color:var(--ink-muted);font-weight:600;">Programme fee: <strong style="color:var(--brand);">from &#8377;XX,XXX</strong> &middot; EMI options available <!-- TODO: replace XX,XXX with the real starting fee before launch --></p>
           <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Book a Counseling Call &rarr;</a>
         </div>
       </div>
@@ -4540,7 +4541,7 @@ function updateRoiCalculations() {
   const fiveYrRaise = raiseLpa * 5;
 
   // Format outputs
-  roiRaiseVal.textContent = `+₹${raiseLpa.toFixed(1)}L (+${Math.round(raisePct)}%)`;
+  roiRaiseVal.textContent = `+₹${raiseLpa.toFixed(1)}L`;
   roiThreeYrVal.textContent = `+₹${threeYrRaise.toFixed(1)}L`;
   roiPercentVal.textContent = `+₹${fiveYrRaise.toFixed(1)}L`;
   roiPaybackVal.textContent = `+${Math.round(raisePct)}%`;
