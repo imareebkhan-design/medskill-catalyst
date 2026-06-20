@@ -384,7 +384,9 @@ input,textarea,select{font-family:inherit}
 .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
 .hero-visual-caption{position:absolute;left:0;right:0;bottom:0;padding:1.4rem 1.5rem 1.15rem;background:linear-gradient(to top,rgba(11,30,38,.92) 0%,rgba(11,30,38,0) 100%);display:flex;flex-direction:column;gap:.2rem;text-align:left}
 .hero-visual-caption-label{color:#fff;font-weight:700;font-size:1rem;letter-spacing:-.01em}
-.hero-visual-caption-sub{color:rgba(255,255,255,.7);font-size:.8rem;font-weight:600}
+.hero-visual-caption-sub{color:var(--cyan);font-size:.92rem;font-weight:700;letter-spacing:.01em;min-height:1.1em;text-shadow:0 0 18px rgba(74,208,255,.4)}
+#heroRotatingText::after{content:"|";margin-left:2px;font-weight:400;animation:heroCaret .9s steps(1) infinite}
+@keyframes heroCaret{50%{opacity:0}}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-visual{max-width:540px;margin-inline:auto}.hero-card{padding:2.5rem 1.75rem}}
 
 /* ── TRUST STRIP REDESIGN ═════════════════════════════════ */
@@ -2709,7 +2711,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             <img src="assets/hero_training.png" alt="Hands-on clinical device simulation training" loading="eager" fetchpriority="high">
             <div class="hero-visual-caption">
               <span class="hero-visual-caption-label">The world you're stepping into</span>
-              <span class="hero-visual-caption-sub">OR protocols · device handling · surgeon communication</span>
+              <span class="hero-visual-caption-sub" id="heroRotatingText">Foundations of Medical Devices</span>
             </div>
           </div>
         </div>
@@ -4229,6 +4231,25 @@ document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 // Pre-launch audit: reveal anything already in view so the hero never sits blank on load
 function revealInView(){document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el){if(el.getBoundingClientRect().top < window.innerHeight*0.9){el.classList.add('visible');io.unobserve(el);}});}
 revealInView();window.addEventListener('load',revealInView);
+/* Hero caption: rotate through the curriculum module names */
+const HERO_ROTATE = ['Foundations of Medical Devices','Healthcare & Stakeholders','Consultative Device Selling','Portfolio & Competitive Selling','Distribution & Supply Chain','Clinical Data & Regulatory','Leadership & Careers'];
+const heroRotEl = document.getElementById('heroRotatingText');
+if (heroRotEl) {
+  let hwi = 0, hci = HERO_ROTATE[0].length, hdel = true;
+  heroRotEl.textContent = HERO_ROTATE[0];
+  function heroType(){
+    if (hdel) {
+      hci--; heroRotEl.textContent = HERO_ROTATE[hwi].slice(0, hci);
+      if (hci === 0){ hdel = false; hwi = (hwi + 1) % HERO_ROTATE.length; setTimeout(heroType, 350); return; }
+      setTimeout(heroType, 35);
+    } else {
+      hci++; heroRotEl.textContent = HERO_ROTATE[hwi].slice(0, hci);
+      if (hci === HERO_ROTATE[hwi].length){ hdel = true; setTimeout(heroType, 1600); return; }
+      setTimeout(heroType, 70);
+    }
+  }
+  setTimeout(heroType, 1600);
+}
 
 /* ── FORMS ─────────────────────────────────────────────────────── */
 function submitLead(e){
