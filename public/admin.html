@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Leads Dashboard — MedSkills Catalyst</title>
+<link rel="icon" href="brand/logo/MedSkills-Catalyst_Logo.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fraunces:wght@600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root{
+  --navy:#0A2A43; --blue:#00589E; --cyan:#4AD0FF; --ink:#0F1B27;
+  --pale-blue:#E8F2FB; --slate:#5A6B7B; --canvas:#F7F9FB; --surface:#FFFFFF;
+  --success:#1A8F5C; --error:#B42318;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Plus Jakarta Sans',Inter,-apple-system,'Segoe UI',Arial,sans-serif;background:var(--canvas);color:var(--ink);min-height:100vh}
+h1,h2{font-family:Fraunces,'Cormorant Garamond',Georgia,serif;font-weight:600;color:var(--navy);letter-spacing:-.02em}
+.wrap{max-width:1200px;margin:0 auto;padding:24px}
+header.bar{background:var(--navy);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+header.bar .title{color:#fff;font-family:Fraunces,Georgia,serif;font-size:20px}
+header.bar .sub{color:var(--cyan);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+button,.btn{font-family:inherit;font-size:14px;font-weight:600;border:0;border-radius:8px;padding:10px 18px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:#004a86}
+.btn-ghost{background:var(--pale-blue);color:var(--blue)}
+.btn-ghost:hover{background:#d9eafb}
+/* Login */
+.gate{max-width:400px;margin:80px auto;background:var(--surface);border-radius:14px;padding:36px;box-shadow:0 4px 24px rgba(10,42,67,.08)}
+.gate h1{font-size:24px;margin-bottom:6px}
+.gate p{color:var(--slate);font-size:14px;margin-bottom:20px}
+.gate input{width:100%;padding:12px 14px;border:1px solid #d5dee6;border-radius:8px;font-size:15px;font-family:inherit;margin-bottom:14px}
+.gate input:focus{outline:2px solid var(--blue);border-color:var(--blue)}
+.gate button{width:100%}
+.err{color:var(--error);font-size:13px;margin-bottom:10px;display:none}
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}
+.stat{background:var(--surface);border-radius:12px;padding:18px;box-shadow:0 2px 10px rgba(10,42,67,.05)}
+.stat .n{font-family:Fraunces,Georgia,serif;font-size:30px;color:var(--navy);font-weight:600}
+.stat .l{color:var(--slate);font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-top:4px}
+/* Controls */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.controls input,.controls select{padding:10px 12px;border:1px solid #d5dee6;border-radius:8px;font-size:14px;font-family:inherit;background:#fff}
+.controls input{flex:1;min-width:220px}
+.controls .spacer{flex:1}
+/* Table */
+.tablewrap{background:var(--surface);border-radius:12px;overflow:auto;box-shadow:0 2px 10px rgba(10,42,67,.05)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:900px}
+th{background:var(--pale-blue);color:var(--navy);text-align:left;padding:11px 14px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;position:sticky;top:0}
+td{padding:11px 14px;border-top:1px solid #eef2f6;color:var(--ink);white-space:nowrap}
+tr:hover td{background:#fafcfe}
+.pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11.5px;font-weight:700}
+.pill.masterclass{background:var(--pale-blue);color:var(--blue)}
+.pill.counseling{background:#e7f6ee;color:var(--success)}
+.muted{color:var(--slate)}
+.empty{padding:48px;text-align:center;color:var(--slate)}
+footer{color:var(--slate);font-size:12px;text-align:center;padding:24px}
+@media(max-width:640px){.wrap{padding:14px}}
+</style>
+</head>
+<body>
+
+<!-- ======== LOGIN GATE ======== -->
+<div id="gate" class="gate">
+  <h1>Leads Dashboard</h1>
+  <p>Enter the admin passcode to view captured leads.</p>
+  <div id="gateErr" class="err">Invalid passcode. Try again.</div>
+  <input id="passInput" type="password" placeholder="Admin passcode" autocomplete="current-password">
+  <button class="btn-primary" id="loginBtn">Unlock</button>
+</div>
+
+<!-- ======== DASHBOARD ======== -->
+<div id="dash" style="display:none">
+  <header class="bar">
+    <div>
+      <div class="title">MedSkills Catalyst</div>
+      <div class="sub">Leads Dashboard</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn-ghost" id="refreshBtn">Refresh</button>
+      <button class="btn-ghost" id="logoutBtn">Lock</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="n" id="stTotal">–</div><div class="l">Total leads</div></div>
+      <div class="stat"><div class="n" id="stToday">–</div><div class="l">Today</div></div>
+      <div class="stat"><div class="n" id="stWeek">–</div><div class="l">Last 7 days</div></div>
+      <div class="stat"><div class="n" id="stMaster">–</div><div class="l">Masterclass</div></div>
+      <div class="stat"><div class="n" id="stCouns">–</div><div class="l">Counseling</div></div>
+    </div>
+
+    <div class="controls">
+      <input id="search" type="search" placeholder="Search name, email, phone, source…">
+      <select id="typeFilter">
+        <option value="">All form types</option>
+        <option value="masterclass">Masterclass</option>
+        <option value="counseling">Counseling</option>
+      </select>
+      <select id="rangeFilter">
+        <option value="">All time</option>
+        <option value="1">Today</option>
+        <option value="7">Last 7 days</option>
+        <option value="30">Last 30 days</option>
+      </select>
+      <div class="spacer"></div>
+      <button class="btn-primary" id="csvBtn">Export CSV</button>
+      <button class="btn-primary" id="xlsxBtn">Export Excel</button>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th>Date (IST)</th><th>Name</th><th>Email</th><th>Mobile</th>
+          <th>Background</th><th>Form</th><th>Source</th><th>Campaign</th><th>Page</th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div id="empty" class="empty" style="display:none">No leads match.</div>
+    </div>
+    <footer id="count"></footer>
+  </div>
+</div>
+
+<script>
+(function(){
+  var leads = [], view = [];
+  var $ = function(id){ return document.getElementById(id); };
+
+  function fmtIST(iso){
+    try{
+      return new Intl.DateTimeFormat('en-IN',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Kolkata'}).format(new Date(iso));
+    }catch(e){ return iso; }
+  }
+  function esc(s){
+    return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  async function load(pass){
+    var r = await fetch('/api/leads', { headers: { 'x-admin-passcode': pass } });
+    if(!r.ok) throw new Error(r.status === 401 ? 'auth' : 'server');
+    return r.json();
+  }
+
+  function stats(){
+    var now = Date.now(), day = 864e5;
+    var startToday = new Date(); startToday.setHours(0,0,0,0);
+    $('stTotal').textContent  = leads.length;
+    $('stToday').textContent  = leads.filter(function(l){ return new Date(l.created_at) >= startToday; }).length;
+    $('stWeek').textContent   = leads.filter(function(l){ return now - new Date(l.created_at).getTime() < 7*day; }).length;
+    $('stMaster').textContent = leads.filter(function(l){ return l.form_type === 'masterclass'; }).length;
+    $('stCouns').textContent  = leads.filter(function(l){ return l.form_type === 'counseling'; }).length;
+  }
+
+  function render(){
+    var q = $('search').value.trim().toLowerCase();
+    var t = $('typeFilter').value;
+    var d = $('rangeFilter').value;
+    var cutoff = null;
+    if(d === '1'){ cutoff = new Date(); cutoff.setHours(0,0,0,0); }
+    else if(d){ cutoff = new Date(Date.now() - Number(d)*864e5); }
+
+    view = leads.filter(function(l){
+      if(t && l.form_type !== t) return false;
+      if(cutoff && new Date(l.created_at) < cutoff) return false;
+      if(q){
+        var hay = [l.full_name,l.email,l.mobile,l.background,l.utm_source,l.utm_campaign,l.landing_page].join(' ').toLowerCase();
+        if(hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    });
+
+    $('rows').innerHTML = view.map(function(l){
+      return '<tr>'
+        +'<td class="muted">'+esc(fmtIST(l.created_at))+'</td>'
+        +'<td><strong>'+esc(l.full_name)+'</strong></td>'
+        +'<td>'+esc(l.email)+'</td>'
+        +'<td>'+esc(l.mobile)+'</td>'
+        +'<td>'+esc(l.background)+'</td>'
+        +'<td><span class="pill '+esc(l.form_type)+'">'+esc(l.form_type)+'</span></td>'
+        +'<td class="muted">'+esc(l.utm_source)+'</td>'
+        +'<td class="muted">'+esc(l.utm_campaign)+'</td>'
+        +'<td class="muted">'+esc(l.landing_page)+'</td>'
+        +'</tr>';
+    }).join('');
+    $('empty').style.display = view.length ? 'none' : 'block';
+    $('count').textContent = 'Showing ' + view.length + ' of ' + leads.length + ' leads';
+    stats();
+  }
+
+  function exportRows(){
+    return view.map(function(l){
+      return {
+        'Date (IST)': fmtIST(l.created_at), 'Name': l.full_name, 'Email': l.email,
+        'Mobile': l.mobile, 'Background': l.background, 'Form Type': l.form_type,
+        'Consent': l.consent ? 'yes' : 'no', 'UTM Source': l.utm_source,
+        'UTM Medium': l.utm_medium, 'UTM Campaign': l.utm_campaign, 'Landing Page': l.landing_page
+      };
+    });
+  }
+  function stamp(){ return new Date().toISOString().slice(0,10); }
+
+  $('csvBtn').addEventListener('click', function(){
+    var ws = XLSX.utils.json_to_sheet(exportRows());
+    var csv = '﻿' + XLSX.utils.sheet_to_csv(ws);
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8'}));
+    a.download = 'medskills-leads-' + stamp() + '.csv';
+    a.click(); URL.revokeObjectURL(a.href);
+  });
+  $('xlsxBtn').addEventListener('click', function(){
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(exportRows()), 'Leads');
+    XLSX.writeFile(wb, 'medskills-leads-' + stamp() + '.xlsx');
+  });
+
+  ['search','typeFilter','rangeFilter'].forEach(function(id){
+    $(id).addEventListener('input', render);
+  });
+
+  async function unlock(pass){
+    try{
+      leads = await load(pass);
+      sessionStorage.setItem('msc_pass', pass);
+      $('gate').style.display = 'none';
+      $('dash').style.display = 'block';
+      render();
+    }catch(e){
+      sessionStorage.removeItem('msc_pass');
+      $('gateErr').textContent = e.message === 'auth' ? 'Invalid passcode. Try again.' : 'Server error — check that ADMIN_PASSCODE and Supabase env vars are set on Vercel.';
+      $('gateErr').style.display = 'block';
+    }
+  }
+
+  $('loginBtn').addEventListener('click', function(){ unlock($('passInput').value); });
+  $('passInput').addEventListener('keydown', function(e){ if(e.key === 'Enter') unlock($('passInput').value); });
+  $('refreshBtn').addEventListener('click', function(){ unlock(sessionStorage.getItem('msc_pass') || ''); });
+  $('logoutBtn').addEventListener('click', function(){
+    sessionStorage.removeItem('msc_pass');
+    $('dash').style.display = 'none';
+    $('gate').style.display = 'block';
+    $('passInput').value = '';
+  });
+
+  var saved = sessionStorage.getItem('msc_pass');
+  if(saved) unlock(saved);
+})();
+</script>
+</body>
+</html>

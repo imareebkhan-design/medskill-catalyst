@@ -1,29 +1,27 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
-/**
- * Read-only leads feed for the admin dashboard.
- * Mirror of the framework-agnostic root function at /api/leads.js —
- * keep the two in sync.
- *
- * Auth: ADMIN_PASSCODE env var, sent via "x-admin-passcode" header
- * (or ?passcode= for CSV downloads).
- */
+// Vercel Serverless Function — served at /api/leads.
+// Read-only feed for the admin dashboard (/admin.html).
+//
+// Auth: requires the ADMIN_PASSCODE env var; caller must send it in the
+// "x-admin-passcode" header (or ?passcode= for the CSV download link).
+//
+// GET /api/leads                 → JSON array (newest first)
+// GET /api/leads?format=csv      → CSV file download
+//
+// Required env vars: SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL),
+// SUPABASE_SERVICE_ROLE_KEY, ADMIN_PASSCODE.
 
 const COLUMNS = [
   "id", "created_at", "full_name", "email", "mobile",
   "form_type", "background", "consent",
   "utm_source", "utm_medium", "utm_campaign", "landing_page",
-] as const;
+];
 
-function csvEscape(v: unknown): string {
+function csvEscape(v) {
   const s = v === null || v === undefined ? "" : String(v);
   return /[",\n\r]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req, res) {
   if (req.method !== "GET") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -33,7 +31,7 @@ export default async function handler(
     console.error("[Leads] ADMIN_PASSCODE env var is not set.");
     return res.status(500).json({ error: "Dashboard is not configured." });
   }
-  const given = req.headers["x-admin-passcode"] || req.query.passcode;
+  const given = req.headers["x-admin-passcode"] || (req.query && req.query.passcode);
   if (given !== expected) {
     return res.status(401).json({ error: "Invalid passcode." });
   }
@@ -53,12 +51,12 @@ export default async function handler(
       console.error("[Leads] Supabase read failed (" + r.status + "): " + (await r.text()).slice(0, 300));
       return res.status(502).json({ error: "Could not load leads." });
     }
-    const leads: Record<string, unknown>[] = await r.json();
+    const leads = await r.json();
 
-    if (req.query.format === "csv") {
+    if (req.query && req.query.format === "csv") {
       const header = COLUMNS.join(",");
       const rows = leads.map((l) => COLUMNS.map((c) => csvEscape(l[c])).join(","));
-      const csv = "﻿" + [header, ...rows].join("\r\n");
+      const csv = "﻿" + [header].concat(rows).join("\r\n"); // BOM so Excel opens UTF-8 correctly
       res.setHeader("Content-Type", "text/csv; charset=utf-8");
       res.setHeader(
         "Content-Disposition",

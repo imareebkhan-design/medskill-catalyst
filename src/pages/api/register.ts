@@ -1,19 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
 /**
- * Lead capture → HubSpot CRM.
+ * Lead capture → Supabase (table: public.leads), upserted on email.
+ * Mirror of the framework-agnostic root function at /api/register.js —
+ * keep the two in sync.
  *
- * Forms POST here. We upsert the lead as a HubSpot contact (keyed on email)
- * with the custom properties created for MedSkills:
- *   form_type, background, consent, utm_source, utm_medium, utm_campaign, landing_page
- *
- * Requires env var HUBSPOT_ACCESS_TOKEN (a HubSpot private-app token with
- * crm.objects.contacts.write + crm.objects.contacts.read scopes).
+ * Required env vars:
+ *   SUPABASE_URL (or NEXT_PUBLIC_SUPABASE_URL)
+ *   SUPABASE_SERVICE_ROLE_KEY
  */
 
-const HUBSPOT_BASE = "https://api.hubapi.com/crm/v3/objects/contacts";
-
-// Map the form's <select> codes to readable labels stored in HubSpot.
 const BACKGROUND_LABELS: Record<string, string> = {
   pharma_mr: "Pharma Medical Representative (MR)",
   pharm_grad: "B.Pharm / M.Pharm Graduate",
@@ -31,43 +27,6 @@ function normalizeMobile(raw: string): string {
   return ten.length === 10 ? `+91${ten}` : String(raw || "").trim();
 }
 
-function splitName(full: string): { firstname: string; lastname: string } {
-  const parts = String(full || "").trim().split(/\s+/);
-  return { firstname: parts[0] || "", lastname: parts.slice(1).join(" ") };
-}
-
-async function hubspotUpsert(
-  token: string,
-  email: string,
-  properties: Record<string, string>
-): Promise<{ ok: boolean; status: number; detail?: string }> {
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-
-  // Try create first.
-  const createRes = await fetch(HUBSPOT_BASE, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({ properties: { email, ...properties } }),
-  });
-
-  if (createRes.ok) return { ok: true, status: createRes.status };
-
-  // 409 = contact already exists -> update it by email.
-  if (createRes.status === 409) {
-    const updateRes = await fetch(
-      HUBSPOT_BASE + "/" + encodeURIComponent(email) + "?idProperty=email",
-      { method: "PATCH", headers, body: JSON.stringify({ properties }) }
-    );
-    if (updateRes.ok) return { ok: true, status: updateRes.status };
-    return { ok: false, status: updateRes.status, detail: await updateRes.text() };
-  }
-
-  return { ok: false, status: createRes.status, detail: await createRes.text() };
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -76,9 +35,10 @@ export default async function handler(
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const token = process.env.HUBSPOT_ACCESS_TOKEN;
-  if (!token) {
-    console.error("[HubSpot] Missing HUBSPOT_ACCESS_TOKEN env var.");
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) {
+    console.error("[Leads] Missing SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY env vars.");
     return res
       .status(500)
       .json({ error: "Lead storage is not configured. Please contact us on WhatsApp." });
@@ -86,51 +46,49 @@ export default async function handler(
 
   try {
     const {
-      full_name,
-      email,
-      mobile,
-      background,
-      form_type,
-      consent,
-      utm_source,
-      utm_medium,
-      utm_campaign,
-      landing_page,
-    } = req.body || {};
+      full_name, email, mobile, background, form_type, consent,
+      utm_source, utm_medium, utm_campaign, landing_page,
+      ...rest
+    } = (req.body || {}) as Record<string, unknown>;
 
     if (!email || !full_name) {
       return res.status(422).json({ error: "Name and email are required." });
     }
 
-    const { firstname, lastname } = splitName(full_name);
-
-    const properties: Record<string, string> = {
-      firstname,
-      lastname,
-      phone: normalizeMobile(mobile),
+    const row = {
+      full_name: String(full_name).trim(),
+      email: String(email).trim().toLowerCase(),
+      mobile: normalizeMobile(String(mobile || "")),
       form_type: form_type === "counseling" ? "counseling" : "masterclass",
-      background: BACKGROUND_LABELS[background] || String(background || ""),
-      consent: consent === false ? "false" : "true",
-      utm_source: utm_source || "",
-      utm_medium: utm_medium || "",
-      utm_campaign: utm_campaign || "",
-      landing_page: landing_page || "",
+      background: BACKGROUND_LABELS[String(background)] || String(background || ""),
+      consent: consent !== false,
+      utm_source: (utm_source as string) || "",
+      utm_medium: (utm_medium as string) || "",
+      utm_campaign: (utm_campaign as string) || "",
+      landing_page: (landing_page as string) || "",
+      extra: rest && typeof rest === "object" ? rest : {},
     };
 
-    const result = await hubspotUpsert(
-      token,
-      String(email).trim().toLowerCase(),
-      properties
-    );
+    const r = await fetch(url + "/rest/v1/leads?on_conflict=email", {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: "Bearer " + key,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates,return=minimal",
+      },
+      body: JSON.stringify(row),
+    });
 
-    if (!result.ok) {
-      console.error("[HubSpot] Upsert failed (" + result.status + "):", result.detail);
+    if (!r.ok) {
+      const detail = (await r.text()).slice(0, 500);
+      console.error("[Leads] Supabase insert failed (" + r.status + "): " + detail);
       return res
         .status(502)
         .json({ error: "Could not save your details. Please WhatsApp us." });
     }
 
-    console.log("[HubSpot] Lead upserted: " + email + " (" + properties.form_type + ")");
+    console.log("[Leads] Saved: " + row.email + " (" + row.form_type + ")");
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error("API error:", error);
