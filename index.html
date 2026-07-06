@@ -168,6 +168,27 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @media (prefers-reduced-motion: reduce){.hero-card::before,.hero-card::after,.hero-float{animation:none !important}}
 
+/* ── MORPHING SCROLL ARROWS ──────────────────────────────────────── */
+.scroll-nav{display:flex;gap:.75rem;justify-content:flex-end;align-items:center;margin-top:1.75rem}
+.scroll-arrow-wrap{width:88px;display:flex;overflow:visible}
+.scroll-arrow-wrap--left{justify-content:flex-end}
+.scroll-arrow-wrap--right{justify-content:flex-start}
+.scroll-arrow{position:relative;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid);background:var(--surface);color:var(--brand);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;flex-shrink:0;padding:0;transition:width .3s var(--easy-out),border-radius .3s var(--easy-out),background .3s var(--easy-out),border-color .3s var(--easy-out),color .3s var(--easy-out)}
+.scroll-arrow svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0;transition:transform .3s var(--easy-out)}
+.scroll-arrow::before{content:'';position:absolute;top:50%;margin-top:-1px;height:2px;width:0;background:currentColor;transition:width .3s var(--easy-out)}
+.scroll-arrow--right::before{left:16px}
+.scroll-arrow--left::before{right:16px}
+.scroll-arrow:hover,.scroll-arrow:focus-visible{width:88px;background:var(--brand);border-color:var(--brand);color:#fff}
+.scroll-arrow--right:hover,.scroll-arrow--right:focus-visible{border-radius:14px 50px 50px 14px}
+.scroll-arrow--left:hover,.scroll-arrow--left:focus-visible{border-radius:50px 14px 14px 50px}
+.scroll-arrow--right:hover::before,.scroll-arrow--right:focus-visible::before{width:calc(100% - 40px)}
+.scroll-arrow--left:hover::before,.scroll-arrow--left:focus-visible::before{width:calc(100% - 40px)}
+.scroll-arrow--right:hover svg,.scroll-arrow--right:focus-visible svg{transform:translateX(16px)}
+.scroll-arrow--left:hover svg,.scroll-arrow--left:focus-visible svg{transform:translateX(-16px)}
+.scroll-arrow:active{transform:scale(.94)}
+.scroll-arrow:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.scroll-arrow,.scroll-arrow svg,.scroll-arrow::before{transition:none !important}}
+
 /* ══════════════════ NAV OVERHAUL ═════════════════════════════════ */
 #nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all 0.4s var(--easy-out)}
 #nav.scrolled{border-color:rgba(10, 42, 67, 0.06);background:rgba(255, 255, 255, 0.92);box-shadow:0 10px 30px rgba(10, 42, 67, 0.04);height:calc(var(--nav-h) - 8px);}
@@ -3078,6 +3099,10 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
     </div>
       </div>
     </div>
+    <div class="scroll-nav fade-up">
+      <span class="scroll-arrow-wrap scroll-arrow-wrap--left"><button type="button" class="scroll-arrow scroll-arrow--left" aria-label="Scroll success stories left" data-dir="-1" data-amount="412" data-target=".success-marquee-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
+      <span class="scroll-arrow-wrap scroll-arrow-wrap--right"><button type="button" class="scroll-arrow scroll-arrow--right" aria-label="Scroll success stories right" data-dir="1" data-amount="412" data-target=".success-marquee-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
+    </div>
   </div>
 </section>
 
@@ -3428,6 +3453,10 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M15 8l4 4-4 4"/></svg>
         Scroll to explore all 7 modules
       </p>
+      <div class="scroll-nav">
+        <span class="scroll-arrow-wrap scroll-arrow-wrap--left"><button type="button" class="scroll-arrow scroll-arrow--left" aria-label="Scroll curriculum left" data-dir="-1" data-amount="504" data-target=".cur-list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
+        <span class="scroll-arrow-wrap scroll-arrow-wrap--right"><button type="button" class="scroll-arrow scroll-arrow--right" aria-label="Scroll curriculum right" data-dir="1" data-amount="504" data-target=".cur-list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
+      </div>
     </div>
   </div>
 </section>
@@ -3714,7 +3743,7 @@ END PLACEMENT HIDDEN -->
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 MedSkills Catalyst Pvt. Ltd. · Bengaluru, India</span>
+      <span>© 2026 MedSkills Catalyst Pvt. Ltd. · Gurgaon, India</span>
       <div class="footer-legal"><a href="privacy-policy.html">Privacy Policy</a><a href="terms-of-use.html">Terms of Use</a><a href="refund-policy.html">Refund Policy</a></div>
     </div>
   </div>
@@ -4115,6 +4144,18 @@ document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 document.querySelectorAll('[data-stagger]').forEach(function(parent){
   var kids=parent.querySelectorAll(':scope > .fade-up');
   kids.forEach(function(el,i){el.style.transitionDelay=(i*90)+'ms';});
+});
+
+/* Morphing scroll arrows — advance horizontal rows by one card */
+document.querySelectorAll('.scroll-arrow').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var dir=parseFloat(btn.getAttribute('data-dir'))||1;
+    var amt=parseFloat(btn.getAttribute('data-amount'))||420;
+    document.querySelectorAll(btn.getAttribute('data-target')).forEach(function(el){
+      el.dispatchEvent(new Event('pointerdown'));
+      el.scrollBy({left:dir*amt,behavior:'smooth'});
+    });
+  });
 });
 
 /* Nav scroll-progress hairline */
