@@ -168,27 +168,6 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @media (prefers-reduced-motion: reduce){.hero-card::before,.hero-card::after,.hero-float{animation:none !important}}
 
-/* ── MORPHING SCROLL ARROWS ──────────────────────────────────────── */
-.scroll-nav{display:flex;gap:.75rem;justify-content:flex-end;align-items:center;margin-top:1.75rem}
-.scroll-arrow-wrap{width:88px;display:flex;overflow:visible}
-.scroll-arrow-wrap--left{justify-content:flex-end}
-.scroll-arrow-wrap--right{justify-content:flex-start}
-.scroll-arrow{position:relative;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid);background:var(--surface);color:var(--brand);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;flex-shrink:0;padding:0;transition:width .3s var(--easy-out),border-radius .3s var(--easy-out),background .3s var(--easy-out),border-color .3s var(--easy-out),color .3s var(--easy-out)}
-.scroll-arrow svg{width:20px;height:20px;stroke:currentColor;stroke-width:2;fill:none;flex-shrink:0;transition:transform .3s var(--easy-out)}
-.scroll-arrow::before{content:'';position:absolute;top:50%;margin-top:-1px;height:2px;width:0;background:currentColor;transition:width .3s var(--easy-out)}
-.scroll-arrow--right::before{left:16px}
-.scroll-arrow--left::before{right:16px}
-.scroll-arrow:hover,.scroll-arrow:focus-visible{width:88px;background:var(--brand);border-color:var(--brand);color:#fff}
-.scroll-arrow--right:hover,.scroll-arrow--right:focus-visible{border-radius:14px 50px 50px 14px}
-.scroll-arrow--left:hover,.scroll-arrow--left:focus-visible{border-radius:50px 14px 14px 50px}
-.scroll-arrow--right:hover::before,.scroll-arrow--right:focus-visible::before{width:calc(100% - 40px)}
-.scroll-arrow--left:hover::before,.scroll-arrow--left:focus-visible::before{width:calc(100% - 40px)}
-.scroll-arrow--right:hover svg,.scroll-arrow--right:focus-visible svg{transform:translateX(16px)}
-.scroll-arrow--left:hover svg,.scroll-arrow--left:focus-visible svg{transform:translateX(-16px)}
-.scroll-arrow:active{transform:scale(.94)}
-.scroll-arrow:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-@media (prefers-reduced-motion: reduce){.scroll-arrow,.scroll-arrow svg,.scroll-arrow::before{transition:none !important}}
-
 /* ══════════════════ NAV OVERHAUL ═════════════════════════════════ */
 #nav{position:sticky;top:0;z-index:900;height:var(--nav-h);background:rgba(250,249,246,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid transparent;transition:all 0.4s var(--easy-out)}
 #nav.scrolled{border-color:rgba(10, 42, 67, 0.06);background:rgba(255, 255, 255, 0.92);box-shadow:0 10px 30px rgba(10, 42, 67, 0.04);height:calc(var(--nav-h) - 8px);}
@@ -1914,13 +1893,19 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 .mc-fact {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
-  padding: 0.75rem 1.15rem;
-  border-radius: 14px;
+  gap: 0.85rem;
+  padding: 0.85rem 1.25rem;
+  border-radius: 16px;
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.14);
   box-shadow: inset 0 1px 1px rgba(255,255,255,.10);
   min-width: 138px;
+  transition: transform .3s var(--easy-out), background .3s var(--easy-out), border-color .3s var(--easy-out);
+}
+.mc-fact:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.09);
+  border-color: rgba(74,208,255,.32);
 }
 .mc-fact-icon {
   width: 34px;
@@ -2065,9 +2050,10 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 }
 .mc-bento-seats-bar {
   background: rgba(255, 255, 255, 0.08);
-  height: 6px;
+  height: 8px;
   border-radius: 100px;
   overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
 }
 .mc-bento-seats-fill {
   background: linear-gradient(90deg, var(--blue), var(--cyan));
@@ -2783,9 +2769,9 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
     </div>
     <div class="nav-actions">
       <button class="btn nav-cta-mobile" onclick="openModal('mc-overlay')" data-track="nav_mobile_rsvp">Reserve Spot</button>
-      <a class="nav-wa" href="https://wa.me/919759249395?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" data-track="nav_wa">
+      <a class="nav-wa" href="https://chat.whatsapp.com/CDVzRz1dHYiBxNPx1HH6ZD" target="_blank" rel="noopener noreferrer" data-track="nav_wa">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
-        WhatsApp
+        WhatsApp Community
       </a>
       <button class="nav-hamburger" id="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu-drawer">
         <span></span>
@@ -2808,13 +2794,13 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
           </h1>
           <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Life Science Graduates and Healthcare Professionals Entering MedTech. A rigorous <strong>6-week programme</strong> to transition into global MedTech brands with real career velocity, not just a certificate.</p>
           <div class="hero-ctas fade-up">
-            <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Reserve Masterclass Seat <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Join the Next Cohort <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
             <a href="#curriculum" class="btn btn--ghost" data-track="hero_curriculum">Explore Curriculum</a>
           </div>
           <div class="hero-stats fade-up">
             <div class="hero-stat"><span class="hero-stat-num">₹5–15 LPA</span><span class="hero-stat-label">Target Starting Salary</span></div>
             <div class="hero-stat-divider"></div>
-            <div class="hero-stat"><span class="hero-stat-num">July 2026</span><span class="hero-stat-label">Cohort Starts</span></div>
+            <div class="hero-stat"><span class="hero-stat-num">1 August 2026</span><span class="hero-stat-label">Cohort Starts</span></div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat"><span class="hero-stat-num">Limited Seats</span><span class="hero-stat-label">Batch Size Limit</span></div>
           </div>
@@ -3098,10 +3084,6 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
       </div>
     </div>
       </div>
-    </div>
-    <div class="scroll-nav fade-up">
-      <span class="scroll-arrow-wrap scroll-arrow-wrap--left"><button type="button" class="scroll-arrow scroll-arrow--left" aria-label="Scroll success stories left" data-dir="-1" data-amount="412" data-target=".success-marquee-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
-      <span class="scroll-arrow-wrap scroll-arrow-wrap--right"><button type="button" class="scroll-arrow scroll-arrow--right" aria-label="Scroll success stories right" data-dir="1" data-amount="412" data-target=".success-marquee-track"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
     </div>
   </div>
 </section>
@@ -3453,10 +3435,6 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M15 8l4 4-4 4"/></svg>
         Scroll to explore all 7 modules
       </p>
-      <div class="scroll-nav">
-        <span class="scroll-arrow-wrap scroll-arrow-wrap--left"><button type="button" class="scroll-arrow scroll-arrow--left" aria-label="Scroll curriculum left" data-dir="-1" data-amount="504" data-target=".cur-list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
-        <span class="scroll-arrow-wrap scroll-arrow-wrap--right"><button type="button" class="scroll-arrow scroll-arrow--right" aria-label="Scroll curriculum right" data-dir="1" data-amount="504" data-target=".cur-list"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span>
-      </div>
     </div>
   </div>
 </section>
@@ -3465,57 +3443,57 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 <section id="masterclass" class="section">
   <div class="container">
     <div class="section-header fade-up">
-      <p class="section-eyebrow">Live Masterclass</p>
-      <h2 class="t-h2">Start With a Live Session</h2>
-      <p class="section-sub">See exactly how Life-Science graduates break into MedTech &mdash; live, no obligation, before you commit to the programme.</p>
+      <p class="section-eyebrow">Cohort Registration</p>
+      <h2 class="t-h2">Admissions Are Now Open</h2>
+      <p class="section-sub">Everything you need to start your MedTech career &mdash; one focused, mentor-led cohort with limited seats.</p>
     </div>
     <div class="mc-bento-box fade-up">
       <!-- Left Column: Typography & Interaction -->
       <div class="mc-bento-left">
         <div class="mc-badge" style="margin-bottom: 0; align-self: flex-start;">
           <span class="mc-live-dot"></span>
-          <span>LIVE ZOOM SESSION · RESERVATIONS OPEN</span>
+          <span>NEXT COHORT · ADMISSIONS OPEN</span>
         </div>
         
-        <h2 class="mc-bento-h">Medtech 101<br><span style="font-size:0.6em;font-weight:600;opacity:0.85;">Your First Step into the Industry</span></h2>
+        <h2 class="mc-bento-h">MedSkills Catalyst Cohort<br><span style="font-size:0.6em;font-weight:600;opacity:0.85;">Launch Your Career in Medical Devices</span></h2>
         
-        <p class="mc-bento-sub">Gagan Victor shares the exact, unwritten playbook for Life Science graduates to secure interviews and offers at industry-leading companies like Stryker, Medtronic, J&amp;J MedTech...</p>
-        
-        <!-- Session fact tiles -->
+        <p class="mc-bento-sub">Join our intensive 6-week live cohort designed for Life Science graduates and healthcare professionals who want to break into the MedTech industry. Learn directly from industry leaders, work on real-world case studies, and build the skills required to secure interviews with leading medical device companies.</p>
+
+        <!-- Cohort fact tiles -->
         <div class="mc-bento-pills">
           <span class="mc-fact">
             <span class="mc-fact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
-            <span class="mc-fact-body"><span class="mc-fact-lbl">Duration</span><span class="mc-fact-val">1 Hour</span></span>
+            <span class="mc-fact-body"><span class="mc-fact-lbl">Duration</span><span class="mc-fact-val">6 Weeks</span></span>
           </span>
           <span class="mc-fact">
             <span class="mc-fact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg></span>
-            <span class="mc-fact-body"><span class="mc-fact-lbl">Date</span><span class="mc-fact-val">4th Jul</span></span>
+            <span class="mc-fact-body"><span class="mc-fact-lbl">Start Date</span><span class="mc-fact-val">1 August 2026</span></span>
           </span>
           <span class="mc-fact">
             <span class="mc-fact-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></span>
-            <span class="mc-fact-body"><span class="mc-fact-lbl">Starts</span><span class="mc-fact-val">6:00 PM</span></span>
+            <span class="mc-fact-body"><span class="mc-fact-lbl">Time</span><span class="mc-fact-val">6:00 PM IST</span></span>
           </span>
         </div>
-        
-        <!-- Seats Allocation progress indicator -->
+
+        <!-- Cohort status progress indicator -->
         <div class="mc-bento-seats">
-          <p class="mc-bento-seats-lbl">SEATS ALLOCATED</p>
+          <p class="mc-bento-seats-lbl">COHORT STATUS</p>
           <div class="mc-bento-seats-bar">
             <div class="mc-bento-seats-fill"></div>
           </div>
-          <p class="mc-bento-seats-note">Limited Seats · Registration Open</p>
+          <p class="mc-bento-seats-note">Limited Seats Available · Admissions Open</p>
         </div>
-        
-        <!-- Pill CTA button -->
-        <button class="btn btn--white btn--lg" onclick="openModal('mc-overlay')" data-track="masterclass_bento_rsvp">
-          Register Now <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+
+        <!-- Cohort CTA button -->
+        <button class="btn btn--white btn--lg" onclick="openModal('apply-overlay')" data-track="cohort_join">
+          Join the Cohort <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
       </div>
       
       <!-- Right Column: Media Hero -->
       <div class="mc-bento-right">
         <div class="mc-media-shell">
-          <div class="mc-media-hero" onclick="openModal('mc-overlay')" style="cursor: pointer;">
+          <div class="mc-media-hero" onclick="openModal('apply-overlay')" style="cursor: pointer;">
             <img src="assets/gagan_victor.png" alt="Gagan Victor" class="mc-media-img" loading="lazy">
             <div class="mc-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             <div class="mc-media-overlay">
@@ -3811,7 +3789,7 @@ END PLACEMENT HIDDEN -->
   <div class="modal">
     <button class="modal-close" onclick="closeModal('apply-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="mc-modal-head">
-      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">July 2026 Cohort · Limited Seats</p>
+      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Aug 1, 2026 Cohort · Limited Seats</p>
       <h3>Book Your One-on-One Counseling Session</h3>
       <p>Speak directly with our counselor — fit, curriculum and admission, everything answered.</p>
     </div>
@@ -4035,7 +4013,7 @@ const FAQS = [
   {q:'How is this different from a regular MBA or PGDM?',a:'We are a career-outcome programme, not an academic credential. We do not teach marketing theory. We teach you exactly how to get hired and excel at companies like Stryker and J&J MedTech. Our measure of success is your offer letter, not your grade sheet.'},
   {q:'What happens if I don\'t get placed?',a:'We work with you directly, reviewing your interviews and refining your applications throughout your search. Since you are part of our exclusive cohort, you will get concierge, day-to-day outcome tracking and application strategy support from our lead mentors.'},
   {q:'Can I pay in EMI?',a:'Yes. EMI options are available through leading cards and credit partners. You can sort out the custom payment structure on your admission call.'},
-  {q:'When is the next batch? How many seats are available?',a:'The cohort starts July 2026. We keep each batch deliberately small for direct, personal mentoring, so only limited slots are available — and registration closes once they are filled.'},
+  {q:'When is the next batch? How many seats are available?',a:'The cohort starts August 1, 2026. We keep each batch deliberately small for direct, personal mentoring, so only limited slots are available — and registration closes once they are filled.'},
   {q:'Is there a refund policy?',a:'If you attend the orientation and decide MedSkills Catalyst is not the right fit within the first 7 days, we refund 100% — no questions asked. After 7 days, refunds are not available.'}
 ];
 
@@ -4144,18 +4122,6 @@ document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
 document.querySelectorAll('[data-stagger]').forEach(function(parent){
   var kids=parent.querySelectorAll(':scope > .fade-up');
   kids.forEach(function(el,i){el.style.transitionDelay=(i*90)+'ms';});
-});
-
-/* Morphing scroll arrows — advance horizontal rows by one card */
-document.querySelectorAll('.scroll-arrow').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    var dir=parseFloat(btn.getAttribute('data-dir'))||1;
-    var amt=parseFloat(btn.getAttribute('data-amount'))||420;
-    document.querySelectorAll(btn.getAttribute('data-target')).forEach(function(el){
-      el.dispatchEvent(new Event('pointerdown'));
-      el.scrollBy({left:dir*amt,behavior:'smooth'});
-    });
-  });
 });
 
 /* Nav scroll-progress hairline */
@@ -4642,7 +4608,7 @@ async function submitLeadMagnetForm(e) {
 <div id="mobile-sticky-cta">
   <div class="mobile-sticky-cta-inner">
     <div class="mobile-sticky-cta-text">
-      <span class="mobile-sticky-cta-title">Batch · July 2026</span>
+      <span class="mobile-sticky-cta-title">Batch · Aug 1, 2026</span>
       <span class="mobile-sticky-cta-sub">Limited seats</span>
     </div>
     <button class="btn btn--mobile-cta" onclick="openModal('mc-overlay')" data-track="mobile_sticky_rsvp">
@@ -4675,9 +4641,9 @@ async function submitLeadMagnetForm(e) {
   </div>
   <div class="mobile-menu-actions">
     <button class="btn btn--mobile-cta" style="width:100%; justify-content:center;" onclick="closeMobileMenu(); openModal('mc-overlay')" data-track="mobile_menu_rsvp">Reserve Spot</button>
-    <a class="nav-wa" href="https://wa.me/919759249395?text=Hi%2C+I%27d+like+to+know+more+about+MedSkills+Catalyst" target="_blank" rel="noopener" style="justify-content: center; margin-top: 1rem; font-weight:700; color:#128C7E">
+    <a class="nav-wa" href="https://chat.whatsapp.com/CDVzRz1dHYiBxNPx1HH6ZD" target="_blank" rel="noopener noreferrer" style="justify-content: center; margin-top: 1rem; font-weight:700; color:#128C7E">
       <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;margin-right:0.4rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
-      WhatsApp
+      WhatsApp Community
     </a>
   </div>
 </div>
