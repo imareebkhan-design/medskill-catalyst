@@ -406,49 +406,25 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 /* Hero visual rebuild */
 .hero-visual-shell{position:relative;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:calc(var(--radius-lg) + 6px);padding:6px;box-shadow:0 30px 70px rgba(4,16,26,.45), var(--inner-hi-dark);transform:rotate(-1.25deg);transition:transform .6s var(--easy-out)}
 .hero-visual-shell:hover{transform:rotate(0deg)}
+.hero-float{position:absolute;z-index:3;display:inline-flex;align-items:center;gap:.55rem;padding:.6rem 1rem;border-radius:14px;background:rgba(10,42,67,.35);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 16px 40px rgba(4,16,26,.35), inset 0 1px 1px rgba(255,255,255,.25);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.02em;white-space:nowrap;animation:floatY 6s ease-in-out infinite}
+.hero-float--tl{top:-16px;left:-18px}
 .hf-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px rgba(74,208,255,.8)}
 .hero-visual{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:16/10}
 .hero-visual img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* Rebuilt non-overlapping media overlays using a single flex layout */
-.hero-media-overlay {
+/* Play button & overlay centered over thumbnail */
+.hero-play-overlay {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  background: linear-gradient(to top, rgba(6, 18, 28, 0.95) 0%, rgba(6, 18, 28, 0.4) 50%, rgba(6, 18, 28, 0.15) 100%);
+  background: rgba(11, 30, 38, 0.25);
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 1.25rem;
-  box-sizing: border-box;
-}
-.hero-overlay-top {
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
-  width: 100%;
-}
-.hero-overlay-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius-pill, 100px);
-  background: rgba(10, 42, 67, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-.hero-overlay-middle {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  flex: 1;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+.hero-visual:hover .hero-play-overlay {
+  background: rgba(11, 30, 38, 0.45);
 }
 .hero-play-btn {
   width: 60px;
@@ -471,60 +447,65 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   transform: scale(1.1);
   box-shadow: 0 8px 24px rgba(74, 208, 255, 0.5);
 }
-.hero-overlay-bottom {
+
+/* Footer layout sitting below the video card */
+.hero-media-footer {
+  padding: 0.9rem 0.6rem 0.4rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 1.5rem;
+  gap: 1rem;
   width: 100%;
-  margin-top: auto;
+  box-sizing: border-box;
 }
-.hero-overlay-text {
+.hero-media-text {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  max-width: 65%;
+  gap: 0.3rem;
+  max-width: 62%;
   text-align: left;
 }
-.hero-overlay-title {
+.hero-media-title {
   color: #fff;
   font-weight: 800;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  margin: 0;
 }
-.hero-overlay-subtitle {
+.hero-media-subtitle {
   color: rgba(255, 255, 255, 0.72);
   font-size: 0.74rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.45;
+  margin: 0;
 }
-.hero-overlay-capsule {
+.hero-media-capsule {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.5rem 0.9rem;
+  padding: 0.45rem 0.85rem;
   border-radius: var(--radius-pill, 100px);
   background: rgba(10, 42, 67, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  box-shadow: 0 10px 25px rgba(4, 16, 26, 0.25);
+  box-shadow: 0 8px 20px rgba(4, 16, 26, 0.2);
   color: #fff;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   white-space: nowrap;
 }
 @media(max-width:480px) {
-  .hero-overlay-bottom {
+  .hero-media-footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
   }
-  .hero-overlay-text {
+  .hero-media-text {
     max-width: 100%;
   }
-  .hero-overlay-capsule {
+  .hero-media-capsule {
     align-self: flex-start;
   }
 }
@@ -3071,38 +3052,29 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         </div>
         <div class="fade-up">
           <div class="hero-visual-shell">
+            <div class="hero-float hero-float--tl"><span class="hf-dot"></span> Limited Seats</div>
             <div class="hero-visual" onclick="openHeroVideo()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openHeroVideo()}" role="button" tabindex="0" aria-label="Play MedTech 101 Masterclass Recording" style="cursor: pointer;">
               <!-- 2. Video thumbnail -->
               <img src="https://img.youtube.com/vi/Jjfhu3BAgCc/maxresdefault.jpg" alt="MedTech 101 Masterclass Thumbnail" loading="eager" fetchpriority="high">
-              
-              <!-- 4. Bottom gradient overlay & content wrapper -->
-              <div class="hero-media-overlay">
-                <!-- Top Row: 1. Limited Seats badge -->
-                <div class="hero-overlay-top">
-                  <span class="hero-overlay-badge"><span class="hf-dot"></span> Limited Seats</span>
+              <!-- Center play button overlay -->
+              <div class="hero-play-overlay">
+                <div class="hero-play-btn" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
                 </div>
-                
-                <!-- Middle Row: 3. Center play button -->
-                <div class="hero-overlay-middle">
-                  <div class="hero-play-btn" aria-hidden="true">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
-                  </div>
-                </div>
-                
-                <!-- Bottom Row: 5. Headline, 6. Supporting copy, 7. Bottom capsule -->
-                <div class="hero-overlay-bottom">
-                  <div class="hero-overlay-text">
-                    <span class="hero-overlay-title">Missed the MedTech 101 Masterclass?</span>
-                    <span class="hero-overlay-subtitle">Watch the complete session and learn how to take your first step into the MedTech industry.</span>
-                  </div>
-                  <div class="hero-overlay-capsule">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; stroke: var(--cyan);">
-                      <path d="M23 7a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7z"/>
-                      <polygon points="14 9 19 12 14 15 14 9"/>
-                    </svg>
-                    MedTech 101 Masterclass
-                  </div>
-                </div>
+              </div>
+            </div>
+            <!-- Bottom Row: Headline, Supporting copy, Bottom capsule -->
+            <div class="hero-media-footer">
+              <div class="hero-media-text">
+                <h4 class="hero-media-title">Missed the MedTech 101 Masterclass?</h4>
+                <p class="hero-media-subtitle">Watch the complete session and learn how to take your first step into the MedTech industry.</p>
+              </div>
+              <div class="hero-media-capsule">
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 12px; height: 12px; stroke: var(--cyan);">
+                  <path d="M23 7a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7z"/>
+                  <polygon points="14 9 19 12 14 15 14 9"/>
+                </svg>
+                MedTech 101 Masterclass
               </div>
             </div>
           </div>
