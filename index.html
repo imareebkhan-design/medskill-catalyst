@@ -1624,6 +1624,19 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 .cur-group-panels::-webkit-scrollbar{height:6px;}
 .cur-group-panels::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
 
+/* Featured wide card — Stage 1 & Stage 3 (single module) */
+.cur-featured{display:grid;grid-template-columns:1.15fr 1fr;gap:2.5rem;align-items:center;}
+.cur-featured-eyebrow{font-size:0.64rem;font-weight:800;letter-spacing:0.12em;color:var(--blue);text-transform:uppercase;margin-bottom:0.5rem;}
+.cur-featured-title{font-size:1.5rem;font-weight:800;color:var(--brand);letter-spacing:-0.025em;line-height:1.15;margin:0 0 0.8rem;}
+.cur-featured-hook{font-size:0.875rem;line-height:1.55;font-weight:500;color:rgba(10,42,67,.65);margin:0 0 1.15rem;}
+.cur-featured-vd{background:none;border:none;color:var(--brand);font-family:inherit;font-size:.75rem;font-weight:800;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;padding:0;opacity:.85;transition:opacity .2s ease,gap .2s ease;}
+.cur-featured-vd:hover{opacity:1;gap:.65rem;}
+.cur-featured-chips{display:flex;flex-direction:column;gap:0.65rem;}
+.cur-featured-chip{display:flex;align-items:center;gap:0.6rem;border:1.4px solid rgba(10,42,67,.18);border-radius:30px;padding:0.65rem 1.1rem;font-size:0.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);}
+.cur-featured-dot{width:11px;height:11px;border-radius:50%;border:1.5px solid rgba(10,42,67,.3);flex-shrink:0;}
+@media(max-width:768px){.cur-featured{grid-template-columns:1fr;gap:1.5rem;}}
+@media(max-width:480px){.cur-featured-title{font-size:1.25rem;}}
+
 /* ── CARD STYLES — unchanged ──────────────────────────────────── */
 .cur-panel{flex:0 0 230px;border-radius:var(--radius-lg);padding:1.6rem 1.4rem;display:flex;flex-direction:column;min-height:320px;transition:transform .3s var(--easy-out);}
 .cur-panel:hover{transform:translateY(-3px);}
@@ -4463,42 +4476,65 @@ CUR_GROUPS.forEach(function(g, gi){
   const body = document.createElement('div');
   body.className = 'cur-stage-body';
 
-  const head = document.createElement('div');
-  head.className = 'cur-group-head';
-  head.innerHTML = '<span class="cur-group-step">' + g.eyebrow + '</span>'
-    + '<span class="cur-group-title">' + g.head + '</span>';
-  body.appendChild(head);
-
-  const panelsWrap = document.createElement('div');
-  panelsWrap.className = 'cur-group-panels';
-
-  g.nums.forEach(function(num){
-    const m = moduleByNum[num];
-    if (!m) return;
-    const shortTitle = PANEL_SHORT[m.num] || m.title;
+  if (!isScroll) {
+    // FEATURED LAYOUT — wide two-column card for Stage 1 & 3
+    const m = moduleByNum[g.nums[0]];
     const shortHook = PANEL_HOOK[m.num] || m.hook;
-    const tone = PANEL_TONES[curIdx % 3];
-    curIdx++;
-    const badge = (m.num === '06') ? 'A' : m.num;
     const mi = MODULES.indexOf(m);
-    const chipsHtml = m.badges.map(function(b){ return '<span class="cur-panel-chip"><span class="cur-panel-dot"></span>' + b + '</span>'; }).join('');
-    const p = document.createElement('div');
-    p.className = 'cur-panel ' + tone;
-    p.innerHTML = '<div class="cur-panel-num">' + badge + '</div>'
-      + '<h3 class="cur-panel-h">' + shortTitle + '</h3>'
-      + '<p class="cur-panel-hook">' + shortHook + '</p>'
-      + '<div class="cur-panel-chips">' + chipsHtml + '</div>'
-      + '<button class="cur-panel-vd" type="button" onclick="openModuleDetail(' + mi + ')">View details <span aria-hidden="true">&rarr;</span></button>';
-    panelsWrap.appendChild(p);
-  });
+    const featured = document.createElement('div');
+    featured.className = 'cur-featured';
+    const left = document.createElement('div');
+    left.className = 'cur-featured-left';
+    left.innerHTML = '<div class="cur-featured-eyebrow">' + g.eyebrow + '</div>'
+      + '<h3 class="cur-featured-title">' + g.head + '</h3>'
+      + '<p class="cur-featured-hook">' + shortHook + '</p>'
+      + '<button class="cur-featured-vd" type="button" onclick="openModuleDetail(' + mi + ')">View details <span aria-hidden="true">&rarr;</span></button>';
+    const right = document.createElement('div');
+    right.className = 'cur-featured-chips';
+    m.badges.forEach(function(b){
+      const chip = document.createElement('div');
+      chip.className = 'cur-featured-chip';
+      chip.innerHTML = '<span class="cur-featured-dot"></span>' + b;
+      right.appendChild(chip);
+    });
+    featured.appendChild(left);
+    featured.appendChild(right);
+    body.appendChild(featured);
+  } else {
+    // SCROLL LAYOUT — header + horizontal compact cards for Stage 2
+    const head = document.createElement('div');
+    head.className = 'cur-group-head';
+    head.innerHTML = '<span class="cur-group-step">' + g.eyebrow + '</span>'
+      + '<span class="cur-group-title">' + g.head + '</span>';
+    body.appendChild(head);
 
-  if (isScroll) {
+    const panelsWrap = document.createElement('div');
+    panelsWrap.className = 'cur-group-panels';
+
+    g.nums.forEach(function(num){
+      const m = moduleByNum[num];
+      if (!m) return;
+      const shortTitle = PANEL_SHORT[m.num] || m.title;
+      const shortHook = PANEL_HOOK[m.num] || m.hook;
+      const tone = PANEL_TONES[curIdx % 3];
+      curIdx++;
+      const badge = (m.num === '06') ? 'A' : m.num;
+      const mi = MODULES.indexOf(m);
+      const chipsHtml = m.badges.map(function(b){ return '<span class="cur-panel-chip"><span class="cur-panel-dot"></span>' + b + '</span>'; }).join('');
+      const p = document.createElement('div');
+      p.className = 'cur-panel ' + tone;
+      p.innerHTML = '<div class="cur-panel-num">' + badge + '</div>'
+        + '<h3 class="cur-panel-h">' + shortTitle + '</h3>'
+        + '<p class="cur-panel-hook">' + shortHook + '</p>'
+        + '<div class="cur-panel-chips">' + chipsHtml + '</div>'
+        + '<button class="cur-panel-vd" type="button" onclick="openModuleDetail(' + mi + ')">View details <span aria-hidden="true">&rarr;</span></button>';
+      panelsWrap.appendChild(p);
+    });
+
     const scrollWrap = document.createElement('div');
     scrollWrap.className = 'cur-panels-scroll-wrap';
     scrollWrap.appendChild(panelsWrap);
     body.appendChild(scrollWrap);
-  } else {
-    body.appendChild(panelsWrap);
   }
 
   stage.appendChild(body);
