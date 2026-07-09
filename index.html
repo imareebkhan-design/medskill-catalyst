@@ -1596,9 +1596,12 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 /* ── CURRICULUM ACCORDION (redesign) ─────────────────────────── */
 .cur-wrap{position:relative;margin-top:2.5rem;}
 .cur-wrap::after{content:'';position:absolute;right:0;top:0;bottom:16px;width:80px;background:linear-gradient(to left,var(--surface-alt,#f0f4f8) 10%,transparent);pointer-events:none;border-radius:0 var(--radius-lg) var(--radius-lg) 0;}
-.cur-list{display:flex;flex-direction:row;gap:34px;overflow-x:auto;max-width:none;margin:2.5rem 0 0;padding-bottom:12px;}
+.cur-list{display:flex;flex-direction:row;gap:56px;overflow-x:auto;max-width:none;margin:2.5rem 0 0;padding-bottom:12px;}
+@media(max-width:768px){.cur-list{gap:32px;}}
 .cur-group{display:flex;flex-direction:column;flex-shrink:0;width:min-content;}
-.cur-group-head{border-top:2px solid var(--blue);padding-top:.75rem;font-size:.82rem;font-weight:800;letter-spacing:.04em;line-height:1.3;text-transform:uppercase;color:var(--brand);margin:0 0 1.1rem;min-height:2.4em;text-align:center;}
+.cur-group-head{position:sticky;left:0;max-width:calc(100vw - 3rem);width:max-content;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border-top:2px solid var(--blue);padding-top:0.85rem;margin:0 0 1.25rem;min-height:auto;z-index:5;transform:translateZ(0);}
+.cur-group-step{font-size:0.7rem;font-weight:800;letter-spacing:0.08em;color:var(--blue);text-transform:uppercase;margin-bottom:0.2rem;}
+.cur-group-title{font-size:0.82rem;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:0.03em;line-height:1.2;}
 .cur-group-panels{display:flex;gap:12px;}
 .cur-list::-webkit-scrollbar{height:7px;}
 .cur-list::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
@@ -4382,7 +4385,7 @@ const FAQS = [
 /* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
 function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').innerHTML=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
 const clist = document.getElementById('curriculum-list');
-const PANEL_SHORT = {'F':'Foundations of Medical Devices','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
+const PANEL_SHORT = {'F':'Foundation to Break into the MedTech Industry','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
 const PANEL_HOOK = {
   "F": "Move from pill volume to the device world — know what you'll actually be selling.",
   "01": "Walk into any hospital and know exactly who decides, influences, and signs.",
@@ -4394,9 +4397,9 @@ const PANEL_HOOK = {
 };
 const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
 const CUR_GROUPS = [
-  { head: 'Foundation to Break into the MedTech Industry', nums: ['F'] },
-  { head: 'Learn the Complete Spectrum of MedTech', nums: ['01','02','03','04','05'] },
-  { head: 'Advance Your Career on MedTech', nums: ['06'] }
+  { step: 'STEP 1', head: 'Foundation to Break into the MedTech Industry', nums: ['F'] },
+  { step: 'STEP 2', head: 'Learn the Complete Spectrum of MedTech', nums: ['01','02','03','04','05'] },
+  { step: 'STEP 3', head: 'Advance Your Career in MedTech', nums: ['06'] }
 ];
 const moduleByNum = {};
 MODULES.forEach(function(m){ moduleByNum[m.num] = m; });
@@ -4404,9 +4407,10 @@ let curIdx = 0;
 CUR_GROUPS.forEach(function(g){
   const group = document.createElement('div');
   group.className = 'cur-group fade-up';
-  const head = document.createElement('p');
+  const head = document.createElement('div');
   head.className = 'cur-group-head';
-  head.textContent = g.head;
+  head.innerHTML = '<span class="cur-group-step">' + g.step + '</span>'
+    + '<span class="cur-group-title">' + g.head + '</span>';
   group.appendChild(head);
   const panelsWrap = document.createElement('div');
   panelsWrap.className = 'cur-group-panels';
