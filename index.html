@@ -5671,10 +5671,39 @@ function crNext() {
     if (!crValidate(key)) return;
     crSave();
     if (key === 'whoare') crRebuildFlow();
+    // ── Early capture: fire partial save as soon as mobile is confirmed ──
+    // At this point CR_STATE.data has name + mobile. We use a placeholder
+    // email so the upsert works; the real email overwrites it at step 3.
+    if (key === 'mobile') crEarlyCapture();
   }
   if (CR_STATE.idx === CR_TOTAL - 1) { crSubmit(); return; }
   CR_STATE.idx++;
   crRender();
+}
+
+// Partial lead save — fires after name+mobile are collected.
+// Uses mobile as a temporary unique key. When the user later submits
+// with their real email the register API upserts on email and merges.
+function crEarlyCapture() {
+  const d = CR_STATE.data;
+  if (!d.name || !d.mobile) return;  // safety guard
+  const payload = {
+    full_name: d.name,
+    email: d.mobile.replace(/\D/g,'').slice(-10) + '@partial.medskillscatalyst.com',
+    mobile: d.mobile,
+    form_type: 'cohort_registration',
+    consent: true,
+    partial: true,
+    ...getUTM()
+  };
+  // Fire-and-forget — we don't await or block the UX on this
+  try {
+    fetch('/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function(){});
+  } catch(e) {}
 }
 
 function crPrev() {
