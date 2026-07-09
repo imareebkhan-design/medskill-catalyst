@@ -759,6 +759,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   display: flex;
   gap: 2rem;
   padding-inline: 1rem;
+  align-items: flex-start;
 }
 /* Marquee auto-loop removed — rows now manual-scroll with a one-time auto-scroll (see JS) */
 
@@ -767,7 +768,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   flex-shrink: 0;
   background: var(--surface);
   border-radius: var(--radius-lg);
-  padding: 2.5rem;
+  padding: 2.75rem;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
   position: relative;
@@ -776,7 +777,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   display: flex;
   flex-direction: column;
   text-align: left;
-  min-height: 480px;
+  min-height: 520px;
 }
 .success-card:hover {
   box-shadow: var(--shadow-lg), 0 10px 30px rgba(0, 0, 0, 0.04);
@@ -832,7 +833,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border);
   padding-bottom: 1.25rem;
 }
@@ -882,19 +883,19 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   letter-spacing: 0.02em;
   margin-top: 0.2rem;
 }
-/* Pre-launch audit: center-align testimonial cards + larger LinkedIn icon */
-.success-card{text-align:center;}
-.success-card-top{justify-content:center;}
-.success-profile-row{flex-direction:column;align-items:center;gap:.75rem;}
-.success-profile-info{align-items:center;text-align:center;flex:0 0 auto;width:100%;}
-.success-card-name-row{justify-content:center;}
+/* Pre-launch audit: left-align testimonial cards + larger LinkedIn icon */
+.success-card{text-align:left;}
+.success-card-top{justify-content:space-between;}
+.success-profile-row{flex-direction:row;align-items:center;gap:1rem;}
+.success-profile-info{align-items:flex-start;text-align:left;flex:1;min-width:0;}
+.success-card-name-row{justify-content:flex-start;}
 .success-card-name{white-space:normal;overflow:visible;text-overflow:clip;}
 .success-card-linkedin svg,.card-linkedin-icon{width:18px !important;height:18px !important;}
-.growth-journey{align-items:center;text-align:center;}
-.growth-journey-arrow-down{padding-left:0;}
-.success-testimonial-section{align-items:center;}
-.success-testimonial-text{text-align:center;}
-.success-story-toggle-btn{align-self:center;}
+.growth-journey{align-items:flex-start;text-align:left;}
+.growth-journey-arrow-down{padding-left:0.1rem;margin-block:0.1rem;}
+.success-testimonial-section{align-items:flex-start;}
+.success-testimonial-text{text-align:left;}
+.success-story-toggle-btn{align-self:flex-start;}
 
 /* Growth Journey single-container */
 .growth-journey {
@@ -956,7 +957,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   margin-top: auto;
 }
 .success-testimonial-wrapper {
-  max-height: 4.5em; /* roughly 3 lines */
+  max-height: 7.6rem; /* roughly 5 lines */
   overflow: hidden;
   position: relative;
   transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
@@ -967,20 +968,20 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1.5em;
+  height: 2.2rem;
   background: linear-gradient(transparent, var(--surface));
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
 .success-testimonial-text {
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.92rem;
+  line-height: 1.65;
   color: var(--ink-muted);
   margin: 0;
   font-style: italic;
 }
 .success-card.expanded .success-testimonial-wrapper {
-  max-height: 350px; /* sufficiently large for full text */
+  max-height: 500px; /* sufficiently large for full text */
 }
 .success-card.expanded .success-testimonial-wrapper::after {
   opacity: 0;
@@ -1010,7 +1011,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   transform: translateX(3px);
 }
 .success-card.expanded .success-story-toggle-btn span {
-  transform: rotate(-90deg);
+  transform: none;
 }
 @media (max-width: 600px) {
   .success-card {
@@ -3328,7 +3329,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 
             <div class="success-testimonial-section">
               <div class="success-testimonial-wrapper">
-                <p class="success-testimonial-text">From field sales to sales leadership — Pramit's transition from Territory Manager to Sales Team Leader at Werfen. His full story is coming soon.</p>
+                <p class="success-testimonial-text">"I'd spent years building my career in field sales, so I assumed the next step would come naturally. But moving into leadership was a completely different challenge. It wasn't just about selling anymore—it was about leading people, thinking strategically, and understanding the bigger picture. MedSkills Catalyst helped me build that commercial mindset and gave me the confidence to take on the role. Looking back, the move from Territory Manager to Sales Team Leader at Werfen felt like a well-prepared step rather than a jump into the unknown."</p>
               </div>
               <button type="button" class="success-story-toggle-btn" onclick="toggleTestimonial(this)">Read Full Story <span>→</span></button>
             </div>
@@ -4415,7 +4416,7 @@ function toggleTestimonial(btn) {
   if (!card) return;
   const isExpanded = card.classList.toggle('expanded');
   if (isExpanded) {
-    btn.innerHTML = 'Show Less <span>↑</span>';
+    btn.innerHTML = 'Show Less <span>←</span>';
   } else {
     btn.innerHTML = 'Read Full Story <span>→</span>';
   }
