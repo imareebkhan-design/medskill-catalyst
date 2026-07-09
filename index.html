@@ -4517,7 +4517,9 @@ revealInView();window.addEventListener('load',revealInView);
     // Stop on manual interactions
     row.addEventListener('wheel', stop, {passive:true});
     row.addEventListener('touchstart', stop, {passive:true});
+    row.addEventListener('touchmove', stop, {passive:true});
     row.addEventListener('pointerdown', stop, {passive:true});
+    row.addEventListener('mousedown', stop, {passive:true});
     row.addEventListener('keydown', function(e) {
       if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
         stop();
@@ -4567,7 +4569,11 @@ revealInView();window.addEventListener('load',revealInView);
       const overflow = row.scrollWidth - row.clientWidth;
       if (overflow <= 0) return;
 
+      // Keep track of scroll position as a float to prevent subpixel rounding jitter,
+      // which causes freezing/lagging on high refresh rate (e.g. 120Hz ProMotion) devices.
+      let currentScroll = row.scrollLeft;
       let lastTime = 0;
+
       function step(timestamp) {
         if (stopped) return;
         if (!lastTime) lastTime = timestamp;
@@ -4575,14 +4581,16 @@ revealInView();window.addEventListener('load',revealInView);
         const delta = Math.min(elapsed, 30);
         lastTime = timestamp;
 
-        // Slow comfortable speed: ~0.8px per frame (approx 0.048px per ms)
+        // Slow comfortable speed: ~0.8px per 16.7ms (approx 0.048px per ms)
         const stepAmount = 0.048 * delta;
+        currentScroll += stepAmount;
 
-        if (row.scrollLeft + row.clientWidth >= row.scrollWidth - 1) {
+        if (currentScroll + row.clientWidth >= row.scrollWidth - 1) {
+          row.scrollLeft = row.scrollWidth - row.clientWidth;
           return; // Stop at the end without loop or jump
         }
 
-        row.scrollLeft += stepAmount;
+        row.scrollLeft = Math.round(currentScroll);
         requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
