@@ -2875,6 +2875,14 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 .cc-ac-item:hover,.cc-ac-item.active{background:rgba(74,208,255,.16);color:#fff}
 .cc-ac-item .cc-ac-add{color:var(--cyan);font-weight:700}
 .cc-ac-loading{padding:.7rem 1rem;font-size:.85rem;color:rgba(255,255,255,.5)}
+/* Simple-form city autocomplete (mc / apply forms) */
+.city-ac-wrap{position:relative}
+.city-ac-list{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:50;background:#0E2C46;border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);max-height:220px;overflow-y:auto;display:none}
+.city-ac-list.show{display:block}
+.city-ac-item{padding:.65rem 1rem;font-size:.9rem;color:rgba(255,255,255,.85);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05);transition:background .12s}
+.city-ac-item:last-child{border-bottom:none}
+.city-ac-item:hover{background:rgba(74,208,255,.16);color:#fff}
+.city-ac-item .city-ac-add{color:var(--cyan);font-weight:700}
 /* Footer nav */
 .cc-nav{display:flex;align-items:center;gap:.75rem;margin-top:1.5rem}
 .cc-back{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:var(--radius-pill);padding:.85rem 1.4rem;font-weight:700;font-size:.9rem;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
@@ -3919,6 +3927,13 @@ END PLACEMENT HIDDEN -->
         <div class="form-group"><label class="form-label" for="mc-phone">WhatsApp number</label><input class="form-input" type="tel" id="mc-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel"></div>
         <div class="form-group"><label class="form-label" for="mc-email">Your email</label><input class="form-input" type="email" id="mc-email" name="email" placeholder="rohan@gmail.com" required autocomplete="email"></div>
         <div class="form-group">
+          <label class="form-label" for="mc-city">Your city</label>
+          <div class="city-ac-wrap">
+            <input class="form-input" type="text" id="mc-city" name="city" placeholder="Start typing your city…" autocomplete="off" required>
+            <div class="city-ac-list" id="mc-city-list"></div>
+          </div>
+        </div>
+        <div class="form-group">
           <label class="form-label" for="mc-background">Current Professional Background</label>
           <select class="form-input form-select" id="mc-background" name="background" required>
             <option value="" disabled selected>Select your background...</option>
@@ -3951,6 +3966,13 @@ END PLACEMENT HIDDEN -->
         <div class="form-group"><label class="form-label" for="apply-name">Your name</label><input class="form-input" type="text" id="apply-name" name="name" placeholder="Rohan Sharma" required autocomplete="name"></div>
         <div class="form-group"><label class="form-label" for="apply-phone">WhatsApp number</label><input class="form-input" type="tel" id="apply-phone" name="phone" placeholder="+91 98765 43210" required autocomplete="tel"></div>
         <div class="form-group"><label class="form-label" for="apply-email">Your email</label><input class="form-input" type="email" id="apply-email" name="email" placeholder="rohan@gmail.com" required autocomplete="email"></div>
+        <div class="form-group">
+          <label class="form-label" for="apply-city">Your city</label>
+          <div class="city-ac-wrap">
+            <input class="form-input" type="text" id="apply-city" name="city" placeholder="Start typing your city…" autocomplete="off" required>
+            <div class="city-ac-list" id="apply-city-list"></div>
+          </div>
+        </div>
         <div class="form-group">
           <label class="form-label" for="apply-background">Current Professional Background</label>
           <select class="form-input form-select" id="apply-background" name="background" required>
@@ -4011,6 +4033,15 @@ END PLACEMENT HIDDEN -->
         <div class="cc-q">Your email address</div>
         <div class="cc-hint">Your roadmap and calendar invite go here.</div>
         <div class="cc-field"><input class="form-input" type="email" id="cc-email" placeholder="rohan@gmail.com" autocomplete="email" data-required data-validate="email"></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="city">
+        <div class="cc-q">Which city are you in?</div>
+        <div class="cc-hint">Helps us match you to local cohort batches and career opportunities.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cc-city" placeholder="Start typing your city…" autocomplete="off" data-required>
+          <div class="cc-ac-list" id="cc-city-list"></div>
+        </div>
         <span class="cc-err"></span>
       </div>
       <div class="cc-step" data-key="whoare">
@@ -4140,6 +4171,16 @@ END PLACEMENT HIDDEN -->
         <div class="cc-q">Your email address</div>
         <div class="cc-hint">Your syllabus and registration updates go here.</div>
         <div class="cc-field"><input class="form-input" type="email" id="cr-email" placeholder="rohan@gmail.com" autocomplete="email" data-required data-validate="email"></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 3b: City -->
+      <div class="cr-step" data-key="city">
+        <div class="cc-q">Which city are you in?</div>
+        <div class="cc-hint">Helps us match you to local cohort batches and career opportunities.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cr-city" placeholder="Start typing your city…" autocomplete="off" data-required>
+          <div class="cc-ac-list" id="cr-city-list"></div>
+        </div>
         <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
       </div>
       <!-- Step 4: Who are you? -->
@@ -4616,10 +4657,6 @@ revealInView();window.addEventListener('load',revealInView);
     let stopped = false;
     let autoStarted = false;
     
-    // Keep track of scroll position as a float to prevent subpixel rounding jitter,
-    // which causes freezing/lagging on high refresh rate (e.g. 120Hz ProMotion) devices.
-    let currentScroll = row.scrollLeft;
-
     function stop(){
       if (!stopped) {
         stopped = true;
@@ -4681,7 +4718,9 @@ revealInView();window.addEventListener('load',revealInView);
       const overflow = row.scrollWidth - row.clientWidth;
       if (overflow <= 0) return;
 
-      currentScroll = row.scrollLeft;
+      // Keep track of scroll position as a float to prevent subpixel rounding jitter,
+      // which causes freezing/lagging on high refresh rate (e.g. 120Hz ProMotion) devices.
+      let currentScroll = row.scrollLeft;
       let lastTime = 0;
 
       function step(timestamp) {
@@ -4798,6 +4837,7 @@ async function submitMC(e) {
     full_name: formData.get('name'),
     email: formData.get('email'),
     mobile: formData.get('phone'),
+    city: formData.get('city') || '',
     user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
     company_name: '',
     college_name: '',
@@ -4873,6 +4913,7 @@ async function submitApply(e) {
     full_name: formData.get('name'),
     email: formData.get('email'),
     mobile: formData.get('phone'),
+    city: formData.get('city') || '',
     user_type: (background === 'pharm_grad' || background === 'biotech_grad') ? 'student' : 'professional',
     company_name: '',
     college_name: '',
@@ -4950,12 +4991,12 @@ function closeVideoModal(){
 }
 
 /* ---- Multi-step counseling flow ---- */
-const CC_TOTAL = 9; // fixed: 4 common + 3 branch + 2 final
+const CC_TOTAL = 10; // fixed: 5 common + 3 branch + 2 final
 const CC_STATE = { flow: [], idx: 0, data: {}, sending: false, fails: 0 };
-const CC_STUDENT = ['name','mobile','email','whoare','college','syear','degree','goal','challenge'];
-const CC_PRO     = ['name','mobile','email','whoare','org','role','exp','goal','challenge'];
+const CC_STUDENT = ['name','mobile','email','city','whoare','college','syear','degree','goal','challenge'];
+const CC_PRO     = ['name','mobile','email','city','whoare','org','role','exp','goal','challenge'];
 const CC_FIELD = {
-  name:'#cc-name', mobile:'#cc-mobile', email:'#cc-email',
+  name:'#cc-name', mobile:'#cc-mobile', email:'#cc-email', city:'#cc-city',
   college:'#cc-college', degree:'#cc-degree', org:'#cc-org', role:'#cc-role', exp:'#cc-exp',
   challenge:'#cc-challenge'
 };
@@ -5056,7 +5097,7 @@ async function ccSubmit(){
   CC_STATE.sending = true;
   next.disabled = true; next.firstChild.textContent = 'Saving… ';
   const payload = {
-    full_name: d.name, email: d.email, mobile: d.mobile,
+    full_name: d.name, email: d.email, mobile: d.mobile, city: d.city || '',
     form_type: 'counseling', user_type: d.whoare || '',
     college_name: d.college || '', current_year: d.syear || '', degree: d.degree || '',
     organization: d.org || '', current_role: d.role || '', experience: d.exp || '',
@@ -5179,12 +5220,12 @@ ccAttachAutocomplete('cc-college','cc-college-list','college');
 ccAttachAutocomplete('cc-org','cc-org-list','company');
 
 /* ══════════ COHORT REGISTRATION MULTI-STEP FLOW ══════════ */
-const CR_TOTAL = 8;
+const CR_TOTAL = 9;
 const CR_STATE = { flow: [], idx: 0, data: {}, sending: false, fails: 0 };
-const CR_STUDENT = ['name','mobile','email','whoare','college','syear','degree','review'];
-const CR_PRO     = ['name','mobile','email','whoare','org','role','exp','review'];
+const CR_STUDENT = ['name','mobile','email','city','whoare','college','syear','degree','review'];
+const CR_PRO     = ['name','mobile','email','city','whoare','org','role','exp','review'];
 const CR_FIELD = {
-  name: '#cr-name', mobile: '#cr-mobile', email: '#cr-email',
+  name: '#cr-name', mobile: '#cr-mobile', email: '#cr-email', city: '#cr-city',
   college: '#cr-college', degree: '#cr-degree', org: '#cr-org', role: '#cr-role', exp: '#cr-exp'
 };
 const CR_RADIO = { whoare: 'cr_who', syear: 'cr_year' };
@@ -5229,7 +5270,6 @@ function crRender() {
   setTimeout(() => { if (focusable) focusable.focus({preventScroll:true}); }, 60);
 }
 
-// Helper function definitions
 function crGetRadio(name) { const c = document.querySelector('input[name="'+name+'"]:checked'); return c ? c.value : ''; }
 
 function crCurrentValue(key) {
@@ -5299,6 +5339,10 @@ function crUpdateReview() {
       <span style="font-weight:600; font-size:0.9rem;">${d.email || ''}</span>
     </div>
     <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+      <span style="opacity:0.6; font-size:0.85rem;">City</span>
+      <span style="font-weight:600; font-size:0.9rem;">${d.city || ''}</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
       <span style="opacity:0.6; font-size:0.85rem;">Status</span>
       <span style="font-weight:600; font-size:0.9rem; text-transform:capitalize;">${d.whoare || ''}</span>
     </div>
@@ -5344,7 +5388,7 @@ async function crSubmit() {
   CR_STATE.sending = true;
   next.disabled = true; next.firstChild.textContent = 'Saving… ';
   const payload = {
-    full_name: d.name, email: d.email, mobile: d.mobile,
+    full_name: d.name, email: d.email, mobile: d.mobile, city: d.city || '',
     form_type: 'cohort_registration', user_type: d.whoare || '',
     college_name: d.college || '', current_year: d.syear || '', degree: d.degree || '',
     organization: d.org || '', company_name: d.org || '', current_role: d.role || '', experience: d.exp || '',
@@ -5415,6 +5459,53 @@ function crAttachAutocomplete(inputId, listId, kind){
 }
 crAttachAutocomplete('cr-college','cr-college-list','college');
 crAttachAutocomplete('cr-org','cr-org-list','company');
+
+/* ══════════ INDIAN CITIES — shared autocomplete data ══════════ */
+const INDIAN_CITIES = ['Mumbai','Delhi','Bengaluru','Hyderabad','Ahmedabad','Chennai','Kolkata','Surat','Pune','Jaipur','Lucknow','Kanpur','Nagpur','Visakhapatnam','Indore','Thane','Bhopal','Pimpri-Chinchwad','Patna','Vadodara','Ghaziabad','Ludhiana','Agra','Nashik','Faridabad','Meerut','Rajkot','Kalyan-Dombivali','Vasai-Virar','Varanasi','Srinagar','Aurangabad','Dhanbad','Amritsar','Navi Mumbai','Allahabad (Prayagraj)','Ranchi','Howrah','Coimbatore','Jabalpur','Gwalior','Vijayawada','Jodhpur','Madurai','Raipur','Kota','Chandigarh','Guwahati','Solapur','Hubli-Dharwad','Bareilly','Mysuru','Moradabad','Gurgaon','Aligarh','Jalandhar','Tiruchirappalli','Bhubaneswar','Salem','Mira-Bhayandar','Thiruvananthapuram','Bhiwandi','Saharanpur','Gorakhpur','Guntur','Bikaner','Amravati','Noida','Jamshedpur','Bhilai','Warangal','Cuttack','Firozabad','Kochi','Dehradun','Durgapur','Asansol','Nanded','Kolhapur','Ajmer','Akola','Gulbarga','Jamnagar','Ujjain','Loni','Siliguri','Jhansi','Ulhasnagar','Nellore','Jammu','Sangli-Miraj & Kupwad','Belgaum','Mangaluru','Ambattur','Tirunelveli','Malegaon','Gaya','Jalgaon','Udaipur','Maheshtala','Davanagere','Kozhikode','Kurnool','Rajpur Sonarpur','Bokaro Steel City','South Dumdum','Bellary','Patiala','Gopalpur','Agartala','Bhagalpur','Muzaffarnagar','Bhatpara','Panihati','Latur','Dhule','Rohtak','Korba','Bhilwara','Brahmapur','Muzaffarpur','Ahmednagar','Mathura','Kollam','Avadi','Kadapa','Kamarhati','Bilaspur','Shahjahanpur','Bijapur','Rampur','Shambhajinagar','Shimoga','Chandrapur','Junagadh','Thrissur','Alwar','Bardhaman','Kalyani','Tirruppur','Panipat','Darbhanga','Bally','Aizawl','Imphal','Gangtok','Shimla','Solan','Dharamsala','Manali','Puducherry','Vellore','Tiruvallur','Haridwar','Rishikesh','Roorkee','Meerut','Modinagar','Sahibabad','Ghazipur','Azamgarh','Gorakhpur','Deoria','Basti','Ballia','Sultanpur','Banda','Chitrakoot','Hamirpur','Mahoba','Lalitpur','Jalaun','Orai','Etawah','Mainpuri','Kannauj','Hardoi','Unnao','Rae Bareli','Amethi','Faizabad','Ambedkar Nagar','Gonda','Bahraich','Shravasti','Balrampur','Siddharthnagar','Maharajganj','Kushinagar','Deoria','Mau','Azamgarh','Jaunpur','Mirzapur','Sonbhadra','Chandauli','Ghazipur','Varanasi','Bhadohi','Pratapgarh','Prayagraj','Fatehpur','Kaushambi','Chitrakoot','Banda','Mahoba','Hamirpur','Jhansi','Lalitpur','Jalaun','Orai','Etawah','Auraiya','Etah','Kasganj','Aligarh','Hathras','Agra','Firozabad','Mainpuri','Mathura','Vrindavan','Bharatpur','Palwal','Faridabad','Ballabgarh','Gurugram','Manesar','Rewari','Jhajjar','Badli','Rohtak','Bhiwani','Charkhi Dadri','Hisar','Fatehabad','Sirsa','Ambala','Yamunanagar','Kurukshetra','Karnal','Panipat','Sonipat','Bahadurgarh','Gurgaon','Nuh','Palwal','Mewat','Chandigarh','Mohali','Panchkula','Ludhiana','Amritsar','Jalandhar','Patiala','Bathinda','Moga','Firozpur','Gurdaspur','Pathankot','Hoshiarpur','Nawanshahr','Kapurthala','Phagwara','Khanna','Barnala','Sangrur','Muktsar','Fazilka','Abohar','Malerkotla','Rajpura','Zirakpur','Derabassi','Nangal','Anandpur Sahib','Ropar','Fatehgarh Sahib','Sirhind','Morinda','Nawanshahar','Kharar','Solan','Baddi','Nalagarh','Palampur','Mandi','Kullu','Rampur Bushahr','Kinnaur','Lahaul','Spiti','Udhampur','Kathua','Samba','Rajouri','Poonch','Reasi','Ramban','Doda','Kishtwar','Anantnag','Pulwama','Shopian','Kulgam','Budgam','Baramulla','Kupwara','Bandipora','Ganderbal','Kargil','Leh','Nubra','Zanskar'];
+
+/* ── Shared city autocomplete (used by all four forms) ── */
+function cityDebounce(fn, ms){ let t; return function(){ clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
+
+function cityRenderList(listEl, query, input, onPick) {
+  const q = query.toLowerCase();
+  let items = INDIAN_CITIES.filter(c => c.toLowerCase().startsWith(q));
+  if (items.length < 5) items = items.concat(INDIAN_CITIES.filter(c => c.toLowerCase().includes(q) && !c.toLowerCase().startsWith(q)));
+  items = Array.from(new Set(items)).slice(0, 8);
+  let html = items.map(c => '<div class="cc-ac-item" data-val="' + c + '">' + c + '</div>').join('');
+  if (query && !items.some(c => c.toLowerCase() === q))
+    html += '<div class="cc-ac-item"><span class="cc-ac-add">Use \u201c' + query + '\u201d</span></div>';
+  listEl.innerHTML = html;
+  listEl.classList.toggle('show', html.length > 0);
+  listEl.querySelectorAll('.cc-ac-item').forEach(it => it.addEventListener('mousedown', function(ev){
+    ev.preventDefault();
+    input.value = it.getAttribute('data-val') || query;
+    listEl.classList.remove('show');
+    if (onPick) onPick(input.value);
+  }));
+}
+
+function attachCityAC(inputId, listId, onPick) {
+  const input = document.getElementById(inputId);
+  const listEl = document.getElementById(listId);
+  if (!input || !listEl) return;
+  const run = cityDebounce(function() {
+    const q = input.value.trim();
+    if (q.length < 1) { listEl.classList.remove('show'); return; }
+    cityRenderList(listEl, q, input, onPick);
+  }, 180);
+  input.addEventListener('input', run);
+  input.addEventListener('focus', function() { if (input.value.trim().length >= 1) run(); });
+  input.addEventListener('blur', () => setTimeout(() => listEl.classList.remove('show'), 180));
+}
+
+/* Wire CC city step */
+attachCityAC('cc-city','cc-city-list', function(){ ccSave(); });
+/* Wire CR city step */
+attachCityAC('cr-city','cr-city-list', function(){ crSave(); });
+/* Wire mc-form city */
+attachCityAC('mc-city','mc-city-list', null);
+/* Wire apply-form city */
+attachCityAC('apply-city','apply-city-list', null);
 
 /* Enter advances (except in textarea); Esc closes the cohort modal */
 document.addEventListener('keydown', function(e){
