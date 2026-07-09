@@ -2990,6 +2990,245 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 .cc-modal.is-success{max-width:820px;transition:max-width .3s ease;}
 .cc-success.is-embedded{padding:0;}
 @media(max-width:480px){.cc-modal-head{padding:1.3rem 1.3rem 0}.cc-modal-body{padding:1.2rem 1.3rem 1.5rem}.cc-options--2{grid-template-columns:1fr}.cc-q{font-size:1.3rem}}
+
+/* ══════════════════════════════════════════════════════════════════
+   UI/UX POLISH PASS — Typography, Spacing, Responsive & Performance
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── TYPOGRAPHY REFINEMENTS ──────────────────────────────────────── */
+
+/* Success card testimonials — improved readability */
+.success-testimonial-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+/* FAQ answer text — more comfortable reading rhythm */
+.faq-body-inner {
+  font-size: 0.97rem;
+  line-height: 1.82;
+}
+
+/* Placement label — slightly larger for scannability */
+.placement-label {
+  font-size: 0.86rem;
+}
+
+/* Footer copy — fractionally larger for polish */
+.footer-tagline { font-size: 0.92rem; }
+.footer-links a { font-size: 0.92rem; }
+
+/* Section sub: prevent accidental double centering in left-aligned contexts */
+.section-header .section-sub { margin-inline: auto; }
+
+/* ── RESPONSIVE FIXES — EXTRA-SMALL PHONES (≤ 375px) ────────────── */
+@media (max-width: 375px) {
+  /* Hero card — prevent excess padding crushing content */
+  .hero-card {
+    padding: 1.5rem 1.1rem;
+  }
+
+  /* Container — tighter gutter on tiny screens */
+  .container,
+  .container--narrow {
+    width: calc(100% - 1.75rem);
+  }
+
+  /* Section spacing — reduce for tiny screens */
+  .section {
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+}
+
+/* ── RESPONSIVE FIXES — MOBILE (≤ 600px) ────────────────────────── */
+@media (max-width: 600px) {
+  /* Success cards — prevent horizontal overflow at small sizes */
+  .success-card {
+    width: min(310px, 85vw);
+    min-height: auto;     /* release fixed min-height on mobile */
+    padding: 1.5rem;
+  }
+
+  /* Success section fade gradients — tighten on tiny screens */
+  .success-marquee-container::before,
+  .success-marquee-container::after {
+    width: 40px;
+  }
+
+  /* Trust logos — never overflow viewport edge */
+  .trust-logos svg {
+    max-width: min(110px, 35vw);
+  }
+
+  /* Fees features — single column stack */
+  .fees-features {
+    grid-template-columns: 1fr;
+  }
+
+  /* Placement cards — single column */
+  .placement-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── RESPONSIVE FIXES — VERY SMALL (≤ 360px) ────────────────────── */
+@media (max-width: 360px) {
+  /* Success cards edge case */
+  .success-card {
+    width: min(280px, 90vw);
+  }
+
+  /* Nav logo text — prevent overflow */
+  .nav-logo-text {
+    font-size: 1rem;
+  }
+}
+
+/* ── RESPONSIVE FIXES — TABLET (≤ 820px) ────────────────────────── */
+@media (max-width: 820px) {
+  /* Hero stats — reduce gap on mid-size screens */
+  .hero-stats {
+    gap: 1.5rem;
+  }
+
+  /* Lead inner — ensure single-col is clean */
+  .lead-inner {
+    gap: 3rem;
+  }
+}
+
+/* ── COMPONENT CONSISTENCY ───────────────────────────────────────── */
+
+/* FAQ icon — ensure minimum 44×44 tap target including padding */
+.faq-q {
+  padding: 1.5rem 0;
+}
+
+/* FAQ icon touch target */
+.faq-icon {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+/* Sticky bar CTA — ensure full height touch target */
+.sticky-cta,
+.sticky-wa {
+  min-height: 48px;
+}
+
+/* Success card toggle btn — minimum tap target */
+.success-story-toggle-btn {
+  min-height: 36px;
+  padding-block: 0.35rem;
+}
+
+/* Card hover lift — consistent across all card types */
+.cur-panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(10, 42, 67, 0.1);
+}
+
+/* Success card hover — upgraded to shadow-md level */
+.success-card:hover {
+  box-shadow: var(--shadow-md), 0 16px 40px rgba(0, 88, 158, 0.06);
+}
+
+/* Placement card hover — subtle lift */
+.placement-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.03);
+}
+
+/* ── VISUAL POLISH ───────────────────────────────────────────────── */
+
+/* Hero float badge — smoother animation via hardware acceleration */
+.hero-float {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Visual shell tilt — smoother hover un-tilt */
+.hero-visual-shell,
+.cc-video-shell,
+.mc-media-shell {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Nav scrolled border — smoother transition */
+#nav {
+  transition: background 0.4s var(--easy-out),
+              border-color 0.4s var(--easy-out),
+              box-shadow 0.4s var(--easy-out),
+              height 0.4s var(--easy-out);
+}
+
+/* Roadmap step active — eliminate layout shift by using box-shadow not border */
+.roadmap-step {
+  border: 1px solid transparent;
+}
+
+/* Curriculum panel scrollbar — thinner, more premium */
+.cur-group-panels::-webkit-scrollbar { height: 4px; }
+.cur-group-panels::-webkit-scrollbar-thumb {
+  background: rgba(10, 42, 67, 0.15);
+  border-radius: 10px;
+}
+.cur-group-panels::-webkit-scrollbar-track { background: transparent; }
+
+/* Success marquee scrollbar — visually minimal */
+.success-marquee-track::-webkit-scrollbar { height: 4px; }
+.success-marquee-track::-webkit-scrollbar-thumb {
+  background: rgba(10, 42, 67, 0.12);
+  border-radius: 10px;
+}
+
+/* Modal — smoother backdrop entry */
+.overlay {
+  transition: opacity 0.35s var(--easy-out);
+}
+
+/* Form inputs — tighter placeholder opacity for premium look */
+.form-input::placeholder {
+  opacity: 0.55;
+}
+
+/* ── MOBILE STICKY CTA — POLISH ──────────────────────────────────── */
+#mobile-sticky-cta {
+  border-radius: 18px 18px 0 0;
+}
+
+/* ── SECTION SEPARATOR RHYTHM ────────────────────────────────────── */
+
+/* Ensure section--alt has full visual separation */
+.section--alt {
+  border-block: 1px solid var(--border);
+}
+
+/* ── BREADCRUMB / SCROLL HINT REMOVAL SAFETY ─────────────────────── */
+/* .cur-scroll-hint is removed from HTML; keep CSS hidden in case cached */
+.cur-scroll-hint { display: none !important; }
+
+/* ── WIDE DESKTOP (≥ 1728px) — SCALE GUARD ──────────────────────── */
+@media (min-width: 1728px) {
+  .container {
+    width: min(1300px, 100% - 4rem);
+  }
+}
+
+/* ── IMAGE RENDERING QUALITY ─────────────────────────────────────── */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── PRINT STYLES — SAFETY ───────────────────────────────────────── */
+@media print {
+  #nav, #sticky-bar, #mobile-sticky-cta, .mobile-menu-drawer,
+  .mobile-menu-backdrop, body::after {
+    display: none !important;
+  }
+}
 </style>
 </head>
 <body>
@@ -3105,7 +3344,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
 
             <div class="success-profile-row">
-              <img src="assets/anand_gupta.png" alt="Anand Gupta" class="success-avatar-img">
+              <img src="assets/anand_gupta.png" alt="Anand Gupta" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Anand Gupta</span>
@@ -3143,7 +3382,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
             
             <div class="success-profile-row">
-              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img">
+              <img src="assets/vasudha_singh.png" alt="Vasudha Singh" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Vasudha Singh</span>
@@ -3181,7 +3420,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
             
             <div class="success-profile-row">
-              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img">
+              <img src="assets/shivam_tiwari.png" alt="Shivam Tiwari" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Shivam Tiwari</span>
@@ -3226,7 +3465,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
             
             <div class="success-profile-row">
-              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img">
+              <img src="assets/garvita_khurana.png" alt="Garvita Khurana" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Garvita Khurana</span>
@@ -3264,7 +3503,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
 
             <div class="success-profile-row">
-              <img src="assets/sandeep_kumar.png" alt="Sandeep Kumar" class="success-avatar-img">
+              <img src="assets/sandeep_kumar.png" alt="Sandeep Kumar" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Sandeep Kumar</span>
@@ -3305,7 +3544,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
             </div>
 
             <div class="success-profile-row">
-              <img src="assets/pramit_shrestha.png" alt="Pramit Shrestha" class="success-avatar-img">
+              <img src="assets/pramit_shrestha.png" alt="Pramit Shrestha" class="success-avatar-img" loading="lazy" decoding="async">
               <div class="success-profile-info">
                 <div class="success-card-name-row">
                   <span class="success-card-name">Pramit Shrestha</span>
