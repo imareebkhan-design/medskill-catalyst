@@ -2745,6 +2745,100 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
   *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
 
+/* ══════════════ CAREER COUNSELING SECTION ═══════════════════════ */
+.cc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center;position:relative;z-index:2;text-align:left}
+.cc-copy .final-cta-eyebrow{margin-bottom:1.25rem}
+.cc-h{font-family:var(--font-serif);font-size:clamp(2rem,4.2vw,3.1rem);font-weight:700;color:#fff;line-height:1.14;letter-spacing:-.02em;margin-bottom:1.5rem}
+.cc-h span{color:var(--cyan)}
+.cc-sub{font-size:1.05rem;color:rgba(255,255,255,.62);line-height:1.7;margin-bottom:1.1rem;max-width:52ch}
+.cc-sub:last-of-type{margin-bottom:2rem}
+.cc-copy .btn{align-self:flex-start}
+/* Video thumbnail card */
+.cc-video-shell{position:relative;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:calc(var(--radius-lg) + 6px);padding:6px;box-shadow:0 30px 70px rgba(4,16,26,.45), var(--inner-hi-dark);transform:rotate(1deg);transition:transform .6s var(--easy-out)}
+.cc-video-shell:hover{transform:rotate(0deg)}
+.cc-video{position:relative;width:100%;aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;background:#0A2A43}
+.cc-video img{width:100%;height:100%;object-fit:cover;object-position:center 12%;transition:transform .9s var(--easy-out)}
+.cc-video:hover img{transform:scale(1.04)}
+.cc-video-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,18,.9) 0%,rgba(6,14,18,.15) 45%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem}
+.cc-video-name{font-size:1.15rem;font-weight:800;color:#fff}
+.cc-video-title{font-size:.78rem;color:var(--cyan);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-top:.2rem}
+.cc-video-badge{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:.45rem;padding:.4rem .8rem;border-radius:100px;background:rgba(10,42,67,.4);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#fff;font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.cc-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:rgba(10,42,67,.42);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:grid;place-items:center;transition:transform .3s var(--easy-out),background .3s;box-shadow:0 10px 30px rgba(4,16,26,.4)}
+.cc-play::before{content:'';position:absolute;inset:-7px;border-radius:50%;border:1px solid rgba(255,255,255,.4);animation:mcPlayPulse 2s ease-out infinite}
+.cc-play svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+.cc-video:hover .cc-play{transform:translate(-50%,-50%) scale(1.08);background:rgba(0,88,158,.6)}
+@media(max-width:900px){.cc-grid{grid-template-columns:1fr;text-align:center}.cc-copy .final-cta-eyebrow,.cc-copy .btn{margin-inline:auto}.cc-sub{margin-inline:auto}.cc-video-shell{max-width:460px;margin:0 auto;order:-1;transform:none}}
+@media(max-width:480px){.cc-copy .btn{width:100%}}
+@media (prefers-reduced-motion: reduce){.cc-play::before{animation:none}}
+
+/* ══════════════ VIDEO MODAL ═════════════════════════════════════ */
+.video-modal{background:#06121C;border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);max-width:960px;width:100%;overflow:hidden;transform:translateY(18px) scale(.965);transition:transform .45s var(--easy-out);box-shadow:var(--shadow-float);position:relative}
+.overlay.show .video-modal{transform:none}
+.video-modal-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000;display:grid;place-items:center}
+.video-modal-frame iframe,.video-modal-frame video{width:100%;height:100%;border:0;display:block}
+.video-modal-placeholder{text-align:center;color:rgba(255,255,255,.6);padding:2rem;font-size:.95rem}
+.video-modal-placeholder svg{width:48px;height:48px;stroke:var(--cyan);stroke-width:1.5;fill:none;margin:0 auto 1rem;display:block}
+.video-modal .modal-close{background:rgba(10,42,67,.5);border-color:rgba(255,255,255,.25)}
+
+/* ══════════════ MULTI-STEP COUNSELING MODAL ════════════════════ */
+.cc-modal{background:linear-gradient(180deg,rgba(19,49,74,.96),rgba(10,42,67,.98));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);border-radius:var(--radius-xl);max-width:560px;width:100%;overflow:hidden;transform:translateY(18px) scale(.965);transition:transform .45s var(--easy-out);box-shadow:var(--shadow-float), var(--inner-hi-dark);position:relative;color:#fff}
+.overlay.show .cc-modal{transform:none}
+.cc-modal .modal-close{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+.cc-modal .modal-close svg{stroke:#fff}
+.cc-modal-head{padding:1.6rem 1.9rem 0}
+.cc-progress-track{height:5px;border-radius:100px;background:rgba(255,255,255,.1);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.cc-progress-fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 10px rgba(74,208,255,.5);transition:width .4s var(--easy-out)}
+.cc-step-count{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.85rem}
+.cc-modal-body{padding:1.4rem 1.9rem 1.9rem;position:relative;min-height:230px;display:flex;flex-direction:column;max-height:calc(92vh - 92px);overflow-y:auto}
+.cc-step{display:none;flex:1;flex-direction:column;animation:ccStepIn .4s var(--easy-out)}
+.cc-step.is-active{display:flex}
+@keyframes ccStepIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.cc-step{animation:none}}
+.cc-q{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;line-height:1.25;letter-spacing:-.01em;margin-bottom:.4rem;color:#fff}
+.cc-hint{font-size:.88rem;color:rgba(255,255,255,.55);margin-bottom:1.4rem;line-height:1.5}
+.cc-field{margin-bottom:.5rem}
+.cc-modal .form-label{color:rgba(255,255,255,.75);font-size:.82rem;font-weight:600;display:block;margin-bottom:.5rem}
+.cc-modal .form-input{width:100%;height:52px;padding:0 1rem;border-radius:var(--radius-md);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:1rem;transition:border-color .2s,box-shadow .2s,background .2s}
+.cc-modal textarea.form-input{height:auto;min-height:96px;padding-top:.8rem;resize:vertical;line-height:1.5}
+.cc-modal select.form-input{appearance:none;-webkit-appearance:none;padding-right:2.6rem;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234AD0FF' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;background-size:16px}
+.cc-modal select.form-input option{color:#0A2A43;background:#fff}
+.cc-modal .form-input::placeholder{color:rgba(255,255,255,.38)}
+.cc-modal .form-input:focus{outline:none;border-color:var(--cyan);background:rgba(255,255,255,.09);box-shadow:0 0 0 3px rgba(74,208,255,.22)}
+.cc-err{font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block}
+/* Radio / option cards */
+.cc-options{display:grid;gap:.7rem}
+.cc-options--2{grid-template-columns:1fr 1fr}
+.cc-opt{position:relative}
+.cc-opt input{position:absolute;opacity:0;width:0;height:0}
+.cc-opt label{display:flex;align-items:center;gap:.7rem;padding:1rem 1.15rem;border-radius:var(--radius-md);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);cursor:pointer;font-weight:600;font-size:.95rem;color:rgba(255,255,255,.9);transition:all .2s var(--easy-out);min-height:52px}
+.cc-opt label::before{content:'';width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,.35);flex-shrink:0;transition:all .2s}
+.cc-opt label:hover{background:rgba(255,255,255,.08);border-color:rgba(74,208,255,.4)}
+.cc-opt input:checked+label{background:rgba(74,208,255,.14);border-color:var(--cyan);color:#fff}
+.cc-opt input:checked+label::before{border-color:var(--cyan);background:radial-gradient(circle,var(--cyan) 40%,transparent 45%)}
+.cc-opt input:focus-visible+label{outline:2px solid var(--cyan);outline-offset:2px}
+/* Autocomplete */
+.cc-ac{position:relative}
+.cc-ac-list{position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:20;background:#0E2C46;border:1px solid rgba(255,255,255,.16);border-radius:var(--radius-md);box-shadow:var(--shadow-lg);max-height:210px;overflow-y:auto;display:none}
+.cc-ac-list.show{display:block}
+.cc-ac-item{padding:.7rem 1rem;font-size:.92rem;color:rgba(255,255,255,.85);cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(255,255,255,.05)}
+.cc-ac-item:last-child{border-bottom:none}
+.cc-ac-item:hover,.cc-ac-item.active{background:rgba(74,208,255,.16);color:#fff}
+.cc-ac-item .cc-ac-add{color:var(--cyan);font-weight:700}
+.cc-ac-loading{padding:.7rem 1rem;font-size:.85rem;color:rgba(255,255,255,.5)}
+/* Footer nav */
+.cc-nav{display:flex;align-items:center;gap:.75rem;margin-top:1.5rem}
+.cc-back{background:transparent;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:var(--radius-pill);padding:.85rem 1.4rem;font-weight:700;font-size:.9rem;transition:all .2s;display:inline-flex;align-items:center;gap:.4rem}
+.cc-back:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4)}
+.cc-next{flex:1;justify-content:center}
+.cc-next:disabled{opacity:.5;cursor:not-allowed}
+/* Success */
+.cc-success{display:none;text-align:center;padding:1rem .5rem 1.5rem;animation:ccStepIn .4s var(--easy-out)}
+.cc-success.show{display:block}
+.cc-success-icon{width:72px;height:72px;border-radius:50%;background:rgba(74,208,255,.14);border:1px solid rgba(74,208,255,.35);display:grid;place-items:center;margin:0 auto 1.4rem}
+.cc-success-icon svg{width:34px;height:34px;stroke:var(--cyan);stroke-width:2.5;fill:none}
+.cc-success h3{font-family:var(--font-serif);font-size:1.6rem;color:#fff;margin-bottom:.75rem}
+.cc-success p{color:rgba(255,255,255,.65);font-size:.95rem;line-height:1.6;max-width:38ch;margin:0 auto 1.6rem}
+@media(max-width:480px){.cc-modal-head{padding:1.3rem 1.3rem 0}.cc-modal-body{padding:1.2rem 1.3rem 1.5rem}.cc-options--2{grid-template-columns:1fr}.cc-q{font-size:1.3rem}}
 </style>
 </head>
 <body>
@@ -3677,12 +3771,24 @@ END PLACEMENT HIDDEN -->
 <!-- FINAL CTA ───────────────────────────────────────────────────── -->
 <section id="final-cta">
   <div class="container">
-    <div class="final-cta-inner fade-up">
-      <p class="final-cta-eyebrow">Next Batch · Limited Seats</p>
-      <h2 class="final-cta-h">The MedTech hiring window is open right now. Don't sit this one out.</h2>
-      <p class="final-cta-sub">Every month you wait, someone else lands the MedTech role — and the salary — you're after. Seats in this cohort are limited, and registration closes once they're filled.</p>
-      <div class="final-cta-actions">
-        <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--white btn--lg" data-track="finalcta_apply">Book a Counseling Call <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+    <div class="cc-grid fade-up">
+      <div class="cc-copy">
+        <p class="final-cta-eyebrow">Free 1:1 Career Counseling</p>
+        <h2 class="cc-h">Not Sure Where to Start in MedTech?<br><span>Let's Build Your Career Roadmap Together.</span></h2>
+        <p class="cc-sub">Book a free one-on-one counseling session with our MedTech career experts. We'll understand your background, evaluate your profile, answer your questions, and help you build a personalized roadmap into the Medical Device industry.</p>
+        <p class="cc-sub">Whether you're a student or a working professional, you'll leave the session with complete clarity about your next steps.</p>
+        <button class="btn btn--white btn--lg" onclick="openCounseling()" data-track="counseling_open">Book Free Counseling Session <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+      <div class="cc-video-shell">
+        <div class="cc-video" onclick="openVideoModal()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openVideoModal()}" role="button" tabindex="0" aria-label="Play message from Gagan Victor">
+          <img src="assets/gagan_victor.png" alt="Gagan Victor, Co-Founder & Program Director" loading="lazy">
+          <span class="cc-video-badge"><span class="hf-dot"></span> A Message For You</span>
+          <div class="cc-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+          <div class="cc-video-overlay">
+            <div class="cc-video-name">Gagan Victor</div>
+            <div class="cc-video-title">Co-Founder &amp; Program Director</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3819,6 +3925,140 @@ END PLACEMENT HIDDEN -->
         </div>
         <h4 style="font-family:var(--font-serif);font-size:1.2rem;color:var(--brand);margin-bottom:.5rem;">Application received</h4>
         <p style="font-size:.92rem;color:var(--ink-muted);line-height:1.6;">Our counselor will call you shortly on WhatsApp to schedule your one-on-one session and walk you through the admission process.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO MODAL ─────────────────────────────────────────────────── -->
+<div class="overlay" id="video-overlay" onclick="closeOnBg(event,'video-overlay')">
+  <div class="video-modal" role="dialog" aria-modal="true" aria-label="Message from Gagan Victor">
+    <button class="modal-close" onclick="closeVideoModal()" aria-label="Close video"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="video-modal-frame" id="video-frame">
+      <div class="video-modal-placeholder"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>A personal message from Gagan is on its way. In the meantime, book your free 1:1 counseling session below.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CAREER COUNSELING MULTI-STEP MODAL ──────────────────────────── -->
+<div class="overlay" id="cc-overlay" onclick="closeOnBg(event,'cc-overlay')">
+  <div class="cc-modal" role="dialog" aria-modal="true" aria-label="Book a free career counseling session">
+    <button class="modal-close" onclick="closeModal('cc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="cc-modal-head">
+      <div class="cc-progress-track"><div class="cc-progress-fill" id="cc-progress"></div></div>
+      <div class="cc-step-count" id="cc-count">Step 1</div>
+    </div>
+    <div class="cc-modal-body">
+      <div class="cc-step" data-key="name">
+        <div class="cc-q">What's your full name?</div>
+        <div class="cc-hint">Let's start with the basics.</div>
+        <div class="cc-field"><input class="form-input" type="text" id="cc-name" placeholder="Rohan Sharma" autocomplete="name" data-required></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="mobile">
+        <div class="cc-q">Your mobile number</div>
+        <div class="cc-hint">We'll send your session details on WhatsApp.</div>
+        <div class="cc-field"><input class="form-input" type="tel" id="cc-mobile" placeholder="+91 98765 43210" autocomplete="tel" data-required data-validate="mobile"></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="email">
+        <div class="cc-q">Your email address</div>
+        <div class="cc-hint">Your roadmap and calendar invite go here.</div>
+        <div class="cc-field"><input class="form-input" type="email" id="cc-email" placeholder="rohan@gmail.com" autocomplete="email" data-required data-validate="email"></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="whoare">
+        <div class="cc-q">Who are you?</div>
+        <div class="cc-hint">This helps us tailor your roadmap.</div>
+        <div class="cc-options cc-options--2">
+          <div class="cc-opt"><input type="radio" name="cc_who" id="cc-who-student" value="student"><label for="cc-who-student">Student</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_who" id="cc-who-pro" value="professional"><label for="cc-who-pro">Working Professional</label></div>
+        </div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="college" data-branch="student">
+        <div class="cc-q">Which college do you attend?</div>
+        <div class="cc-hint">Search and select — or just type it in.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cc-college" placeholder="Start typing your college…" autocomplete="off" data-required data-ac="college">
+          <div class="cc-ac-list" id="cc-college-list"></div>
+        </div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="syear" data-branch="student">
+        <div class="cc-q">Current year</div>
+        <div class="cc-hint">Where are you in your studies?</div>
+        <div class="cc-options">
+          <div class="cc-opt"><input type="radio" name="cc_year" id="cc-y1" value="1st Year"><label for="cc-y1">1st Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_year" id="cc-y2" value="2nd Year"><label for="cc-y2">2nd Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_year" id="cc-y3" value="3rd Year"><label for="cc-y3">3rd Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_year" id="cc-y4" value="Final Year"><label for="cc-y4">Final Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_year" id="cc-y5" value="Graduate"><label for="cc-y5">Graduate</label></div>
+        </div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="degree" data-branch="student">
+        <div class="cc-q">Your degree</div>
+        <div class="cc-hint">Choose the closest match.</div>
+        <div class="cc-field"><select class="form-input" id="cc-degree" data-required>
+          <option value="" disabled selected>Select your degree…</option>
+          <option>B.Pharm</option><option>M.Pharm</option><option>PharmD</option><option>BSc</option><option>MSc</option><option>Biotechnology</option><option>Microbiology</option><option>Biomedical</option><option>Life Sciences</option><option>Other</option>
+        </select></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="org" data-branch="professional">
+        <div class="cc-q">Your current organization</div>
+        <div class="cc-hint">Search and select — or just type it in.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cc-org" placeholder="Start typing your company…" autocomplete="off" data-required data-ac="company">
+          <div class="cc-ac-list" id="cc-org-list"></div>
+        </div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="role" data-branch="professional">
+        <div class="cc-q">Your current role</div>
+        <div class="cc-hint">What's your job title today?</div>
+        <div class="cc-field"><input class="form-input" type="text" id="cc-role" placeholder="e.g. Medical Representative" data-required></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="exp" data-branch="professional">
+        <div class="cc-q">Years of experience</div>
+        <div class="cc-hint">Total professional experience so far.</div>
+        <div class="cc-field"><select class="form-input" id="cc-exp" data-required>
+          <option value="" disabled selected>Select experience…</option>
+          <option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option>
+        </select></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="goal">
+        <div class="cc-q">What's your primary goal?</div>
+        <div class="cc-hint">Pick the one that matters most right now.</div>
+        <div class="cc-options">
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g1" value="Switch into MedTech"><label for="cc-g1">Switch into MedTech</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g2" value="Get Interview Ready"><label for="cc-g2">Get Interview Ready</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g3" value="Higher Salary"><label for="cc-g3">Higher Salary</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g4" value="Career Guidance"><label for="cc-g4">Career Guidance</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g5" value="Upskill"><label for="cc-g5">Upskill</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g6" value="Explore Opportunities"><label for="cc-g6">Explore Opportunities</label></div>
+          <div class="cc-opt"><input type="radio" name="cc_goal" id="cc-g7" value="Other"><label for="cc-g7">Other</label></div>
+        </div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-step" data-key="challenge">
+        <div class="cc-q">Your biggest challenge today?</div>
+        <div class="cc-hint">A sentence or two helps us prepare for your call.</div>
+        <div class="cc-field"><textarea class="form-input" id="cc-challenge" placeholder="e.g. I don't know how to position my pharma background for MedTech roles…"></textarea></div>
+        <span class="cc-err"></span>
+      </div>
+      <div class="cc-success" id="cc-success">
+        <div class="cc-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>You're all set, <span id="cc-success-name">there</span>!</h3>
+        <p>Your details are saved. Pick a time that works for you on the booking calendar — it just opened in a new tab.</p>
+        <a href="#" id="cc-cal-link" target="_blank" rel="noopener noreferrer" class="btn btn--white btn--lg" data-track="counseling_calendar">Open Booking Calendar <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
+      <div class="cc-nav" id="cc-nav">
+        <button type="button" class="cc-back" id="cc-back" onclick="ccPrev()" style="display:none">&larr; Back</button>
+        <button type="button" class="btn btn--white btn--lg cc-next" id="cc-next" onclick="ccNext()">Continue <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
       </div>
     </div>
   </div>
@@ -4350,6 +4590,233 @@ async function submitApply(e) {
     submitBtn.textContent = 'Request My Counseling Call →';
   }
 }
+
+/* ══════════ CAREER COUNSELING — video modal + multi-step flow ══════════ */
+/* PLACEHOLDERS — swap these two constants when the real assets are ready. */
+const COUNSELING_CALENDAR_URL = 'https://calendly.com/medskillscatalyst/career-counseling'; // TODO: real scheduling link
+const COUNSELING_VIDEO_URL = ''; // e.g. 'https://www.youtube.com/embed/VIDEO_ID' or an .mp4 URL. Empty = poster + placeholder.
+
+/* ---- Video modal (opens in overlay, never navigates away) ---- */
+function openVideoModal(){
+  const frame = document.getElementById('video-frame');
+  if (COUNSELING_VIDEO_URL) {
+    const isEmbed = /youtube|youtu\.be|vimeo/i.test(COUNSELING_VIDEO_URL);
+    frame.innerHTML = isEmbed
+      ? '<iframe src="'+COUNSELING_VIDEO_URL+'?autoplay=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+      : '<video src="'+COUNSELING_VIDEO_URL+'" controls autoplay playsinline></video>';
+  }
+  openModal('video-overlay');
+}
+function closeVideoModal(){
+  closeModal('video-overlay');
+  const frame = document.getElementById('video-frame');
+  // Stop playback by clearing injected media; restore placeholder.
+  frame.innerHTML = '<div class="video-modal-placeholder"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>A personal message from Gagan is on its way. In the meantime, book your free 1:1 counseling session below.</div>';
+}
+
+/* ---- Multi-step counseling flow ---- */
+const CC_TOTAL = 9; // fixed: 4 common + 3 branch + 2 final
+const CC_STATE = { flow: [], idx: 0, data: {}, sending: false, fails: 0 };
+const CC_STUDENT = ['name','mobile','email','whoare','college','syear','degree','goal','challenge'];
+const CC_PRO     = ['name','mobile','email','whoare','org','role','exp','goal','challenge'];
+const CC_FIELD = {
+  name:'#cc-name', mobile:'#cc-mobile', email:'#cc-email',
+  college:'#cc-college', degree:'#cc-degree', org:'#cc-org', role:'#cc-role', exp:'#cc-exp',
+  challenge:'#cc-challenge'
+};
+const CC_RADIO = { whoare:'cc_who', syear:'cc_year', goal:'cc_goal' };
+
+function ccStepEl(key){ return document.querySelector('.cc-step[data-key="'+key+'"]'); }
+
+function openCounseling(){
+  CC_STATE.flow = CC_STUDENT.slice(); // default; rebuilt after "who are you"
+  CC_STATE.idx = 0;
+  CC_STATE.data = {};
+  CC_STATE.fails = 0;
+  document.getElementById('cc-success').classList.remove('show');
+  document.getElementById('cc-nav').style.display = '';
+  ccRestore();
+  ccRender();
+  openModal('cc-overlay');
+  if (typeof gtag !== 'undefined') gtag('event','counseling_start',{event_category:'engagement'});
+}
+
+function ccRebuildFlow(){
+  const who = ccGetRadio('cc_who');
+  CC_STATE.flow = (who === 'professional') ? CC_PRO.slice() : CC_STUDENT.slice();
+}
+
+function ccRender(){
+  const key = CC_STATE.flow[CC_STATE.idx];
+  document.querySelectorAll('.cc-step').forEach(s => s.classList.toggle('is-active', s.dataset.key === key));
+  const pct = ((CC_STATE.idx + 1) / CC_TOTAL) * 100;
+  document.getElementById('cc-progress').style.width = pct + '%';
+  document.getElementById('cc-count').textContent = 'Step ' + (CC_STATE.idx + 1) + ' of ' + CC_TOTAL;
+  document.getElementById('cc-back').style.display = CC_STATE.idx === 0 ? 'none' : '';
+  const next = document.getElementById('cc-next');
+  next.firstChild.textContent = (CC_STATE.idx === CC_TOTAL - 1) ? 'Book My Session ' : 'Continue ';
+  // focus first control
+  const el = ccStepEl(key);
+  const focusable = el.querySelector('input:not([type=radio]), select, textarea, input[type=radio]');
+  setTimeout(() => { if (focusable) focusable.focus({preventScroll:true}); }, 60);
+}
+
+function ccGetRadio(name){ const c = document.querySelector('input[name="'+name+'"]:checked'); return c ? c.value : ''; }
+
+function ccCurrentValue(key){
+  if (CC_RADIO[key]) return ccGetRadio(CC_RADIO[key]);
+  const sel = CC_FIELD[key]; if (!sel) return '';
+  const el = document.querySelector(sel); return el ? el.value.trim() : '';
+}
+
+function ccValidate(key){
+  const el = ccStepEl(key), err = el.querySelector('.cc-err');
+  const optional = (key === 'challenge');
+  const val = ccCurrentValue(key);
+  let msg = '';
+  if (!optional && !val) msg = CC_RADIO[key] ? 'Please pick an option to continue.' : 'This field is required.';
+  else if (key === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) msg = 'Please enter a valid email address.';
+  else if (key === 'mobile' && val && val.replace(/\D/g,'').replace(/^0/,'').replace(/^91/,'').length < 10) msg = 'Please enter a valid 10-digit mobile number.';
+  err.textContent = msg;
+  return !msg;
+}
+
+function ccSave(){
+  const key = CC_STATE.flow[CC_STATE.idx];
+  CC_STATE.data[key] = ccCurrentValue(key);
+  try { localStorage.setItem('cc_draft', JSON.stringify(CC_STATE.data)); } catch(e){}
+}
+
+function ccRestore(){
+  let d = {}; try { d = JSON.parse(localStorage.getItem('cc_draft')||'{}'); } catch(e){}
+  CC_STATE.data = d || {};
+  Object.keys(CC_FIELD).forEach(k => { const el = document.querySelector(CC_FIELD[k]); if (el && d[k]) el.value = d[k]; });
+  Object.keys(CC_RADIO).forEach(k => { if (d[k]){ const r = document.querySelector('input[name="'+CC_RADIO[k]+'"][value="'+d[k]+'"]'); if (r) r.checked = true; } });
+  if (d.whoare) ccRebuildFlow();
+}
+
+function ccNext(){
+  if (CC_STATE.sending) return;
+  const key = CC_STATE.flow[CC_STATE.idx];
+  if (!ccValidate(key)) return;
+  ccSave();
+  if (key === 'whoare') ccRebuildFlow();
+  if (CC_STATE.idx === CC_TOTAL - 1) { ccSubmit(); return; }
+  CC_STATE.idx++;
+  ccRender();
+}
+
+function ccPrev(){
+  if (CC_STATE.idx === 0) return;
+  CC_STATE.idx--;
+  ccRender();
+}
+
+async function ccSubmit(){
+  const d = CC_STATE.data;
+  const next = document.getElementById('cc-next');
+  const err = ccStepEl('challenge').querySelector('.cc-err');
+  CC_STATE.sending = true;
+  next.disabled = true; next.firstChild.textContent = 'Saving… ';
+  const payload = {
+    full_name: d.name, email: d.email, mobile: d.mobile,
+    form_type: 'counseling', user_type: d.whoare || '',
+    college_name: d.college || '', current_year: d.syear || '', degree: d.degree || '',
+    organization: d.org || '', current_role: d.role || '', experience: d.exp || '',
+    primary_goal: d.goal || '', challenge: d.challenge || '',
+    source: 'career_counseling', consent: true, ...getUTM()
+  };
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), 7000);
+  let ok = false;
+  try {
+    const r = await fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+    ok = r.ok;
+  } catch(e){ ok = false; }
+  clearTimeout(t);
+  CC_STATE.sending = false;
+  next.disabled = false;
+
+  if (ok || CC_STATE.fails >= 1) {           // save succeeded, or user already retried once — don't block the booking
+    ccFinish(payload, ok);
+  } else {
+    CC_STATE.fails++;
+    err.textContent = "We couldn't save your details just now. Tap again to retry.";
+    next.firstChild.textContent = 'Book My Session ';
+  }
+}
+
+function ccFinish(payload, saved){
+  try { localStorage.removeItem('cc_draft'); } catch(e){}
+  if (typeof gtag !== 'undefined') gtag('event','counseling_submit',{event_category:'conversion', saved: saved});
+  const params = '?name=' + encodeURIComponent(payload.full_name||'') + '&email=' + encodeURIComponent(payload.email||'');
+  const calUrl = COUNSELING_CALENDAR_URL + params;
+  document.getElementById('cc-cal-link').href = calUrl;
+  document.getElementById('cc-success-name').textContent = (payload.full_name||'there').split(' ')[0];
+  document.querySelectorAll('.cc-step').forEach(s => s.classList.remove('is-active'));
+  document.getElementById('cc-nav').style.display = 'none';
+  document.getElementById('cc-progress').style.width = '100%';
+  document.getElementById('cc-count').textContent = 'Complete';
+  document.getElementById('cc-success').classList.add('show');
+  window.open(calUrl, '_blank', 'noopener'); // auto-open the booking calendar
+}
+
+/* Enter advances (except in textarea); Esc closes the counseling/video modals */
+document.addEventListener('keydown', function(e){
+  const cc = document.getElementById('cc-overlay');
+  if (cc && cc.classList.contains('show')) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); ccNext(); }
+    else if (e.key === 'Escape') closeModal('cc-overlay');
+    return;
+  }
+  const vid = document.getElementById('video-overlay');
+  if (vid && vid.classList.contains('show') && e.key === 'Escape') closeVideoModal();
+});
+
+/* Autosave on any change within the modal + advance via option-card selection */
+document.addEventListener('input', function(e){ if (e.target.closest && e.target.closest('#cc-overlay')) { ccSave(); const err = e.target.closest('.cc-step')?.querySelector('.cc-err'); if (err) err.textContent=''; } });
+
+/* ---- Searchable autocomplete (manual entry always allowed) ---- */
+const CC_COMPANIES = ['Medtronic','Stryker','Johnson & Johnson MedTech','Boston Scientific','Abbott','Baxter','B. Braun','Becton Dickinson (BD)','Siemens Healthineers','GE HealthCare','Philips Healthcare','Terumo','Smith & Nephew','Zimmer Biomet','Edwards Lifesciences','Cardinal Health','Fresenius','Roche Diagnostics','Sun Pharma','Cipla',"Dr. Reddy's Laboratories",'Lupin','Zydus','Mankind Pharma','Alkem','Torrent Pharma','Glenmark','Biocon','Poly Medicure','Trivitron Healthcare','Meril Life Sciences','SS Innovations'];
+const CC_COLLEGES = ['Jamia Hamdard, New Delhi','Institute of Chemical Technology (ICT), Mumbai','Manipal College of Pharmaceutical Sciences','JSS College of Pharmacy','NIPER Mohali','NIPER Hyderabad','Panjab University','BITS Pilani','Delhi University','Amity University','Nirma University','SRM Institute of Science and Technology','VIT University','Christian Medical College (CMC), Vellore','AIIMS','Bombay College of Pharmacy','Poona College of Pharmacy'];
+
+function ccDebounce(fn, ms){ let t; return function(){ const a=arguments, c=this; clearTimeout(t); t=setTimeout(()=>fn.apply(c,a), ms); }; }
+
+function ccRenderList(listEl, items, query, input){
+  let html = items.slice(0,7).map(n => '<div class="cc-ac-item" data-val="'+n.replace(/"/g,'&quot;')+'">'+n+'</div>').join('');
+  if (query && !items.some(n => n.toLowerCase() === query.toLowerCase()))
+    html += '<div class="cc-ac-item" data-val="'+query.replace(/"/g,'&quot;')+'"><span class="cc-ac-add">Use “'+query+'”</span></div>';
+  listEl.innerHTML = html;
+  listEl.classList.toggle('show', html.length > 0);
+  listEl.querySelectorAll('.cc-ac-item').forEach(it => it.addEventListener('mousedown', function(ev){
+    ev.preventDefault(); input.value = it.getAttribute('data-val'); listEl.classList.remove('show'); ccSave();
+  }));
+}
+
+function ccAttachAutocomplete(inputId, listId, kind){
+  const input = document.getElementById(inputId), listEl = document.getElementById(listId);
+  if (!input) return;
+  let ctrl = null;
+  const seed = kind === 'company' ? CC_COMPANIES : CC_COLLEGES;
+  const run = ccDebounce(async function(){
+    const q = input.value.trim();
+    if (q.length < 2) { listEl.classList.remove('show'); return; }
+    let items = seed.filter(n => n.toLowerCase().includes(q.toLowerCase()));
+    if (kind === 'college') {
+      if (ctrl) ctrl.abort();
+      ctrl = new AbortController();
+      try {
+        const r = await fetch('https://universities.hipolabs.com/search?country=India&name=' + encodeURIComponent(q), { signal: ctrl.signal });
+        if (r.ok) { const arr = await r.json(); const names = arr.map(u => u.name); items = Array.from(new Set(items.concat(names))); }
+      } catch(e){ /* API down → curated + manual entry still work */ }
+    }
+    ccRenderList(listEl, items, q, input);
+  }, 230);
+  input.addEventListener('input', run);
+  input.addEventListener('blur', () => setTimeout(() => listEl.classList.remove('show'), 150));
+}
+ccAttachAutocomplete('cc-college','cc-college-list','college');
+ccAttachAutocomplete('cc-org','cc-org-list','company');
 
 /* ── EXIT INTENT ───────────────────────────────────────────────── */
 (()=>{
