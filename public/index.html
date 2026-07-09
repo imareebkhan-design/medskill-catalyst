@@ -1593,18 +1593,38 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   .cur-row-title { font-size: 1.2rem; }
 }
 
-/* ── CURRICULUM ACCORDION (redesign) ─────────────────────────── */
+/* ── CURRICULUM — vertical three-stage layout ─────────────────── */
 .cur-wrap{position:relative;margin-top:2.5rem;}
-.cur-wrap::after{content:'';position:absolute;right:0;top:0;bottom:16px;width:80px;background:linear-gradient(to left,var(--surface-alt,#f0f4f8) 10%,transparent);pointer-events:none;border-radius:0 var(--radius-lg) var(--radius-lg) 0;}
-.cur-list{display:flex;flex-direction:row;gap:56px;overflow-x:auto;max-width:none;margin:2.5rem 0 0;padding-bottom:12px;}
-@media(max-width:768px){.cur-list{gap:32px;}}
-.cur-group{display:flex;flex-direction:column;flex-shrink:0;width:min-content;}
-.cur-group-head{position:sticky;left:0;max-width:calc(100vw - 3rem);width:max-content;display:flex;flex-direction:column;align-items:flex-start;text-align:left;border-top:2px solid var(--blue);padding-top:0.85rem;margin:0 0 1.25rem;min-height:auto;z-index:5;transform:translateZ(0);}
-.cur-group-step{font-size:0.7rem;font-weight:800;letter-spacing:0.08em;color:var(--blue);text-transform:uppercase;margin-bottom:0.2rem;}
-.cur-group-title{font-size:0.82rem;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:0.03em;line-height:1.2;}
+/* no outer fade — Stage 2 scroll wrap handles its own */
+.cur-list{display:flex;flex-direction:column;gap:0;overflow-x:visible;max-width:none;margin:2.5rem 0 0;padding-bottom:0;}
+
+/* Stage row */
+.cur-stage{display:grid;grid-template-columns:100px 1fr;border-top:1px solid rgba(10,42,67,.1);padding:2.5rem 0;}
+.cur-stage:first-child{border-top:none;padding-top:0;}
+
+/* Sidebar: number + label */
+.cur-stage-sidebar{display:flex;flex-direction:column;align-items:center;gap:0.65rem;padding-top:0.15rem;padding-right:1.25rem;}
+.cur-stage-num{width:46px;height:46px;border-radius:50%;background:var(--blue);color:#fff;font-size:1.1rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(0,88,158,.28);}
+.cur-stage-label{font-size:0.58rem;font-weight:800;text-transform:uppercase;letter-spacing:0.1em;color:rgba(10,42,67,.4);text-align:center;line-height:1.35;}
+
+/* Body */
+.cur-stage-body{min-width:0;}
+
+/* Step header inside body */
+.cur-group-head{display:flex;flex-direction:column;align-items:flex-start;border-left:2px solid var(--blue);padding:.15rem 0 .15rem .85rem;margin:0 0 1.35rem;}
+.cur-group-step{font-size:0.66rem;font-weight:800;letter-spacing:0.1em;color:var(--blue);text-transform:uppercase;margin-bottom:0.2rem;}
+.cur-group-title{font-size:0.96rem;font-weight:800;color:var(--brand);text-transform:uppercase;letter-spacing:0.02em;line-height:1.2;}
+
+/* Panels — Stage 2 gets scroll wrap with right fade; Stages 1 & 3 are plain flex */
 .cur-group-panels{display:flex;gap:12px;}
-.cur-list::-webkit-scrollbar{height:7px;}
-.cur-list::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
+.cur-panels-scroll-wrap{position:relative;overflow:hidden;}
+.cur-panels-scroll-wrap::after{content:'';position:absolute;right:0;top:0;bottom:14px;width:80px;background:linear-gradient(to left,var(--surface-alt,#f0f4f8) 10%,transparent);pointer-events:none;}
+.cur-stage--scroll .cur-group-panels{overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;}
+.cur-stage--scroll .cur-panel{scroll-snap-align:start;}
+.cur-group-panels::-webkit-scrollbar{height:6px;}
+.cur-group-panels::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
+
+/* ── CARD STYLES — unchanged ──────────────────────────────────── */
 .cur-panel{flex:0 0 230px;border-radius:var(--radius-lg);padding:1.6rem 1.4rem;display:flex;flex-direction:column;min-height:320px;transition:transform .3s var(--easy-out);}
 .cur-panel:hover{transform:translateY(-3px);}
 .cur-panel--pale{background:var(--pale-blue);color:var(--brand);}
@@ -1620,10 +1640,22 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 .cur-panel-dot{width:10px;height:10px;border-radius:50%;border:1.4px solid currentColor;flex-shrink:0;}
 .cur-panel-vd{margin-top:auto;background:none;border:none;color:inherit;font-family:inherit;font-size:.75rem;font-weight:800;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;padding:.6rem 0 0;opacity:.85;transition:opacity .2s ease,gap .2s ease;}
 .cur-panel-vd:hover{opacity:1;gap:.65rem;}
-.cur-scroll-hint{display:flex;align-items:center;gap:.5rem;margin-top:.85rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(10,42,67,.45);}
+.cur-scroll-hint{display:flex;align-items:center;gap:.5rem;margin-top:.85rem;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(10,42,67,.45);justify-content:center;}
 .cur-scroll-hint svg{width:16px;height:16px;opacity:.6;}
-@media(max-width:900px){.cur-panel{flex:0 0 255px;}}
-@media(max-width:480px){.cur-panel{flex:0 0 230px;min-height:380px;}}
+
+/* Responsive */
+@media(max-width:900px){.cur-panel{flex:0 0 240px;}}
+@media(max-width:768px){
+  .cur-stage{grid-template-columns:76px 1fr;}
+  .cur-stage-sidebar{padding-right:1rem;}
+  .cur-stage-num{width:40px;height:40px;font-size:1rem;}
+}
+@media(max-width:480px){
+  .cur-stage{grid-template-columns:1fr;padding:1.8rem 0;}
+  .cur-stage-sidebar{flex-direction:row;gap:0.75rem;align-items:center;padding-right:0;margin-bottom:0.85rem;}
+  .cur-stage:first-child .cur-stage-sidebar{padding-top:0;}
+  .cur-panel{flex:0 0 218px;min-height:350px;}
+}
 
 /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
 .lead-form-card {
@@ -4401,23 +4433,38 @@ const PANEL_HOOK = {
 };
 const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
 const CUR_GROUPS = [
-  { step: 'STEP 1', head: 'Foundation to Break into the MedTech Industry', nums: ['F'] },
-  { step: 'STEP 2', head: 'Learn the Complete Spectrum of MedTech', nums: ['01','02','03','04','05'] },
-  { step: 'STEP 3', head: 'Advance Your Career in MedTech', nums: ['06'] }
+  { step: 'STEP 1', head: 'Foundation to Break into the MedTech Industry', label: 'START HERE', nums: ['F'] },
+  { step: 'STEP 2', head: 'Learn the Complete Spectrum of MedTech', label: 'BUILD YOUR EXPERTISE', nums: ['01','02','03','04','05'] },
+  { step: 'STEP 3', head: 'Advance Your Career in MedTech', label: 'LEAD & GROW', nums: ['06'] }
 ];
 const moduleByNum = {};
 MODULES.forEach(function(m){ moduleByNum[m.num] = m; });
 let curIdx = 0;
-CUR_GROUPS.forEach(function(g){
-  const group = document.createElement('div');
-  group.className = 'cur-group fade-up';
+CUR_GROUPS.forEach(function(g, gi){
+  const isScroll = g.nums.length > 1;
+  const stage = document.createElement('div');
+  stage.className = 'cur-stage fade-up' + (isScroll ? ' cur-stage--scroll' : ' cur-stage--single');
+
+  // ── Sidebar ──
+  const sidebar = document.createElement('div');
+  sidebar.className = 'cur-stage-sidebar';
+  sidebar.innerHTML = '<div class="cur-stage-num">' + (gi + 1) + '</div>'
+    + '<span class="cur-stage-label">' + g.label + '</span>';
+  stage.appendChild(sidebar);
+
+  // ── Body ──
+  const body = document.createElement('div');
+  body.className = 'cur-stage-body';
+
   const head = document.createElement('div');
   head.className = 'cur-group-head';
   head.innerHTML = '<span class="cur-group-step">' + g.step + '</span>'
     + '<span class="cur-group-title">' + g.head + '</span>';
-  group.appendChild(head);
+  body.appendChild(head);
+
   const panelsWrap = document.createElement('div');
   panelsWrap.className = 'cur-group-panels';
+
   g.nums.forEach(function(num){
     const m = moduleByNum[num];
     if (!m) return;
@@ -4437,8 +4484,18 @@ CUR_GROUPS.forEach(function(g){
       + '<button class="cur-panel-vd" type="button" onclick="openModuleDetail(' + mi + ')">View details <span aria-hidden="true">&rarr;</span></button>';
     panelsWrap.appendChild(p);
   });
-  group.appendChild(panelsWrap);
-  clist.appendChild(group);
+
+  if (isScroll) {
+    const scrollWrap = document.createElement('div');
+    scrollWrap.className = 'cur-panels-scroll-wrap';
+    scrollWrap.appendChild(panelsWrap);
+    body.appendChild(scrollWrap);
+  } else {
+    body.appendChild(panelsWrap);
+  }
+
+  stage.appendChild(body);
+  clist.appendChild(stage);
 });
 
 /* ── BUILD FAQ ─────────────────────────────────────────────────── */
