@@ -2790,10 +2790,10 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
 .cc-progress-fill{height:100%;width:0;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--cyan));box-shadow:0 0 10px rgba(74,208,255,.5);transition:width .4s var(--easy-out)}
 .cc-step-count{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.85rem}
 .cc-modal-body{padding:1.4rem 1.9rem 1.9rem;position:relative;min-height:230px;display:flex;flex-direction:column;max-height:calc(92vh - 92px);overflow-y:auto}
-.cc-step{display:none;flex:1;flex-direction:column;animation:ccStepIn .4s var(--easy-out)}
-.cc-step.is-active{display:flex}
+.cc-step, .cr-step{display:none;flex:1;flex-direction:column;animation:ccStepIn .4s var(--easy-out)}
+.cc-step.is-active, .cr-step.is-active{display:flex}
 @keyframes ccStepIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){.cc-step{animation:none}}
+@media (prefers-reduced-motion: reduce){.cc-step, .cr-step{animation:none}}
 .cc-q{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;line-height:1.25;letter-spacing:-.01em;margin-bottom:.4rem;color:#fff}
 .cc-hint{font-size:.88rem;color:rgba(255,255,255,.55);margin-bottom:1.4rem;line-height:1.5}
 .cc-field{margin-bottom:.5rem}
@@ -2862,7 +2862,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-actions">
-      <button class="btn nav-cta-mobile" onclick="openModal('mc-overlay')" data-track="nav_mobile_rsvp">Reserve Spot</button>
+      <button class="btn nav-cta-mobile" onclick="openCohortRegistration()" data-track="nav_mobile_rsvp">Reserve Spot</button>
       <a class="nav-wa" href="https://chat.whatsapp.com/CDVzRz1dHYiBxNPx1HH6ZD" target="_blank" rel="noopener noreferrer" data-track="nav_wa">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
         WhatsApp Community
@@ -2888,7 +2888,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
           </h1>
           <p class="t-body-lg hero-sub fade-up">India's Career Accelerator for Life Science Graduates and Healthcare Professionals Entering MedTech. A rigorous <strong>6-week programme</strong> to transition into global MedTech brands with real career velocity, not just a certificate.</p>
           <div class="hero-ctas fade-up">
-            <button class="btn btn--amber btn--lg" onclick="openModal('mc-overlay')" data-track="hero_masterclass">Join the Next Cohort <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+            <button class="btn btn--amber btn--lg" onclick="openCohortRegistration()" data-track="hero_masterclass">Join the Next Cohort <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
             <a href="#curriculum" class="btn btn--ghost" data-track="hero_curriculum">Explore Curriculum</a>
           </div>
           <div class="hero-stats fade-up">
@@ -3579,7 +3579,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         </div>
 
         <!-- Cohort CTA button -->
-        <button class="btn btn--white btn--lg" onclick="openModal('apply-overlay')" data-track="cohort_join">
+        <button class="btn btn--white btn--lg" onclick="openCohortRegistration()" data-track="cohort_join">
           Join the Cohort <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         </button>
       </div>
@@ -3587,7 +3587,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
       <!-- Right Column: Media Hero -->
       <div class="mc-bento-right">
         <div class="mc-media-shell">
-          <div class="mc-media-hero" onclick="openModal('apply-overlay')" style="cursor: pointer;">
+          <div class="mc-media-hero" onclick="openCohortRegistration()" style="cursor: pointer;">
             <img src="assets/gagan_victor.png" alt="Gagan Victor" class="mc-media-img" loading="lazy">
             <div class="mc-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
             <div class="mc-media-overlay">
@@ -3730,7 +3730,7 @@ a:focus-visible{outline:2px solid var(--cta);outline-offset:2px;border-radius:3p
         </div>
         <p class="roi-disclaimer">Illustrative calculation based on target industry salary ranges for device sales positions. Actual results may vary depending on student background and interview performance.</p>
         <div class="roi-cta-wrap">
-          <a href="javascript:void(0)" onclick="openModal('apply-overlay')" class="btn btn--amber btn--lg" data-track="roi_apply">Book a Counseling Call <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+          <a href="javascript:void(0)" onclick="openCohortRegistration()" class="btn btn--amber btn--lg" data-track="roi_apply">Book a Counseling Call <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
         </div>
       </div>
     </div>
@@ -3812,7 +3812,7 @@ END PLACEMENT HIDDEN -->
           <a href="mailto:info@medskillscatalyst.com">✉ info@medskillscatalyst.com</a>
           <a href="https://wa.me/919759249395" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
         </div>
-        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="footer-mc" data-track="footer_masterclass">
+        <a href="javascript:void(0)" onclick="openCohortRegistration()" class="footer-mc" data-track="footer_masterclass">
           <span class="footer-mc-dot"></span>
           <span class="footer-mc-text"><strong>Live Masterclass</strong><span>Sat, 4 Jul · 6 PM IST · Reserve your seat &rarr;</span></span>
         </a>
@@ -4064,6 +4064,133 @@ END PLACEMENT HIDDEN -->
   </div>
 </div>
 
+<!-- COHORT REGISTRATION MULTI-STEP MODAL ──────────────────────────── -->
+<div class="overlay" id="cr-overlay" onclick="closeOnBg(event,'cr-overlay')">
+  <div class="cc-modal" role="dialog" aria-modal="true" aria-label="Join the MedSkills Catalyst Cohort">
+    <button class="modal-close" onclick="closeModal('cr-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    <div class="cc-modal-head">
+      <div class="cc-progress-track"><div class="cc-progress-fill" id="cr-progress"></div></div>
+      <div class="cc-step-count" id="cr-count">Step 1</div>
+    </div>
+    <div class="cc-modal-body">
+      <!-- Step 1: Name -->
+      <div class="cr-step" data-key="name">
+        <div class="cc-q">What's your full name?</div>
+        <div class="cc-hint">Let's start with the basics.</div>
+        <div class="cc-field"><input class="form-input" type="text" id="cr-name" placeholder="Rohan Sharma" autocomplete="name" data-required></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 2: Mobile -->
+      <div class="cr-step" data-key="mobile">
+        <div class="cc-q">Your mobile number</div>
+        <div class="cc-hint">We'll send your cohort status on WhatsApp.</div>
+        <div class="cc-field"><input class="form-input" type="tel" id="cr-mobile" placeholder="+91 98765 43210" autocomplete="tel" data-required data-validate="mobile"></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 3: Email -->
+      <div class="cr-step" data-key="email">
+        <div class="cc-q">Your email address</div>
+        <div class="cc-hint">Your syllabus and registration updates go here.</div>
+        <div class="cc-field"><input class="form-input" type="email" id="cr-email" placeholder="rohan@gmail.com" autocomplete="email" data-required data-validate="email"></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 4: Who are you? -->
+      <div class="cr-step" data-key="whoare">
+        <div class="cc-q">Who are you?</div>
+        <div class="cc-hint">This helps us tailor your onboarding.</div>
+        <div class="cc-options cc-options--2">
+          <div class="cc-opt"><input type="radio" name="cr_who" id="cr-who-student" value="student"><label for="cr-who-student">Student</label></div>
+          <div class="cc-opt"><input type="radio" name="cr_who" id="cr-who-pro" value="professional"><label for="cr-who-pro">Working Professional</label></div>
+        </div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 5 (Student): College -->
+      <div class="cr-step" data-key="college" data-branch="student">
+        <div class="cc-q">Which college do you attend?</div>
+        <div class="cc-hint">Search and select — or just type it in.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cr-college" placeholder="Start typing your college…" autocomplete="off" data-required data-ac="college">
+          <div class="cc-ac-list" id="cr-college-list"></div>
+        </div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 6 (Student): Year -->
+      <div class="cr-step" data-key="syear" data-branch="student">
+        <div class="cc-q">Current year</div>
+        <div class="cc-hint">Where are you in your studies?</div>
+        <div class="cc-options">
+          <div class="cc-opt"><input type="radio" name="cr_year" id="cr-y1" value="1st Year"><label for="cr-y1">1st Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cr_year" id="cr-y2" value="2nd Year"><label for="cr-y2">2nd Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cr_year" id="cr-y3" value="3rd Year"><label for="cr-y3">3rd Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cr_year" id="cr-y4" value="Final Year"><label for="cr-y4">Final Year</label></div>
+          <div class="cc-opt"><input type="radio" name="cr_year" id="cr-y5" value="Graduate"><label for="cr-y5">Graduate</label></div>
+        </div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 7 (Student): Degree -->
+      <div class="cr-step" data-key="degree" data-branch="student">
+        <div class="cc-q">Your degree</div>
+        <div class="cc-hint">Choose the closest match.</div>
+        <div class="cc-field"><select class="form-input" id="cr-degree" data-required>
+          <option value="" disabled selected>Select your degree…</option>
+          <option>B.Pharm</option><option>M.Pharm</option><option>PharmD</option><option>BSc</option><option>MSc</option><option>Biotechnology</option><option>Microbiology</option><option>Biomedical</option><option>Life Sciences</option><option>Other</option>
+        </select></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 5 (Professional): Organization -->
+      <div class="cr-step" data-key="org" data-branch="professional">
+        <div class="cc-q">Your current organization</div>
+        <div class="cc-hint">Search and select — or just type it in.</div>
+        <div class="cc-field cc-ac">
+          <input class="form-input" type="text" id="cr-org" placeholder="Start typing your company…" autocomplete="off" data-required data-ac="company">
+          <div class="cc-ac-list" id="cr-org-list"></div>
+        </div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 6 (Professional): Role -->
+      <div class="cr-step" data-key="role" data-branch="professional">
+        <div class="cc-q">Your current role</div>
+        <div class="cc-hint">What's your job title today?</div>
+        <div class="cc-field"><input class="form-input" type="text" id="cr-role" placeholder="e.g. Medical Representative" data-required></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 7 (Professional): Experience -->
+      <div class="cr-step" data-key="exp" data-branch="professional">
+        <div class="cc-q">Years of experience</div>
+        <div class="cc-hint">Total professional experience so far.</div>
+        <div class="cc-field"><select class="form-input" id="cr-exp" data-required>
+          <option value="" disabled selected>Select experience…</option>
+          <option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option>
+        </select></div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+      <!-- Step 8: Review -->
+      <div class="cr-step" data-key="review">
+        <div class="cc-q">Review your details</div>
+        <div class="cc-hint">Make sure everything is correct before submitting.</div>
+        <div id="cr-review-summary" style="display:grid; gap:0.8rem; background:rgba(255,255,255,0.05); padding:1.2rem; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.1); margin-bottom:1rem; text-align:left;">
+          <!-- Dynamically populated -->
+        </div>
+        <span class="cr-err" style="font-size:.8rem;color:#FCA5A5;margin-top:.5rem;min-height:1em;display:block"></span>
+      </div>
+
+      <!-- Success Screen -->
+      <div class="cc-success" id="cr-success">
+        <div class="cc-success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>🎉 You're Successfully Registered!</h3>
+        <p>Thank you for registering your interest in the MedSkills Catalyst Cohort.<br><br>Our Career Expert will review your profile and contact you shortly to guide you through the next steps.<br><br>Please keep your phone available over the next 24–48 hours.</p>
+        <button type="button" onclick="closeModal('cr-overlay')" class="btn btn--white btn--lg" style="margin: 0 auto; display: block; justify-content: center;">Return to Website</button>
+      </div>
+
+      <!-- Navigation Footer -->
+      <div class="cc-nav" id="cr-nav">
+        <button type="button" class="cc-back" id="cr-back" onclick="crPrev()" style="display:none">&larr; Back</button>
+        <button type="button" class="btn btn--white btn--lg cc-next" id="cr-next" onclick="crNext()">Continue <span class="btn-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="exit-overlay" onclick="closeOnBg(event,'exit-overlay')">
   <div class="modal">
     <button class="modal-close modal-close--light" onclick="closeModal('exit-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
@@ -4078,7 +4205,7 @@ END PLACEMENT HIDDEN -->
       <p class="exit-line1">Still wondering whether your background qualifies you for MedTech?</p>
       <p class="exit-line2">Join the live masterclass and get that question answered live by <strong>Gagan&nbsp;Victor</strong></p>
       <p class="exit-attribution">Co-Founder &amp; Program Director &nbsp;·&nbsp; Former Pfizer, BMS, Medtronic &amp; Stryker</p>
-      <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openModal('mc-overlay')" data-track="exit_masterclass">Yes, Reserve My Seat →</button>
+      <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openCohortRegistration()" data-track="exit_masterclass">Yes, Reserve My Seat →</button>
     </div>
   </div>
 </div>
@@ -4818,6 +4945,256 @@ function ccAttachAutocomplete(inputId, listId, kind){
 ccAttachAutocomplete('cc-college','cc-college-list','college');
 ccAttachAutocomplete('cc-org','cc-org-list','company');
 
+/* ══════════ COHORT REGISTRATION MULTI-STEP FLOW ══════════ */
+const CR_TOTAL = 8;
+const CR_STATE = { flow: [], idx: 0, data: {}, sending: false, fails: 0 };
+const CR_STUDENT = ['name','mobile','email','whoare','college','syear','degree','review'];
+const CR_PRO     = ['name','mobile','email','whoare','org','role','exp','review'];
+const CR_FIELD = {
+  name: '#cr-name', mobile: '#cr-mobile', email: '#cr-email',
+  college: '#cr-college', degree: '#cr-degree', org: '#cr-org', role: '#cr-role', exp: '#cr-exp'
+};
+const CR_RADIO = { whoare: 'cr_who', syear: 'cr_year' };
+
+function crStepEl(key) { return document.querySelector('.cr-step[data-key="'+key+'"]'); }
+
+function openCohortRegistration() {
+  CR_STATE.flow = CR_STUDENT.slice(); // default; rebuilt after "who are you"
+  CR_STATE.idx = 0;
+  CR_STATE.data = {};
+  CR_STATE.fails = 0;
+  document.getElementById('cr-success').classList.remove('show');
+  document.getElementById('cr-nav').style.display = '';
+  crRestore();
+  crRender();
+  openModal('cr-overlay');
+  if (typeof gtag !== 'undefined') gtag('event','cohort_registration_start',{event_category:'engagement'});
+}
+
+function crRebuildFlow() {
+  const who = crGetRadio('cr_who');
+  CR_STATE.flow = (who === 'professional') ? CR_PRO.slice() : CR_STUDENT.slice();
+}
+
+function crRender() {
+  const key = CR_STATE.flow[CR_STATE.idx];
+  document.querySelectorAll('.cr-step').forEach(s => s.classList.toggle('is-active', s.dataset.key === key));
+  const pct = ((CR_STATE.idx + 1) / CR_TOTAL) * 100;
+  document.getElementById('cr-progress').style.width = pct + '%';
+  document.getElementById('cr-count').textContent = 'Step ' + (CR_STATE.idx + 1) + ' of ' + CR_TOTAL;
+  document.getElementById('cr-back').style.display = CR_STATE.idx === 0 ? 'none' : '';
+  const next = document.getElementById('cr-next');
+  next.firstChild.textContent = (CR_STATE.idx === CR_TOTAL - 1) ? 'Join the Next Cohort ' : 'Continue ';
+  
+  if (key === 'review') {
+    crUpdateReview();
+  }
+  
+  // focus first control
+  const el = crStepEl(key);
+  const focusable = el.querySelector('input:not([type=radio]), select, textarea, input[type=radio]');
+  setTimeout(() => { if (focusable) focusable.focus({preventScroll:true}); }, 60);
+}
+
+// Helper function definitions
+function crGetRadio(name) { const c = document.querySelector('input[name="'+name+'"]:checked'); return c ? c.value : ''; }
+
+function crCurrentValue(key) {
+  if (CR_RADIO[key]) return crGetRadio(CR_RADIO[key]);
+  const sel = CR_FIELD[key]; if (!sel) return '';
+  const el = document.querySelector(sel); return el ? el.value.trim() : '';
+}
+
+function crValidate(key) {
+  const el = crStepEl(key), err = el.querySelector('.cr-err');
+  const val = crCurrentValue(key);
+  let msg = '';
+  if (!val) msg = CR_RADIO[key] ? 'Please pick an option to continue.' : 'This field is required.';
+  else if (key === 'email' && val && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) msg = 'Please enter a valid email address.';
+  else if (key === 'mobile' && val && val.replace(/\D/g,'').replace(/^0/,'').replace(/^91/,'').length < 10) msg = 'Please enter a valid 10-digit mobile number.';
+  err.textContent = msg;
+  return !msg;
+}
+
+function crSave() {
+  const key = CR_STATE.flow[CR_STATE.idx];
+  CR_STATE.data[key] = crCurrentValue(key);
+  try { localStorage.setItem('cr_draft', JSON.stringify(CR_STATE.data)); } catch(e){}
+}
+
+function crRestore() {
+  let d = {}; try { d = JSON.parse(localStorage.getItem('cr_draft')||'{}'); } catch(e){}
+  CR_STATE.data = d || {};
+  Object.keys(CR_FIELD).forEach(k => { const el = document.querySelector(CR_FIELD[k]); if (el && d[k]) el.value = d[k]; });
+  Object.keys(CR_RADIO).forEach(k => { if (d[k]){ const r = document.querySelector('input[name="'+CR_RADIO[k]+'"][value="'+d[k]+'"]'); if (r) r.checked = true; } });
+  if (d.whoare) crRebuildFlow();
+}
+
+function crNext() {
+  if (CR_STATE.sending) return;
+  const key = CR_STATE.flow[CR_STATE.idx];
+  if (key !== 'review') {
+    if (!crValidate(key)) return;
+    crSave();
+    if (key === 'whoare') crRebuildFlow();
+  }
+  if (CR_STATE.idx === CR_TOTAL - 1) { crSubmit(); return; }
+  CR_STATE.idx++;
+  crRender();
+}
+
+function crPrev() {
+  if (CR_STATE.idx === 0) return;
+  CR_STATE.idx--;
+  crRender();
+}
+
+function crUpdateReview() {
+  const d = CR_STATE.data;
+  const isStudent = d.whoare === 'student';
+  let html = `
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+      <span style="opacity:0.6; font-size:0.85rem;">Name</span>
+      <span style="font-weight:600; font-size:0.9rem;">${d.name || ''}</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+      <span style="opacity:0.6; font-size:0.85rem;">Mobile</span>
+      <span style="font-weight:600; font-size:0.9rem;">${d.mobile || ''}</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+      <span style="opacity:0.6; font-size:0.85rem;">Email</span>
+      <span style="font-weight:600; font-size:0.9rem;">${d.email || ''}</span>
+    </div>
+    <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+      <span style="opacity:0.6; font-size:0.85rem;">Status</span>
+      <span style="font-weight:600; font-size:0.9rem; text-transform:capitalize;">${d.whoare || ''}</span>
+    </div>
+  `;
+  if (isStudent) {
+    html += `
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+        <span style="opacity:0.6; font-size:0.85rem;">College</span>
+        <span style="font-weight:600; font-size:0.9rem; text-align:right; max-width:25ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${d.college || ''}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+        <span style="opacity:0.6; font-size:0.85rem;">Year</span>
+        <span style="font-weight:600; font-size:0.9rem;">${d.syear || ''}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between;">
+        <span style="opacity:0.6; font-size:0.85rem;">Degree</span>
+        <span style="font-weight:600; font-size:0.9rem;">${d.degree || ''}</span>
+      </div>
+    `;
+  } else {
+    html += `
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+        <span style="opacity:0.6; font-size:0.85rem;">Company</span>
+        <span style="font-weight:600; font-size:0.9rem; text-align:right; max-width:25ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${d.org || ''}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.08); padding-bottom:0.4rem; margin-bottom:0.4rem;">
+        <span style="opacity:0.6; font-size:0.85rem;">Role</span>
+        <span style="font-weight:600; font-size:0.9rem; text-align:right; max-width:25ch; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${d.role || ''}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between;">
+        <span style="opacity:0.6; font-size:0.85rem;">Experience</span>
+        <span style="font-weight:600; font-size:0.9rem;">${d.exp || ''}</span>
+      </div>
+    `;
+  }
+  document.getElementById('cr-review-summary').innerHTML = html;
+}
+
+async function crSubmit() {
+  const d = CR_STATE.data;
+  const next = document.getElementById('cr-next');
+  const err = crStepEl('review').querySelector('.cr-err');
+  CR_STATE.sending = true;
+  next.disabled = true; next.firstChild.textContent = 'Saving… ';
+  const payload = {
+    full_name: d.name, email: d.email, mobile: d.mobile,
+    form_type: 'cohort_registration', user_type: d.whoare || '',
+    college_name: d.college || '', current_year: d.syear || '', degree: d.degree || '',
+    organization: d.org || '', company_name: d.org || '', current_role: d.role || '', experience: d.exp || '',
+    source: 'cohort_registration', consent: true, ...getUTM()
+  };
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), 7000);
+  let ok = false;
+  try {
+    const r = await fetch('/api/register', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload), signal: controller.signal });
+    ok = r.ok;
+  } catch(e){ ok = false; }
+  clearTimeout(t);
+  CR_STATE.sending = false;
+  next.disabled = false;
+
+  if (ok || CR_STATE.fails >= 1) {
+    crFinish(payload, ok);
+  } else {
+    CR_STATE.fails++;
+    err.textContent = "We couldn't save your details just now. Tap again to retry.";
+    next.firstChild.textContent = 'Join the Next Cohort ';
+  }
+}
+
+function crFinish(payload, saved) {
+  try { localStorage.removeItem('cr_draft'); } catch(e){}
+  if (typeof gtag !== 'undefined') gtag('event','cohort_registration_submit',{event_category:'conversion', saved: saved});
+  document.querySelectorAll('.cr-step').forEach(s => s.classList.remove('is-active'));
+  document.getElementById('cr-nav').style.display = 'none';
+  document.getElementById('cr-progress').style.width = '100%';
+  document.getElementById('cr-count').textContent = 'Complete';
+  document.getElementById('cr-success').classList.add('show');
+}
+
+function crRenderList(listEl, items, query, input){
+  let html = items.slice(0,7).map(n => '<div class="cc-ac-item" data-val="'+n.replace(/"/g,'&quot;')+'">'+n+'</div>').join('');
+  if (query && !items.some(n => n.toLowerCase() === query.toLowerCase()))
+    html += '<div class="cc-ac-item" data-val="'+query.replace(/"/g,'&quot;')+'"><span class="cc-ac-add">Use “'+query+'”</span></div>';
+  listEl.innerHTML = html;
+  listEl.classList.toggle('show', html.length > 0);
+  listEl.querySelectorAll('.cc-ac-item').forEach(it => it.addEventListener('mousedown', function(ev){
+    ev.preventDefault(); input.value = it.getAttribute('data-val'); listEl.classList.remove('show'); crSave();
+  }));
+}
+
+function crAttachAutocomplete(inputId, listId, kind){
+  const input = document.getElementById(inputId), listEl = document.getElementById(listId);
+  if (!input) return;
+  let ctrl = null;
+  const seed = kind === 'company' ? CC_COMPANIES : CC_COLLEGES;
+  const run = ccDebounce(async function(){
+    const q = input.value.trim();
+    if (q.length < 2) { listEl.classList.remove('show'); return; }
+    let items = seed.filter(n => n.toLowerCase().includes(q.toLowerCase()));
+    if (kind === 'college') {
+      if (ctrl) ctrl.abort();
+      ctrl = new AbortController();
+      try {
+        const r = await fetch('https://universities.hipolabs.com/search?country=India&name=' + encodeURIComponent(q), { signal: ctrl.signal });
+        if (r.ok) { const arr = await r.json(); const names = arr.map(u => u.name); items = Array.from(new Set(items.concat(names))); }
+      } catch(e){ /* API down */ }
+    }
+    crRenderList(listEl, items, q, input);
+  }, 230);
+  input.addEventListener('input', run);
+  input.addEventListener('blur', () => setTimeout(() => listEl.classList.remove('show'), 150));
+}
+crAttachAutocomplete('cr-college','cr-college-list','college');
+crAttachAutocomplete('cr-org','cr-org-list','company');
+
+/* Enter advances (except in textarea); Esc closes the cohort modal */
+document.addEventListener('keydown', function(e){
+  const cr = document.getElementById('cr-overlay');
+  if (cr && cr.classList.contains('show')) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') { e.preventDefault(); crNext(); }
+    else if (e.key === 'Escape') closeModal('cr-overlay');
+  }
+});
+
+/* Autosave on any change within the cohort modal */
+document.addEventListener('input', function(e){ if (e.target.closest && e.target.closest('#cr-overlay')) { crSave(); const err = e.target.closest('.cr-step')?.querySelector('.cr-err'); if (err) err.textContent=''; } });
+
 /* ── EXIT INTENT ───────────────────────────────────────────────── */
 (()=>{
   if(sessionStorage.getItem('msc_exit'))return;
@@ -5078,7 +5455,7 @@ async function submitLeadMagnetForm(e) {
       <span class="mobile-sticky-cta-title">Batch · Aug 1, 2026</span>
       <span class="mobile-sticky-cta-sub">Limited seats</span>
     </div>
-    <button class="btn btn--mobile-cta" onclick="openModal('mc-overlay')" data-track="mobile_sticky_rsvp">
+    <button class="btn btn--mobile-cta" onclick="openCohortRegistration()" data-track="mobile_sticky_rsvp">
       Reserve Spot
     </button>
   </div>
@@ -5107,7 +5484,7 @@ async function submitLeadMagnetForm(e) {
     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
   </div>
   <div class="mobile-menu-actions">
-    <button class="btn btn--mobile-cta" style="width:100%; justify-content:center;" onclick="closeMobileMenu(); openModal('mc-overlay')" data-track="mobile_menu_rsvp">Reserve Spot</button>
+    <button class="btn btn--mobile-cta" style="width:100%; justify-content:center;" onclick="closeMobileMenu(); openCohortRegistration()" data-track="mobile_menu_rsvp">Reserve Spot</button>
     <a class="nav-wa" href="https://chat.whatsapp.com/CDVzRz1dHYiBxNPx1HH6ZD" target="_blank" rel="noopener noreferrer" style="justify-content: center; margin-top: 1rem; font-weight:700; color:#128C7E">
       <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor;margin-right:0.4rem"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2.001C6.476 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.522 2.001 11.999 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8h-.002z"/></svg>
       WhatsApp Community

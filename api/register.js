@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       full_name: String(full_name).trim(),
       email: String(email).trim().toLowerCase(),
       mobile: normalizeMobile(mobile),
-      form_type: form_type === "counseling" ? "counseling" : "masterclass",
+      form_type: (form_type === "counseling" || form_type === "cohort_registration") ? form_type : "masterclass",
       background: BACKGROUND_LABELS[background] || String(background || ""),
       consent: consent !== false,
       utm_source: utm_source || "",
