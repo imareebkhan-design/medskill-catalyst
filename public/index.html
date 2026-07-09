@@ -724,6 +724,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
   box-shadow: 0 0 8px var(--cta);
 }
 .success-stamp-watermark {
+  display: none !important;
   position: absolute;
   right: -2.5rem;
   bottom: 0.5rem;
@@ -4507,29 +4508,124 @@ document.querySelectorAll('[data-stagger]').forEach(function(parent){
 function revealInView(){document.querySelectorAll('.fade-up:not(.visible)').forEach(function(el){if(el.getBoundingClientRect().top < window.innerHeight*0.9){el.classList.add('visible');io.unobserve(el);}});}
 revealInView();window.addEventListener('load',revealInView);
 
-/* Success stories: one-time gentle auto-scroll per row; stops on user interaction or at the end */
+/* Success stories: horizontal scroll with one-time IntersectionObserver auto-scroll + drag-to-scroll */
 (function(){
   function autoOnce(row){
-    var stopped=false;
-    function stop(){stopped=true;}
-    row.addEventListener('wheel',stop,{passive:true});
-    row.addEventListener('touchstart',stop,{passive:true});
-    row.addEventListener('pointerdown',stop);
-    function start(){
-      var overflow=row.scrollWidth-row.clientWidth;
-      if(overflow<=0) return;
-      var speed=Math.max(0.5, overflow/(22*60));
-      function step(){
-        if(stopped) return;
-        if(row.scrollLeft+row.clientWidth>=row.scrollWidth-1) return;
-        row.scrollLeft+=speed;
+    let stopped = false;
+    let autoStarted = false;
+    
+    function stop(){
+      if (!stopped) {
+        stopped = true;
+      }
+    }
+    
+    // Stop on manual interactions
+    row.addEventListener('wheel', stop, {passive:true});
+    row.addEventListener('touchstart', stop, {passive:true});
+    row.addEventListener('pointerdown', stop, {passive:true});
+    row.addEventListener('keydown', function(e) {
+      if (['ArrowLeft', 'ArrowRight', 'Home', 'End', 'PageUp', 'PageDown'].includes(e.key)) {
+        stop();
+      }
+    }, {passive:true});
+
+    // Drag-to-scroll implementation (Desktop)
+    let isDown = false;
+    let startX;
+    let scrollLeftVal;
+
+    row.addEventListener('mousedown', (e) => {
+      if (e.target.closest('a') || e.target.closest('button')) return;
+      isDown = true;
+      row.style.cursor = 'grabbing';
+      startX = e.pageX - row.offsetLeft;
+      scrollLeftVal = row.scrollLeft;
+      stop();
+    });
+
+    row.addEventListener('mouseleave', () => {
+      isDown = false;
+      row.style.cursor = 'grab';
+    });
+
+    row.addEventListener('mouseup', () => {
+      isDown = false;
+      row.style.cursor = 'grab';
+    });
+
+    row.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - row.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      row.scrollLeft = scrollLeftVal - walk;
+    });
+
+    // Make cursor grab by default
+    row.style.cursor = 'grab';
+
+    // IntersectionObserver to auto-scroll once when section becomes visible
+    row.startAutoScroll = function() {
+      if (autoStarted) return;
+      autoStarted = true;
+      
+      const overflow = row.scrollWidth - row.clientWidth;
+      if (overflow <= 0) return;
+
+      let lastTime = 0;
+      function step(timestamp) {
+        if (stopped) return;
+        if (!lastTime) lastTime = timestamp;
+        const elapsed = timestamp - lastTime;
+        const delta = Math.min(elapsed, 30);
+        lastTime = timestamp;
+
+        // Slow comfortable speed: ~0.8px per frame (approx 0.048px per ms)
+        const stepAmount = 0.048 * delta;
+
+        if (row.scrollLeft + row.clientWidth >= row.scrollWidth - 1) {
+          return; // Stop at the end without loop or jump
+        }
+
+        row.scrollLeft += stepAmount;
         requestAnimationFrame(step);
       }
       requestAnimationFrame(step);
-    }
-    setTimeout(start,1400);
+    };
   }
+
+  // Observe the parent container for viewport entry
+  const targetSec = document.getElementById('success-stories');
   document.querySelectorAll('.success-marquee-track').forEach(autoOnce);
+
+  if (targetSec && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Wait 2 seconds before starting the gentle auto-scroll
+          setTimeout(() => {
+            document.querySelectorAll('.success-marquee-track').forEach(row => {
+              if (row && typeof row.startAutoScroll === 'function') {
+                row.startAutoScroll();
+              }
+            });
+          }, 2000);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(targetSec);
+  } else {
+    // Fallback if IntersectionObserver not supported
+    setTimeout(() => {
+      document.querySelectorAll('.success-marquee-track').forEach(row => {
+        if (row && typeof row.startAutoScroll === 'function') {
+          row.startAutoScroll();
+        }
+      });
+    }, 2000);
+  }
 })();
 /* Hero caption: rotate through the curriculum module names */
 const HERO_ROTATE = ['Foundations of Medical Devices','Healthcare & Stakeholders','Consultative Device Selling','Portfolio & Competitive Selling','Distribution & Supply Chain','Clinical Data & Regulatory','Leadership & Careers'];
