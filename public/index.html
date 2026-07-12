@@ -1689,7 +1689,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 .cur-list{display:flex;flex-direction:column;gap:1.25rem;overflow-x:visible;max-width:none;margin:2.5rem 0 0;padding-bottom:0;}
 
 /* Stage card */
-.cur-stage{display:grid;grid-template-columns:96px 1fr;background:var(--surface,#fff);border:1px solid rgba(10,42,67,.08);border-radius:var(--radius-lg);padding:2rem 2rem 2rem 1.75rem;box-shadow:0 2px 12px rgba(10,42,67,.04);}
+.cur-stage{display:grid;grid-template-columns:96px 1fr;background:var(--surface,#fff);border:1px solid rgba(10,42,67,.18);border-radius:var(--radius-lg);padding:2rem 2rem 2rem 1.75rem;box-shadow:0 2px 12px rgba(10,42,67,.04);}
 
 /* Sidebar */
 .cur-stage-sidebar{display:flex;flex-direction:column;align-items:center;gap:0.6rem;padding-top:0.1rem;padding-right:1.25rem;}
@@ -1709,7 +1709,7 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 /* Panels — Stage 2 gets scroll wrap with right fade; Stages 1 & 3 are plain flex */
 .cur-group-panels{display:flex;gap:12px;}
 .cur-panels-scroll-wrap{position:relative;overflow:hidden;}
-.cur-panels-scroll-wrap::after{content:'';position:absolute;right:0;top:0;bottom:14px;width:80px;background:linear-gradient(to left,var(--surface,#fff) 10%,transparent);pointer-events:none;}
+.cur-panels-scroll-wrap::after{display:none;}
 .cur-stage--scroll .cur-group-panels{overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;}
 .cur-stage--scroll .cur-panel{scroll-snap-align:start;}
 .cur-group-panels::-webkit-scrollbar{height:6px;}
@@ -4829,7 +4829,7 @@ const PANEL_HOOK = {
   "03": "Master your portfolio and displace competitors who've owned the account for years.",
   "04": "See how devices move from manufacturer to channel partner to the hospital shelf.",
   "05": "Back every pitch with evidence — and open the door to regulatory and quality roles.",
-  "06": "Stop thinking like a rep and start thinking like a leader."
+  "06": "Stop thinking like a Front Line professional and start thinking like a leader."
 };
 const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
 const CUR_ICONS = [
@@ -4838,9 +4838,9 @@ const CUR_ICONS = [
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>'
 ];
 const CUR_GROUPS = [
-  { eyebrow: 'FOUNDATION', head: 'Foundation to Break into the MedTech Industry', label: 'START HERE', nums: ['F'] },
+  { eyebrow: 'FOUNDATION MODULE', head: 'Foundation to Break into the MedTech Industry', label: 'START HERE', nums: ['F'] },
   { eyebrow: 'CORE MEDTECH MODULES', head: 'Learn the Complete Spectrum of MedTech', label: 'BUILD YOUR EXPERTISE', nums: ['01','02','03','04','05'] },
-  { eyebrow: 'ADVANCED', head: 'Advance Your Career in MedTech', label: 'LEAD & GROW', nums: ['06'] }
+  { eyebrow: 'ADVANCED MODULE', head: 'Advance Your Career in MedTech', label: 'LEAD & GROW', nums: ['06'] }
 ];
 const moduleByNum = {};
 MODULES.forEach(function(m){ moduleByNum[m.num] = m; });
