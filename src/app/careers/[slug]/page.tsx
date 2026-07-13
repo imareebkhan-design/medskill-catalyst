@@ -49,25 +49,25 @@ export default async function JobDetailPage({ params }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             {/* Left Col */}
             <div className="lg:col-span-7 text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-pale border border-teal-mid/10 px-3.5 py-0.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-mid mb-6">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-pale border border-teal-mid/10 px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-mid mb-6">
                 🔥 Now Hiring
               </span>
               <h1 className="font-display text-[2.25rem] sm:text-[3rem] font-bold tracking-tight text-teal-deep leading-tight mb-4">
                 {job.title}
               </h1>
-              <p className="text-[1rem] leading-relaxed text-ink/75 max-w-xl mb-8">
+              <p className="text-[1.05rem] leading-relaxed text-ink/70 max-w-xl mb-8">
                 {job.subtitle}
               </p>
 
               {/* Stats badges */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 rounded-full text-[0.8rem] font-semibold text-ink/70">
+                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
                   📍 {job.location}
                 </div>
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 rounded-full text-[0.8rem] font-semibold text-ink/70">
+                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
                   🕒 {job.duration}
                 </div>
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 rounded-full text-[0.8rem] font-semibold text-ink/70">
+                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
                   💼 {job.department}
                 </div>
               </div>
@@ -109,8 +109,8 @@ export default async function JobDetailPage({ params }: Props) {
 
             {/* Right Sticky Sidebar Brief Panel */}
             <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-              <div className="bg-white border border-ink/8 p-6 rounded-msc-lg shadow-msc-sm text-left">
-                <h4 className="font-display text-[1.15rem] font-bold text-teal-deep border-b border-ink/5 pb-3 mb-4">
+              <div className="bg-white border border-ink/8 p-6 md:p-8 rounded-msc-lg shadow-[0_2px_8px_rgba(12,35,57,0.03)] hover:shadow-[0_12px_32px_rgba(10,42,67,0.06)] hover:-translate-y-0.5 hover:border-teal-mid/15 transition-all duration-300 ease-out text-left">
+                <h4 className="font-display text-[1.2rem] font-bold text-teal-deep border-b border-ink/5 pb-3 mb-4">
                   Job Brief
                 </h4>
                 <div className="space-y-3.5 text-[0.875rem] text-ink/75">
@@ -138,7 +138,7 @@ export default async function JobDetailPage({ params }: Props) {
 
                 <a
                   href="#apply-form-section"
-                  className="mt-6 w-full text-center inline-flex items-center justify-center rounded-msc bg-teal-mid px-5 py-3 font-body text-[0.9rem] font-bold text-white transition-all duration-200 hover:bg-emerald-dark"
+                  className="mt-6 w-full text-center inline-flex items-center justify-center rounded-msc bg-teal-mid px-5 py-3 font-body text-[0.9rem] font-bold text-white tracking-[-0.005em] transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(10,42,67,0.15)]"
                 >
                   Apply for this role
                 </a>

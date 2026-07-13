@@ -23,28 +23,28 @@ export default function CareersPage() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-white py-16 md:py-24 border-b border-ink/5">
         {/* Subtle grid pattern or backdrop gradient */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(74,208,255,0.08),transparent_50%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(0,88,158,0.05),transparent_50%)] pointer-events-none" />
 
         <div className="mx-auto max-w-[1200px] px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left text column */}
             <div className="lg:col-span-7 flex flex-col items-start text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-pale border border-teal-mid/10 px-3 py-1 text-[0.75rem] font-bold uppercase tracking-wider text-teal-mid mb-6">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-pale border border-teal-mid/10 px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-mid mb-6">
                 🚀 Join our team
               </span>
-              <h1 className="font-display text-[2.5rem] leading-[1.1] sm:text-[3.25rem] font-bold tracking-tight text-teal-deep mb-6">
+              <h1 className="font-display text-[2.5rem] leading-[1.1] sm:text-[3.25rem] lg:text-[3.8rem] font-bold tracking-tight text-teal-deep mb-6">
                 Build the Future of <br className="hidden sm:inline" />
-                <span className="bg-gradient-to-r from-teal-mid to-teal-leg bg-clip-text text-transparent">MedTech With Us</span>
+                <span className="bg-gradient-to-r from-teal-mid to-teal-leg bg-clip-text text-transparent">MedTech Education</span>
               </h1>
               <p className="text-[1.05rem] md:text-[1.15rem] leading-relaxed text-ink/70 max-w-xl mb-8">
-                Join a mission-driven team helping thousands of Life Sciences and Healthcare students build meaningful careers in MedTech.
+                Most education platforms focus on video views and course sales. We focus on getting life science graduates and healthcare professionals into real jobs at global MedTech brands. If you are passionate about helping students build actual career velocity, join us.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
                   href="#positions"
                   className="inline-flex items-center justify-center rounded-msc bg-teal-mid px-6 py-3 font-body text-[0.95rem] font-bold text-white tracking-[-0.005em] transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(10,42,67,0.15)]"
                 >
-                  Explore Open Positions
+                  Explore Open Positions →
                 </a>
                 <a
                   href="#why-join"
@@ -57,7 +57,7 @@ export default function CareersPage() {
 
             {/* Right illustration column */}
             <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-[480px] lg:max-w-none rounded-msc-lg border border-teal-mid/15 shadow-msc-md overflow-hidden bg-white/50 p-2 backdrop-blur-sm">
+              <div className="relative w-full max-w-[480px] lg:max-w-none rounded-msc-lg border border-teal-mid/10 shadow-[0_8px_30px_rgba(10,42,67,0.06)] overflow-hidden bg-white/50 p-2.5 backdrop-blur-sm">
                 <img
                   src="/assets/careers_hero.png"
                   alt="Students collaborating on healthcare technology careers"
@@ -73,10 +73,10 @@ export default function CareersPage() {
       <section id="why-join" className="py-20 md:py-24 bg-canvas border-b border-ink/5">
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-teal-mid">
+            <span className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-teal-mid">
               Values & Culture
             </span>
-            <h2 className="font-display text-[2rem] sm:text-[2.5rem] font-bold tracking-tight text-teal-deep mt-3 mb-4">
+            <h2 className="font-display text-[2rem] sm:text-[2.6rem] font-bold tracking-tight text-teal-deep mt-3 mb-4">
               Why Work With MedSkills Catalyst?
             </h2>
             <p className="text-[1rem] leading-relaxed text-ink/65">
@@ -88,33 +88,33 @@ export default function CareersPage() {
             {[
               {
                 icon: "💡",
-                title: "Real Startup Experience",
-                desc: "Learn by building alongside an early-stage startup shaping the future of MedTech education."
+                title: "Real Impact",
+                desc: "You won't be writing abstract reports or doing busywork. Every campaign you launch, event you coordinate, or piece of content you write directly helps a student discover a career path they didn't know existed."
               },
               {
                 icon: "🤝",
-                title: "Industry Mentorship",
-                desc: "Learn directly from professionals working across MedTech and Healthcare."
+                title: "Direct Mentorship",
+                desc: "Work alongside leaders who have built careers at global companies like Stryker, Johnson & Johnson, and Medtronic. You'll get direct feedback, regular check-ins, and active career guidance."
               },
               {
                 icon: "🔑",
-                title: "Ownership",
-                desc: "Own real projects that create measurable impact from day one."
+                title: "True Ownership",
+                desc: "We don't micromanage. You own your region, your campus, or your channel. If you have an idea for a campaign or event, you run with it from start to finish."
               },
               {
                 icon: "📈",
-                title: "Career Growth",
-                desc: "Build leadership, communication, marketing, and business skills."
+                title: "Skill-First Growth",
+                desc: "Learn how to build real communities, write copy that actually converts, coordinate events, and pitch ideas. These are the skills that make you highly hireable, no matter where you go next."
               }
             ].map((card, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-ink/8 p-8 rounded-msc-lg shadow-msc-sm hover:shadow-msc-md transition-shadow duration-300 flex flex-col items-start text-left"
+                className="bg-white border border-ink/8 p-8 rounded-msc-lg shadow-[0_2px_8px_rgba(12,35,57,0.03)] hover:shadow-[0_12px_32px_rgba(10,42,67,0.06)] hover:-translate-y-0.5 hover:border-teal-mid/15 transition-all duration-300 ease-out flex flex-col items-start text-left"
               >
                 <div className="h-12 w-12 rounded-msc bg-teal-pale flex items-center justify-center text-xl mb-6 shadow-inner">
                   {card.icon}
                 </div>
-                <h3 className="font-display text-[1.15rem] font-bold text-teal-deep mb-3">
+                <h3 className="font-display text-[1.2rem] font-bold text-teal-deep mb-3">
                   {card.title}
                 </h3>
                 <p className="text-[0.875rem] leading-relaxed text-ink/60">
@@ -131,15 +131,15 @@ export default function CareersPage() {
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-ink/8 pb-8 mb-12 gap-4">
             <div className="text-left">
-              <span className="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-teal-mid">
+              <span className="text-[0.72rem] font-bold uppercase tracking-[0.1em] text-teal-mid">
                 Join Us
               </span>
-              <h2 className="font-display text-[2rem] sm:text-[2.5rem] font-bold tracking-tight text-teal-deep mt-3">
+              <h2 className="font-display text-[2rem] sm:text-[2.6rem] font-bold tracking-tight text-teal-deep mt-3">
                 Open Opportunities
               </h2>
             </div>
             <div className="text-left md:text-right">
-              <p className="text-[0.9rem] text-ink/60 font-semibold">
+              <p className="text-[0.9rem] text-ink/65 font-bold bg-teal-pale/50 border border-teal-mid/5 px-4 py-1.5 rounded-full inline-block">
                 Showing {JOB_OPENINGS.filter(j => j.status === 'Open').length} available roles
               </p>
             </div>
@@ -149,34 +149,34 @@ export default function CareersPage() {
             {JOB_OPENINGS.map((job) => (
               <div
                 key={job.slug}
-                className="bg-white border border-ink/10 rounded-msc-lg p-6 md:p-8 hover:border-teal-mid/30 shadow-msc-sm hover:shadow-msc-md transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+                className="bg-white border border-ink/8 rounded-msc-lg p-6 md:p-8 hover:border-teal-mid/20 shadow-[0_2px_8px_rgba(12,35,57,0.03)] hover:shadow-[0_12px_32px_rgba(10,42,67,0.06)] hover:-translate-y-0.5 transition-all duration-300 ease-out flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
               >
                 <div className="flex-1 text-left">
                   <div className="flex flex-wrap gap-2.5 items-center mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full bg-teal-pale text-teal-mid font-semibold text-[0.72rem] tracking-wider uppercase border border-teal-mid/5">
+                    <span className="px-2.5 py-0.5 rounded-full bg-teal-pale text-teal-mid font-bold text-[0.72rem] tracking-wider uppercase border border-teal-mid/5">
                       {job.department}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-ink/5 text-ink/60 font-semibold text-[0.72rem] tracking-wider uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-ink/5 text-ink/60 font-bold text-[0.72rem] tracking-wider uppercase border border-transparent">
                       🕒 {job.duration}
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald/10 text-teal-mid font-semibold text-[0.72rem] tracking-wider uppercase">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#128C7E]/10 text-[#128C7E] font-bold text-[0.72rem] tracking-wider uppercase border border-[#128C7E]/5">
                       📍 {job.location}
                     </span>
                   </div>
-                  <h3 className="font-display text-[1.4rem] md:text-[1.6rem] font-bold text-teal-deep hover:text-teal-mid transition-colors">
+                  <h3 className="font-display text-[1.45rem] md:text-[1.65rem] font-bold text-teal-deep hover:text-teal-mid transition-colors">
                     <Link href={`/careers/${job.slug}`}>{job.title}</Link>
                   </h3>
                   <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-4 text-[0.825rem] text-ink/50">
                     <span><strong>Type:</strong> {job.type}</span>
                     <span>•</span>
-                    <span className="text-red-500"><strong>Deadline:</strong> {job.deadline}</span>
+                    <span className="text-red-500 font-semibold"><strong>Deadline:</strong> {job.deadline}</span>
                   </div>
                 </div>
 
                 <div className="w-full md:w-auto flex sm:items-center justify-start md:justify-end shrink-0">
                   <Link
                     href={`/careers/${job.slug}`}
-                    className="w-full md:w-auto text-center inline-flex items-center justify-center rounded-msc bg-teal-mid px-6 py-3 font-body text-[0.9rem] font-bold text-white transition-all duration-200 hover:bg-emerald-dark hover:shadow-[0_6px_20px_rgba(10,42,67,0.12)]"
+                    className="w-full md:w-auto text-center inline-flex items-center justify-center rounded-msc bg-teal-mid px-6 py-3 font-body text-[0.9rem] font-bold text-white transition-all duration-200 hover:bg-emerald-dark hover:shadow-[0_6px_20px_rgba(10,42,67,0.18)]"
                   >
                     Apply Now →
                   </Link>
