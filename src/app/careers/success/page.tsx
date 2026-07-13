@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { CareersNav } from "@/src/components/careers/CareersNav";
 import { CareersFooter } from "@/src/components/careers/CareersFooter";
+import { IconCheck, IconUsers, IconWhatsApp } from "@/src/components/careers/ui";
 
 export const metadata: Metadata = {
   title: "Application Success — MedSkills Catalyst",
@@ -17,8 +18,8 @@ function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: 
     <div className="bg-canvas flex-1 flex flex-col items-center justify-center py-16 px-6 font-body text-ink text-center">
       <div className="max-w-xl w-full bg-white border border-ink/8 p-8 md:p-12 rounded-msc-lg shadow-msc-md">
         {/* Success Icon */}
-        <div className="h-20 w-20 rounded-full bg-emerald/10 border border-emerald/20 text-teal-mid text-4xl flex items-center justify-center mx-auto mb-8 shadow-inner animate-bounce">
-          🎉
+        <div className="h-20 w-20 rounded-full bg-teal-pale border border-teal-mid/20 text-teal-mid flex items-center justify-center mx-auto mb-8">
+          <IconCheck className="h-9 w-9" />
         </div>
 
         <h1 className="font-display text-[2rem] sm:text-[2.25rem] font-bold tracking-tight text-teal-deep mb-4">
@@ -53,7 +54,7 @@ function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: 
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 bg-[#128C7E]/5 hover:bg-[#128C7E]/10 border border-[#128C7E]/10 rounded-msc text-left transition-colors group"
             >
-              <span className="text-xl">💬</span>
+              <span className="text-wa"><IconWhatsApp className="h-5 w-5" /></span>
               <div>
                 <span className="block text-[0.8rem] font-bold text-[#128C7E]">WhatsApp Community</span>
                 <span className="block text-[0.7rem] text-ink/50 mt-0.5">Join for live updates</span>
@@ -66,7 +67,7 @@ function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: 
               rel="noopener noreferrer"
               className="flex items-center gap-3 p-4 bg-[#0A66C2]/5 hover:bg-[#0A66C2]/10 border border-[#0A66C2]/10 rounded-msc text-left transition-colors group"
             >
-              <span className="text-xl">🔗</span>
+              <span className="text-[#0A66C2]"><IconUsers className="h-5 w-5" /></span>
               <div>
                 <span className="block text-[0.8rem] font-bold text-[#0A66C2]">LinkedIn Page</span>
                 <span className="block text-[0.7rem] text-ink/50 mt-0.5">Follow for program news</span>
@@ -77,7 +78,7 @@ function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: 
 
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-msc border border-ink/15 bg-white px-6 py-2.5 font-body text-[0.9rem] font-bold text-ink/85 hover:bg-canvas hover:text-ink transition-colors"
+          className="inline-flex items-center justify-center rounded-pill border border-[rgba(10,42,67,0.15)] bg-white px-7 py-3 font-body text-[0.9rem] font-bold text-teal-deep hover:bg-canvas transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-mid"
         >
           Return to Homepage
         </Link>

@@ -1,22 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { BtnChip, btnPrimary } from "@/src/components/careers/ui";
 
 interface ApplicationFormProps {
   jobSlug: string;
   jobTitle: string;
 }
 
+/* Two steps only: the essentials to shortlist. Everything else is optional
+   and collapsed. Field names and the submission payload are identical to the
+   original 8-step form — /api/careers/apply is unchanged. */
 const STEPS = [
-  { id: 1, name: "Personal Information" },
-  { id: 2, name: "Academic Information" },
-  { id: 3, name: "Professional Background" },
-  { id: 4, name: "Skills" },
-  { id: 5, name: "Online Presence" },
-  { id: 6, name: "Short Answers" },
-  { id: 7, name: "Uploads" },
-  { id: 8, name: "Declaration" }
+  { id: 1, name: "Contact details" },
+  { id: 2, name: "Background & submit" }
 ];
 
 const SKILL_OPTIONS = [
@@ -35,6 +33,37 @@ const SKILL_OPTIONS = [
   "Microsoft Office",
   "Google Workspace"
 ];
+
+// Shared light-surface input styling, matching the homepage inline forms.
+const inputClass =
+  "w-full px-4 py-3 min-h-[44px] bg-surface border border-[rgba(10,42,67,0.15)] rounded-msc text-ink placeholder:text-ink/35 focus:outline-none focus:border-teal-mid focus:ring-4 focus:ring-teal-mid/10 transition-all duration-200";
+const labelClass = "block text-[0.72rem] font-bold uppercase tracking-wider text-teal-deep mb-2";
+
+function FieldError({ id, message }: { id: string; message?: string }) {
+  if (!message) return null;
+  return (
+    <p id={id} role="alert" className="text-xs text-danger mt-1.5 font-bold">
+      {message}
+    </p>
+  );
+}
+
+/** Collapsible "optional extras" group — native disclosure, keyboard friendly. */
+function OptionalGroup({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <details className="group rounded-msc-md border border-[rgba(10,42,67,0.08)] bg-canvas/60 open:bg-canvas/40">
+      <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 px-5 py-3.5 text-[0.875rem] font-bold text-teal-deep rounded-msc-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-mid [&::-webkit-details-marker]:hidden">
+        <span>
+          {title} <span className="font-semibold text-muted">(optional)</span>
+        </span>
+        <span aria-hidden="true" className="text-teal-mid text-lg font-bold transition-transform duration-200 group-open:rotate-45">
+          +
+        </span>
+      </summary>
+      <div className="space-y-6 px-5 pb-6 pt-1">{children}</div>
+    </details>
+  );
+}
 
 export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
   const router = useRouter();
@@ -111,7 +140,7 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    
+
     let updatedValue: any = value;
     if (type === "checkbox") {
       const target = e.target as HTMLInputElement;
@@ -160,7 +189,7 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
     return text.trim().split(/\s+/).filter(Boolean).length;
   };
 
-  // Validation
+  // Validation — required set matches what /api/careers/apply enforces.
   const validateStep = (step: number): boolean => {
     const stepErrors: Record<string, string> = {};
 
@@ -179,76 +208,52 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
 
     if (step === 2) {
       if (!formData.university.trim()) stepErrors.university = "University is required.";
-      if (!formData.degree.trim()) stepErrors.degree = "Degree is required.";
-      if (!formData.course.trim()) stepErrors.course = "Course is required.";
-      if (!formData.current_year) stepErrors.current_year = "Current year of study is required.";
-      if (!formData.graduation_year) stepErrors.graduation_year = "Graduation year is required.";
-    }
-
-    if (step === 6) {
-      const whyJoinWords = getWordCount(formData.why_join);
-      const leadershipWords = getWordCount(formData.leadership_story);
-      const promotionWords = getWordCount(formData.promotion_plan);
-
-      if (!formData.why_join.trim()) {
-        stepErrors.why_join = "Please answer this question.";
-      } else if (whyJoinWords > 300) {
-        stepErrors.why_join = `Your response exceeds 300 words (${whyJoinWords} words).`;
-      }
-
-      if (!formData.leadership_story.trim()) {
-        stepErrors.leadership_story = "Please answer this question.";
-      } else if (leadershipWords > 300) {
-        stepErrors.leadership_story = `Your response exceeds 300 words (${leadershipWords} words).`;
-      }
-
-      if (!formData.promotion_plan.trim()) {
-        stepErrors.promotion_plan = "Please answer this question.";
-      } else if (promotionWords > 300) {
-        stepErrors.promotion_plan = `Your response exceeds 300 words (${promotionWords} words).`;
-      }
-    }
-
-    if (step === 7) {
-      if (!resumeFile) {
-        stepErrors.resume = "A PDF, DOC, or DOCX resume file is required.";
-      }
-    }
-
-    if (step === 8) {
+      if (!resumeFile) stepErrors.resume = "A PDF, DOC, or DOCX resume file is required.";
       if (!formData.certify_accuracy) {
         stepErrors.certify_accuracy = "You must certify that the information provided is accurate.";
       }
+
+      // Short answers are optional now, but keep the 300-word cap when filled.
+      (["why_join", "leadership_story", "promotion_plan"] as const).forEach(field => {
+        const words = getWordCount(formData[field]);
+        if (words > 300) {
+          stepErrors[field] = `Your response exceeds 300 words (${words} words).`;
+        }
+      });
     }
 
     setErrors(stepErrors);
     return Object.keys(stepErrors).length === 0;
   };
 
+  const scrollToForm = () => {
+    window.scrollTo({ top: (document.getElementById("apply-section")?.offsetTop || 0) - 90, behavior: "smooth" });
+  };
+
   const handleNext = () => {
     if (validateStep(currentStep)) {
       setCurrentStep(prev => Math.min(prev + 1, STEPS.length));
-      window.scrollTo({ top: document.getElementById("apply-section")?.offsetTop || 0, behavior: "smooth" });
+      scrollToForm();
     }
   };
 
   const handleBack = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
-    window.scrollTo({ top: document.getElementById("apply-section")?.offsetTop || 0, behavior: "smooth" });
+    scrollToForm();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError("");
 
-    if (!validateStep(8)) return;
+    if (!validateStep(2)) return;
 
     setIsSubmitting(true);
 
     try {
       const dataPayload = new FormData();
-      
-      // Append core text values
+
+      // Append core text values — identical payload to the original form.
       Object.keys(formData).forEach(key => {
         if (key === "skills") {
           dataPayload.append(key, JSON.stringify(formData[key]));
@@ -258,7 +263,7 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
       });
 
       dataPayload.append("job_slug", jobSlug);
-      
+
       // Append files
       if (resumeFile) dataPayload.append("resume", resumeFile);
       if (certFile) dataPayload.append("certificates", certFile);
@@ -298,7 +303,7 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, fileSetter: (f: File | null) => void, errorField: string) => {
     const file = e.target.files?.[0] || null;
-    
+
     if (file) {
       // Validate file size (5MB)
       if (file.size > 5 * 1024 * 1024) {
@@ -317,219 +322,146 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
     }
   };
 
-  const inputClass = "w-full px-4 py-3 bg-slate-950/40 border border-slate-800 rounded-msc focus:outline-none focus:border-teal-mid focus:ring-4 focus:ring-teal-mid/10 transition-all duration-200 text-white placeholder-slate-600";
-  const labelClass = "block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2";
+  const textField = (
+    name: string,
+    label: string,
+    opts: { required?: boolean; type?: string; placeholder?: string; autoComplete?: string } = {}
+  ) => (
+    <div>
+      <label htmlFor={`apply-${name}`} className={labelClass}>
+        {label} {opts.required && <span aria-hidden="true">*</span>}
+      </label>
+      <input
+        id={`apply-${name}`}
+        type={opts.type || "text"}
+        name={name}
+        value={formData[name]}
+        onChange={handleInputChange}
+        placeholder={opts.placeholder}
+        autoComplete={opts.autoComplete}
+        required={opts.required}
+        aria-invalid={errors[name] ? true : undefined}
+        aria-describedby={errors[name] ? `apply-${name}-error` : undefined}
+        className={inputClass}
+      />
+      <FieldError id={`apply-${name}-error`} message={errors[name]} />
+    </div>
+  );
+
+  const essayField = (name: string, label: string, placeholder: string) => (
+    <div className="space-y-2">
+      <div className="flex justify-between items-baseline gap-4">
+        <label htmlFor={`apply-${name}`} className={labelClass}>
+          {label}
+        </label>
+        <span className={`text-[0.7rem] font-bold ${getWordCount(formData[name]) > 300 ? "text-danger" : "text-muted"}`}>
+          {getWordCount(formData[name])} / 300 words
+        </span>
+      </div>
+      <textarea
+        id={`apply-${name}`}
+        name={name}
+        rows={4}
+        value={formData[name]}
+        onChange={handleInputChange}
+        placeholder={placeholder}
+        className={`${inputClass} resize-none text-sm`}
+      />
+      <FieldError id={`apply-${name}-error`} message={errors[name]} />
+    </div>
+  );
 
   return (
-    <div id="apply-section" className="bg-slate-900 text-white rounded-msc-lg border border-slate-800 shadow-[0_16px_40px_rgba(10,42,67,0.12)] p-6 md:p-10 max-w-4xl mx-auto w-full font-body text-left transition-all duration-300">
-      <div className="border-b border-white/10 pb-6 mb-8">
-        <h3 className="text-xl md:text-2xl font-bold tracking-tight text-white mb-2">
-          Apply for this opening
-        </h3>
-        <p className="text-sm text-slate-400">
-          Role: <span className="text-teal-leg font-bold">{jobTitle}</span>
+    <div
+      id="apply-section"
+      className="bg-surface text-ink rounded-msc-lg border border-[rgba(10,42,67,0.08)] shadow-msc-md p-6 md:p-10 max-w-3xl mx-auto w-full font-body text-left"
+    >
+      <div className="border-b border-[rgba(10,42,67,0.08)] pb-6 mb-8">
+        <h2 className="font-display text-xl md:text-2xl font-bold tracking-tight text-teal-deep mb-2">
+          Apply
+        </h2>
+        <p className="text-sm text-muted">
+          Role: <span className="text-teal-mid font-bold">{jobTitle}</span>
         </p>
 
-        {/* Progress indicator */}
+        {/* Slim two-step progress indicator */}
         <div className="mt-6">
-          <div className="flex justify-between text-[0.7rem] font-bold text-slate-400 mb-2.5 uppercase tracking-wider">
+          <div className="flex justify-between text-[0.7rem] font-bold text-muted mb-2.5 uppercase tracking-wider">
             <span>Step {currentStep} of {STEPS.length}</span>
-            <span className="text-teal-leg">{STEPS[currentStep - 1].name}</span>
+            <span className="text-teal-mid">{STEPS[currentStep - 1].name}</span>
           </div>
-          <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+          <div className="h-1.5 w-full bg-teal-pale rounded-pill overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-teal-mid to-teal-leg transition-all duration-300 ease-out"
+              className="h-full bg-teal-mid transition-all duration-300 ease-out"
               style={{ width: `${(currentStep / STEPS.length) * 100}%` }}
             />
           </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        
-        {/* STEP 1: PERSONAL INFORMATION */}
+      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+        {/* STEP 1 — CONTACT DETAILS */}
         {currentStep === 1 && (
-          <div className="space-y-6 animate-fade-in">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Personal Details</h4>
+          <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className={labelClass}>Full Name *</label>
-                <input
-                  type="text"
-                  name="full_name"
-                  value={formData.full_name}
-                  onChange={handleInputChange}
-                  placeholder="Rohan Sharma"
-                  className={inputClass}
-                />
-                {errors.full_name && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.full_name}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>Email Address *</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="rohan@gmail.com"
-                  className={inputClass}
-                />
-                {errors.email && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.email}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>Phone Number *</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="+91 9876543210"
-                  className={inputClass}
-                />
-                {errors.phone && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.phone}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>WhatsApp Number *</label>
-                <input
-                  type="tel"
-                  name="whatsapp"
-                  value={formData.whatsapp}
-                  onChange={handleInputChange}
-                  placeholder="+91 9876543210"
-                  className={inputClass}
-                />
-                {errors.whatsapp && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.whatsapp}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>Gender</label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  className={`${inputClass} cursor-pointer`}
-                >
-                  <option value="" disabled>Select Gender...</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className={labelClass}>Date of Birth</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleInputChange}
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>City *</label>
-                <input
-                  type="text"
-                  name="city"
-                  value={formData.city}
-                  onChange={handleInputChange}
-                  placeholder="New Delhi"
-                  className={inputClass}
-                />
-                {errors.city && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.city}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>State *</label>
-                <input
-                  type="text"
-                  name="state"
-                  value={formData.state}
-                  onChange={handleInputChange}
-                  placeholder="Delhi"
-                  className={inputClass}
-                />
-                {errors.state && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.state}</p>}
-              </div>
+              {textField("full_name", "Full Name", { required: true, placeholder: "Rohan Sharma", autoComplete: "name" })}
+              {textField("email", "Email Address", { required: true, type: "email", placeholder: "rohan@gmail.com", autoComplete: "email" })}
+              {textField("phone", "Phone Number", { required: true, type: "tel", placeholder: "+91 9876543210", autoComplete: "tel" })}
+              {textField("whatsapp", "WhatsApp Number", { type: "tel", placeholder: "+91 9876543210" })}
+              {textField("city", "City", { required: true, placeholder: "New Delhi", autoComplete: "address-level2" })}
+              {textField("state", "State", { required: true, placeholder: "Delhi", autoComplete: "address-level1" })}
+              {textField("country", "Country", { required: true, autoComplete: "country-name" })}
             </div>
 
-            <div>
-              <label className={labelClass}>Address</label>
-              <textarea
-                name="address"
-                rows={2}
-                value={formData.address}
-                onChange={handleInputChange}
-                placeholder="Street address, college hostel room, etc..."
-                className={`${inputClass} resize-none`}
-              />
-            </div>
+            <OptionalGroup title="A bit more about you">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="apply-gender" className={labelClass}>Gender</label>
+                  <select
+                    id="apply-gender"
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleInputChange}
+                    className={`${inputClass} cursor-pointer`}
+                  >
+                    <option value="" disabled>Select Gender...</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                {textField("dob", "Date of Birth", { type: "date", autoComplete: "bday" })}
+              </div>
+              <div>
+                <label htmlFor="apply-address" className={labelClass}>Address</label>
+                <textarea
+                  id="apply-address"
+                  name="address"
+                  rows={2}
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  placeholder="Street address, college hostel room, etc..."
+                  className={`${inputClass} resize-none`}
+                />
+              </div>
+            </OptionalGroup>
           </div>
         )}
 
-        {/* STEP 2: ACADEMIC INFORMATION */}
+        {/* STEP 2 — BACKGROUND & SUBMIT */}
         {currentStep === 2 && (
           <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Academic Information</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="md:col-span-2">
-                <label className={labelClass}>University / Board *</label>
-                <input
-                  type="text"
-                  name="university"
-                  value={formData.university}
-                  onChange={handleInputChange}
-                  placeholder="Delhi University"
-                  className={inputClass}
-                />
-                {errors.university && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.university}</p>}
+                {textField("university", "University / Board", { required: true, placeholder: "Delhi University" })}
               </div>
-
+              {textField("college", "College Name", { placeholder: "Hansraj College" })}
+              {textField("degree", "Degree / Qualification", { placeholder: "B.Sc / B.Pharm / B.Tech" })}
+              {textField("course", "Course / Specialization", { placeholder: "Biotechnology / Microbiology" })}
               <div>
-                <label className={labelClass}>College Name</label>
-                <input
-                  type="text"
-                  name="college"
-                  value={formData.college}
-                  onChange={handleInputChange}
-                  placeholder="Hansraj College"
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Degree / Qualification *</label>
-                <input
-                  type="text"
-                  name="degree"
-                  value={formData.degree}
-                  onChange={handleInputChange}
-                  placeholder="B.Sc / B.Pharm / B.Tech"
-                  className={inputClass}
-                />
-                {errors.degree && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.degree}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>Course / Specialization *</label>
-                <input
-                  type="text"
-                  name="course"
-                  value={formData.course}
-                  onChange={handleInputChange}
-                  placeholder="Biotechnology / Microbiology"
-                  className={inputClass}
-                />
-                {errors.course && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.course}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>Current Year of Study *</label>
+                <label htmlFor="apply-current_year" className={labelClass}>Current Year of Study</label>
                 <select
+                  id="apply-current_year"
                   name="current_year"
                   value={formData.current_year}
                   onChange={handleInputChange}
@@ -543,12 +475,11 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
                   <option value="Postgraduate (1st Year)">Postgraduate (1st Year)</option>
                   <option value="Postgraduate (2nd Year)">Postgraduate (2nd Year)</option>
                 </select>
-                {errors.current_year && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.current_year}</p>}
               </div>
-
               <div>
-                <label className={labelClass}>Expected Graduation Year *</label>
+                <label htmlFor="apply-graduation_year" className={labelClass}>Expected Graduation Year</label>
                 <select
+                  id="apply-graduation_year"
                   name="graduation_year"
                   value={formData.graduation_year}
                   onChange={handleInputChange}
@@ -560,348 +491,158 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
                   <option value="2028">2028</option>
                   <option value="2029">2029</option>
                 </select>
-                {errors.graduation_year && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.graduation_year}</p>}
-              </div>
-
-              <div>
-                <label className={labelClass}>CGPA / Percentage</label>
-                <input
-                  type="text"
-                  name="cgpa"
-                  value={formData.cgpa}
-                  onChange={handleInputChange}
-                  placeholder="8.5 CGPA or 85%"
-                  className={inputClass}
-                />
               </div>
             </div>
-          </div>
-        )}
 
-        {/* STEP 3: PROFESSIONAL BACKGROUND */}
-        {currentStep === 3 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Professional & Leadership Background</h4>
-            
-            <div>
-              <label className={labelClass}>Previous Internship Experience</label>
-              <textarea
-                name="previous_internship"
-                rows={3}
-                value={formData.previous_internship}
-                onChange={handleInputChange}
-                placeholder="Mention any roles, company/lab names, duration, and key things you did..."
-                className={`${inputClass} resize-none text-sm`}
-              />
-            </div>
+            {/* Resume upload — required */}
+            <div className="p-6 bg-canvas border border-dashed border-[rgba(10,42,67,0.15)] rounded-msc-md flex flex-col items-start gap-1.5">
+              <span className="text-sm font-bold text-teal-deep">
+                Resume / CV <span aria-hidden="true">*</span>
+              </span>
+              <span className="text-xs text-muted mb-3">PDF, DOC, or DOCX — max 5MB.</span>
 
-            <div>
-              <label className={labelClass}>Campus Leadership Experience (e.g., student coordinator, rep, group lead)</label>
-              <textarea
-                name="leadership_experience"
-                rows={3}
-                value={formData.leadership_experience}
-                onChange={handleInputChange}
-                placeholder="Describe your role and how you led or coordinated..."
-                className={`${inputClass} resize-none text-sm`}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div>
-                <label className={labelClass}>College Clubs / Societies</label>
-                <input
-                  type="text"
-                  name="clubs"
-                  value={formData.clubs}
-                  onChange={handleInputChange}
-                  placeholder="Rotaract, Placement Cell, Science Club..."
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Volunteer Work</label>
-                <input
-                  type="text"
-                  name="volunteer_work"
-                  value={formData.volunteer_work}
-                  onChange={handleInputChange}
-                  placeholder="NGO work, community drives..."
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Event Management</label>
-                <input
-                  type="text"
-                  name="event_experience"
-                  value={formData.event_experience}
-                  onChange={handleInputChange}
-                  placeholder="Helped coordinate college fests, seminars..."
-                  className={inputClass}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 4: SKILLS */}
-        {currentStep === 4 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Core Skills</h4>
-            <p className="text-xs text-slate-400 mb-2">Select the skills you feel confident in:</p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {SKILL_OPTIONS.map(skill => {
-                const isChecked = (formData.skills || []).includes(skill);
-                return (
-                  <button
-                    type="button"
-                    key={skill}
-                    onClick={() => handleSkillChange(skill)}
-                    className={`p-3.5 text-xs md:text-sm font-bold rounded-msc text-left border transition-all flex items-center justify-between ${
-                      isChecked
-                        ? "bg-teal-mid/10 border-teal-leg text-teal-leg shadow-[0_4px_12px_rgba(74,208,255,0.06)]"
-                        : "bg-slate-950/40 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-white"
-                    }`}
-                  >
-                    <span>{skill}</span>
-                    {isChecked && <span className="text-teal-leg text-xs">✓</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* STEP 5: ONLINE PRESENCE */}
-        {currentStep === 5 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Online Presence</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className={labelClass}>LinkedIn Profile URL</label>
-                <input
-                  type="url"
-                  name="linkedin"
-                  value={formData.linkedin}
-                  onChange={handleInputChange}
-                  placeholder="https://linkedin.com/in/username"
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Instagram Profile URL</label>
-                <input
-                  type="url"
-                  name="instagram"
-                  value={formData.instagram}
-                  onChange={handleInputChange}
-                  placeholder="https://instagram.com/username"
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>Portfolio Website URL (Optional)</label>
-                <input
-                  type="url"
-                  name="portfolio"
-                  value={formData.portfolio}
-                  onChange={handleInputChange}
-                  placeholder="https://myportfolio.com"
-                  className={inputClass}
-                />
-              </div>
-
-              <div>
-                <label className={labelClass}>GitHub URL (Optional)</label>
-                <input
-                  type="url"
-                  name="github"
-                  value={formData.github}
-                  onChange={handleInputChange}
-                  placeholder="https://github.com/username"
-                  className={inputClass}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* STEP 6: SHORT ANSWER QUESTIONS */}
-        {currentStep === 6 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Short Answer Questions</h4>
-            
-            <div className="space-y-2">
-              <div className="flex justify-between items-baseline">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">Why do you want to join MedSkills Catalyst? *</label>
-                <span className={`text-[0.7rem] font-bold ${getWordCount(formData.why_join) > 300 ? "text-red-400" : "text-slate-400"}`}>
-                  {getWordCount(formData.why_join)} / 300 words
-                </span>
-              </div>
-              <textarea
-                name="why_join"
-                rows={4}
-                value={formData.why_join}
-                onChange={handleInputChange}
-                placeholder="Explain why this mission excites you and what you hope to achieve..."
-                className={`${inputClass} resize-none text-sm`}
-              />
-              {errors.why_join && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.why_join}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between items-baseline">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">Describe a leadership experience you had *</label>
-                <span className={`text-[0.7rem] font-bold ${getWordCount(formData.leadership_story) > 300 ? "text-red-400" : "text-slate-400"}`}>
-                  {getWordCount(formData.leadership_story)} / 300 words
-                </span>
-              </div>
-              <textarea
-                name="leadership_story"
-                rows={4}
-                value={formData.leadership_story}
-                onChange={handleInputChange}
-                placeholder="Share a situation where you took the initiative, solved a problem, or guided others..."
-                className={`${inputClass} resize-none text-sm`}
-              />
-              {errors.leadership_story && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.leadership_story}</p>}
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between items-baseline">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-300">How would you promote MedSkills Catalyst in your college? *</label>
-                <span className={`text-[0.7rem] font-bold ${getWordCount(formData.promotion_plan) > 300 ? "text-red-400" : "text-slate-400"}`}>
-                  {getWordCount(formData.promotion_plan)} / 300 words
-                </span>
-              </div>
-              <textarea
-                name="promotion_plan"
-                rows={4}
-                value={formData.promotion_plan}
-                onChange={handleInputChange}
-                placeholder="Give 2-3 specific ideas (e.g., WhatsApp groups, placement cells, professors, events)..."
-                className={`${inputClass} resize-none text-sm`}
-              />
-              {errors.promotion_plan && <p className="text-xs text-red-400 mt-1.5 font-bold">⚠️ {errors.promotion_plan}</p>}
-            </div>
-          </div>
-        )}
-
-        {/* STEP 7: UPLOADS */}
-        {currentStep === 7 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Required Documents</h4>
-            
-            {/* Resume Upload */}
-            <div className="p-6 bg-slate-950/40 border border-slate-800 border-dashed rounded-msc-lg hover:border-teal-mid hover:bg-slate-850/20 transition-all duration-300 flex flex-col items-center justify-center text-center">
-              <span className="text-3xl mb-3">📄</span>
-              <span className="text-sm font-bold text-white mb-1">Upload Resume / CV *</span>
-              <span className="text-xs text-slate-500 mb-4">Accepted formats: PDF, DOC, DOCX. Max size: 5MB.</span>
-              
-              <label className="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-750 active:bg-slate-900 border border-slate-700/50 rounded-msc text-xs font-bold text-white transition-colors">
+              <label className="cursor-pointer inline-flex min-h-[44px] items-center gap-2 rounded-pill border border-[rgba(10,42,67,0.15)] bg-surface px-5 py-2.5 text-[0.8rem] font-bold text-teal-deep transition-colors hover:border-teal-mid hover:text-teal-mid focus-within:outline focus-within:outline-2 focus-within:outline-teal-mid">
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx"
                   onChange={(e) => handleFileChange(e, setResumeFile, "resume")}
-                  className="hidden"
+                  className="sr-only"
                 />
-                Choose File
+                Choose file
               </label>
 
               {resumeFile && (
-                <div className="mt-4 flex items-center gap-2 text-xs bg-teal-mid/10 border border-teal-leg/20 px-3.5 py-2 rounded-msc text-teal-leg font-bold animate-fade-in">
-                  <span>📄 {resumeFile.name} ({(resumeFile.size / 1024 / 1024).toFixed(2)} MB)</span>
-                  <button type="button" onClick={() => setResumeFile(null)} className="text-red-400 font-extrabold hover:text-red-300 ml-2">×</button>
+                <div className="mt-3 flex items-center gap-2 text-xs bg-teal-pale border border-teal-mid/15 px-3.5 py-2 rounded-msc text-teal-mid font-bold">
+                  <span>{resumeFile.name} ({(resumeFile.size / 1024 / 1024).toFixed(2)} MB)</span>
+                  <button
+                    type="button"
+                    onClick={() => setResumeFile(null)}
+                    aria-label="Remove selected resume file"
+                    className="text-danger font-extrabold hover:opacity-70 ml-1 px-1"
+                  >
+                    ×
+                  </button>
                 </div>
               )}
-              {errors.resume && <p className="text-xs text-red-400 mt-2 font-bold">⚠️ {errors.resume}</p>}
+              <FieldError id="apply-resume-error" message={errors.resume} />
             </div>
 
-            {/* Optional Uploads */}
-            <div>
-              <h5 className="text-sm font-bold text-white mb-4">Supporting Uploads (Optional)</h5>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                {/* Certificates */}
-                <div className="p-5 bg-slate-950/20 border border-slate-800/80 rounded-xl flex flex-col items-center justify-between text-center gap-2 hover:border-slate-700 transition-colors">
-                  <span className="text-lg">🏆</span>
-                  <span className="text-xs font-bold text-slate-300">Certificates</span>
-                  <label className="cursor-pointer px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-msc text-[0.7rem] font-bold text-white transition-colors">
-                    <input
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={(e) => handleFileChange(e, setCertFile, "cert")}
-                      className="hidden"
-                    />
-                    Add File
-                  </label>
-                  {certFile && <span className="text-[0.65rem] text-teal-leg truncate max-w-full font-bold">✓ {certFile.name}</span>}
-                  {errors.cert && <p className="text-[0.65rem] text-red-400 font-bold">⚠️ {errors.cert}</p>}
-                </div>
-
-                {/* Portfolio */}
-                <div className="p-5 bg-slate-950/20 border border-slate-800/80 rounded-xl flex flex-col items-center justify-between text-center gap-2 hover:border-slate-700 transition-colors">
-                  <span className="text-lg">💼</span>
-                  <span className="text-xs font-bold text-slate-300">Portfolio File</span>
-                  <label className="cursor-pointer px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-msc text-[0.7rem] font-bold text-white transition-colors">
-                    <input
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.zip"
-                      onChange={(e) => handleFileChange(e, setPortFile, "port")}
-                      className="hidden"
-                    />
-                    Add File
-                  </label>
-                  {portFile && <span className="text-[0.65rem] text-teal-leg truncate max-w-full font-bold">✓ {portFile.name}</span>}
-                  {errors.port && <p className="text-[0.65rem] text-red-400 font-bold">⚠️ {errors.port}</p>}
-                </div>
-
-                {/* Achievements */}
-                <div className="p-5 bg-slate-950/20 border border-slate-800/80 rounded-xl flex flex-col items-center justify-between text-center gap-2 hover:border-slate-700 transition-colors">
-                  <span className="text-lg">🌟</span>
-                  <span className="text-xs font-bold text-slate-300">Achievements</span>
-                  <label className="cursor-pointer px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-msc text-[0.7rem] font-bold text-white transition-colors">
-                    <input
-                      type="file"
-                      accept=".pdf,.jpg,.jpeg,.png"
-                      onChange={(e) => handleFileChange(e, setAchievementsFile, "ach")}
-                      className="hidden"
-                    />
-                    Add File
-                  </label>
-                  {achFile && <span className="text-[0.65rem] text-teal-leg truncate max-w-full font-bold">✓ {achFile.name}</span>}
-                  {errors.ach && <p className="text-[0.65rem] text-red-400 font-bold">⚠️ {errors.ach}</p>}
-                </div>
-
+            <OptionalGroup title="Experience & leadership">
+              <div>
+                <label htmlFor="apply-previous_internship" className={labelClass}>Previous Internship Experience</label>
+                <textarea
+                  id="apply-previous_internship"
+                  name="previous_internship"
+                  rows={3}
+                  value={formData.previous_internship}
+                  onChange={handleInputChange}
+                  placeholder="Roles, company/lab names, duration, and key things you did..."
+                  className={`${inputClass} resize-none text-sm`}
+                />
               </div>
-            </div>
-          </div>
-        )}
+              <div>
+                <label htmlFor="apply-leadership_experience" className={labelClass}>Campus Leadership Experience</label>
+                <textarea
+                  id="apply-leadership_experience"
+                  name="leadership_experience"
+                  rows={3}
+                  value={formData.leadership_experience}
+                  onChange={handleInputChange}
+                  placeholder="Student coordinator, rep, group lead — how you led or coordinated..."
+                  className={`${inputClass} resize-none text-sm`}
+                />
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {textField("clubs", "College Clubs / Societies", { placeholder: "Rotaract, Placement Cell..." })}
+                {textField("volunteer_work", "Volunteer Work", { placeholder: "NGO work, community drives..." })}
+                {textField("event_experience", "Event Management", { placeholder: "College fests, seminars..." })}
+              </div>
+              {textField("cgpa", "CGPA / Percentage", { placeholder: "8.5 CGPA or 85%" })}
+            </OptionalGroup>
 
-        {/* STEP 8: DECLARATION */}
-        {currentStep === 8 && (
-          <div className="space-y-6">
-            <h4 className="text-lg font-bold text-white border-b border-white/5 pb-2 mb-4">Declaration & Submission</h4>
-            
-            <div className="space-y-4 bg-slate-950/30 border border-slate-800 p-6 rounded-msc-lg">
+            <OptionalGroup title="Skills">
+              <fieldset>
+                <legend className="text-xs text-muted mb-3">Select the skills you feel confident in:</legend>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {SKILL_OPTIONS.map(skill => {
+                    const isChecked = (formData.skills || []).includes(skill);
+                    return (
+                      <button
+                        type="button"
+                        key={skill}
+                        onClick={() => handleSkillChange(skill)}
+                        aria-pressed={isChecked}
+                        className={`min-h-[44px] px-3.5 py-2.5 text-xs md:text-[0.8rem] font-bold rounded-msc text-left border transition-all flex items-center justify-between gap-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-mid ${
+                          isChecked
+                            ? "bg-teal-pale border-teal-mid/40 text-teal-mid"
+                            : "bg-surface border-[rgba(10,42,67,0.15)] text-muted hover:border-teal-mid/40 hover:text-teal-deep"
+                        }`}
+                      >
+                        <span>{skill}</span>
+                        {isChecked && <span aria-hidden="true">✓</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+              </fieldset>
+            </OptionalGroup>
+
+            <OptionalGroup title="Online presence">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {textField("linkedin", "LinkedIn Profile URL", { type: "url", placeholder: "https://linkedin.com/in/username" })}
+                {textField("instagram", "Instagram Profile URL", { type: "url", placeholder: "https://instagram.com/username" })}
+                {textField("portfolio", "Portfolio Website URL", { type: "url", placeholder: "https://myportfolio.com" })}
+                {textField("github", "GitHub URL", { type: "url", placeholder: "https://github.com/username" })}
+              </div>
+            </OptionalGroup>
+
+            <OptionalGroup title="Tell us more">
+              {essayField("why_join", "Why do you want to join MedSkills Catalyst?", "Explain why this mission excites you and what you hope to achieve...")}
+              {essayField("leadership_story", "Describe a leadership experience you had", "Share a situation where you took the initiative, solved a problem, or guided others...")}
+              {essayField("promotion_plan", "How would you promote MedSkills Catalyst in your college?", "Give 2-3 specific ideas (e.g., WhatsApp groups, placement cells, professors, events)...")}
+            </OptionalGroup>
+
+            <OptionalGroup title="Supporting documents">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  { label: "Certificates", file: certFile, setter: setCertFile, errKey: "cert", accept: ".pdf,.jpg,.jpeg,.png" },
+                  { label: "Portfolio File", file: portFile, setter: setPortFile, errKey: "port", accept: ".pdf,.jpg,.jpeg,.png,.zip" },
+                  { label: "Achievements", file: achFile, setter: setAchievementsFile, errKey: "ach", accept: ".pdf,.jpg,.jpeg,.png" }
+                ].map(({ label, file, setter, errKey, accept }) => (
+                  <div key={errKey} className="p-4 bg-surface border border-[rgba(10,42,67,0.08)] rounded-msc-md flex flex-col items-start gap-2">
+                    <span className="text-xs font-bold text-teal-deep">{label}</span>
+                    <label className="cursor-pointer inline-flex min-h-[36px] items-center rounded-pill border border-[rgba(10,42,67,0.15)] bg-canvas px-4 py-1.5 text-[0.7rem] font-bold text-teal-deep transition-colors hover:border-teal-mid hover:text-teal-mid focus-within:outline focus-within:outline-2 focus-within:outline-teal-mid">
+                      <input
+                        type="file"
+                        accept={accept}
+                        onChange={(e) => handleFileChange(e, setter, errKey)}
+                        className="sr-only"
+                      />
+                      Add file
+                    </label>
+                    {file && <span className="text-[0.7rem] text-teal-mid truncate max-w-full font-bold">✓ {file.name}</span>}
+                    <FieldError id={`apply-${errKey}-error`} message={errors[errKey]} />
+                  </div>
+                ))}
+              </div>
+            </OptionalGroup>
+
+            {/* Declaration */}
+            <div className="space-y-4 bg-canvas border border-[rgba(10,42,67,0.08)] p-6 rounded-msc-md">
               <label className="flex items-start gap-3.5 cursor-pointer">
                 <input
                   type="checkbox"
                   name="certify_accuracy"
                   checked={formData.certify_accuracy}
                   onChange={handleInputChange}
-                  className="mt-1 h-5 w-5 rounded border-slate-800 bg-slate-950 text-teal-mid focus:ring-teal-leg cursor-pointer"
+                  aria-describedby={errors.certify_accuracy ? "apply-certify-error" : undefined}
+                  className="mt-1 h-5 w-5 rounded border-[rgba(10,42,67,0.3)] text-teal-mid focus:ring-teal-mid cursor-pointer"
                 />
-                <span className="text-sm text-slate-300 leading-relaxed select-none">
-                  I hereby certify that all information provided in this application is accurate and true to the best of my knowledge. *
+                <span className="text-sm text-ink/80 leading-relaxed select-none">
+                  I certify that all information provided in this application is accurate and true to the best of my knowledge. <span aria-hidden="true">*</span>
                 </span>
               </label>
-              {errors.certify_accuracy && <p className="text-xs text-red-400 font-bold">⚠️ {errors.certify_accuracy}</p>}
+              <FieldError id="apply-certify-error" message={errors.certify_accuracy} />
 
               <label className="flex items-start gap-3.5 cursor-pointer">
                 <input
@@ -909,50 +650,51 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
                   name="agree_updates"
                   checked={formData.agree_updates}
                   onChange={handleInputChange}
-                  className="mt-1 h-5 w-5 rounded border-slate-800 bg-slate-950 text-teal-mid focus:ring-teal-leg cursor-pointer"
+                  className="mt-1 h-5 w-5 rounded border-[rgba(10,42,67,0.3)] text-teal-mid focus:ring-teal-mid cursor-pointer"
                 />
-                <span className="text-sm text-slate-300 leading-relaxed select-none">
+                <span className="text-sm text-ink/80 leading-relaxed select-none">
                   I agree to receive application status updates, interview schedules, and recruitment updates from MedSkills Catalyst on my email and WhatsApp number.
                 </span>
               </label>
             </div>
 
             {submitError && (
-              <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-msc text-sm font-bold animate-fade-in">
-                ⚠️ {submitError}
+              <div role="alert" className="p-4 bg-danger/5 border border-danger/20 text-danger rounded-msc text-sm font-bold">
+                {submitError}
               </div>
             )}
           </div>
         )}
 
         {/* NAVIGATION ACTIONS */}
-        <div className="flex justify-between items-center border-t border-white/10 pt-6 mt-8">
-          <button
-            type="button"
-            onClick={handleBack}
-            disabled={currentStep === 1 || isSubmitting}
-            className="px-5 py-2.5 bg-slate-800 hover:bg-slate-750 active:bg-slate-900 border border-slate-700/50 text-slate-300 font-bold rounded-msc text-sm transition-all disabled:opacity-50 hover:-translate-y-px"
-          >
-            ← Back
-          </button>
+        <div className="flex flex-col gap-4 border-t border-[rgba(10,42,67,0.08)] pt-6 mt-8">
+          <div className="flex justify-between items-center gap-4">
+            {currentStep > 1 ? (
+              <button
+                type="button"
+                onClick={handleBack}
+                disabled={isSubmitting}
+                className="inline-flex min-h-[44px] items-center rounded-pill border border-[rgba(10,42,67,0.15)] bg-surface px-6 py-2.5 text-sm font-bold text-teal-deep transition-all hover:-translate-y-px hover:shadow-msc-sm disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-mid"
+              >
+                Back
+              </button>
+            ) : (
+              <span />
+            )}
 
-          {currentStep < STEPS.length ? (
-            <button
-              type="button"
-              onClick={handleNext}
-              className="px-6 py-2.5 bg-teal-mid hover:bg-emerald-dark text-white font-bold rounded-msc text-sm shadow-md hover:-translate-y-px transition-all"
-            >
-              Continue →
-            </button>
-          ) : (
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="px-8 py-3.5 bg-teal-leg hover:bg-cyan-400 text-teal-deep font-extrabold rounded-msc text-sm shadow-lg hover:-translate-y-px transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              {isSubmitting ? "Submitting Application..." : "Submit Application 🎉"}
-            </button>
-          )}
+            {currentStep < STEPS.length ? (
+              <button type="button" onClick={handleNext} className={btnPrimary}>
+                Continue <BtnChip />
+              </button>
+            ) : (
+              <button type="submit" disabled={isSubmitting} className={`${btnPrimary} disabled:opacity-60 disabled:hover:translate-y-0`}>
+                {isSubmitting ? "Submitting..." : "Apply"} {!isSubmitting && <BtnChip />}
+              </button>
+            )}
+          </div>
+          <p className="text-center text-[0.8rem] text-muted">
+            Takes ~3 minutes. We reply on WhatsApp within a few days.
+          </p>
         </div>
       </form>
     </div>

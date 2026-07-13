@@ -98,12 +98,15 @@ export default function CareersPage() {
                   TODO(asset): replace with the founder welcome video card once recorded. */}
               <div className="lg:col-span-5">
                 <figure className="overflow-hidden rounded-msc-lg border border-white/10 bg-white/[0.04] shadow-msc-lg">
+                  {/* TODO(asset): serve a WebP/AVIF export at display dimensions. */}
                   <img
                     src="/assets/gagan_victor.png"
                     alt="Gagan Victor, Co-Founder and Program Director of MedSkills Catalyst"
                     className="w-full h-auto object-cover"
                     width={480}
                     height={480}
+                    loading="eager"
+                    fetchPriority="high"
                   />
                   <figcaption className="border-t border-white/10 px-5 py-4">
                     <span className="block font-display text-[1rem] font-bold text-white">Gagan Victor</span>

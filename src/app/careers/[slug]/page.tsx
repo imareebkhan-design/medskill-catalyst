@@ -101,12 +101,15 @@ export default async function JobDetailPage({ params }: Props) {
                   TODO(asset): replace with a real program photo or founder video card. */}
               <div className="lg:col-span-5">
                 <figure className="overflow-hidden rounded-msc-lg border border-white/10 bg-white/[0.04] shadow-msc-lg">
+                  {/* TODO(asset): serve a WebP/AVIF export at display dimensions. */}
                   <img
                     src="/assets/shilpi_babbar.jpg"
                     alt="Shilpi Babbar, Co-Founder and Skills Enhancement Coach at MedSkills Catalyst"
                     className="w-full h-auto max-h-[400px] object-cover object-top"
                     width={480}
                     height={400}
+                    loading="eager"
+                    fetchPriority="high"
                   />
                   <figcaption className="border-t border-white/10 px-5 py-4">
                     <span className="block font-display text-[1rem] font-bold text-white">Shilpi Babbar</span>
