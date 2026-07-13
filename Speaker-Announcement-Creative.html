@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>MedSkills — Meet The Room (Speaker Announcement)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A2A43; --blue:#00589E; --cyan:#4AD0FF; --ink:#0F1B27;
+    --pale:#E8F2FB; --slate:#5A6B7B; --canvas:#F7F9FB; --surface:#FFFFFF;
+    --hair:rgba(10,42,67,0.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#9aa3ad;display:flex;justify-content:center;}
+  /* 1080 x 1350 canvas */
+  .creative{
+    width:1080px;height:1350px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(120% 80% at 15% 0%, #ffffff 0%, var(--canvas) 45%, #eef2f6 100%);
+    font-family:'Plus Jakarta Sans',Inter,-apple-system,'Segoe UI',Arial,sans-serif;
+    color:var(--ink);padding:60px 56px 48px;display:flex;flex-direction:column;
+  }
+  /* faint paper texture */
+  .creative::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background:
+      radial-gradient(60% 50% at 85% 18%, rgba(10,42,67,0.035), transparent 60%),
+      radial-gradient(50% 45% at 8% 70%, rgba(10,42,67,0.03), transparent 60%);
+  }
+  .creative > *{position:relative;z-index:1}
+
+  /* ---------- top bar ---------- */
+  .topbar{display:flex;align-items:center;justify-content:space-between;}
+  .logo{display:flex;align-items:center;gap:14px;}
+  .logo img{height:74px;width:auto;display:block;}
+  .logo .logo-fallback{
+    height:74px;min-width:74px;border-radius:50%;background:var(--blue);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    font-weight:700;letter-spacing:.04em;font-size:13px;text-align:center;line-height:1.1;padding:0 8px;
+  }
+  .eyebrow{font-size:14px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--slate);text-align:right;}
+
+  /* ---------- headline ---------- */
+  .headline{margin-top:26px;text-align:center;}
+  .h-line{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;color:var(--navy);
+    font-size:96px;line-height:.96;letter-spacing:-0.02em;
+  }
+  .pill{
+    display:inline-block;background:var(--blue);color:#fff;
+    font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
+    font-size:30px;letter-spacing:.06em;text-transform:uppercase;
+    padding:8px 22px 10px;border-radius:10px;margin:6px 0;
+    box-shadow:0 8px 22px rgba(0,88,158,0.22);
+  }
+  .pill .cy{color:var(--cyan);}
+
+  /* ---------- date band ---------- */
+  .dateband{
+    margin:22px auto 0;display:flex;align-items:center;gap:14px;justify-content:center;
+    font-weight:700;font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--navy);
+    background:var(--pale);border:1px solid var(--hair);border-radius:999px;padding:11px 26px;
+  }
+  .dateband .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;}
+
+  /* ---------- speakers ---------- */
+  .speakers{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;flex:1;}
+  .col{display:flex;flex-direction:column;}
+  .card{
+    position:relative;border-radius:22px;overflow:hidden;flex:1;
+    background:linear-gradient(180deg,var(--pale) 0%, #BBD8F0 30%, var(--blue) 100%);
+    display:flex;flex-direction:column;min-height:0;
+    box-shadow:0 18px 40px rgba(10,42,67,0.12);
+  }
+  .card.host{outline:3px solid var(--cyan);outline-offset:0;}
+  .card-head{padding:16px 18px 8px;}
+  .focus-label{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--blue);opacity:.8;}
+  .tag{margin-top:5px;font-size:16px;font-weight:600;color:var(--navy);letter-spacing:-0.01em;}
+  .host-badge{
+    position:absolute;top:14px;right:14px;z-index:3;background:var(--cyan);color:var(--navy);
+    font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+    padding:5px 12px;border-radius:999px;
+  }
+  .photo{position:relative;flex:1;display:flex;align-items:flex-end;justify-content:center;min-height:0;}
+  .photo img{
+    width:100%;height:100%;object-fit:cover;object-position:center top;
+    filter:grayscale(1) contrast(1.04);display:block;
+  }
+  .ph-fallback{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.25),rgba(10,42,67,0.10));color:#fff;text-align:center;padding:18px;
+  }
+  .ph-initials{
+    font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:74px;line-height:1;
+    width:140px;height:140px;border-radius:50%;border:2px dashed rgba(255,255,255,0.7);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+  }
+  .ph-note{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.92);}
+
+  .meta{padding:16px 4px 0;text-align:left;}
+  .name{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:27px;line-height:1.04;color:var(--navy);letter-spacing:-0.01em;}
+  .role{margin-top:7px;font-size:13.5px;line-height:1.4;color:var(--slate);font-weight:500;}
+  .role b{color:var(--ink);font-weight:700;}
+
+  /* ---------- footer ---------- */
+  .footer{
+    margin-top:26px;padding-top:18px;border-top:1px solid var(--hair);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .footer .terms{font-size:14px;font-weight:600;letter-spacing:.04em;color:var(--slate);text-transform:uppercase;}
+  .footer .cta{
+    font-size:16px;font-weight:700;color:#fff;background:var(--navy);
+    padding:12px 22px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;
+  }
+  .footer .cta .arrow{color:var(--cyan);}
+</style>
+</head>
+<body>
+  <div class="creative">
+
+    <!-- TOP -->
+    <div class="topbar">
+      <div class="logo">
+        <img src="public/brand/logo/MedSkills-Catalyst_Logo.png" alt="MedSkills Catalyst"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+        <div class="logo-fallback" style="display:none">MEDSKILLS<br>CATALYST</div>
+      </div>
+      <div class="eyebrow">Masterclass · Live on Zoom</div>
+    </div>
+
+    <!-- HEADLINE -->
+    <div class="headline">
+      <div class="h-line">FREE MASTERCLASS</div>
+      <div class="pill">4 JULY · 8 PM IST</div>
+      <div class="h-line">MEET&nbsp;THE&nbsp;ROOM</div>
+    </div>
+
+    <!-- DATE BAND -->
+    <div class="dateband">
+      <span>Saturday 4 July</span><span class="dot"></span>
+      <span>8:00 PM IST</span><span class="dot"></span>
+      <span>Live · Free</span><span class="dot"></span>
+      <span>One room · Three voices</span>
+    </div>
+
+    <!-- SPEAKERS -->
+    <div class="speakers">
+
+      <!-- LEFT: Deepankar -->
+      <div class="col">
+        <div class="card">
+          <div class="card-head">
+            <div class="focus-label">Focus</div>
+            <div class="tag">#pharma_to_medtech</div>
+          </div>
+          <div class="photo">
+            <div class="ph-fallback">
+              <div class="ph-initials">DC</div>
+              <div class="ph-note">Photo to add</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="name">Deepankar Chugh</div>
+          <div class="role"><b>Area Manager, Boston Scientific.</b> 15 yrs Pharma → MedTech. Started as a Novartis MR. 4 country sales awards.</div>
+        </div>
+      </div>
+
+      <!-- CENTER: Gagan (HOST) -->
+      <div class="col">
+        <div class="card host">
+          <div class="host-badge">Host</div>
+          <div class="card-head">
+            <div class="focus-label">Focus</div>
+            <div class="tag">#the_hiring_desk</div>
+          </div>
+          <div class="photo">
+            <img src="public/assets/gagan_victor.png" alt="Gagan Victor"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+            <div class="ph-fallback" style="display:none">
+              <div class="ph-initials">GV</div>
+              <div class="ph-note">Gagan Victor</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="name">Gagan Victor</div>
+          <div class="role"><b>Your host.</b> 25 yrs across Pfizer, BMS, Medtronic &amp; Stryker. Both sides of the hiring desk.</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Shubham -->
+      <div class="col">
+        <div class="card">
+          <div class="card-head">
+            <div class="focus-label">Focus</div>
+            <div class="tag">#fresher_placements</div>
+          </div>
+          <div class="photo">
+            <div class="ph-fallback">
+              <div class="ph-initials">SS</div>
+              <div class="ph-note">Photo to add</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta">
+          <div class="name">Shubham Sharma</div>
+          <div class="role"><b>Placement Manager, KIET</b> · Sr. Educator, Adda247. B.Pharm · M.Pharm · MBA. Mentor to 100s of grads.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="terms">Live cap 300 · Replay only for registered</div>
+      <div class="cta">Register <span class="arrow">→</span> link in comments</div>
+    </div>
+
+  </div>
+</body>
+</html>

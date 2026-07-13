@@ -1,0 +1,400 @@
+diff --git a/index.html b/index.html
+index 72fc325..a76da00 100644
+--- a/index.html
++++ b/index.html
+@@ -1577,6 +1577,24 @@ input,textarea,select{font-family:inherit}
+   .cur-row-title { font-size: 1.2rem; }
+ }
+ 
++/* ── CURRICULUM ACCORDION (redesign) ─────────────────────────── */
++.cur-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;}
++.cur-list::-webkit-scrollbar{height:7px;}
++.cur-list::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
++.cur-panel{flex:1 1 0;min-width:210px;scroll-snap-align:start;border-radius:var(--radius-lg);padding:1.6rem 1.4rem;display:flex;flex-direction:column;min-height:360px;transition:transform .3s var(--easy-out);}
++.cur-panel:hover{transform:translateY(-3px);}
++.cur-panel--pale{background:var(--pale-blue);color:var(--brand);}
++.cur-panel--blue{background:var(--blue);color:#fff;}
++.cur-panel--navy{background:var(--brand);color:#fff;}
++.cur-panel-num{width:38px;height:38px;border-radius:50%;border:1.6px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;letter-spacing:-.02em;margin-bottom:auto;}
++.cur-panel-h{font-family:var(--font-sans);font-size:1.18rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;text-transform:uppercase;margin:1.1rem 0 1rem;}
++.cur-panel-chips{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem;}
++.cur-panel-chip{display:flex;align-items:center;gap:.5rem;border:1.4px solid currentColor;border-radius:30px;padding:.45rem .75rem;font-size:.66rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;}
++.cur-panel-dot{width:10px;height:10px;border-radius:50%;border:1.4px solid currentColor;flex-shrink:0;}
++.cur-panel-vd{margin-top:auto;background:none;border:none;color:inherit;font-family:inherit;font-size:.72rem;font-weight:800;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;padding:0;opacity:.9;transition:opacity .2s ease,gap .2s ease;}
++.cur-panel-vd:hover{opacity:1;gap:.6rem;}
++@media(max-width:900px){.cur-panel{flex:0 0 240px;}}
++
+ /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
+ .lead-form-card {
+   background: var(--surface);
+@@ -1871,18 +1889,20 @@ input,textarea,select{font-family:inherit}
+ .mc-media-hero {
+   position: relative;
+   width: 100%;
+-  aspect-ratio: 1.1;
++  aspect-ratio: 4 / 5;
+   border-radius: 20px;
+   overflow: hidden;
+-  border: 1px solid rgba(255, 255, 255, 0.08);
+-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
++  border: 1px solid rgba(74, 208, 255, 0.25);
++  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 6px rgba(74, 208, 255, 0.06);
+ }
+ .mc-media-img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   object-position: center 15%;
++  transition: transform 0.5s ease;
+ }
++.mc-media-hero:hover .mc-media-img { transform: scale(1.04); }
+ /* Soft dark gradient overlay at the bottom */
+ .mc-media-overlay {
+   position: absolute;
+@@ -1908,6 +1928,13 @@ input,textarea,select{font-family:inherit}
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+ }
++.mc-media-org {
++  font-size: 0.85rem;
++  color: #fff;
++  font-weight: 700;
++  margin: 0.3rem 0 0 0;
++  letter-spacing: 0.01em;
++}
+ /* Pulser play button indicator layered directly in the middle */
+ @keyframes mcPlayPulse {
+   0% { transform: scale(0.95); opacity: 1; }
+@@ -1969,7 +1996,7 @@ input,textarea,select{font-family:inherit}
+     width: 100%;
+   }
+   .mc-media-hero {
+-    aspect-ratio: 1.15;
++    aspect-ratio: 4 / 5;
+   }
+   .mc-bento-h {
+     font-size: 1.8rem;
+@@ -2514,6 +2541,14 @@ input,textarea,select{font-family:inherit}
+ .footer-links{display:flex;flex-direction:column;gap:.75rem}
+ .footer-links a{font-size:.9rem;transition:color .2s;color:rgba(255,255,255,0.65)}
+ .footer-links a:hover{color:#fff}
++.footer-mc{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;padding:.8rem 1.1rem;border-radius:12px;background:rgba(74,208,255,0.06);border:1px solid rgba(74,208,255,0.25);transition:background .2s,border-color .2s,transform .2s;text-decoration:none}
++.footer-mc:hover{background:rgba(74,208,255,0.12);border-color:rgba(74,208,255,0.5);transform:translateY(-1px)}
++.footer-mc-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
++.footer-mc-text{display:flex;flex-direction:column;line-height:1.35}
++.footer-mc-text strong{color:#fff;font-size:.9rem;font-weight:700}
++.footer-mc-text span{color:rgba(255,255,255,0.6);font-size:.78rem}
++.nav-link-live{display:inline-flex;align-items:center;gap:.4rem}
++.nav-live-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;display:inline-block;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
+ .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:2rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem;color:rgba(255,255,255,.3)}
+ .footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
+ .footer-legal a{transition:color .2s;color:rgba(255,255,255,0.45)}
+@@ -2591,6 +2626,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+     <div class="nav-links">
+       <a href="#success-stories">Success Stories</a>
+       <a href="#curriculum">Curriculum</a>
++      <a href="#masterclass" class="nav-link-live"><span class="nav-live-dot"></span>Live Masterclass</a>
+       <a href="#faculty">Faculty</a>
+       <a href="#fees">ROI Calculator</a>
+       <a href="#faq">FAQ</a>
+@@ -3493,6 +3529,11 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+ <!-- MASTERCLASS ─────────────────────────────────────────────────── -->
+ <section id="masterclass" class="section">
+   <div class="container">
++    <div class="section-header fade-up">
++      <p class="section-eyebrow">Free Live Masterclass</p>
++      <h2 class="t-h2">Start With a Free Live Session</h2>
++      <p class="section-sub">See exactly how Life-Science graduates break into MedTech &mdash; live, free, and no obligation, before you commit to the programme.</p>
++    </div>
+     <div class="mc-bento-box fade-up">
+       <!-- Left Column: Typography & Interaction -->
+       <div class="mc-bento-left">
+@@ -3555,7 +3596,8 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+           
+           <div class="mc-media-overlay">
+             <h4 class="mc-media-name">Gagan Victor</h4>
+-            <p class="mc-media-title">Co-Founder &amp; Program Director, MedSkills Catalyst</p>
++            <p class="mc-media-title">Co-Founder &amp; Program Director</p>
++            <p class="mc-media-org">MedSkills Catalyst</p>
+           </div>
+         </div>
+       </div>
+@@ -3761,6 +3803,10 @@ END PLACEMENT HIDDEN -->
+           <a href="mailto:info@medskillscatalyst.com">✉ info@medskillscatalyst.com</a>
+           <a href="https://wa.me/919759249395" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+         </div>
++        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="footer-mc" data-track="footer_masterclass">
++          <span class="footer-mc-dot"></span>
++          <span class="footer-mc-text"><strong>Free Live Masterclass</strong><span>Sat, 4 Jul · 6 PM IST · Reserve your seat &rarr;</span></span>
++        </a>
+       </div>
+       <div>
+         <p class="footer-col-title">Programme</p>
+@@ -3788,6 +3834,21 @@ END PLACEMENT HIDDEN -->
+ </div>
+ 
+ <!-- MASTERCLASS MODAL ───────────────────────────────────────────── -->
++<!-- MODULE DETAIL MODAL -->
++<div class="overlay" id="module-detail-overlay" onclick="closeOnBg(event,'module-detail-overlay')">
++  <div class="modal">
++    <button class="modal-close" onclick="closeModal('module-detail-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
++    <div class="mc-modal-head">
++      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Curriculum Module</p>
++      <h3 id="md-title"></h3>
++      <p id="md-hook" style="font-style:italic;"></p>
++    </div>
++    <div class="mc-modal-body">
++      <ul id="md-topics" class="cur-topics"></ul>
++    </div>
++  </div>
++</div>
++
+ <div class="overlay" id="mc-overlay" onclick="closeOnBg(event,'mc-overlay')">
+   <div class="modal">
+     <button class="modal-close" onclick="closeModal('mc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+@@ -4040,22 +4101,22 @@ const FAQS = [
+ ];
+ 
+ /* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
++function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').textContent=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
+ const clist = document.getElementById('curriculum-list');
+-MODULES.forEach(m => {
+-  const tag = m.num === 'F' ? 'Foundational<br>Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
+-  const row = document.createElement('div');
+-  row.className = 'cur-row fade-up';
+-  const topicsHtml = (m.topics || []).map(t => `<li>${t}</li>`).join('');
+-  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
+-  row.innerHTML = `
+-    <div class="cur-row-tag">${tag}</div>
+-    <div class="cur-row-body">
+-      <h3 class="cur-row-title">${m.title}</h3>
+-      <p class="cur-row-hook">${m.hook}</p>
+-      <ul class="cur-topics">${topicsHtml}</ul>
+-      <div class="cur-row-badges">${badgesHtml}</div>
+-    </div>`;
+-  clist.appendChild(row);
++const PANEL_SHORT = {'F':'Foundations of Medical Devices','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
++const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
++MODULES.forEach((m, i) => {
++  const shortTitle = PANEL_SHORT[m.num] || m.title;
++  const tone = PANEL_TONES[i % 3];
++  const chipsHtml = m.badges.map(b => `<span class="cur-panel-chip"><span class="cur-panel-dot"></span>${b}</span>`).join('');
++  const p = document.createElement('div');
++  p.className = 'cur-panel fade-up ' + tone;
++  p.innerHTML = `
++    <div class="cur-panel-num">${m.num}</div>
++    <h3 class="cur-panel-h">${shortTitle}</h3>
++    <div class="cur-panel-chips">${chipsHtml}</div>
++    <button class="cur-panel-vd" type="button" onclick="openModuleDetail(${i})">View details <span aria-hidden="true">&rarr;</span></button>`;
++  clist.appendChild(p);
+ });
+ 
+ /* ── BUILD FAQ ─────────────────────────────────────────────────── */
+@@ -4516,6 +4577,7 @@ async function submitLeadMagnetForm(e) {
+   <div class="mobile-menu-links">
+     <a href="#success-stories" onclick="closeMobileMenu()">Success Stories</a>
+     <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
++    <a href="#masterclass" class="nav-link-live" onclick="closeMobileMenu()"><span class="nav-live-dot"></span>Live Masterclass</a>
+     <a href="#faculty" onclick="closeMobileMenu()">Faculty</a>
+     <a href="#fees" onclick="closeMobileMenu()">ROI Calculator</a>
+     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+diff --git a/public/index.html b/public/index.html
+index 72fc325..a76da00 100644
+--- a/public/index.html
++++ b/public/index.html
+@@ -1577,6 +1577,24 @@ input,textarea,select{font-family:inherit}
+   .cur-row-title { font-size: 1.2rem; }
+ }
+ 
++/* ── CURRICULUM ACCORDION (redesign) ─────────────────────────── */
++.cur-list{display:flex;gap:8px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;}
++.cur-list::-webkit-scrollbar{height:7px;}
++.cur-list::-webkit-scrollbar-thumb{background:rgba(10,42,67,.2);border-radius:10px;}
++.cur-panel{flex:1 1 0;min-width:210px;scroll-snap-align:start;border-radius:var(--radius-lg);padding:1.6rem 1.4rem;display:flex;flex-direction:column;min-height:360px;transition:transform .3s var(--easy-out);}
++.cur-panel:hover{transform:translateY(-3px);}
++.cur-panel--pale{background:var(--pale-blue);color:var(--brand);}
++.cur-panel--blue{background:var(--blue);color:#fff;}
++.cur-panel--navy{background:var(--brand);color:#fff;}
++.cur-panel-num{width:38px;height:38px;border-radius:50%;border:1.6px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:800;letter-spacing:-.02em;margin-bottom:auto;}
++.cur-panel-h{font-family:var(--font-sans);font-size:1.18rem;font-weight:800;line-height:1.12;letter-spacing:-.01em;text-transform:uppercase;margin:1.1rem 0 1rem;}
++.cur-panel-chips{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.1rem;}
++.cur-panel-chip{display:flex;align-items:center;gap:.5rem;border:1.4px solid currentColor;border-radius:30px;padding:.45rem .75rem;font-size:.66rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;line-height:1.15;}
++.cur-panel-dot{width:10px;height:10px;border-radius:50%;border:1.4px solid currentColor;flex-shrink:0;}
++.cur-panel-vd{margin-top:auto;background:none;border:none;color:inherit;font-family:inherit;font-size:.72rem;font-weight:800;letter-spacing:.02em;cursor:pointer;display:flex;align-items:center;gap:.4rem;padding:0;opacity:.9;transition:opacity .2s ease,gap .2s ease;}
++.cur-panel-vd:hover{opacity:1;gap:.6rem;}
++@media(max-width:900px){.cur-panel{flex:0 0 240px;}}
++
+ /* ── LEAD MAGNET REGISTRATION CARD ══════════════════ */
+ .lead-form-card {
+   background: var(--surface);
+@@ -1871,18 +1889,20 @@ input,textarea,select{font-family:inherit}
+ .mc-media-hero {
+   position: relative;
+   width: 100%;
+-  aspect-ratio: 1.1;
++  aspect-ratio: 4 / 5;
+   border-radius: 20px;
+   overflow: hidden;
+-  border: 1px solid rgba(255, 255, 255, 0.08);
+-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
++  border: 1px solid rgba(74, 208, 255, 0.25);
++  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 6px rgba(74, 208, 255, 0.06);
+ }
+ .mc-media-img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   object-position: center 15%;
++  transition: transform 0.5s ease;
+ }
++.mc-media-hero:hover .mc-media-img { transform: scale(1.04); }
+ /* Soft dark gradient overlay at the bottom */
+ .mc-media-overlay {
+   position: absolute;
+@@ -1908,6 +1928,13 @@ input,textarea,select{font-family:inherit}
+   text-transform: uppercase;
+   letter-spacing: 0.05em;
+ }
++.mc-media-org {
++  font-size: 0.85rem;
++  color: #fff;
++  font-weight: 700;
++  margin: 0.3rem 0 0 0;
++  letter-spacing: 0.01em;
++}
+ /* Pulser play button indicator layered directly in the middle */
+ @keyframes mcPlayPulse {
+   0% { transform: scale(0.95); opacity: 1; }
+@@ -1969,7 +1996,7 @@ input,textarea,select{font-family:inherit}
+     width: 100%;
+   }
+   .mc-media-hero {
+-    aspect-ratio: 1.15;
++    aspect-ratio: 4 / 5;
+   }
+   .mc-bento-h {
+     font-size: 1.8rem;
+@@ -2514,6 +2541,14 @@ input,textarea,select{font-family:inherit}
+ .footer-links{display:flex;flex-direction:column;gap:.75rem}
+ .footer-links a{font-size:.9rem;transition:color .2s;color:rgba(255,255,255,0.65)}
+ .footer-links a:hover{color:#fff}
++.footer-mc{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.6rem;padding:.8rem 1.1rem;border-radius:12px;background:rgba(74,208,255,0.06);border:1px solid rgba(74,208,255,0.25);transition:background .2s,border-color .2s,transform .2s;text-decoration:none}
++.footer-mc:hover{background:rgba(74,208,255,0.12);border-color:rgba(74,208,255,0.5);transform:translateY(-1px)}
++.footer-mc-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
++.footer-mc-text{display:flex;flex-direction:column;line-height:1.35}
++.footer-mc-text strong{color:#fff;font-size:.9rem;font-weight:700}
++.footer-mc-text span{color:rgba(255,255,255,0.6);font-size:.78rem}
++.nav-link-live{display:inline-flex;align-items:center;gap:.4rem}
++.nav-live-dot{width:7px;height:7px;border-radius:50%;background:#4ADE80;display:inline-block;flex-shrink:0;animation:mcLivePulse 1.8s infinite ease-in-out}
+ .footer-bottom{border-top:1px solid rgba(255,255,255,.06);padding-top:2rem;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem;color:rgba(255,255,255,.3)}
+ .footer-legal{display:flex;gap:1.5rem;flex-wrap:wrap}
+ .footer-legal a{transition:color .2s;color:rgba(255,255,255,0.45)}
+@@ -2591,6 +2626,7 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+     <div class="nav-links">
+       <a href="#success-stories">Success Stories</a>
+       <a href="#curriculum">Curriculum</a>
++      <a href="#masterclass" class="nav-link-live"><span class="nav-live-dot"></span>Live Masterclass</a>
+       <a href="#faculty">Faculty</a>
+       <a href="#fees">ROI Calculator</a>
+       <a href="#faq">FAQ</a>
+@@ -3493,6 +3529,11 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+ <!-- MASTERCLASS ─────────────────────────────────────────────────── -->
+ <section id="masterclass" class="section">
+   <div class="container">
++    <div class="section-header fade-up">
++      <p class="section-eyebrow">Free Live Masterclass</p>
++      <h2 class="t-h2">Start With a Free Live Session</h2>
++      <p class="section-sub">See exactly how Life-Science graduates break into MedTech &mdash; live, free, and no obligation, before you commit to the programme.</p>
++    </div>
+     <div class="mc-bento-box fade-up">
+       <!-- Left Column: Typography & Interaction -->
+       <div class="mc-bento-left">
+@@ -3555,7 +3596,8 @@ input:not([type="range"]):not([type="checkbox"]):not([type="radio"]), select, te
+           
+           <div class="mc-media-overlay">
+             <h4 class="mc-media-name">Gagan Victor</h4>
+-            <p class="mc-media-title">Co-Founder &amp; Program Director, MedSkills Catalyst</p>
++            <p class="mc-media-title">Co-Founder &amp; Program Director</p>
++            <p class="mc-media-org">MedSkills Catalyst</p>
+           </div>
+         </div>
+       </div>
+@@ -3761,6 +3803,10 @@ END PLACEMENT HIDDEN -->
+           <a href="mailto:info@medskillscatalyst.com">✉ info@medskillscatalyst.com</a>
+           <a href="https://wa.me/919759249395" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+         </div>
++        <a href="javascript:void(0)" onclick="openModal('mc-overlay')" class="footer-mc" data-track="footer_masterclass">
++          <span class="footer-mc-dot"></span>
++          <span class="footer-mc-text"><strong>Free Live Masterclass</strong><span>Sat, 4 Jul · 6 PM IST · Reserve your seat &rarr;</span></span>
++        </a>
+       </div>
+       <div>
+         <p class="footer-col-title">Programme</p>
+@@ -3788,6 +3834,21 @@ END PLACEMENT HIDDEN -->
+ </div>
+ 
+ <!-- MASTERCLASS MODAL ───────────────────────────────────────────── -->
++<!-- MODULE DETAIL MODAL -->
++<div class="overlay" id="module-detail-overlay" onclick="closeOnBg(event,'module-detail-overlay')">
++  <div class="modal">
++    <button class="modal-close" onclick="closeModal('module-detail-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
++    <div class="mc-modal-head">
++      <p style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:.3rem">Curriculum Module</p>
++      <h3 id="md-title"></h3>
++      <p id="md-hook" style="font-style:italic;"></p>
++    </div>
++    <div class="mc-modal-body">
++      <ul id="md-topics" class="cur-topics"></ul>
++    </div>
++  </div>
++</div>
++
+ <div class="overlay" id="mc-overlay" onclick="closeOnBg(event,'mc-overlay')">
+   <div class="modal">
+     <button class="modal-close" onclick="closeModal('mc-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+@@ -4040,22 +4101,22 @@ const FAQS = [
+ ];
+ 
+ /* ── BUILD CURRICULUM (Growth School-style module list) ────────── */
++function openModuleDetail(i){const m=MODULES[i];document.getElementById('md-title').textContent=m.title;document.getElementById('md-hook').textContent=m.hook;document.getElementById('md-topics').innerHTML=(m.topics||[]).map(function(t){return '<li>'+t+'</li>';}).join('');openModal('module-detail-overlay');}
+ const clist = document.getElementById('curriculum-list');
+-MODULES.forEach(m => {
+-  const tag = m.num === 'F' ? 'Foundational<br>Module' : m.num === 'C' ? 'Capstone' : 'Module ' + m.num;
+-  const row = document.createElement('div');
+-  row.className = 'cur-row fade-up';
+-  const topicsHtml = (m.topics || []).map(t => `<li>${t}</li>`).join('');
+-  const badgesHtml = m.badges.map(b => `<span class="module-badge">${b}</span>`).join('');
+-  row.innerHTML = `
+-    <div class="cur-row-tag">${tag}</div>
+-    <div class="cur-row-body">
+-      <h3 class="cur-row-title">${m.title}</h3>
+-      <p class="cur-row-hook">${m.hook}</p>
+-      <ul class="cur-topics">${topicsHtml}</ul>
+-      <div class="cur-row-badges">${badgesHtml}</div>
+-    </div>`;
+-  clist.appendChild(row);
++const PANEL_SHORT = {'F':'Foundations of Medical Devices','01':'Healthcare & Stakeholders','02':'Consultative Device Selling','03':'Portfolio & Competitive Selling','04':'Distribution & Supply Chain','05':'Clinical Data & Regulatory','06':'Leadership & Careers'};
++const PANEL_TONES = ['cur-panel--pale','cur-panel--blue','cur-panel--navy'];
++MODULES.forEach((m, i) => {
++  const shortTitle = PANEL_SHORT[m.num] || m.title;
++  const tone = PANEL_TONES[i % 3];
++  const chipsHtml = m.badges.map(b => `<span class="cur-panel-chip"><span class="cur-panel-dot"></span>${b}</span>`).join('');
++  const p = document.createElement('div');
++  p.className = 'cur-panel fade-up ' + tone;
++  p.innerHTML = `
++    <div class="cur-panel-num">${m.num}</div>
++    <h3 class="cur-panel-h">${shortTitle}</h3>
++    <div class="cur-panel-chips">${chipsHtml}</div>
++    <button class="cur-panel-vd" type="button" onclick="openModuleDetail(${i})">View details <span aria-hidden="true">&rarr;</span></button>`;
++  clist.appendChild(p);
+ });
+ 
+ /* ── BUILD FAQ ─────────────────────────────────────────────────── */
+@@ -4516,6 +4577,7 @@ async function submitLeadMagnetForm(e) {
+   <div class="mobile-menu-links">
+     <a href="#success-stories" onclick="closeMobileMenu()">Success Stories</a>
+     <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
++    <a href="#masterclass" class="nav-link-live" onclick="closeMobileMenu()"><span class="nav-live-dot"></span>Live Masterclass</a>
+     <a href="#faculty" onclick="closeMobileMenu()">Faculty</a>
+     <a href="#fees" onclick="closeMobileMenu()">ROI Calculator</a>
+     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>

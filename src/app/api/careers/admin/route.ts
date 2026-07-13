@@ -1,0 +1,82 @@
+import { NextResponse } from "next/server";
+import { getServiceClient } from "@/lib/supabase";
+
+export const runtime = "nodejs";
+
+// Auth helper
+function checkAuth(request: Request): boolean {
+  const expected = process.env.ADMIN_PASSCODE;
+  if (!expected) {
+    console.error("[Careers Admin] ADMIN_PASSCODE is not configured.");
+    return false;
+  }
+
+  const urlObj = new URL(request.url);
+  const given = request.headers.get("x-admin-passcode") || urlObj.searchParams.get("passcode");
+  return given === expected;
+}
+
+export async function GET(request: Request) {
+  if (!checkAuth(request)) {
+    return NextResponse.json({ error: "Invalid passcode or unauthorized access." }, { status: 401 });
+  }
+
+  try {
+    const supabase = getServiceClient();
+    
+    // Fetch all applications sorted by submission date
+    const { data, error } = await supabase
+      .from("career_applications")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("[Careers Admin] Supabase query error:", error);
+      return NextResponse.json({ error: "Failed to retrieve applications." }, { status: 502 });
+    }
+
+    return NextResponse.json(data);
+  } catch (err) {
+    console.error("[Careers Admin] GET critical failure:", err);
+    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
+  }
+}
+
+export async function PATCH(request: Request) {
+  if (!checkAuth(request)) {
+    return NextResponse.json({ error: "Invalid passcode or unauthorized access." }, { status: 401 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, status, internal_notes, reviewer } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Application database ID is required." }, { status: 400 });
+    }
+
+    const supabase = getServiceClient();
+    
+    // Prepare dynamic update columns
+    const updatePayload: Record<string, any> = {};
+    if (status !== undefined) updatePayload.status = status;
+    if (internal_notes !== undefined) updatePayload.internal_notes = internal_notes;
+    if (reviewer !== undefined) updatePayload.reviewer = reviewer;
+
+    const { data, error } = await supabase
+      .from("career_applications")
+      .update(updatePayload)
+      .eq("id", id)
+      .select();
+
+    if (error) {
+      console.error("[Careers Admin] Supabase update error:", error);
+      return NextResponse.json({ error: "Failed to update database record." }, { status: 502 });
+    }
+
+    return NextResponse.json({ success: true, data: data[0] });
+  } catch (err) {
+    console.error("[Careers Admin] PATCH critical failure:", err);
+    return NextResponse.json({ error: "Internal server error." }, { status: 500 });
+  }
+}
