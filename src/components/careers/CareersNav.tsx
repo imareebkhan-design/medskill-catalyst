@@ -2,6 +2,16 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { IconWhatsApp } from "@/src/components/careers/ui";
+
+// Mirrors the homepage nav (public/index.html #nav): same link set and order,
+// WhatsApp Community action, sticky blur surface and scroll-progress underline.
+const NAV_LINKS = [
+  { href: "/#success-stories", label: "Success Stories" },
+  { href: "/#curriculum", label: "Curriculum" },
+  { href: "/#faculty", label: "Faculty" },
+  { href: "/#faq", label: "FAQ" },
+];
 
 export function CareersNav() {
   const [scrolled, setScrolled] = useState(false);
@@ -10,7 +20,7 @@ export function CareersNav() {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 10);
-      
+
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
         setScrollProgress(window.scrollY / totalScroll);
@@ -18,11 +28,11 @@ export function CareersNav() {
         setScrollProgress(0);
       }
     };
-    
+
     window.addEventListener("scroll", onScroll, { passive: true });
     // Initial run
     onScroll();
-    
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -48,40 +58,46 @@ export function CareersNav() {
             <span className="block whitespace-nowrap font-display text-[1rem] font-bold leading-none tracking-[-0.01em] text-teal-deep sm:text-[1.15rem]">
               MedSkills Catalyst
             </span>
-            <span className="mt-[0.25rem] hidden whitespace-nowrap font-body text-[0.68rem] font-bold uppercase tracking-[0.05em] text-teal-mid sm:block">
+            <span className="mt-[0.25rem] hidden whitespace-nowrap font-body text-[0.68rem] font-semibold uppercase tracking-[0.05em] text-muted sm:block">
               Upskill to Upscale
             </span>
           </div>
         </Link>
 
-        {/* Navigation links */}
-        <div className="hidden items-center gap-8 font-body text-[0.875rem] font-semibold text-ink/75 md:flex">
-          <Link href="/#success-stories" className="transition-colors hover:text-teal-mid">
-            Success Stories
-          </Link>
-          <Link href="/#curriculum" className="transition-colors hover:text-teal-mid">
-            Curriculum
-          </Link>
-          <Link href="/#faq" className="transition-colors hover:text-teal-mid">
-            FAQ
-          </Link>
-          <Link href="/careers" className="font-bold text-teal-mid">
+        {/* Navigation links — same set as the homepage nav */}
+        <div className="hidden items-center gap-8 font-body text-[0.9rem] font-semibold text-muted lg:flex">
+          {NAV_LINKS.map((link) => (
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-teal-deep">
+              {link.label}
+            </Link>
+          ))}
+          <Link href="/careers" aria-current="page" className="font-bold text-teal-mid">
             Careers
           </Link>
         </div>
 
-        {/* CTA Button */}
-        <div className="flex items-center gap-4">
+        {/* Actions: WhatsApp Community (homepage .nav-wa) + roles CTA */}
+        <div className="flex items-center gap-5">
+          <a
+            href="https://chat.whatsapp.com/CDVzRz1dHYiBxNPx1HH6ZD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 font-body text-[0.875rem] font-bold text-wa transition-colors hover:text-[#075E54] md:flex"
+            data-track="nav_wa"
+          >
+            <IconWhatsApp className="h-4 w-4" />
+            WhatsApp Community
+          </a>
           <Link
             href="/careers#positions"
-            className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap rounded-msc bg-teal-mid px-5 py-[0.65rem] font-body text-[0.875rem] font-bold text-white tracking-[-0.005em] transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-[0_6px_20px_rgba(10,42,67,0.18)]"
+            className="inline-flex shrink-0 items-center whitespace-nowrap rounded-pill bg-teal-mid px-5 py-[0.65rem] font-body text-[0.875rem] font-bold tracking-[-0.005em] text-white transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-msc-glow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-mid"
           >
-            Explore Openings →
+            View roles
           </Link>
         </div>
       </div>
 
-      {/* Dynamic Scroll Progress Bar */}
+      {/* Dynamic Scroll Progress Bar — mirrors homepage #nav::after */}
       <div
         className="absolute left-0 bottom-[-1px] h-[2px] bg-gradient-to-r from-teal-mid to-teal-leg origin-left transition-transform duration-75 ease-out"
         style={{
