@@ -35,3 +35,7 @@ yarn-debug.log*
 yarn-error.log*
 .vercel
 .env*
+
+# graphify knowledge-graph output
+graphify-out/
+src/graphify-out/

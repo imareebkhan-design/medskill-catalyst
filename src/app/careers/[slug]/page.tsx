@@ -5,7 +5,20 @@ import { CareersNav } from "@/src/components/careers/CareersNav";
 import { CareersFooter } from "@/src/components/careers/CareersFooter";
 import { ApplicationForm } from "@/src/components/careers/ApplicationForm";
 import { JOB_OPENINGS } from "@/src/data/jobs";
-import { JobDetailClient } from "@/src/components/careers/JobDetailClient";
+import { JobSections, JobTimeline } from "@/src/components/careers/JobSections";
+import { JobFaq } from "@/src/components/careers/JobFaq";
+import { FounderTrust } from "@/src/components/careers/FounderTrust";
+import {
+  BtnChip,
+  btnCompact,
+  btnPrimary,
+  heroCardClass,
+  heroCardTexture,
+  IconBriefcase,
+  IconCalendar,
+  IconClock,
+  IconMapPin,
+} from "@/src/components/careers/ui";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -38,125 +51,155 @@ export default async function JobDetailPage({ params }: Props) {
     notFound();
   }
 
+  const metaChips = [
+    { icon: IconMapPin, label: job.location },
+    { icon: IconClock, label: job.duration },
+    { icon: IconBriefcase, label: job.department },
+  ];
+
   return (
-    <div className="bg-canvas min-h-screen flex flex-col font-body text-ink">
+    <div className="bg-canvas min-h-screen flex flex-col font-body text-ink pb-20 lg:pb-0">
       <CareersNav />
 
-      {/* Hero Section */}
-      <section className="bg-white border-b border-ink/5 py-12 md:py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(0,88,158,0.06),transparent_50%)] pointer-events-none" />
-        <div className="mx-auto max-w-[1200px] px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            {/* Left Col */}
-            <div className="lg:col-span-7 text-left">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-pale border border-teal-mid/10 px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-mid mb-6">
-                🔥 Now Hiring
-              </span>
-              <h1 className="font-display text-[2.25rem] sm:text-[3rem] font-bold tracking-tight text-teal-deep leading-tight mb-4">
-                {job.title}
-              </h1>
-              <p className="text-[1.05rem] leading-relaxed text-ink/70 max-w-xl mb-8">
-                {job.subtitle}
-              </p>
-
-              {/* Stats badges */}
-              <div className="flex flex-wrap gap-3 mb-8">
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
-                  📍 {job.location}
-                </div>
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
-                  🕒 {job.duration}
-                </div>
-                <div className="flex items-center gap-1.5 px-3.5 py-1.5 bg-canvas border border-ink/8 shadow-[0_1px_2px_rgba(10,42,67,0.02)] rounded-full text-[0.8rem] font-bold text-ink/70">
-                  💼 {job.department}
-                </div>
-              </div>
-
-              <a
-                href="#apply-form-section"
-                className="inline-flex items-center justify-center rounded-msc bg-teal-mid px-6 py-3 font-body text-[0.95rem] font-bold text-white tracking-[-0.005em] transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(10,42,67,0.15)]"
-              >
-                Apply Now →
-              </a>
-            </div>
-
-            {/* Right Col (Illustration) */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="w-full max-w-[400px] lg:max-w-none rounded-msc-lg border border-teal-mid/15 shadow-msc-md overflow-hidden bg-white p-2">
-                <img
-                  src={job.heroImage}
-                  alt={job.title}
-                  className="w-full h-auto object-contain rounded-msc-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Main Body Grid */}
-      <section className="py-12 md:py-16 bg-canvas flex-1">
+      {/* Hero — homepage .hero-card treatment */}
+      <section className="pt-8 pb-10 md:pt-12 md:pb-12">
         <div className="mx-auto max-w-[1200px] px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            
-            {/* Left Content Column */}
-            <div className="lg:col-span-8 space-y-12">
-              
-              {/* Client Wrapper for Collapsible Details & Accordions */}
-              <JobDetailClient job={job} />
+          <div className={heroCardClass} style={heroCardTexture}>
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-14 px-8 py-10 md:px-14 md:py-14">
+              {/* Left copy */}
+              <div className="lg:col-span-7 text-left">
+                <span className="mb-6 inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-leg">
+                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-teal-leg" />
+                  Now hiring
+                </span>
+                <h1 className="font-display text-[2.2rem] sm:text-[2.8rem] font-bold tracking-[-0.01em] text-white leading-[1.12] mb-5">
+                  {job.title}
+                </h1>
+                <p className="text-[1.02rem] leading-relaxed text-white/75 max-w-xl mb-7">
+                  {job.subtitle}
+                </p>
 
-            </div>
-
-            {/* Right Sticky Sidebar Brief Panel */}
-            <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-              <div className="bg-white border border-ink/8 p-6 md:p-8 rounded-msc-lg shadow-[0_2px_8px_rgba(12,35,57,0.03)] hover:shadow-[0_12px_32px_rgba(10,42,67,0.06)] hover:-translate-y-0.5 hover:border-teal-mid/15 transition-all duration-300 ease-out text-left">
-                <h4 className="font-display text-[1.2rem] font-bold text-teal-deep border-b border-ink/5 pb-3 mb-4">
-                  Job Brief
-                </h4>
-                <div className="space-y-3.5 text-[0.875rem] text-ink/75">
-                  <div className="flex justify-between">
-                    <span className="text-ink/40 font-medium">Department</span>
-                    <span className="font-bold text-teal-deep">{job.department}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-ink/40 font-medium">Location</span>
-                    <span className="font-bold text-teal-deep">{job.location}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-ink/40 font-medium">Position Type</span>
-                    <span className="font-bold text-teal-deep">{job.type}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-ink/40 font-medium">Duration</span>
-                    <span className="font-bold text-teal-deep">{job.duration}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-ink/40 font-medium">Deadline</span>
-                    <span className="font-bold text-red-500">{job.deadline}</span>
-                  </div>
+                {/* Meta chips */}
+                <div className="flex flex-wrap gap-3 mb-9">
+                  {metaChips.map(({ icon: Icon, label }) => (
+                    <span
+                      key={label}
+                      className="inline-flex items-center gap-1.5 rounded-pill border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.8rem] font-bold text-white/90"
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {label}
+                    </span>
+                  ))}
                 </div>
 
-                <a
-                  href="#apply-form-section"
-                  className="mt-6 w-full text-center inline-flex items-center justify-center rounded-msc bg-teal-mid px-5 py-3 font-body text-[0.9rem] font-bold text-white tracking-[-0.005em] transition-all duration-200 hover:bg-emerald-dark hover:-translate-y-px hover:shadow-[0_8px_24px_rgba(10,42,67,0.15)]"
-                >
-                  Apply for this role
+                <a href="#apply-form-section" className={btnPrimary}>
+                  Apply <BtnChip />
                 </a>
               </div>
-            </div>
 
+              {/* Right visual — founder photo card.
+                  TODO(asset): replace with a real program photo or founder video card. */}
+              <div className="lg:col-span-5">
+                <figure className="overflow-hidden rounded-msc-lg border border-white/10 bg-white/[0.04] shadow-msc-lg">
+                  <img
+                    src="/assets/shilpi_babbar.jpg"
+                    alt="Shilpi Babbar, Co-Founder and Skills Enhancement Coach at MedSkills Catalyst"
+                    className="w-full h-auto max-h-[400px] object-cover object-top"
+                    width={480}
+                    height={400}
+                  />
+                  <figcaption className="border-t border-white/10 px-5 py-4">
+                    <span className="block font-display text-[1rem] font-bold text-white">Shilpi Babbar</span>
+                    <span className="block text-[0.8rem] text-white/60">
+                      Co-Founder &amp; Skills Enhancement Coach · Your mentor through the program
+                    </span>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Form Section */}
-      <section id="apply-form-section" className="py-16 md:py-24 bg-white border-t border-ink/5">
+      {/* Two-column area: core sections + sticky Job Brief. The sticky column
+          only spans these sections, so it never leaves a tall empty rail. */}
+      <section className="pb-12 md:pb-16 flex-1">
+        <div className="mx-auto max-w-[1200px] px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            <div className="lg:col-span-8">
+              <JobSections job={job} />
+            </div>
+
+            {/* Sticky Job Brief */}
+            <aside className="lg:col-span-4 lg:sticky lg:top-24">
+              <div className="bg-surface border border-[rgba(10,42,67,0.08)] p-6 md:p-8 rounded-msc-lg shadow-msc-sm text-left">
+                <h2 className="font-display text-[1.2rem] font-bold text-teal-deep border-b border-[rgba(10,42,67,0.08)] pb-3 mb-4">
+                  Job Brief
+                </h2>
+                <dl className="space-y-3.5 text-[0.875rem]">
+                  {[
+                    ["Department", job.department],
+                    ["Location", job.location],
+                    ["Position Type", job.type],
+                    ["Duration", job.duration],
+                  ].map(([label, value]) => (
+                    <div key={label} className="flex justify-between gap-4">
+                      <dt className="text-muted font-medium">{label}</dt>
+                      <dd className="font-bold text-teal-deep text-right">{value}</dd>
+                    </div>
+                  ))}
+                  <div className="flex justify-between gap-4">
+                    <dt className="text-muted font-medium">Deadline</dt>
+                    <dd className="inline-flex items-center gap-1.5 font-bold text-warning text-right">
+                      <IconCalendar className="h-3.5 w-3.5" />
+                      {job.deadline}
+                    </dd>
+                  </div>
+                </dl>
+
+                <a href="#apply-form-section" className={`${btnCompact} mt-6 w-full`}>
+                  Apply <BtnChip />
+                </a>
+                <p className="mt-3 text-center text-[0.75rem] text-muted">
+                  Takes ~3 minutes. We reply on WhatsApp within a few days.
+                </p>
+              </div>
+            </aside>
+          </div>
+
+          {/* Full-width modules below the two-column area */}
+          <div className="mt-12 space-y-12">
+            <FounderTrust />
+            <JobTimeline job={job} />
+            <JobFaq faqs={job.faqs} />
+          </div>
+        </div>
+      </section>
+
+      {/* Application form — light surface */}
+      <section id="apply-form-section" className="py-16 md:py-20 bg-surface border-t border-[rgba(10,42,67,0.08)]">
         <div className="mx-auto max-w-[1200px] px-6">
           <ApplicationForm jobSlug={job.slug} jobTitle={job.title} />
         </div>
       </section>
 
       <CareersFooter />
+
+      {/* Mobile persistent apply bar */}
+      <div className="fixed inset-x-0 bottom-0 z-[800] border-t border-[rgba(10,42,67,0.08)] bg-white/95 px-5 py-3 backdrop-blur-md lg:hidden">
+        <div className="flex items-center justify-between gap-4">
+          <div className="min-w-0">
+            <span className="block truncate text-[0.8rem] font-bold text-teal-deep">{job.title}</span>
+            <span className="block text-[0.7rem] font-semibold text-warning">Apply by {job.deadline}</span>
+          </div>
+          <a
+            href="#apply-form-section"
+            className="inline-flex shrink-0 items-center justify-center rounded-pill bg-teal-mid px-6 py-3 font-body text-[0.875rem] font-bold text-white shadow-msc-glow transition-colors hover:bg-emerald-dark"
+          >
+            Apply
+          </a>
+        </div>
+      </div>
     </div>
   );
 }
