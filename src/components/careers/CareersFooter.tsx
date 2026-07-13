@@ -15,7 +15,7 @@ export function CareersFooter() {
                 <img
                   src="/brand/logo/MedSkills-Catalyst_Logo-01.svg"
                   alt="MedSkills Catalyst logo"
-                  className="h-full w-auto object-contain brightness-0 invert"
+                  className="h-full w-auto object-contain"
                 />
               </div>
               <span className="font-display text-[1.25rem] font-bold tracking-[-0.01em]">

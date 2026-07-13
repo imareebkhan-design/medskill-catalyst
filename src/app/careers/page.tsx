@@ -10,9 +10,11 @@ import {
   btnSecondary,
   heroCardClass,
   heroCardTexture,
+  IconAward,
   IconBriefcase,
   IconCalendar,
   IconClock,
+  IconFileBadge,
   IconKey,
   IconMapPin,
   IconPlus,
@@ -56,8 +58,17 @@ const VALUES = [
   }
 ];
 
+// Floating value cards that overlap the hero photo (reference layout).
+const HERO_CARDS = [
+  { icon: IconUsers, title: "Campus Leadership", desc: "Lead, represent, make an impact." },
+  { icon: IconAward, title: "Mentored by Industry Leaders", desc: "Learn from people who actually hire." },
+  { icon: IconTrendingUp, title: "Build Real Skills", desc: "Communication, ops, marketing & more." },
+  { icon: IconFileBadge, title: "Certificate & Recognition", desc: "Stand out with verified credentials." },
+  { icon: IconMapPin, title: "National Network", desc: "Connect with top students across India." }
+];
+
 // TODO(asset): swap text names for official logo files once added to /public/brand.
-const TRUST_COMPANIES = ["Stryker", "Johnson & Johnson", "Medtronic", "Abbott"];
+const TRUST_COMPANIES = ["Stryker", "Johnson & Johnson", "Medtronic", "Abbott", "Pfizer"];
 
 export default function CareersPage() {
   const openRoles = JOB_OPENINGS.filter(j => j.status === "Open");
@@ -72,7 +83,7 @@ export default function CareersPage() {
           <div className={heroCardClass} style={heroCardTexture}>
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-10 lg:gap-14 px-8 py-10 md:px-14 md:py-14">
               {/* Left text column */}
-              <div className="lg:col-span-7 flex flex-col items-start text-left">
+              <div className="lg:col-span-5 flex flex-col items-start text-left">
                 <span className="mb-6 inline-flex items-center gap-1.5 rounded-pill border border-white/15 bg-white/10 px-3.5 py-1.5 text-[0.72rem] font-bold uppercase tracking-wider text-teal-leg">
                   <IconPlus className="h-3 w-3" />
                   Join the team
@@ -94,27 +105,37 @@ export default function CareersPage() {
                 </div>
               </div>
 
-              {/* Right visual — founder photo card.
-                  TODO(asset): replace with the founder welcome video card once recorded. */}
-              <div className="lg:col-span-5">
+              {/* Right visual — campus ambassadors, with value cards floating over the photo */}
+              <div className="lg:col-span-7">
                 <figure className="overflow-hidden rounded-msc-lg border border-white/10 bg-white/[0.04] shadow-msc-lg">
-                  {/* TODO(asset): serve a WebP/AVIF export at display dimensions. */}
                   <img
-                    src="/assets/gagan_victor.png"
-                    alt="Gagan Victor, Co-Founder and Program Director of MedSkills Catalyst"
-                    className="w-full h-auto object-cover"
-                    width={480}
-                    height={480}
+                    src="/assets/careers-hero-students.jpg"
+                    alt="MedSkills Catalyst campus ambassadors in branded hoodies on a university campus"
+                    className="w-full aspect-[3/2] object-cover object-top"
+                    width={1600}
+                    height={1066}
                     loading="eager"
                     fetchPriority="high"
                   />
-                  <figcaption className="border-t border-white/10 px-5 py-4">
-                    <span className="block font-display text-[1rem] font-bold text-white">Gagan Victor</span>
-                    <span className="block text-[0.8rem] text-white/60">
-                      Co-Founder &amp; Program Director · Former Pfizer, BMS, Medtronic &amp; Stryker
-                    </span>
-                  </figcaption>
                 </figure>
+                <div className="relative z-10 mt-4 lg:-mt-14 px-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+                  {HERO_CARDS.map((card) => (
+                    <div
+                      key={card.title}
+                      className="bg-surface border border-[rgba(10,42,67,0.06)] rounded-msc-md shadow-msc-md p-3 flex flex-col gap-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-msc-float"
+                    >
+                      <span className="h-7 w-7 rounded-lg bg-teal-pale text-teal-mid flex items-center justify-center">
+                        <card.icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="font-display text-[0.72rem] font-bold leading-tight text-teal-deep">
+                        {card.title}
+                      </span>
+                      <span className="text-[0.6rem] leading-snug text-muted">
+                        {card.desc}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
