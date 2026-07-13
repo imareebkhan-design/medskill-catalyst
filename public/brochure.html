@@ -40,7 +40,12 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--navy)
 .dl-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none}
 .viewer{flex:1;min-height:0}
 .viewer iframe{width:100%;height:100%;border:0;display:block;background:#3c4650}
-.fallback{display:none;flex:1;align-items:center;justify-content:center;padding:2rem;text-align:center;color:rgba(255,255,255,.75);font-size:.95rem;line-height:1.6}
+.fallback{display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;padding:2rem;text-align:center;background:radial-gradient(ellipse 80% 55% at 50% 110%, rgba(74,208,255,.12), transparent 60%), var(--navy)}
+.fallback-icon{width:74px;height:74px;border-radius:50%;background:rgba(74,208,255,.13);border:1px solid rgba(74,208,255,.35);display:grid;place-items:center}
+.fallback-icon svg{width:32px;height:32px;stroke:var(--cyan);stroke-width:2.2;fill:none}
+.fallback h1{color:#fff;font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+.fallback p{color:rgba(255,255,255,.65);font-size:.92rem;line-height:1.6;max-width:34ch}
+.fallback .dl-btn{margin-top:.4rem;padding:.85rem 1.7rem;font-size:.95rem}
 @media(max-width:640px){.bar-note{display:none}.brand-name{font-size:.85rem}}
 </style>
 </head>
@@ -60,16 +65,22 @@ body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--navy)
   <iframe src="/MedSkills-Catalyst-Brochure.pdf#view=FitH" title="MedSkills Catalyst Brochure"></iframe>
 </main>
 <div class="fallback" id="fallback">
-  <p>Your device doesn't preview PDFs in the browser.<br>The brochure has been downloaded to your device — check your Downloads folder.</p>
+  <div class="fallback-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  <h1>Your brochure is downloading</h1>
+  <p>Check your notifications or Downloads folder. If it hasn't started, tap the button below.</p>
+  <a class="dl-btn" href="/MedSkills-Catalyst-Brochure.pdf" download="MedSkills-Catalyst-Brochure.pdf">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M4 19h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Download Brochure
+  </a>
 </div>
 <script>
 // Auto-start the download shortly after load (same-origin `download` attribute).
 setTimeout(function(){ document.getElementById('dl').click(); }, 900);
-// iOS Safari can't render multi-page PDFs inline; show a friendly note instead of a broken frame.
-var ua = navigator.userAgent;
-if (/iPhone|iPad|iPod/.test(ua) && /Safari/.test(ua) && !/CriOS|FxiOS/.test(ua)) {
+// Phones/tablets mostly can't render multi-page PDFs in an iframe (iOS Safari,
+// Android Chrome). Show the branded download card instead of a blank frame.
+if (/Android|iPhone|iPad|iPod|Mobi/i.test(navigator.userAgent)) {
   document.getElementById('viewer').style.display = 'none';
-  var fb = document.getElementById('fallback'); fb.style.display = 'flex';
+  document.getElementById('fallback').style.display = 'flex';
 }
 </script>
 </body>
