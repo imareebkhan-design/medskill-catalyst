@@ -21,7 +21,8 @@ export interface JobOpening {
   heroImage: string;
   tagline: string;
   subtitle: string;
-  about: string;
+  /** Short paragraphs; the first one is rendered as the lead line. */
+  about: string[];
   responsibilities: string[];
   eligibility: string[];
   benefits: string[];
@@ -34,7 +35,7 @@ export const JOB_OPENINGS: JobOpening[] = [
     slug: 'campus-ambassador',
     title: 'Campus Ambassador (Batch 2)',
     department: 'Community & Growth',
-    location: 'Remote (Your College)',
+    location: 'On-Campus + Remote',
     type: 'Part-Time / Student Internship',
     duration: '3 Months',
     deadline: 'July 31, 2026',
@@ -42,7 +43,11 @@ export const JOB_OPENINGS: JobOpening[] = [
     heroImage: '/assets/campus_ambassador_hero.png',
     tagline: 'Become a MedSkills Catalyst Campus Ambassador (Batch 2)',
     subtitle: 'Be the voice of MedTech on your campus. Connect peers to career opportunities, organize workshops, and get direct mentorship from industry leaders.',
-    about: 'Many students in life sciences, biotechnology, and pharmacy graduate without knowing that a high-growth career in MedTech sales, regulatory affairs, or application engineering is even possible. As a Campus Ambassador, you\'ll bridge that gap. You will lead the student community at your college, introduce them to industry insights, and help them take their first step into the MedTech ecosystem. In return, you\'ll work directly with our founding team, receive practical skill training, and get mentored by senior leaders from top healthcare brands.',
+    about: [
+      'Many students in life sciences, biotechnology, and pharmacy graduate without knowing that a high-growth career in MedTech is even possible.',
+      'As a Campus Ambassador, you\'ll bridge that gap. You will lead the student community at your college, introduce them to industry insights, and help them take their first step into MedTech sales, regulatory affairs, or application engineering.',
+      'In return, you\'ll work directly with our founding team, receive practical skill training, and get mentored by senior leaders from top healthcare brands.'
+    ],
     responsibilities: [
       'Represent MedSkills Catalyst as the main point of contact at your college.',
       'Build and nurture a local WhatsApp community of Life Sciences, Biotech, and Pharmacy peers.',
@@ -57,13 +62,14 @@ export const JOB_OPENINGS: JobOpening[] = [
       'You\'re someone who loves initiating conversations and doesn\'t mind public speaking or community hosting.',
       'Active participation in college clubs, student placement cells, or volunteer work is highly preferred.'
     ],
+    // Ordered to lead with the three most persuasive perks.
     benefits: [
       'Performance-Based Stipend: Earn regular payouts and bonuses linked to event registrations and community growth milestones.',
-      'Official Leadership Certificate: Get an official certificate recognizing your role as a student ambassador.',
       'Founders\' Recommendation (LOR): Top-performing ambassadors receive a personalized LOR directly from our Co-Founders.',
+      'Priority Team Hiring: Ambassadors get fast-tracked for future internal internships and full-time roles.',
+      'Official Leadership Certificate: Get an official certificate recognizing your role as a student ambassador.',
       'Free Premium Workshops: Join exclusive training sessions on business writing, networking, and public speaking.',
-      'Direct Industry Mentorship: Get regular career reviews and resume advice from professionals who have worked at global brands.',
-      'Priority Team Hiring: Ambassadors get fast-tracked for future internal internships and full-time roles.'
+      'Direct Industry Mentorship: Get regular career reviews and resume advice from professionals who have worked at global brands.'
     ],
     timeline: [
       { phase: '1', label: 'Applications Open', date: 'July 13, 2026' },
