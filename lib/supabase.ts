@@ -8,11 +8,13 @@ import { createClient } from "@supabase/supabase-js";
  * behind the /api/register route.
  */
 export function getServiceClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // Match the /api/register pattern: prod sets SUPABASE_URL (server-only);
+  // NEXT_PUBLIC_SUPABASE_URL is the local/.env.local fallback.
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL;
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !serviceKey) {
     throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars."
+      "Missing SUPABASE_URL / NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars."
     );
   }
   return createClient(url, serviceKey, {
