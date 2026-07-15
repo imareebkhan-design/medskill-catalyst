@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 
 interface Application {
   id: string;
@@ -85,11 +84,14 @@ export default function CareersAdminDashboard() {
   const [editNotes, setEditNotes] = useState("");
   const [editReviewer, setEditReviewer] = useState("");
   const [updateLoading, setUpdateLoading] = useState(false);
+  const [updateMsg, setUpdateMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
   const fetchApplications = async (code: string) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/careers/admin?passcode=${encodeURIComponent(code)}`);
+      // Send the passcode as a header, not a query param — keeps it out of
+      // server access logs, browser history, and referrer headers.
+      const res = await fetch(`/api/careers/admin`, { headers: { "x-admin-passcode": code } });
       if (res.ok) {
         const data = await res.json();
         setApplications(data);
@@ -121,6 +123,13 @@ export default function CareersAdminDashboard() {
     }
   }, []);
 
+  // App Router: next/head is a no-op in client components — set the title directly.
+  useEffect(() => {
+    document.title = isAuthenticated
+      ? "Recruitment Dashboard — MedSkills Catalyst"
+      : "Careers Admin Login — MedSkills Catalyst";
+  }, [isAuthenticated]);
+
   const handleLogout = () => {
     sessionStorage.removeItem("msc_admin_passcode");
     setIsAuthenticated(false);
@@ -134,6 +143,7 @@ export default function CareersAdminDashboard() {
     setEditStatus(app.status);
     setEditNotes(app.internal_notes || "");
     setEditReviewer(app.reviewer || "");
+    setUpdateMsg(null);
   };
 
   const handleUpdateApp = async (e: React.FormEvent) => {
@@ -161,12 +171,12 @@ export default function CareersAdminDashboard() {
         // Update local application state
         setApplications(prev => prev.map(app => app.id === selectedApp.id ? { ...app, ...result.data } : app));
         setSelectedApp({ ...selectedApp, ...result.data });
-        alert("Application updated successfully!");
+        setUpdateMsg({ ok: true, text: "Saved." });
       } else {
-        alert("Failed to update application details.");
+        setUpdateMsg({ ok: false, text: "Couldn't save. Please try again." });
       }
     } catch (err) {
-      alert("Network error updating application.");
+      setUpdateMsg({ ok: false, text: "Network error. Please try again." });
     } finally {
       setUpdateLoading(false);
     }
@@ -262,10 +272,6 @@ export default function CareersAdminDashboard() {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-body">
-        <Head>
-          <title>Careers Admin Login — MedSkills Catalyst</title>
-        </Head>
-        
         <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
           <div className="mx-auto h-12 w-12 rounded-full bg-teal-mid/10 flex items-center justify-center text-2xl font-bold shadow-inner">
             🛡️
@@ -319,10 +325,6 @@ export default function CareersAdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-body p-6 sm:p-10 text-left">
-      <Head>
-        <title>Recruitment Dashboard — MedSkills Catalyst</title>
-      </Head>
-
       <div className="max-w-7xl mx-auto">
         {/* Top Header */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-6 mb-8 gap-4">
@@ -412,7 +414,11 @@ export default function CareersAdminDashboard() {
           
           {/* Applications list table */}
           <div className="lg:col-span-9 bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
-            {filteredApps.length === 0 ? (
+            {loading ? (
+              <div className="text-center py-16">
+                <p className="text-slate-400 font-semibold">Loading applications…</p>
+              </div>
+            ) : filteredApps.length === 0 ? (
               <div className="text-center py-16">
                 <span className="text-4xl">📭</span>
                 <p className="mt-4 text-slate-400 font-semibold">No applications found.</p>
@@ -602,6 +608,14 @@ export default function CareersAdminDashboard() {
                       className="w-full px-3 py-2 border border-slate-800 bg-slate-900 rounded-lg text-sm text-slate-300 focus:outline-none focus:ring-1 focus:ring-teal-leg resize-none"
                     />
                   </div>
+                  {updateMsg && (
+                    <div
+                      role="status"
+                      className={`md:col-span-3 text-sm font-bold ${updateMsg.ok ? "text-teal-leg" : "text-red-400"}`}
+                    >
+                      {updateMsg.text}
+                    </div>
+                  )}
                 </form>
 
                 {/* Personal Information */}
