@@ -11,7 +11,7 @@
 <meta property="og:site_name" content="MedSkills Catalyst">
 <meta property="og:title" content="MedSkills Catalyst — Live Q&A Session">
 <meta property="og:description" content="Got questions before joining Cohort 1? Register for our live Q&A — Sat, 18 July 2026, 6 PM IST.">
-<meta property="og:url" content="https://www.medskillscatalyst.com/live-qa">
+<meta property="og:url" content="https://www.medskillscatalyst.com/qnaregistration">
 <meta property="og:image" content="https://www.medskillscatalyst.com/assets/hero_training.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -244,7 +244,7 @@ form.addEventListener('submit',async function(e){
   };
   var controller=new AbortController(); var t=setTimeout(function(){controller.abort();},8000);
   try{
-    var res=await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
+    var res=await fetch('/api/qa-register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});
     clearTimeout(t);
     if(res.ok){
       if(typeof gtag!=='undefined')gtag('event','qa_registration',{event_category:'conversion'});
