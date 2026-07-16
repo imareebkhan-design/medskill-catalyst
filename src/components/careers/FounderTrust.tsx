@@ -5,7 +5,7 @@ import React from "react";
 
 const FOUNDERS = [
   {
-    photo: "/assets/gagan_victor.png",
+    photo: "/assets/gagan_victor_headshot.png",
     name: "Gagan Victor",
     credential: "Co-Founder & Program Director · Former Pfizer, BMS, Medtronic & Stryker",
   },

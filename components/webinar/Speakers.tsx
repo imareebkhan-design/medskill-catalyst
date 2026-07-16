@@ -21,7 +21,7 @@ const speakers: Speaker[] = [
     name: "Gagan Victor",
     role: "Programme Director & Lead Mentor",
     bio: "Former Regional Sales Manager at Medtronic India, overseeing cardiovascular and surgical device portfolios across South India. Transitioned from corporate MedTech leadership to full-time training to build India's next generation of medical device professionals.",
-    photo: "/assets/gagan_victor.png",
+    photo: "/assets/gagan_victor_headshot.png",
     tags: ["Ex-Medtronic", "Sales Strategy", "Interview Prep"],
   },
   {

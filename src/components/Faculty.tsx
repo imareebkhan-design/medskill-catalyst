@@ -15,7 +15,7 @@ const mentors: Mentor[] = [
     role: "Co-Founder and Program Director",
     badges: ["Former Pfizer, Medtronic, Stryker & BMS"],
     bio: "Former leader at Pfizer, Medtronic India, Stryker, overseeing Cardiovascular and Surgical device portfolio. Transitioned from Medical Rep to Corporate Medtech Leader to full time training, coaching, mentoring to build India’s next generation of Medtech ready professionals.",
-    image: "/assets/gagan_victor.png",
+    image: "/assets/gagan_victor_headshot.png",
   },
   {
     name: "Shilpi Babbar",
