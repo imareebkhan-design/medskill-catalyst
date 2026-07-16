@@ -129,7 +129,7 @@ export async function POST(req: Request) {
   //    email must not fail the registration — the lead is already saved.
   let emailed = false;
   let emailReason = ""; // TEMP diagnostic — surfaces why an email didn't send.
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const RESEND_API_KEY = process.env.RESEND_API_KEY || process.env.Resend_Api_key;
   if (!RESEND_API_KEY) emailReason = "RESEND_API_KEY missing in this deployment's env";
   if (RESEND_API_KEY) {
     const firstName = full_name.split(" ")[0] || "there";
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "MedSkills Catalyst <hello@medskillscatalyst.com>",
+          from: "MedSkills Catalyst <info@medskillscatalyst.com>",
           to: [email],
           subject: "You're Registered! | MedSkills Catalyst Cohort 1 Live Q&A",
           html,
