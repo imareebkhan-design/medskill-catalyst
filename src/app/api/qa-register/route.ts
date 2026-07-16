@@ -94,7 +94,9 @@ export async function POST(req: Request) {
   // 2) Send the joining-link email via Resend (only when configured). A failed
   //    email must not fail the registration — the lead is already saved.
   let emailed = false;
+  let emailReason = ""; // TEMP diagnostic — surfaces why an email didn't send.
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  if (!RESEND_API_KEY) emailReason = "RESEND_API_KEY missing in this deployment's env";
   if (RESEND_API_KEY) {
     const meetingLink = (process.env.QA_MEETING_LINK || "").trim();
     const firstName = full_name.split(" ")[0] || "there";
@@ -131,12 +133,15 @@ export async function POST(req: Request) {
       });
       emailed = r.ok;
       if (!r.ok) {
-        console.error("[QA] Resend send failed:", r.status, (await r.text()).slice(0, 300));
+        const detail = (await r.text()).slice(0, 300);
+        emailReason = "resend_" + r.status + ": " + detail;
+        console.error("[QA] Resend send failed:", r.status, detail);
       }
     } catch (e) {
+      emailReason = "resend_exception: " + (e instanceof Error ? e.message : String(e));
       console.error("[QA] Resend error:", e);
     }
   }
 
-  return NextResponse.json({ ok: true, emailed });
+  return NextResponse.json({ ok: true, emailed, emailReason });
 }
