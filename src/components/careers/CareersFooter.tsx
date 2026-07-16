@@ -71,7 +71,7 @@ export function CareersFooter() {
           {/* Support + Legal */}
           <div>
             <h4 className="text-[0.875rem] font-bold uppercase tracking-[0.05em] text-teal-leg mb-4">
-              Support
+              Supporting
             </h4>
             <div className="flex flex-col gap-3 text-[0.9rem] text-white/70">
               <Link href="/#faq" className="hover:text-white transition-colors">
