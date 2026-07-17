@@ -1,10 +1,24 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: ["./src/app/**/*.{ts,tsx}", "./src/components/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
+  content: [
+    "./src/app/**/*.{ts,tsx}",
+    // /admin lives in the Pages Router. Without this glob Tailwind never sees
+    // its classes and purges every one of them out of the compiled CSS.
+    "./src/pages/**/*.{ts,tsx}",
+    "./src/components/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
+        // Brand palette, addressable directly (bg-brand-navy, text-brand-cyan).
+        brand: {
+          navy: "#0A2A43",
+          blue: "#00589E",
+          cyan: "#4AD0FF",
+          pale: "#E8F2FB",
+        },
         // Webinar palette token names preserved; hex values mapped to the
         // existing MedSkills Catalyst brand (navy / blue / cyan palette).
         teal: {
