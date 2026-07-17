@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Business Card — MedSkills Catalyst</title>
+<style>
+/* ===========================================================================
+   MedSkills Catalyst — Business Card (press-ready)
+
+   Trim 3.5in x 2in. Bleed 0.125in per edge, so each page is 3.75in x 2.25in.
+   Artwork is square-cut: any corner radius comes from the die, not the file.
+   Geometry is the Claude Design canvas (1050x600) scaled by 0.24pt per px.
+   Type is set larger than that scale would give — see note in the type block.
+   =========================================================================== */
+
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/InstrumentSans-400.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/InstrumentSans-500.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/InstrumentSans-600.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Inter Tight";
+  src: url("assets/fonts/InterTight-400Italic.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: block;
+}
+
+:root {
+  --navy: #0A2A43;
+  --blue: #00589E;
+  --cyan: #4AD0FF;
+  --ink: #0F1B27;
+  --slate: #5A6B7B;
+  --chip: #E8F2FB;
+
+  --bleed: 9pt;      /* 0.125in */
+  --trim-w: 252pt;   /* 3.5in   */
+  --trim-h: 144pt;   /* 2in     */
+  --rail: 72pt;      /* 1in — 300/1050 of trim width, per the design */
+}
+
+@page {
+  size: 3.75in 2.25in;  /* trim + bleed */
+  margin: 0;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* One card per page, sized to the bleed box. */
+.card {
+  position: relative;
+  width: calc(var(--trim-w) + 2 * var(--bleed));
+  height: calc(var(--trim-h) + 2 * var(--bleed));
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+}
+.card:last-of-type { page-break-after: auto; break-after: auto; }
+
+/* --- FRONT ------------------------------------------------------------- */
+
+.front { background: #FFFFFF; }
+
+/* Navy rail. Bleeds off the left, top and bottom edges; its inner padding is
+   measured from the trim edge so nothing lands in the bleed.
+   overflow:hidden clips the glows to the navy: on screen they spill onto the
+   white panel as ambient light, but on paper that reads as a printing smudge. */
+.rail {
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: calc(var(--rail) + var(--bleed));
+  background: var(--navy);
+  overflow: hidden;
+  padding: calc(var(--bleed) + 11.5pt) 9.6pt calc(var(--bleed) + 11.5pt) calc(var(--bleed) + 11.5pt);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.rail-glow-a, .rail-glow-b { position: absolute; pointer-events: none; }
+.rail-glow-a {
+  top: -29pt; left: -29pt; width: 82pt; height: 82pt;
+  background: radial-gradient(circle, rgba(74,208,255,0.22), transparent 70%);
+}
+.rail-glow-b {
+  bottom: -34pt; right: -29pt; width: 77pt; height: 77pt;
+  background: radial-gradient(circle, rgba(0,88,158,0.4), transparent 70%);
+}
+.rail-logo { position: relative; width: 36pt; height: 36pt; object-fit: contain; }
+.rail-brand { position: relative; }
+
+/* --- Type -------------------------------------------------------------- */
+/* A literal 0.24pt/px scale would put the contact lines at 4.3pt, which is
+   below what a press can hold. Sizes below are set to print minimums
+   (contact 6.5pt, fine print 5pt) and the hierarchy rebalanced around them. */
+
+.rail-name {
+  font-size: 7.5pt; font-weight: 600; color: #FFFFFF;
+  letter-spacing: -0.01em; line-height: 1.2;
+}
+.rail-tagline {
+  margin-top: 2.4pt;
+  font-family: "Inter Tight", Georgia, serif; font-style: italic;
+  font-size: 5.5pt; color: var(--cyan);
+}
+
+.details {
+  position: absolute;
+  top: var(--bleed); bottom: var(--bleed);
+  left: calc(var(--rail) + var(--bleed)); right: var(--bleed);
+  padding: 14.4pt 13.4pt;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.name {
+  font-size: 12pt; font-weight: 600; color: var(--navy);
+  letter-spacing: -0.03em; line-height: 1.05;
+}
+.role {
+  margin-top: 2.9pt;
+  font-size: 7pt; font-weight: 500; color: var(--blue);
+}
+.eyebrow {
+  margin-top: 1.9pt;
+  font-size: 5pt; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--slate);
+}
+.divider {
+  height: 0.4pt; background: rgba(10,42,67,0.10); margin: 8.2pt 0;
+}
+
+.contacts { display: flex; flex-direction: column; gap: 4.5pt; }
+.contact { display: flex; align-items: center; gap: 4pt; }
+.contact-icon {
+  display: flex; width: 11pt; height: 11pt; flex: 0 0 auto;
+  align-items: center; justify-content: center;
+  background: var(--chip); border-radius: 3.3pt; color: var(--blue);
+}
+.contact-icon svg { width: 6pt; height: 6pt; }
+.contact span { font-size: 6.5pt; color: var(--ink); font-weight: 500; }
+
+/* --- BACK -------------------------------------------------------------- */
+
+.back {
+  background: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.back-glow-a, .back-glow-b { position: absolute; pointer-events: none; }
+.back-glow-a {
+  top: -34pt; left: -24pt; width: 101pt; height: 101pt;
+  background: radial-gradient(circle, rgba(74,208,255,0.18), transparent 70%);
+}
+.back-glow-b {
+  bottom: -38pt; right: -29pt; width: 110pt; height: 110pt;
+  background: radial-gradient(circle, rgba(0,88,158,0.5), transparent 70%);
+}
+.back-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 17.3pt;
+  padding: 0 19.2pt;
+}
+.back-brand {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 5.8pt;
+  max-width: 117pt;
+}
+.back-logo { width: 40pt; height: 40pt; object-fit: contain; }
+.back-name {
+  font-size: 10.5pt; font-weight: 600; color: #FFFFFF;
+  letter-spacing: -0.03em; line-height: 1.1;
+}
+.back-tagline {
+  margin-top: 2.4pt;
+  font-family: "Inter Tight", Georgia, serif; font-style: italic;
+  font-size: 6.5pt; color: var(--cyan);
+}
+.back-desc {
+  font-size: 5.5pt; line-height: 1.6; color: rgba(255,255,255,0.72);
+}
+
+.qr-block { display: flex; flex-direction: column; align-items: center; gap: 4.3pt; }
+/* Padding is the QR quiet zone: 4 modules at 62pt / 29 modules = 8.6pt. */
+.qr-plate { background: #FFFFFF; padding: 8.6pt; border-radius: 4.8pt; }
+.qr { width: 62pt; height: 62pt; }
+.qr svg { width: 100%; height: 100%; display: block; }
+.qr-label {
+  font-size: 5pt; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--cyan);
+}
+
+/* --- Screen-only export instructions ----------------------------------- */
+
+.howto {
+  font: 13px/1.6 system-ui, sans-serif;
+  color: #0F1B27;
+  background: #EEF3F8;
+  border-left: 3px solid var(--blue);
+  padding: 16px 20px;
+  margin: 24px 0 0;
+  max-width: 560px;
+}
+.howto h2 { font-size: 14px; margin: 0 0 8px; color: var(--navy); }
+.howto code { background: #fff; padding: 1px 5px; border-radius: 3px; }
+@media screen {
+  body { background: #DDE5ED; padding: 24px; }
+  .card { box-shadow: 0 8px 30px rgba(10,42,67,0.22); margin-bottom: 20px; }
+}
+@media print {
+  .howto { display: none; }
+  body { background: none; padding: 0; }
+  .card { box-shadow: none; margin: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<div class="card front">
+  <div class="rail">
+    <div class="rail-glow-a"></div>
+    <div class="rail-glow-b"></div>
+    <img class="rail-logo" src="brand/logo/MedSkills-Catalyst_Logo.png" alt="MedSkills Catalyst">
+    <div class="rail-brand">
+      <div class="rail-name">MedSkills<br>Catalyst</div>
+      <div class="rail-tagline">Upskill to upscale.</div>
+    </div>
+  </div>
+
+  <div class="details">
+    <div class="name">Gagan Victor</div>
+    <div class="role">Co-Founder &amp; Program Director</div>
+    <div class="eyebrow">MedSkills Catalyst Pvt. Ltd.</div>
+
+    <div class="divider"></div>
+
+    <div class="contacts">
+      <div class="contact">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </span>
+        <span>+91 97592 49395</span>
+      </div>
+      <div class="contact">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        </span>
+        <span>info@medskillscatalyst.com</span>
+      </div>
+      <div class="contact">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </span>
+        <span>medskillscatalyst.com</span>
+      </div>
+      <div class="contact">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        <span>Gurgaon, Haryana, India</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACK -->
+<div class="card back">
+  <div class="back-glow-a"></div>
+  <div class="back-glow-b"></div>
+  <div class="back-inner">
+    <div class="back-brand">
+      <img class="back-logo" src="brand/logo/MedSkills-Catalyst_Logo.png" alt="MedSkills Catalyst">
+      <div>
+        <div class="back-name">MedSkills Catalyst</div>
+        <div class="back-tagline">Upskill to upscale.</div>
+      </div>
+      <div class="back-desc">India's career accelerator for healthcare professionals breaking into MedTech.</div>
+    </div>
+
+    <div class="qr-block">
+      <div class="qr-plate">
+        <div class="qr"><svg shape-rendering="crispEdges" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174 174"  preserveAspectRatio="xMinYMin meet"><rect width="100%" height="100%" fill="white" cx="0" cy="0"/><path d="M0,0l6,0 0,6 -6,0 0,-6z M6,0l6,0 0,6 -6,0 0,-6z M12,0l6,0 0,6 -6,0 0,-6z M18,0l6,0 0,6 -6,0 0,-6z M24,0l6,0 0,6 -6,0 0,-6z M30,0l6,0 0,6 -6,0 0,-6z M36,0l6,0 0,6 -6,0 0,-6z M72,0l6,0 0,6 -6,0 0,-6z M84,0l6,0 0,6 -6,0 0,-6z M102,0l6,0 0,6 -6,0 0,-6z M114,0l6,0 0,6 -6,0 0,-6z M132,0l6,0 0,6 -6,0 0,-6z M138,0l6,0 0,6 -6,0 0,-6z M144,0l6,0 0,6 -6,0 0,-6z M150,0l6,0 0,6 -6,0 0,-6z M156,0l6,0 0,6 -6,0 0,-6z M162,0l6,0 0,6 -6,0 0,-6z M168,0l6,0 0,6 -6,0 0,-6z M0,6l6,0 0,6 -6,0 0,-6z M36,6l6,0 0,6 -6,0 0,-6z M60,6l6,0 0,6 -6,0 0,-6z M96,6l6,0 0,6 -6,0 0,-6z M102,6l6,0 0,6 -6,0 0,-6z M132,6l6,0 0,6 -6,0 0,-6z M168,6l6,0 0,6 -6,0 0,-6z M0,12l6,0 0,6 -6,0 0,-6z M12,12l6,0 0,6 -6,0 0,-6z M18,12l6,0 0,6 -6,0 0,-6z M24,12l6,0 0,6 -6,0 0,-6z M36,12l6,0 0,6 -6,0 0,-6z M54,12l6,0 0,6 -6,0 0,-6z M84,12l6,0 0,6 -6,0 0,-6z M90,12l6,0 0,6 -6,0 0,-6z M102,12l6,0 0,6 -6,0 0,-6z M120,12l6,0 0,6 -6,0 0,-6z M132,12l6,0 0,6 -6,0 0,-6z M144,12l6,0 0,6 -6,0 0,-6z M150,12l6,0 0,6 -6,0 0,-6z M156,12l6,0 0,6 -6,0 0,-6z M168,12l6,0 0,6 -6,0 0,-6z M0,18l6,0 0,6 -6,0 0,-6z M12,18l6,0 0,6 -6,0 0,-6z M18,18l6,0 0,6 -6,0 0,-6z M24,18l6,0 0,6 -6,0 0,-6z M36,18l6,0 0,6 -6,0 0,-6z M54,18l6,0 0,6 -6,0 0,-6z M78,18l6,0 0,6 -6,0 0,-6z M96,18l6,0 0,6 -6,0 0,-6z M108,18l6,0 0,6 -6,0 0,-6z M132,18l6,0 0,6 -6,0 0,-6z M144,18l6,0 0,6 -6,0 0,-6z M150,18l6,0 0,6 -6,0 0,-6z M156,18l6,0 0,6 -6,0 0,-6z M168,18l6,0 0,6 -6,0 0,-6z M0,24l6,0 0,6 -6,0 0,-6z M12,24l6,0 0,6 -6,0 0,-6z M18,24l6,0 0,6 -6,0 0,-6z M24,24l6,0 0,6 -6,0 0,-6z M36,24l6,0 0,6 -6,0 0,-6z M60,24l6,0 0,6 -6,0 0,-6z M132,24l6,0 0,6 -6,0 0,-6z M144,24l6,0 0,6 -6,0 0,-6z M150,24l6,0 0,6 -6,0 0,-6z M156,24l6,0 0,6 -6,0 0,-6z M168,24l6,0 0,6 -6,0 0,-6z M0,30l6,0 0,6 -6,0 0,-6z M36,30l6,0 0,6 -6,0 0,-6z M48,30l6,0 0,6 -6,0 0,-6z M54,30l6,0 0,6 -6,0 0,-6z M60,30l6,0 0,6 -6,0 0,-6z M66,30l6,0 0,6 -6,0 0,-6z M72,30l6,0 0,6 -6,0 0,-6z M90,30l6,0 0,6 -6,0 0,-6z M96,30l6,0 0,6 -6,0 0,-6z M102,30l6,0 0,6 -6,0 0,-6z M114,30l6,0 0,6 -6,0 0,-6z M132,30l6,0 0,6 -6,0 0,-6z M168,30l6,0 0,6 -6,0 0,-6z M0,36l6,0 0,6 -6,0 0,-6z M6,36l6,0 0,6 -6,0 0,-6z M12,36l6,0 0,6 -6,0 0,-6z M18,36l6,0 0,6 -6,0 0,-6z M24,36l6,0 0,6 -6,0 0,-6z M30,36l6,0 0,6 -6,0 0,-6z M36,36l6,0 0,6 -6,0 0,-6z M48,36l6,0 0,6 -6,0 0,-6z M60,36l6,0 0,6 -6,0 0,-6z M72,36l6,0 0,6 -6,0 0,-6z M84,36l6,0 0,6 -6,0 0,-6z M96,36l6,0 0,6 -6,0 0,-6z M108,36l6,0 0,6 -6,0 0,-6z M120,36l6,0 0,6 -6,0 0,-6z M132,36l6,0 0,6 -6,0 0,-6z M138,36l6,0 0,6 -6,0 0,-6z M144,36l6,0 0,6 -6,0 0,-6z M150,36l6,0 0,6 -6,0 0,-6z M156,36l6,0 0,6 -6,0 0,-6z M162,36l6,0 0,6 -6,0 0,-6z M168,36l6,0 0,6 -6,0 0,-6z M54,42l6,0 0,6 -6,0 0,-6z M60,42l6,0 0,6 -6,0 0,-6z M66,42l6,0 0,6 -6,0 0,-6z M78,42l6,0 0,6 -6,0 0,-6z M90,42l6,0 0,6 -6,0 0,-6z M96,42l6,0 0,6 -6,0 0,-6z M102,42l6,0 0,6 -6,0 0,-6z M108,42l6,0 0,6 -6,0 0,-6z M0,48l6,0 0,6 -6,0 0,-6z M18,48l6,0 0,6 -6,0 0,-6z M30,48l6,0 0,6 -6,0 0,-6z M36,48l6,0 0,6 -6,0 0,-6z M48,48l6,0 0,6 -6,0 0,-6z M54,48l6,0 0,6 -6,0 0,-6z M72,48l6,0 0,6 -6,0 0,-6z M84,48l6,0 0,6 -6,0 0,-6z M96,48l6,0 0,6 -6,0 0,-6z M126,48l6,0 0,6 -6,0 0,-6z M138,48l6,0 0,6 -6,0 0,-6z M30,54l6,0 0,6 -6,0 0,-6z M54,54l6,0 0,6 -6,0 0,-6z M78,54l6,0 0,6 -6,0 0,-6z M90,54l6,0 0,6 -6,0 0,-6z M96,54l6,0 0,6 -6,0 0,-6z M102,54l6,0 0,6 -6,0 0,-6z M108,54l6,0 0,6 -6,0 0,-6z M120,54l6,0 0,6 -6,0 0,-6z M126,54l6,0 0,6 -6,0 0,-6z M132,54l6,0 0,6 -6,0 0,-6z M150,54l6,0 0,6 -6,0 0,-6z M168,54l6,0 0,6 -6,0 0,-6z M0,60l6,0 0,6 -6,0 0,-6z M24,60l6,0 0,6 -6,0 0,-6z M30,60l6,0 0,6 -6,0 0,-6z M36,60l6,0 0,6 -6,0 0,-6z M42,60l6,0 0,6 -6,0 0,-6z M60,60l6,0 0,6 -6,0 0,-6z M72,60l6,0 0,6 -6,0 0,-6z M78,60l6,0 0,6 -6,0 0,-6z M84,60l6,0 0,6 -6,0 0,-6z M90,60l6,0 0,6 -6,0 0,-6z M114,60l6,0 0,6 -6,0 0,-6z M120,60l6,0 0,6 -6,0 0,-6z M132,60l6,0 0,6 -6,0 0,-6z M138,60l6,0 0,6 -6,0 0,-6z M150,60l6,0 0,6 -6,0 0,-6z M156,60l6,0 0,6 -6,0 0,-6z M162,60l6,0 0,6 -6,0 0,-6z M0,66l6,0 0,6 -6,0 0,-6z M6,66l6,0 0,6 -6,0 0,-6z M12,66l6,0 0,6 -6,0 0,-6z M24,66l6,0 0,6 -6,0 0,-6z M60,66l6,0 0,6 -6,0 0,-6z M72,66l6,0 0,6 -6,0 0,-6z M78,66l6,0 0,6 -6,0 0,-6z M96,66l6,0 0,6 -6,0 0,-6z M114,66l6,0 0,6 -6,0 0,-6z M132,66l6,0 0,6 -6,0 0,-6z M156,66l6,0 0,6 -6,0 0,-6z M162,66l6,0 0,6 -6,0 0,-6z M0,72l6,0 0,6 -6,0 0,-6z M6,72l6,0 0,6 -6,0 0,-6z M12,72l6,0 0,6 -6,0 0,-6z M18,72l6,0 0,6 -6,0 0,-6z M24,72l6,0 0,6 -6,0 0,-6z M30,72l6,0 0,6 -6,0 0,-6z M36,72l6,0 0,6 -6,0 0,-6z M48,72l6,0 0,6 -6,0 0,-6z M60,72l6,0 0,6 -6,0 0,-6z M84,72l6,0 0,6 -6,0 0,-6z M90,72l6,0 0,6 -6,0 0,-6z M102,72l6,0 0,6 -6,0 0,-6z M108,72l6,0 0,6 -6,0 0,-6z M126,72l6,0 0,6 -6,0 0,-6z M132,72l6,0 0,6 -6,0 0,-6z M138,72l6,0 0,6 -6,0 0,-6z M150,72l6,0 0,6 -6,0 0,-6z M162,72l6,0 0,6 -6,0 0,-6z M168,72l6,0 0,6 -6,0 0,-6z M0,78l6,0 0,6 -6,0 0,-6z M6,78l6,0 0,6 -6,0 0,-6z M24,78l6,0 0,6 -6,0 0,-6z M60,78l6,0 0,6 -6,0 0,-6z M78,78l6,0 0,6 -6,0 0,-6z M84,78l6,0 0,6 -6,0 0,-6z M90,78l6,0 0,6 -6,0 0,-6z M96,78l6,0 0,6 -6,0 0,-6z M114,78l6,0 0,6 -6,0 0,-6z M120,78l6,0 0,6 -6,0 0,-6z M126,78l6,0 0,6 -6,0 0,-6z M0,84l6,0 0,6 -6,0 0,-6z M36,84l6,0 0,6 -6,0 0,-6z M54,84l6,0 0,6 -6,0 0,-6z M66,84l6,0 0,6 -6,0 0,-6z M78,84l6,0 0,6 -6,0 0,-6z M84,84l6,0 0,6 -6,0 0,-6z M120,84l6,0 0,6 -6,0 0,-6z M138,84l6,0 0,6 -6,0 0,-6z M144,84l6,0 0,6 -6,0 0,-6z M150,84l6,0 0,6 -6,0 0,-6z M156,84l6,0 0,6 -6,0 0,-6z M162,84l6,0 0,6 -6,0 0,-6z M168,84l6,0 0,6 -6,0 0,-6z M12,90l6,0 0,6 -6,0 0,-6z M18,90l6,0 0,6 -6,0 0,-6z M24,90l6,0 0,6 -6,0 0,-6z M42,90l6,0 0,6 -6,0 0,-6z M60,90l6,0 0,6 -6,0 0,-6z M90,90l6,0 0,6 -6,0 0,-6z M102,90l6,0 0,6 -6,0 0,-6z M114,90l6,0 0,6 -6,0 0,-6z M150,90l6,0 0,6 -6,0 0,-6z M162,90l6,0 0,6 -6,0 0,-6z M0,96l6,0 0,6 -6,0 0,-6z M24,96l6,0 0,6 -6,0 0,-6z M36,96l6,0 0,6 -6,0 0,-6z M42,96l6,0 0,6 -6,0 0,-6z M48,96l6,0 0,6 -6,0 0,-6z M54,96l6,0 0,6 -6,0 0,-6z M60,96l6,0 0,6 -6,0 0,-6z M72,96l6,0 0,6 -6,0 0,-6z M78,96l6,0 0,6 -6,0 0,-6z M102,96l6,0 0,6 -6,0 0,-6z M114,96l6,0 0,6 -6,0 0,-6z M120,96l6,0 0,6 -6,0 0,-6z M126,96l6,0 0,6 -6,0 0,-6z M162,96l6,0 0,6 -6,0 0,-6z M6,102l6,0 0,6 -6,0 0,-6z M12,102l6,0 0,6 -6,0 0,-6z M18,102l6,0 0,6 -6,0 0,-6z M24,102l6,0 0,6 -6,0 0,-6z M42,102l6,0 0,6 -6,0 0,-6z M48,102l6,0 0,6 -6,0 0,-6z M54,102l6,0 0,6 -6,0 0,-6z M60,102l6,0 0,6 -6,0 0,-6z M66,102l6,0 0,6 -6,0 0,-6z M72,102l6,0 0,6 -6,0 0,-6z M78,102l6,0 0,6 -6,0 0,-6z M84,102l6,0 0,6 -6,0 0,-6z M90,102l6,0 0,6 -6,0 0,-6z M96,102l6,0 0,6 -6,0 0,-6z M126,102l6,0 0,6 -6,0 0,-6z M132,102l6,0 0,6 -6,0 0,-6z M138,102l6,0 0,6 -6,0 0,-6z M150,102l6,0 0,6 -6,0 0,-6z M168,102l6,0 0,6 -6,0 0,-6z M0,108l6,0 0,6 -6,0 0,-6z M18,108l6,0 0,6 -6,0 0,-6z M24,108l6,0 0,6 -6,0 0,-6z M30,108l6,0 0,6 -6,0 0,-6z M36,108l6,0 0,6 -6,0 0,-6z M42,108l6,0 0,6 -6,0 0,-6z M48,108l6,0 0,6 -6,0 0,-6z M54,108l6,0 0,6 -6,0 0,-6z M72,108l6,0 0,6 -6,0 0,-6z M84,108l6,0 0,6 -6,0 0,-6z M90,108l6,0 0,6 -6,0 0,-6z M96,108l6,0 0,6 -6,0 0,-6z M102,108l6,0 0,6 -6,0 0,-6z M108,108l6,0 0,6 -6,0 0,-6z M126,108l6,0 0,6 -6,0 0,-6z M138,108l6,0 0,6 -6,0 0,-6z M144,108l6,0 0,6 -6,0 0,-6z M162,108l6,0 0,6 -6,0 0,-6z M168,108l6,0 0,6 -6,0 0,-6z M12,114l6,0 0,6 -6,0 0,-6z M18,114l6,0 0,6 -6,0 0,-6z M72,114l6,0 0,6 -6,0 0,-6z M84,114l6,0 0,6 -6,0 0,-6z M102,114l6,0 0,6 -6,0 0,-6z M108,114l6,0 0,6 -6,0 0,-6z M114,114l6,0 0,6 -6,0 0,-6z M126,114l6,0 0,6 -6,0 0,-6z M132,114l6,0 0,6 -6,0 0,-6z M162,114l6,0 0,6 -6,0 0,-6z M168,114l6,0 0,6 -6,0 0,-6z M0,120l6,0 0,6 -6,0 0,-6z M12,120l6,0 0,6 -6,0 0,-6z M30,120l6,0 0,6 -6,0 0,-6z M36,120l6,0 0,6 -6,0 0,-6z M90,120l6,0 0,6 -6,0 0,-6z M120,120l6,0 0,6 -6,0 0,-6z M126,120l6,0 0,6 -6,0 0,-6z M132,120l6,0 0,6 -6,0 0,-6z M138,120l6,0 0,6 -6,0 0,-6z M144,120l6,0 0,6 -6,0 0,-6z M156,120l6,0 0,6 -6,0 0,-6z M48,126l6,0 0,6 -6,0 0,-6z M60,126l6,0 0,6 -6,0 0,-6z M72,126l6,0 0,6 -6,0 0,-6z M84,126l6,0 0,6 -6,0 0,-6z M90,126l6,0 0,6 -6,0 0,-6z M114,126l6,0 0,6 -6,0 0,-6z M120,126l6,0 0,6 -6,0 0,-6z M144,126l6,0 0,6 -6,0 0,-6z M156,126l6,0 0,6 -6,0 0,-6z M162,126l6,0 0,6 -6,0 0,-6z M168,126l6,0 0,6 -6,0 0,-6z M0,132l6,0 0,6 -6,0 0,-6z M6,132l6,0 0,6 -6,0 0,-6z M12,132l6,0 0,6 -6,0 0,-6z M18,132l6,0 0,6 -6,0 0,-6z M24,132l6,0 0,6 -6,0 0,-6z M30,132l6,0 0,6 -6,0 0,-6z M36,132l6,0 0,6 -6,0 0,-6z M60,132l6,0 0,6 -6,0 0,-6z M72,132l6,0 0,6 -6,0 0,-6z M96,132l6,0 0,6 -6,0 0,-6z M102,132l6,0 0,6 -6,0 0,-6z M120,132l6,0 0,6 -6,0 0,-6z M132,132l6,0 0,6 -6,0 0,-6z M144,132l6,0 0,6 -6,0 0,-6z M162,132l6,0 0,6 -6,0 0,-6z M0,138l6,0 0,6 -6,0 0,-6z M36,138l6,0 0,6 -6,0 0,-6z M48,138l6,0 0,6 -6,0 0,-6z M66,138l6,0 0,6 -6,0 0,-6z M84,138l6,0 0,6 -6,0 0,-6z M90,138l6,0 0,6 -6,0 0,-6z M108,138l6,0 0,6 -6,0 0,-6z M120,138l6,0 0,6 -6,0 0,-6z M144,138l6,0 0,6 -6,0 0,-6z M150,138l6,0 0,6 -6,0 0,-6z M156,138l6,0 0,6 -6,0 0,-6z M0,144l6,0 0,6 -6,0 0,-6z M12,144l6,0 0,6 -6,0 0,-6z M18,144l6,0 0,6 -6,0 0,-6z M24,144l6,0 0,6 -6,0 0,-6z M36,144l6,0 0,6 -6,0 0,-6z M54,144l6,0 0,6 -6,0 0,-6z M60,144l6,0 0,6 -6,0 0,-6z M66,144l6,0 0,6 -6,0 0,-6z M72,144l6,0 0,6 -6,0 0,-6z M96,144l6,0 0,6 -6,0 0,-6z M102,144l6,0 0,6 -6,0 0,-6z M120,144l6,0 0,6 -6,0 0,-6z M126,144l6,0 0,6 -6,0 0,-6z M132,144l6,0 0,6 -6,0 0,-6z M138,144l6,0 0,6 -6,0 0,-6z M144,144l6,0 0,6 -6,0 0,-6z M162,144l6,0 0,6 -6,0 0,-6z M0,150l6,0 0,6 -6,0 0,-6z M12,150l6,0 0,6 -6,0 0,-6z M18,150l6,0 0,6 -6,0 0,-6z M24,150l6,0 0,6 -6,0 0,-6z M36,150l6,0 0,6 -6,0 0,-6z M48,150l6,0 0,6 -6,0 0,-6z M54,150l6,0 0,6 -6,0 0,-6z M72,150l6,0 0,6 -6,0 0,-6z M78,150l6,0 0,6 -6,0 0,-6z M90,150l6,0 0,6 -6,0 0,-6z M114,150l6,0 0,6 -6,0 0,-6z M120,150l6,0 0,6 -6,0 0,-6z M132,150l6,0 0,6 -6,0 0,-6z M138,150l6,0 0,6 -6,0 0,-6z M144,150l6,0 0,6 -6,0 0,-6z M150,150l6,0 0,6 -6,0 0,-6z M156,150l6,0 0,6 -6,0 0,-6z M168,150l6,0 0,6 -6,0 0,-6z M0,156l6,0 0,6 -6,0 0,-6z M12,156l6,0 0,6 -6,0 0,-6z M18,156l6,0 0,6 -6,0 0,-6z M24,156l6,0 0,6 -6,0 0,-6z M36,156l6,0 0,6 -6,0 0,-6z M66,156l6,0 0,6 -6,0 0,-6z M72,156l6,0 0,6 -6,0 0,-6z M84,156l6,0 0,6 -6,0 0,-6z M90,156l6,0 0,6 -6,0 0,-6z M96,156l6,0 0,6 -6,0 0,-6z M102,156l6,0 0,6 -6,0 0,-6z M144,156l6,0 0,6 -6,0 0,-6z M150,156l6,0 0,6 -6,0 0,-6z M156,156l6,0 0,6 -6,0 0,-6z M168,156l6,0 0,6 -6,0 0,-6z M0,162l6,0 0,6 -6,0 0,-6z M36,162l6,0 0,6 -6,0 0,-6z M60,162l6,0 0,6 -6,0 0,-6z M78,162l6,0 0,6 -6,0 0,-6z M96,162l6,0 0,6 -6,0 0,-6z M102,162l6,0 0,6 -6,0 0,-6z M108,162l6,0 0,6 -6,0 0,-6z M120,162l6,0 0,6 -6,0 0,-6z M132,162l6,0 0,6 -6,0 0,-6z M162,162l6,0 0,6 -6,0 0,-6z M0,168l6,0 0,6 -6,0 0,-6z M6,168l6,0 0,6 -6,0 0,-6z M12,168l6,0 0,6 -6,0 0,-6z M18,168l6,0 0,6 -6,0 0,-6z M24,168l6,0 0,6 -6,0 0,-6z M30,168l6,0 0,6 -6,0 0,-6z M36,168l6,0 0,6 -6,0 0,-6z M48,168l6,0 0,6 -6,0 0,-6z M54,168l6,0 0,6 -6,0 0,-6z M60,168l6,0 0,6 -6,0 0,-6z M66,168l6,0 0,6 -6,0 0,-6z M90,168l6,0 0,6 -6,0 0,-6z M108,168l6,0 0,6 -6,0 0,-6z M120,168l6,0 0,6 -6,0 0,-6z M138,168l6,0 0,6 -6,0 0,-6z M150,168l6,0 0,6 -6,0 0,-6z M162,168l6,0 0,6 -6,0 0,-6z " stroke="transparent" fill="black"/></svg></div>
+      </div>
+      <div class="qr-label">Scan to visit us</div>
+    </div>
+  </div>
+</div>
+
+<div class="howto">
+  <h2>Exporting a press-ready PDF</h2>
+  Print to PDF from Chrome with <b>Margins: None</b>, <b>Scale: 100</b>, and
+  <b>Background graphics: on</b>. Paper size must be <code>3.75in &times; 2.25in</code>.
+  You get two pages — front, then back — each carrying 0.125in bleed on every edge.
+  Trim is 3.5in &times; 2in; corner radius is die-cut, not in the artwork.
+</div>
+
+</body>
+</html>
