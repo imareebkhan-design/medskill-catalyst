@@ -99,18 +99,20 @@ export async function POST(req: Request) {
         full_name,
         email,
         mobile: normalizeMobile(phone),
-        form_type: "masterclass",
+        form_type: "qa_session",
         consent: true,
+        // Attribution belongs in the top-level columns — the dashboard and both
+        // CSV exports read these directly and never look inside `extra`.
+        utm_source: body.utm_source || "",
+        utm_medium: body.utm_medium || "",
+        utm_campaign: body.utm_campaign || "",
+        landing_page: body.landing_page || "/qnaregistration",
         extra: {
           source: "Q&A Registration",
           event: EVENT.title,
           institute,
           category,
           city,
-          utm_source: body.utm_source || "",
-          utm_medium: body.utm_medium || "",
-          utm_campaign: body.utm_campaign || "",
-          landing_page: body.landing_page || "/qnaregistration",
         },
       },
       { onConflict: "email" }

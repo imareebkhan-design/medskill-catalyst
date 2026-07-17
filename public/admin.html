@@ -49,6 +49,7 @@ tr:hover td{background:#fafcfe}
 .pill{display:inline-block;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700}
 .pill.cohort_registration{background:#f0e8ff;color:#6b21a8}
 .pill.masterclass{background:var(--pale-blue);color:var(--blue)}
+.pill.qa_session{background:#e0f7ff;color:#0369a1}
 .pill.counseling{background:#e7f6ee;color:var(--success)}
 .pill.partial{background:#fef3c7;color:#92400e;margin-left:4px}
 .muted{color:var(--slate)}
@@ -85,6 +86,7 @@ footer{color:var(--slate);font-size:12px;text-align:center;padding:24px}
       <div class="stat"><div class="n" id="stToday">-</div><div class="l">Today</div></div>
       <div class="stat"><div class="n" id="stWeek">-</div><div class="l">Last 7 days</div></div>
       <div class="stat"><div class="n" id="stMaster">-</div><div class="l">Masterclass</div></div>
+      <div class="stat"><div class="n" id="stQa">-</div><div class="l">Q&amp;A Session</div></div>
       <div class="stat"><div class="n" id="stCouns">-</div><div class="l">Counseling</div></div>
       <div class="stat"><div class="n" id="stCohort">-</div><div class="l">Cohort Reg.</div></div>
       <div class="stat"><div class="n" id="stPartial">-</div><div class="l">Partial (dropped)</div></div>
@@ -94,6 +96,7 @@ footer{color:var(--slate);font-size:12px;text-align:center;padding:24px}
       <select id="typeFilter">
         <option value="">All form types</option>
         <option value="masterclass">Masterclass</option>
+        <option value="qa_session">Q&amp;A Session</option>
         <option value="counseling">Counseling</option>
         <option value="cohort_registration">Cohort Registration</option>
       </select>
@@ -161,6 +164,7 @@ footer{color:var(--slate);font-size:12px;text-align:center;padding:24px}
     $('stToday').textContent  =leads.filter(function(l){return new Date(l.created_at)>=startToday;}).length;
     $('stWeek').textContent   =leads.filter(function(l){return now-new Date(l.created_at).getTime()<7*day;}).length;
     $('stMaster').textContent =leads.filter(function(l){return l.form_type==='masterclass';}).length;
+    $('stQa').textContent     =leads.filter(function(l){return l.form_type==='qa_session';}).length;
     $('stCouns').textContent  =leads.filter(function(l){return l.form_type==='counseling';}).length;
     $('stCohort').textContent =leads.filter(function(l){return l.form_type==='cohort_registration'&&!isPartial(l);}).length;
     $('stPartial').textContent=leads.filter(function(l){return isPartial(l);}).length;
@@ -224,13 +228,13 @@ footer{color:var(--slate);font-size:12px;text-align:center;padding:24px}
       return{
         'Date (IST)':fmtIST(l.created_at),'Name':l.full_name,
         'Email':p?'(pending - partial lead)':l.email,'Mobile':l.mobile,
-        'City':field(l,'city'),'Form Type':l.form_type,'Partial Drop-off':p?'yes':'no',
+        'City':field(l,'city'),'Form Type':l.form_type,'Source':field(l,'source'),'Partial Drop-off':p?'yes':'no',
         'User Type':field(l,'user_type'),'Background':l.background,
         'College / Company':field(l,'college_name')||field(l,'organization')||field(l,'company_name'),
         'Degree / Role':field(l,'degree')||field(l,'current_role'),
         'Year / Experience':field(l,'current_year')||field(l,'experience'),
-        'Consent':l.consent?'yes':'no','UTM Source':l.utm_source,
-        'UTM Medium':l.utm_medium,'UTM Campaign':l.utm_campaign,'Landing Page':l.landing_page
+        'Consent':l.consent?'yes':'no','UTM Source':field(l,'utm_source'),
+        'UTM Medium':field(l,'utm_medium'),'UTM Campaign':field(l,'utm_campaign'),'Landing Page':field(l,'landing_page')
       };
     });
   }
