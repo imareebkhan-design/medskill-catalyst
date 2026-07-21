@@ -10,6 +10,8 @@ const nextConfig: NextConfig = {
       { source: "/linkedin-plan", destination: "/linkedin-plan.html" },
       { source: "/refund-policy", destination: "/refund-policy.html" },
       { source: "/qnaregistration", destination: "/qnaregistration.html" },
+      { source: "/invoice",       destination: "/invoice.html"       },
+      { source: "/envoice",       destination: "/invoice.html"       },
     ];
   },
 };
