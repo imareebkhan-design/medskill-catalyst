@@ -2832,16 +2832,21 @@ body::after{content:'';position:fixed;inset:0;z-index:1999;pointer-events:none;o
 .mc-modal-body{padding:2rem 2.5rem}
 
 /* Exit Intent Modal */
-.exit-inner{padding:2.5rem 3rem;text-align:center;display:flex;flex-direction:column;align-items:center}
-.exit-inner-icon{margin-bottom:1.25rem;display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:50%;background:var(--amber-light);border:1.25px solid rgba(0,88,158,0.18)}
-.exit-inner h3{font-family:var(--font-serif);font-size:1.5rem;font-weight:700;margin-bottom:.6rem;color:var(--brand)}
-.exit-inner .exit-line1{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:520px;white-space:nowrap}
-.exit-inner .exit-line2{font-size:.95rem;color:var(--ink-muted);margin-bottom:.5rem;line-height:1.5;max-width:none;white-space:nowrap}
-@media(max-width:680px){.exit-line1,.exit-line2{white-space:normal;max-width:100%}}
-.exit-inner .exit-attribution{font-size:.82rem;font-weight:700;color:var(--brand);margin-bottom:2rem;letter-spacing:.01em}
-.exit-inner p{font-size:.95rem;color:var(--ink-muted);margin-bottom:2rem;line-height:1.65;max-width:520px}
-.exit-dismiss{width:100%;margin-top:.75rem;color:var(--ink-muted);font-size:.85rem;padding:.5rem;font-weight:600;transition:color .2s}
-.exit-dismiss:hover{color:var(--brand-mid)}
+/* Welcome popup — timed, once per session, premium minimal */
+#exit-overlay .modal{max-width:430px}
+.exit-inner{padding:2.6rem 2.4rem 2.1rem;text-align:center;display:flex;flex-direction:column;align-items:center}
+.wc-eyebrow{display:inline-flex;align-items:center;gap:.45rem;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--cta);background:var(--amber-light);border:1px solid rgba(0,88,158,.14);padding:.42rem .85rem;border-radius:100px;margin-bottom:1.3rem}
+.wc-eyebrow .wc-dot{width:6px;height:6px;border-radius:50%;background:var(--cta)}
+.exit-inner h3{font-family:var(--font-serif);font-size:clamp(1.45rem,3.2vw,1.8rem);font-weight:700;line-height:1.16;letter-spacing:-.01em;color:var(--brand);margin-bottom:.7rem;max-width:20ch}
+.wc-sub{font-size:.95rem;color:var(--ink-muted);line-height:1.6;margin-bottom:1.6rem;max-width:40ch}
+.exit-inner .btn{width:100%}
+.wc-dismiss{margin-top:.85rem;color:var(--ink-muted);font-size:.85rem;font-weight:600;padding:.4rem .6rem;background:none;border:0;cursor:pointer;transition:color .2s}
+.wc-dismiss:hover{color:var(--brand)}
+.wc-trust{display:flex;align-items:center;gap:.65rem;margin-top:1.7rem;padding-top:1.25rem;border-top:1px solid var(--border);width:100%;justify-content:center}
+.wc-trust img{width:38px;height:38px;border-radius:50%;object-fit:cover;object-position:center 15%;border:1.5px solid var(--border-mid);flex-shrink:0}
+.wc-trust span{font-size:.78rem;color:var(--ink-muted);line-height:1.4;text-align:left}
+.wc-trust strong{color:var(--brand);font-weight:700}
+@media(max-width:520px){.exit-inner{padding:2.2rem 1.4rem 1.7rem}.wc-trust span{font-size:.72rem}.wc-eyebrow{font-size:.62rem;letter-spacing:.04em;padding:.4rem .7rem}}
 .modal-close--light{background:var(--bg);border-color:var(--border)}
 .modal-close--light:hover{background:var(--border-mid)}
 .modal-close--light svg{stroke:var(--ink-muted)}
@@ -4628,20 +4633,18 @@ END PLACEMENT HIDDEN -->
 </div>
 
 <div class="overlay" id="exit-overlay" onclick="closeOnBg(event,'exit-overlay')">
-  <div class="modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="wc-title">
     <button class="modal-close modal-close--light" onclick="closeModal('exit-overlay')" aria-label="Close"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="exit-inner">
-      <div class="exit-inner-icon">
-        <svg viewBox="0 0 24 24" width="30" height="30" stroke="var(--cta)" stroke-width="1.75" fill="none" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="M8.5 12h2l1.5-3 1.5 6 1.5-4 1.5 1"/>
-        </svg>
+      <span class="wc-eyebrow"><span class="wc-dot"></span> Admissions Open · Aug 1 Cohort</span>
+      <h3 id="wc-title">Not sure where you fit in MedTech?</h3>
+      <p class="wc-sub">Book a free 1:1 call with our team. We'll map the right MedTech path for your background — clinical, product, marketing and more — and answer everything about the programme.</p>
+      <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openCounseling()" data-track="welcome_cta">Book a Free Call</button>
+      <button type="button" class="wc-dismiss" onclick="closeModal('exit-overlay')">Maybe later</button>
+      <div class="wc-trust">
+        <img src="assets/gagan_victor_headshot.png" alt="" aria-hidden="true">
+        <span>Guided by <strong>Gagan Victor</strong><br>ex-Medtronic, Stryker, Pfizer &amp; BMS</span>
       </div>
-      <h3>Before you go — one quick thing</h3>
-      <p class="exit-line1">Still wondering whether your background qualifies you for MedTech?</p>
-      <p class="exit-line2">Join the Upcoming Cohort and get your questions answered by <strong>Gagan&nbsp;Victor</strong></p>
-      <p class="exit-attribution">Co-Founder &amp; Program Director &nbsp;·&nbsp; Former Pfizer, BMS, Medtronic &amp; Stryker</p>
-      <button class="btn btn--amber btn--lg btn--full" onclick="closeModal('exit-overlay');openCohortRegistration()" data-track="exit_masterclass">Join the Upcoming Cohort</button>
     </div>
   </div>
 </div>
@@ -5917,31 +5920,47 @@ document.addEventListener('keydown', function(e){
 /* Autosave on any change within the cohort modal */
 document.addEventListener('input', function(e){ if (e.target.closest && e.target.closest('#cr-overlay')) { crSave(); const err = e.target.closest('.cr-step')?.querySelector('.cr-err'); if (err) err.textContent=''; } });
 
-/* ── EXIT INTENT ───────────────────────────────────────────────── */
+/* ── WELCOME POPUP ─────────────────────────────────────────────────
+   Industry-standard behaviour: shows ONCE per browsing session, ~6.5s
+   after load, and never while the user is engaged with a form or another
+   modal. Accessible: focus moves into the dialog, Escape closes it.        */
 (()=>{
-  if(sessionStorage.getItem('msc_exit'))return;
-  let fired=false;
-  function fire(){if(fired)return;fired=true;sessionStorage.setItem('msc_exit','1');openModal('exit-overlay')}
-  document.addEventListener('mouseleave',e=>{if(e.clientY<20)fire()});
-  
-  let st=false;
-  let cachedThreshold = 0;
-  
-  function updateThreshold() {
-    cachedThreshold = (document.body.scrollHeight - window.innerHeight) * 0.5;
+  const KEY='msc_welcome_seen';
+  const overlay=document.getElementById('exit-overlay');
+  if(!overlay || sessionStorage.getItem(KEY)) return;
+
+  let done=false, tries=0, lastFocus=null;
+
+  const anyModalOpen = () => !!document.querySelector('.overlay.show');
+  const formActive = () => {
+    const el=document.activeElement;
+    return !!(el && el.matches && el.matches('input,textarea,select,[contenteditable="true"]'));
+  };
+
+  function onKey(e){ if(e.key==='Escape') close(); }
+  function close(){
+    document.removeEventListener('keydown', onKey);
+    closeModal('exit-overlay');
+    if(lastFocus && lastFocus.focus){ try{ lastFocus.focus({preventScroll:true}); }catch(_){} }
   }
-  
-  window.addEventListener('resize', updateThreshold, { passive: true });
-  window.addEventListener('load', updateThreshold, { passive: true });
-  updateThreshold();
-  
-  window.addEventListener('scroll',()=>{
-    if(st)return;
-    if(window.scrollY > cachedThreshold){
-      st=true;
-      setTimeout(fire,25000);
+
+  function reveal(){
+    if(done) return;
+    // Never interrupt an open modal or an active form input — wait for calm.
+    if(anyModalOpen() || formActive()){
+      if(tries++ < 20) setTimeout(reveal, 3000);
+      return;
     }
-  },{passive:true});
+    done=true;
+    sessionStorage.setItem(KEY,'1');
+    lastFocus=document.activeElement;
+    openModal('exit-overlay');
+    document.addEventListener('keydown', onKey);
+    const t=overlay.querySelector('.btn, button, [href]');
+    if(t) setTimeout(()=>{ try{ t.focus({preventScroll:true}); }catch(_){} }, 80);
+  }
+
+  window.addEventListener('load', ()=>{ setTimeout(reveal, 6500); }, {once:true});
 })();
 
 /* ── ANALYTICS ─────────────────────────────────────────────────── */
