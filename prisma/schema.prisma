@@ -1,0 +1,535 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────────────────────
+// Enums (funnel §1.5 of docs/CRM_ARCHITECTURE.md is source of truth)
+// ─────────────────────────────────────────────────────────────
+
+enum StaffRole {
+  ADMIN
+  COUNSELOR
+  ACCOUNTS
+  VIEWER
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  DISCOVERY_CALL
+  QUALIFIED
+  LINK_SENT
+  CONVERTED
+  LOST
+}
+
+enum LeadSource {
+  ORGANIC
+  GOOGLE_ADS
+  META_ADS
+  WHATSAPP
+  REFERRAL
+  MANUAL
+  IMPORT
+}
+
+enum ActivityType {
+  NOTE
+  CALL
+  STATUS_CHANGE
+  EMAIL
+  SYSTEM
+}
+
+enum CourseMode {
+  ONLINE
+  OFFLINE
+  HYBRID
+}
+
+enum BatchStatus {
+  PLANNED
+  ENROLLING
+  RUNNING
+  COMPLETED
+  CANCELLED
+}
+
+enum LinkStatus {
+  SENT
+  OPENED
+  COMPLETED
+  EXPIRED
+  REVOKED
+}
+
+enum EnrollmentStatus {
+  PAYMENT_PENDING
+  CONFIRMED
+  ONBOARDING
+  ACTIVE
+  COMPLETED
+  WITHDRAWN
+  DEFERRED
+}
+
+enum ScheduleStatus {
+  PENDING
+  PAID
+  OVERDUE
+  WAIVED
+}
+
+enum PaymentProvider {
+  RAZORPAY
+  BANK
+  CASH
+}
+
+enum PaymentStatus {
+  CREATED
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
+}
+
+enum CommChannel {
+  EMAIL
+  WHATSAPP
+}
+
+enum CommStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+}
+
+enum DocKind {
+  ID_PROOF
+  CERTIFICATE
+  INVOICE_PDF
+  EXPORT
+  OTHER
+}
+
+// ─────────────────────────────────────────────────────────────
+// Adopted tables (pre-existing in Supabase — never dropped/renamed in SQL)
+// ─────────────────────────────────────────────────────────────
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model CareerApplication {
+  id                    BigInt    @id @default(autoincrement())
+  application_id        String    @unique
+  created_at            DateTime  @default(now()) @db.Timestamptz(6)
+  job_slug              String
+  status                String    @default("New")
+  internal_notes        String?
+  reviewer              String?
+  full_name             String
+  email                 String
+  phone                 String
+  whatsapp              String
+  gender                String?
+  dob                   DateTime? @db.Date
+  city                  String
+  state                 String
+  country               String
+  address               String?
+  university            String
+  college               String?
+  degree                String?
+  course                String?
+  current_year          String?
+  graduation_year       String?
+  cgpa                  String?
+  previous_internship   String?
+  leadership_experience String?
+  clubs                 String?
+  volunteer_work        String?
+  event_experience      String?
+  skills                String[]  @default([])
+  linkedin              String?
+  instagram             String?
+  portfolio             String?
+  github                String?
+  why_join              String?
+  leadership_story      String?
+  promotion_plan        String?
+  resume_url            String
+  certificates_url      String?
+  portfolio_url         String?
+  achievements_url      String?
+  utm_source            String?
+  utm_medium            String?
+  utm_campaign          String?
+  utm_content           String?
+  utm_term              String?
+  referrer_url          String?
+  device                String?
+  browser               String?
+  ip_address            String?
+
+  @@index([created_at(sort: Desc)], map: "career_apps_created_at_idx")
+  @@index([email], map: "career_apps_email_idx")
+  @@index([job_slug], map: "career_apps_job_slug_idx")
+  @@index([status], map: "career_apps_status_idx")
+  @@map("career_applications")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model InvoiceCounter {
+  year     Int @id
+  last_seq Int @default(0)
+
+  @@map("invoice_counters")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model InvoiceItem {
+  id          BigInt  @id @default(autoincrement())
+  invoice_id  BigInt
+  position    Int     @default(0)
+  description String
+  quantity    Decimal @default(1) @db.Decimal(12, 2)
+  rate        Decimal @default(0) @db.Decimal(12, 2)
+  amount      Decimal @default(0) @db.Decimal(12, 2)
+  hsn         String?
+  invoice     Invoice @relation(fields: [invoice_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([invoice_id, position], map: "invoice_items_invoice_id_idx")
+  @@map("invoice_items")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Invoice {
+  id              BigInt        @id @default(autoincrement())
+  invoice_no      String        @unique
+  created_at      DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime      @default(now()) @db.Timestamptz(6)
+  lead_id         BigInt?
+  bill_name       String
+  bill_email      String?
+  bill_phone      String?
+  bill_company    String?
+  bill_gstin      String?
+  bill_address    String?
+  issue_date      DateTime      @default(dbgenerated("CURRENT_DATE")) @db.Date
+  due_date        DateTime?     @db.Date
+  currency        String        @default("INR")
+  tax_rate        Decimal       @default(18) @db.Decimal(5, 2)
+  subtotal        Decimal       @default(0) @db.Decimal(12, 2)
+  tax_amount      Decimal       @default(0) @db.Decimal(12, 2)
+  total           Decimal       @default(0) @db.Decimal(12, 2)
+  status          String        @default("draft")
+  notes           String?
+  seller_gstin    String?
+  place_of_supply String?
+  bill_state      String?
+  items           InvoiceItem[]
+  lead            Lead?         @relation(fields: [lead_id], references: [id], onUpdate: NoAction)
+
+  @@index([created_at(sort: Desc)])
+  @@index([lead_id])
+  @@index([status])
+  @@map("invoices")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model Lead {
+  id           BigInt   @id @default(autoincrement())
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @db.Timestamptz(6)
+  full_name    String
+  email        String   @unique
+  mobile       String?
+  form_type    String   @default("masterclass")
+  background   String?
+  consent      Boolean  @default(true)
+  utm_source   String?
+  utm_medium   String?
+  utm_campaign String?
+  landing_page String?
+  extra        Json     @default("{}")
+
+  // ── Funnel columns (added in Phase 1) ──
+  status               LeadStatus @default(NEW)
+  source               LeadSource @default(ORGANIC)
+  attribution          Json       @default("{}")
+  lost_reason          String?
+  assigned_to_id       String?
+  course_interest_id   String?
+  converted_student_id String?
+
+  invoices         Invoice[]
+  activities       Activity[]
+  enrollment_links EnrollmentLink[]
+  enrollments      Enrollment[]
+  assigned_to      StaffUser?       @relation("AssignedLeads", fields: [assigned_to_id], references: [id])
+  course_interest  Course?          @relation(fields: [course_interest_id], references: [id])
+  converted_student Student?        @relation(fields: [converted_student_id], references: [id])
+
+  @@index([created_at(sort: Desc)])
+  @@index([form_type])
+  @@index([status, assigned_to_id])
+  @@index([source])
+  @@map("leads")
+}
+
+// ─────────────────────────────────────────────────────────────
+// New tables (Phase 1 — funnel core)
+// ─────────────────────────────────────────────────────────────
+
+model StaffUser {
+  id            String    @id @default(cuid())
+  clerk_user_id String    @unique
+  name          String
+  email         String    @unique
+  role          StaffRole @default(VIEWER)
+  is_active     Boolean   @default(true)
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime  @updatedAt @db.Timestamptz(6)
+
+  assigned_leads Lead[]           @relation("AssignedLeads")
+  activities     Activity[]
+  sent_links     EnrollmentLink[]
+
+  @@map("staff_users")
+}
+
+model Student {
+  id            String   @id @default(cuid())
+  clerk_user_id String?  @unique
+  full_name     String
+  email         String   @unique
+  phone         String?
+  whatsapp      String?
+  city          String?
+  state         String?
+  qualification String?
+  extra         Json     @default("{}")
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime @updatedAt @db.Timestamptz(6)
+
+  enrollments          Enrollment[]
+  activities           Activity[]
+  converted_from_leads Lead[]
+
+  @@index([phone])
+  @@map("students")
+}
+
+model Activity {
+  id            String       @id @default(cuid())
+  type          ActivityType
+  body          String
+  lead_id       BigInt?
+  student_id    String?
+  enrollment_id String?
+  actor_id      String?
+  created_at    DateTime     @default(now()) @db.Timestamptz(6)
+
+  lead       Lead?       @relation(fields: [lead_id], references: [id], onDelete: Cascade)
+  student    Student?    @relation(fields: [student_id], references: [id], onDelete: Cascade)
+  enrollment Enrollment? @relation(fields: [enrollment_id], references: [id], onDelete: Cascade)
+  actor      StaffUser?  @relation(fields: [actor_id], references: [id])
+
+  @@index([lead_id, created_at(sort: Desc)])
+  @@index([student_id, created_at(sort: Desc)])
+  @@index([enrollment_id, created_at(sort: Desc)])
+  @@map("activities")
+}
+
+model Course {
+  id               String     @id @default(cuid())
+  name             String
+  slug             String     @unique
+  description      String?
+  base_price_paise Int
+  gst_rate_pct     Decimal    @default(18) @db.Decimal(5, 2)
+  hsn_sac          String?
+  duration_weeks   Int?
+  mode             CourseMode @default(ONLINE)
+  is_active        Boolean    @default(true)
+  created_at       DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime   @updatedAt @db.Timestamptz(6)
+
+  batches        Batch[]
+  interested_leads Lead[]
+
+  @@map("courses")
+}
+
+model Batch {
+  id            String      @id @default(cuid())
+  course_id     String
+  name          String
+  start_date    DateTime?   @db.Date
+  end_date      DateTime?   @db.Date
+  seat_capacity Int         @default(20)
+  status        BatchStatus @default(PLANNED)
+  created_at    DateTime    @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime    @updatedAt @db.Timestamptz(6)
+
+  course           Course           @relation(fields: [course_id], references: [id])
+  enrollments      Enrollment[]
+  enrollment_links EnrollmentLink[]
+
+  @@index([course_id, status])
+  @@map("batches")
+}
+
+model EnrollmentLink {
+  id             String     @id @default(cuid())
+  token          String     @unique
+  lead_id        BigInt
+  batch_id       String
+  price_paise    Int
+  discount_paise Int        @default(0)
+  status         LinkStatus @default(SENT)
+  expires_at     DateTime   @db.Timestamptz(6)
+  sent_by_id     String?
+  enrollment_id  String?    @unique
+  created_at     DateTime   @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime   @updatedAt @db.Timestamptz(6)
+
+  lead       Lead        @relation(fields: [lead_id], references: [id], onDelete: Cascade)
+  batch      Batch       @relation(fields: [batch_id], references: [id])
+  sent_by    StaffUser?  @relation(fields: [sent_by_id], references: [id])
+  enrollment Enrollment? @relation(fields: [enrollment_id], references: [id])
+
+  @@index([lead_id])
+  @@index([status, expires_at])
+  @@map("enrollment_links")
+}
+
+model Enrollment {
+  id             String           @id @default(cuid())
+  student_id     String
+  batch_id       String
+  status         EnrollmentStatus @default(PAYMENT_PENDING)
+  price_paise    Int
+  discount_paise Int              @default(0)
+  source_lead_id BigInt?
+  created_at     DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime         @updatedAt @db.Timestamptz(6)
+
+  student     Student              @relation(fields: [student_id], references: [id])
+  batch       Batch                @relation(fields: [batch_id], references: [id])
+  source_lead Lead?                @relation(fields: [source_lead_id], references: [id])
+  link        EnrollmentLink?
+  schedules   PaymentSchedule[]
+  transactions PaymentTransaction[]
+  activities  Activity[]
+
+  @@unique([student_id, batch_id])
+  @@index([batch_id, status])
+  @@map("enrollments")
+}
+
+model PaymentSchedule {
+  id            String         @id @default(cuid())
+  enrollment_id String
+  seq           Int
+  due_date      DateTime       @db.Date
+  amount_paise  Int
+  status        ScheduleStatus @default(PENDING)
+  created_at    DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime       @updatedAt @db.Timestamptz(6)
+
+  enrollment   Enrollment           @relation(fields: [enrollment_id], references: [id], onDelete: Cascade)
+  transactions PaymentTransaction[]
+
+  @@unique([enrollment_id, seq])
+  @@index([status, due_date])
+  @@map("payment_schedules")
+}
+
+model PaymentTransaction {
+  id                  String          @id @default(cuid())
+  enrollment_id       String
+  schedule_id         String?
+  provider            PaymentProvider @default(RAZORPAY)
+  provider_order_id   String?
+  provider_payment_id String?         @unique
+  amount_paise        Int
+  status              PaymentStatus   @default(CREATED)
+  method              String?
+  raw_payload         Json            @default("{}")
+  created_at          DateTime        @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime        @updatedAt @db.Timestamptz(6)
+
+  enrollment Enrollment       @relation(fields: [enrollment_id], references: [id])
+  schedule   PaymentSchedule? @relation(fields: [schedule_id], references: [id])
+
+  @@index([enrollment_id])
+  @@index([provider_order_id])
+  @@map("payment_transactions")
+}
+
+model CommunicationLog {
+  id                  String      @id @default(cuid())
+  channel             CommChannel
+  to_addr             String
+  template_key        String
+  entity_ref          String?
+  provider_message_id String?
+  status              CommStatus  @default(QUEUED)
+  error               String?
+  created_at          DateTime    @default(now()) @db.Timestamptz(6)
+
+  @@index([entity_ref])
+  @@index([created_at(sort: Desc)])
+  @@map("communication_logs")
+}
+
+model Document {
+  id             String   @id @default(cuid())
+  owner_type     String
+  owner_id       String
+  kind           DocKind  @default(OTHER)
+  r2_key         String
+  mime           String?
+  size_bytes     Int?
+  uploaded_by_id String?
+  status         String   @default("ACTIVE")
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([owner_type, owner_id])
+  @@map("documents")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actor_id    String?
+  action      String
+  entity_type String
+  entity_id   String
+  before      Json?
+  after       Json?
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([entity_type, entity_id, created_at(sort: Desc)])
+  @@map("audit_logs")
+}
+
+model WebhookEvent {
+  id           String    @id @default(cuid())
+  provider     String
+  event_id     String
+  type         String
+  payload      Json
+  processed_at DateTime? @db.Timestamptz(6)
+  created_at   DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@unique([provider, event_id])
+  @@map("webhook_events")
+}

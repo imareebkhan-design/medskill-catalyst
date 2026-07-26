@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
       { source: "/qnaregistration", destination: "/qnaregistration.html" },
       { source: "/invoice",       destination: "/invoice.html"       },
       { source: "/envoice",       destination: "/invoice.html"       },
+      // Old passcode dashboard (invoice generation) until CRM reaches parity.
+      { source: "/admin-legacy",  destination: "/admin-legacy.html"  },
     ];
   },
 };
