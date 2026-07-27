@@ -4,7 +4,7 @@ import { getStaff } from "@/src/lib/auth";
 import { getLead, listActiveStaff } from "@/src/modules/leads/queries";
 import { ALLOWED } from "@/src/modules/leads/service";
 import { LeadStatus, type ActivityType } from "@/src/generated/prisma/enums";
-import { StatusBadge, STATUS_LABELS, SOURCE_LABELS, formatDate } from "../../ui";
+import { StatusBadge, STATUS_LABELS, SOURCE_LABELS, formatDate, leadCode } from "../../ui";
 import { transitionLeadAction, addNoteAction, assignLeadAction } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -56,6 +56,7 @@ export default async function LeadDetailPage({
           <h1 className="font-display text-3xl font-bold text-brand-navy">
             {lead.full_name}
           </h1>
+          <span className="font-mono text-sm font-semibold text-brand-blue">{leadCode(lead.id)}</span>
           <StatusBadge status={lead.status} />
         </div>
         <p className="mt-1 text-sm text-muted">

@@ -3,7 +3,7 @@ import { getStaff } from "@/src/lib/auth";
 import { listLeads } from "@/src/modules/leads/queries";
 import { listFiltersSchema } from "@/src/modules/leads/schemas";
 import { LeadStatus, LeadSource } from "@/src/generated/prisma/enums";
-import { StatusBadge, STATUS_LABELS, SOURCE_LABELS, formatDate } from "../ui";
+import { StatusBadge, STATUS_LABELS, SOURCE_LABELS, formatDate, leadCode } from "../ui";
 
 export const dynamic = "force-dynamic";
 
@@ -37,10 +37,25 @@ export default async function LeadsPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex items-end justify-between">
+      <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-bold text-brand-navy">Leads</h1>
           <p className="mt-1 text-sm text-muted">{total} matching</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted">Export:</span>
+          <a
+            href={`/api/admin/leads/export${qs({ format: "csv", page: undefined })}`}
+            className="rounded-msc border border-brand-navy/15 bg-surface px-3 py-1.5 text-sm font-medium text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+          >
+            CSV
+          </a>
+          <a
+            href={`/api/admin/leads/export${qs({ format: "xlsx", page: undefined })}`}
+            className="rounded-msc border border-brand-navy/15 bg-surface px-3 py-1.5 text-sm font-medium text-brand-navy transition hover:border-brand-blue hover:text-brand-blue"
+          >
+            Excel
+          </a>
         </div>
       </div>
 
@@ -95,6 +110,7 @@ export default async function LeadsPage({
         <table className="w-full text-left text-sm">
           <thead className="border-b border-brand-navy/10 text-xs uppercase tracking-wide text-muted">
             <tr>
+              <th className="px-4 py-3">Lead ID</th>
               <th className="px-4 py-3">Lead</th>
               <th className="px-4 py-3">Stage</th>
               <th className="px-4 py-3">Source</th>
@@ -105,6 +121,9 @@ export default async function LeadsPage({
           <tbody className="divide-y divide-brand-navy/5">
             {leads.map((l) => (
               <tr key={l.id.toString()} className="transition hover:bg-brand-pale/40">
+                <td className="px-4 py-3">
+                  <span className="font-mono text-xs font-semibold text-brand-blue">{leadCode(l.id)}</span>
+                </td>
                 <td className="px-4 py-3">
                   <Link href={`/admin/leads/${l.id.toString()}`} className="block">
                     <div className="font-semibold text-ink">{l.full_name}</div>
@@ -124,7 +143,7 @@ export default async function LeadsPage({
             ))}
             {leads.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-muted">
+                <td colSpan={6} className="px-4 py-8 text-center text-muted">
                   No leads match these filters.
                 </td>
               </tr>

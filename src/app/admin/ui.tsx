@@ -40,6 +40,11 @@ export function StatusBadge({ status }: { status: LeadStatus }) {
   );
 }
 
+/** Human-facing unique lead code derived from the immutable row id, e.g. MSC-00048. */
+export function leadCode(id: bigint | number | string) {
+  return `MSC-${String(id).padStart(5, "0")}`;
+}
+
 export function formatDate(d: Date) {
   return new Intl.DateTimeFormat("en-IN", {
     dateStyle: "medium",
