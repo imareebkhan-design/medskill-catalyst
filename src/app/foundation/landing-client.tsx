@@ -182,7 +182,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
       <section className="px-5 py-16 md:py-24 relative z-10 border-b border-brand-navy/5">
         <div className="mx-auto max-w-5xl space-y-12">
           <div className="text-center space-y-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">Target Audience</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">Who It&rsquo;s For</span>
             <h2 className="font-display text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">
               Who Should Attend the Foundation Module
             </h2>
