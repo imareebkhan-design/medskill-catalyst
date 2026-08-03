@@ -278,6 +278,16 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
       dataPayload.append("utm_campaign", attribution.utm_campaign || "");
       dataPayload.append("referrer_url", document.referrer || "");
 
+      // Meta event id — shared with the server (Conversions API) so the
+      // browser Lead fired on the success page and the server-side Lead
+      // deduplicate into one conversion.
+      const fbEventId =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `e${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      dataPayload.append("fb_event_name", "Lead");
+      dataPayload.append("fb_event_id", fbEventId);
+
       const res = await fetch("/api/careers/apply", {
         method: "POST",
         body: dataPayload
@@ -288,8 +298,8 @@ export function ApplicationForm({ jobSlug, jobTitle }: ApplicationFormProps) {
       if (res.ok && result.success) {
         // Clear draft
         localStorage.removeItem(saveKey);
-        // Redirect to success route
-        router.push(`/careers/success?id=${result.application_id}&role=${encodeURIComponent(jobTitle)}`);
+        // Redirect to success route (eid → dedup with the server-side Lead)
+        router.push(`/careers/success?id=${result.application_id}&role=${encodeURIComponent(jobTitle)}&eid=${fbEventId}`);
       } else {
         setSubmitError(result.error || "Failed to submit application. Please try again.");
       }

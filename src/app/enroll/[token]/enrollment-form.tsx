@@ -17,8 +17,9 @@ import {
   YEARS_OF_STUDY,
   type EnrollmentApplication,
 } from "@/src/modules/enroll/schemas";
-import { submitEnrollmentApplication } from "./actions";
+import type { EnrollResult } from "./actions";
 import { FileUpload } from "./file-upload";
+import { type UploadScope } from "@/src/modules/enroll/upload-client";
 
 const INDIAN_STATES = [
   "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa",
@@ -31,9 +32,11 @@ const INDIAN_STATES = [
 ];
 
 type Props = {
-  token: string;
+  uploadScope: UploadScope;
+  /** Flow-agnostic submit: token-based or public. Returns the enrollment result. */
+  submit: (values: EnrollmentApplication) => Promise<EnrollResult>;
   defaults: { firstName: string; lastName: string; email: string; phone: string };
-  onReserved: () => void;
+  onReserved: (res: { enrollmentId: string; eventId?: string }) => void;
 };
 
 const sectionReveal = {
@@ -90,7 +93,7 @@ function Field({ label, htmlFor, required, error, hint, className, children }: {
   );
 }
 
-export function EnrollmentForm({ token, defaults, onReserved }: Props) {
+export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Props) {
   const {
     register,
     handleSubmit,
@@ -122,9 +125,9 @@ export function EnrollmentForm({ token, defaults, onReserved }: Props) {
 
   async function onValid(values: EnrollmentApplication) {
     setSubmitError(null);
-    const res = await submitEnrollmentApplication(token, values);
+    const res = await submit(values);
     if (res.status === "success") {
-      onReserved();
+      onReserved({ enrollmentId: res.enrollmentId, eventId: res.eventId });
     } else {
       setSubmitError(res.message);
     }
@@ -276,7 +279,7 @@ export function EnrollmentForm({ token, defaults, onReserved }: Props) {
       {/* ── 3 · Résumé ─────────────────────────────────────── */}
       <Section step={3} title="Résumé" subtitle="Upload your latest résumé or CV.">
         <FileUpload
-          token={token}
+          uploadScope={uploadScope}
           field="resume"
           label="Résumé / CV"
           required

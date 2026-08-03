@@ -216,6 +216,9 @@ model Invoice {
   created_at      DateTime      @default(now()) @db.Timestamptz(6)
   updated_at      DateTime      @default(now()) @db.Timestamptz(6)
   lead_id         BigInt?
+  // One invoice per enrollment. UNIQUE also acts as the DB-level idempotency
+  // guard so a webhook retry / callback race can never mint a second invoice.
+  enrollment_id   String?       @unique
   bill_name       String
   bill_email      String?
   bill_phone      String?
@@ -419,6 +422,9 @@ model Enrollment {
   price_paise    Int
   discount_paise Int              @default(0)
   source_lead_id BigInt?
+  // Fulfillment state, tracked SEPARATELY from payment state so invoice/email
+  // can be retried without ever touching the (authoritative) payment record.
+  welcome_email_sent_at DateTime? @db.Timestamptz(6)
   created_at     DateTime         @default(now()) @db.Timestamptz(6)
   updated_at     DateTime         @updatedAt @db.Timestamptz(6)
 

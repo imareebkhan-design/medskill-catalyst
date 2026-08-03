@@ -6,11 +6,12 @@ import {
   formatBytes,
   uploadEnrollmentFile,
   validateFile,
+  type UploadScope,
 } from "@/src/modules/enroll/upload-client";
 import { cn } from "@/src/lib/cn";
 
 type Props = {
-  token: string;
+  uploadScope: UploadScope;
   field: UploadField;
   label: string;
   required?: boolean;
@@ -19,7 +20,7 @@ type Props = {
   error?: string;
 };
 
-export function FileUpload({ token, field, label, required, value, onChange, error }: Props) {
+export function FileUpload({ uploadScope, field, label, required, value, onChange, error }: Props) {
   const spec = UPLOAD_SPECS[field];
   const inputRef = useRef<HTMLInputElement>(null);
   const [busy, setBusy] = useState(false);
@@ -36,7 +37,7 @@ export function FileUpload({ token, field, label, required, value, onChange, err
     }
     setBusy(true);
     try {
-      const doc = await uploadEnrollmentFile(token, field, file);
+      const doc = await uploadEnrollmentFile(uploadScope, field, file);
       onChange(doc);
     } catch (err) {
       setLocalError(err instanceof Error ? err.message : "Upload failed.");

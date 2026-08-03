@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { sendMetaEvent, metaContext, ALLOWED_EVENTS } from "@/src/lib/meta-capi";
 
 /**
  * Lead capture → Supabase (table: public.leads), upserted on email.
@@ -48,6 +49,7 @@ export default async function handler(
     const {
       full_name, email, mobile, background, form_type, consent,
       utm_source, utm_medium, utm_campaign, landing_page,
+      fb_event_name, fb_event_id,
       ...rest
     } = (req.body || {}) as Record<string, unknown>;
 
@@ -75,6 +77,38 @@ export default async function handler(
     const FORM_RANK: Record<string, number> = { masterclass: 1, counseling: 2, cohort_registration: 3 };
     const digits = mobileNorm.replace(/\D/g, "").slice(-10);
     const hasPhone = digits.length === 10;
+
+    // ── Meta Conversions API (server-side, deduplicated) ──
+    // Fires only when the client marked this as a real conversion submit
+    // (fb_event_name present) — partial pre-saves omit it and are skipped.
+    // The shared fb_event_id matches the browser pixel so Meta counts once.
+    async function fireLeadCapi() {
+      const name = typeof fb_event_name === "string" ? fb_event_name : undefined;
+      if (!name || !ALLOWED_EVENTS.has(name)) return;
+      const ctx = metaContext(
+        req.headers,
+        typeof landing_page === "string" ? landing_page : undefined,
+      );
+      const parts = String(full_name).trim().split(/\s+/);
+      const restObj = rest as Record<string, unknown>;
+      await sendMetaEvent({
+        eventName: name,
+        eventId: typeof fb_event_id === "string" ? fb_event_id : undefined,
+        eventSourceUrl: ctx.eventSourceUrl,
+        user: {
+          email: row.email,
+          phone: mobileNorm,
+          firstName: parts[0],
+          lastName: parts.length > 1 ? parts.slice(1).join(" ") : undefined,
+          city: typeof restObj.city === "string" ? restObj.city : undefined,
+          fbp: ctx.fbp,
+          fbc: ctx.fbc,
+          clientIp: ctx.clientIp,
+          userAgent: ctx.userAgent,
+        },
+        customData: { form_type: row.form_type },
+      });
+    }
 
     // ── Phone is the lead's identity: dedupe on phone, not email ──
     // The forms submit twice per person (a "partial" step with a placeholder
@@ -114,6 +148,7 @@ export default async function handler(
           return res.status(502).json({ error: "Could not save your details. Please WhatsApp us." });
         }
         console.log("[Leads] Merged into lead " + target.id + " by phone " + mobileNorm);
+        await fireLeadCapi();
         return res.status(200).json({ ok: true });
       }
       // No lead for this phone yet → insert fresh.
@@ -127,6 +162,7 @@ export default async function handler(
         return res.status(502).json({ error: "Could not save your details. Please WhatsApp us." });
       }
       console.log("[Leads] Saved new: " + row.email + " (" + row.form_type + ")");
+      await fireLeadCapi();
       return res.status(200).json({ ok: true });
     }
 
@@ -145,6 +181,7 @@ export default async function handler(
     }
 
     console.log("[Leads] Saved: " + row.email + " (" + row.form_type + ")");
+    await fireLeadCapi();
     return res.status(200).json({ ok: true });
   } catch (error) {
     console.error("API error:", error);

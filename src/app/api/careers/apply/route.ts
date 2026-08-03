@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase";
+import { sendMetaEvent, metaContextFromRequest, ALLOWED_EVENTS } from "@/src/lib/meta-capi";
 
 export const runtime = "nodejs";
 
@@ -244,6 +245,33 @@ export async function POST(request: Request) {
     if (dbError) {
       console.error("Database insertion error:", dbError);
       return NextResponse.json({ error: "Failed to save application to database." }, { status: 500 });
+    }
+
+    // Meta Conversions API (server-side, deduplicated against the browser Lead
+    // fired on /careers/success via the shared fb_event_id).
+    const fbEventName = (formData.get("fb_event_name") as string) || "Lead";
+    if (ALLOWED_EVENTS.has(fbEventName)) {
+      const ctx = metaContextFromRequest(request);
+      const nameParts = fullName.trim().split(/\s+/);
+      await sendMetaEvent({
+        eventName: fbEventName,
+        eventId: (formData.get("fb_event_id") as string) || undefined,
+        eventSourceUrl: referrerUrl || ctx.eventSourceUrl,
+        user: {
+          email,
+          phone,
+          firstName: nameParts[0],
+          lastName: nameParts.length > 1 ? nameParts.slice(1).join(" ") : undefined,
+          city,
+          state,
+          country,
+          fbp: ctx.fbp,
+          fbc: ctx.fbc,
+          clientIp: ipAddress || ctx.clientIp,
+          userAgent: userAgent || ctx.userAgent,
+        },
+        customData: { content_name: "Career application", role: jobSlug },
+      });
     }
 
     return NextResponse.json({

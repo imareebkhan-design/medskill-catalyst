@@ -16,6 +16,11 @@ create table if not exists public.invoices (
   -- ON DELETE SET NULL: deleting a lead never destroys its invoices.
   lead_id         bigint references public.leads(id) on delete set null,
 
+  -- Optional link to the enrollment that triggered this invoice. UNIQUE so an
+  -- automated payment flow can only ever mint ONE invoice per enrollment
+  -- (idempotency guard against webhook retries / callback races).
+  enrollment_id   text unique,
+
   -- Bill-to SNAPSHOT — frozen at creation so later lead edits never mutate
   -- an issued invoice. Auto-filled from the lead, editable before saving.
   bill_name       text not null,
@@ -53,6 +58,9 @@ create index if not exists invoices_status_idx      on public.invoices (status);
 
 -- Idempotent column adds — so re-running this file on an existing table is safe.
 alter table public.invoices add column if not exists bill_state text;
+alter table public.invoices add column if not exists enrollment_id text;
+create unique index if not exists invoices_enrollment_id_key
+  on public.invoices (enrollment_id);
 
 drop trigger if exists invoices_touch_updated_at on public.invoices;
 create trigger invoices_touch_updated_at

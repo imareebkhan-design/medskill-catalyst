@@ -8,6 +8,7 @@ import { JOB_OPENINGS } from "@/src/data/jobs";
 import { JobSections, JobTimeline } from "@/src/components/careers/JobSections";
 import { JobFaq } from "@/src/components/careers/JobFaq";
 import { FounderTrust } from "@/src/components/careers/FounderTrust";
+import { MetaTrackOnMount } from "@/src/components/MetaTrack";
 import {
   BtnChip,
   btnCompact,
@@ -59,6 +60,10 @@ export default async function JobDetailPage({ params }: Props) {
 
   return (
     <div className="bg-canvas min-h-screen flex flex-col font-body text-ink pb-20 lg:pb-0">
+      <MetaTrackOnMount
+        event="ViewContent"
+        params={{ content_name: job.title, content_category: "Job opening" }}
+      />
       <CareersNav />
 
       {/* Hero — homepage .hero-card treatment */}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getEnrollmentLink } from "@/src/modules/enroll/service";
-import { LinkStatus } from "@/src/generated/prisma/enums";
+import { LinkStatus, EnrollmentStatus } from "@/src/generated/prisma/enums";
 import { EnrollClient, type EnrollPageData } from "./enroll-client";
 import { LinkProblem } from "./link-problem";
 
@@ -46,9 +46,15 @@ export default async function EnrollPage({
     );
   }
 
+  // "Paid" = the enrollment has advanced past PAYMENT_PENDING.
+  const alreadyPaid = Boolean(
+    link.enrollment && link.enrollment.status !== EnrollmentStatus.PAYMENT_PENDING,
+  );
+
   const data: EnrollPageData = {
     token,
     alreadyCompleted: link.status === LinkStatus.COMPLETED,
+    alreadyPaid,
     course: {
       name: link.batch.course.name,
       description: link.batch.course.description,

@@ -21,16 +21,23 @@ export function validateFile(field: UploadField, file: File): string | null {
 }
 
 /**
+ * Scope that authorises an upload: a personalised link token, or a public
+ * course slug (for the /[programme]/enroll pages, which have no token).
+ */
+export type UploadScope = { token: string } | { courseSlug: string };
+
+/**
  * Upload one file to the enrollment bucket via the API route and return its
  * stored metadata. Throws with a user-facing message on failure.
  */
 export async function uploadEnrollmentFile(
-  token: string,
+  scope: UploadScope,
   field: UploadField,
   file: File,
 ): Promise<UploadedDoc> {
   const body = new FormData();
-  body.set("token", token);
+  if ("token" in scope) body.set("token", scope.token);
+  else body.set("courseSlug", scope.courseSlug);
   body.set("field", field);
   body.set("file", file);
 

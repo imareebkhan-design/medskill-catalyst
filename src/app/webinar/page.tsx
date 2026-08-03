@@ -11,6 +11,7 @@ import { FAQ } from "@/components/webinar/FAQ";
 import { RegistrationForm } from "@/components/webinar/RegistrationForm";
 import { FinalCTA } from "@/components/webinar/FinalCTA";
 import { WEBINAR } from "@/lib/webinar.config";
+import { MetaTrackOnMount } from "@/src/components/MetaTrack";
 
 export const metadata: Metadata = {
   title: `${WEBINAR.title} — Free MedSkills Catalyst Masterclass`,
@@ -27,6 +28,10 @@ import { HiringPartners } from "@/components/webinar/HiringPartners";
 export default function WebinarLandingPage() {
   return (
     <>
+      <MetaTrackOnMount
+        event="ViewContent"
+        params={{ content_name: "Webinar landing" }}
+      />
       <WebinarNav />
       <main className="font-body">
       <AnalyticsBoot />

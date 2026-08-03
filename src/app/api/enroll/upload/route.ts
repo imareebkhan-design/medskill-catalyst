@@ -32,23 +32,38 @@ export async function POST(req: NextRequest) {
     return bad("Expected a multipart upload.");
   }
 
-  const token = String(form.get("token") ?? "");
+  const token = form.get("token") ? String(form.get("token")) : null;
+  const courseSlug = form.get("courseSlug") ? String(form.get("courseSlug")) : null;
   const field = String(form.get("field") ?? "") as UploadField;
   const file = form.get("file");
 
-  if (!/^[a-zA-Z0-9_-]{20,}$/.test(token)) return bad("Invalid enrollment token.");
   const spec = UPLOAD_SPECS[field];
   if (!spec) return bad("Unknown document field.");
   if (!(file instanceof File)) return bad("No file received.");
 
-  // Gate uploads to a live enrollment link so the bucket can't be used as open storage.
-  const link = await db.enrollmentLink.findUnique({
-    where: { token },
-    select: { status: true, expires_at: true },
-  });
-  if (!link) return bad("Enrollment link not found.", 404);
-  if (link.status === LinkStatus.REVOKED) return bad("This enrollment link was withdrawn.", 410);
-  if (link.expires_at < new Date()) return bad("This enrollment link has expired.", 410);
+  let bucketFolder: string;
+
+  if (token) {
+    if (!/^[a-zA-Z0-9_-]{20,}$/.test(token)) return bad("Invalid enrollment token.");
+    // Gate uploads to a live enrollment link so the bucket can't be used as open storage.
+    const link = await db.enrollmentLink.findUnique({
+      where: { token },
+      select: { status: true, expires_at: true },
+    });
+    if (!link) return bad("Enrollment link not found.", 404);
+    if (link.status === LinkStatus.REVOKED) return bad("This enrollment link was withdrawn.", 410);
+    if (link.expires_at < new Date()) return bad("This enrollment link has expired.", 410);
+    bucketFolder = token;
+  } else if (courseSlug) {
+    // Gate uploads to a valid active course so the bucket can't be used as open storage.
+    const course = await db.course.findUnique({
+      where: { slug: courseSlug, is_active: true },
+    });
+    if (!course) return bad("Course not found or inactive.", 404);
+    bucketFolder = courseSlug;
+  } else {
+    return bad("Either a valid token or course slug is required for authorization.");
+  }
 
   // Validate the file itself.
   if (file.size === 0) return bad("The selected file is empty.");
@@ -61,7 +76,7 @@ export async function POST(req: NextRequest) {
   }
 
   const ext = EXT_BY_MIME[mime] ?? "bin";
-  const key = `${token}/${field}/${randomUUID()}.${ext}`;
+  const key = `${bucketFolder}/${field}/${randomUUID()}.${ext}`;
 
   try {
     await ensureEnrollmentBucket();

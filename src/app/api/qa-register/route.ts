@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase";
+import { sendMetaEvent, metaContextFromRequest, ALLOWED_EVENTS } from "@/src/lib/meta-capi";
 
 export const runtime = "nodejs";
 
@@ -161,6 +162,32 @@ export async function POST(req: Request) {
       emailReason = "resend_exception: " + (e instanceof Error ? e.message : String(e));
       console.error("[QA] Resend error:", e);
     }
+  }
+
+  // 3) Meta Conversions API (server-side, deduplicated against the browser
+  //    pixel via the shared fb_event_id the form sent). Never blocks the
+  //    registration — sendMetaEvent no-ops on missing config and never throws.
+  const fbEventName = typeof body.fb_event_name === "string" ? body.fb_event_name : "Lead";
+  if (ALLOWED_EVENTS.has(fbEventName)) {
+    const ctx = metaContextFromRequest(req);
+    const parts = full_name.split(/\s+/);
+    await sendMetaEvent({
+      eventName: fbEventName,
+      eventId: typeof body.fb_event_id === "string" ? body.fb_event_id : undefined,
+      eventSourceUrl: body.landing_page || ctx.eventSourceUrl,
+      user: {
+        email,
+        phone: normalizeMobile(phone),
+        firstName: parts[0],
+        lastName: parts.length > 1 ? parts.slice(1).join(" ") : undefined,
+        city,
+        fbp: ctx.fbp,
+        fbc: ctx.fbc,
+        clientIp: ctx.clientIp,
+        userAgent: ctx.userAgent,
+      },
+      customData: { content_name: "Q&A registration", event: EVENT.title },
+    });
   }
 
   return NextResponse.json({ ok: true, emailed, emailReason });

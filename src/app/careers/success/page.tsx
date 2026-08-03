@@ -4,18 +4,25 @@ import Link from "next/link";
 import { CareersNav } from "@/src/components/careers/CareersNav";
 import { CareersFooter } from "@/src/components/careers/CareersFooter";
 import { IconCheck, IconUsers, IconWhatsApp } from "@/src/components/careers/ui";
+import { MetaTrackOnMount } from "@/src/components/MetaTrack";
 
 export const metadata: Metadata = {
   title: "Application Success — MedSkills Catalyst",
   description: "Thank you for applying. Your application has been successfully submitted."
 };
 
-function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: string } }) {
+function SuccessContent({ searchParams }: { searchParams: { id?: string; role?: string; eid?: string } }) {
   const appId = searchParams.id || "MSC-APP-PENDING";
   const roleName = searchParams.role || "Job Opening";
+  const eventId = searchParams.eid;
 
   return (
     <div className="bg-canvas flex-1 flex flex-col items-center justify-center py-16 px-6 font-body text-ink text-center">
+      <MetaTrackOnMount
+        event="Lead"
+        params={{ content_name: "Career application", role: roleName }}
+        eventId={eventId}
+      />
       <div className="max-w-xl w-full bg-white border border-ink/8 p-8 md:p-12 rounded-msc-lg shadow-msc-md">
         {/* Success Icon */}
         <div className="h-20 w-20 rounded-full bg-teal-pale border border-teal-mid/20 text-teal-mid flex items-center justify-center mx-auto mb-8">

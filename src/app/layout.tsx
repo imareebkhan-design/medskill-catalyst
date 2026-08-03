@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
+import { MetaPixel } from "@/src/components/MetaPixel";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en" className={`${fraunces.variable} ${plusJakarta.variable}`}>
       <body>
         {children}
+        <MetaPixel />
         {gaId && (
           <>
             <Script
