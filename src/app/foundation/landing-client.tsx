@@ -375,20 +375,44 @@ export function FoundationLandingClient({ data }: { data: any }) {
           <Card className="overflow-hidden border border-brand-navy/[0.05] shadow-msc-sm">
             <CardContent className="p-6 sm:p-8">
               <Accordion>
-                <AccordionItem question="Is this program completely online?">
-                  Yes, the foundation program is fully online with interactive live weekend classes and structured self-paced modules to fit your schedule.
+                <AccordionItem question="Who is this programme for?">
+                  MedSkills Catalyst is built for life-science and healthcare graduates, and for working professionals who want to build a career in the MedTech industry. Whether you are just starting out or making a switch, the programme prepares you for a range of MedTech roles, not a single job title.
                 </AccordionItem>
-                <AccordionItem question="Do you offer placement assistance?">
-                  Yes, we provide 100% placement support, including resume styling, mock interviews with industry leaders, and direct referrals to top MedTech brands.
+                <AccordionItem question="Do I need prior MedTech experience?">
+                  No. Prior MedTech or industry experience is not required. Fresh graduates and working professionals are equally welcome. We look for curiosity, coachability, communication, and a genuine willingness to learn, and we prepare you for multiple MedTech career paths, not only sales.
                 </AccordionItem>
-                <AccordionItem question="What happens if I miss a live session?">
-                  All live sessions are recorded and uploaded to the student portal within a few hours, accompanied by study guides and assessments.
+                <AccordionItem question="What career paths can I pursue after the programme?">
+                  MedTech offers far more than sales. The programme prepares you for roles across clinical, commercial, and technical functions, including Medical Sales, Clinical, Product and Application Specialist roles, Marketing, Customer Success, Product Management, Regulatory and Quality, Market Access, and Medical Affairs. Our goal is to make you industry-ready, not just sales-ready.
                 </AccordionItem>
-                <AccordionItem question="Will I get a certificate?">
-                  Yes, upon successfully completing all modules and assessments, you will receive a verified MedSkills Catalyst Certificate of Competency.
+                <AccordionItem question="How is this different from an MBA or PGDM?">
+                  An MBA gives you an academic foundation. We focus on bridging the gap between classroom learning and what the MedTech industry actually expects. You build commercial understanding, practical business and communication skills, interview and resume readiness, LinkedIn branding, real industry exposure, and a clear career strategy, so you leave career-ready, not just qualified.
+                </AccordionItem>
+                <AccordionItem question="Do I need to quit my current job to join?">
+                  No. Sessions are scheduled for evenings and weekends, so the programme is designed to fit alongside a full-time job. Many of our learners continue working while they complete it.
+                </AccordionItem>
+                <AccordionItem question="How much time should I set aside each week?">
+                  Plan for a few hours each week across live sessions, plus time for practical projects and self-paced practice. The exact commitment varies week to week, but the schedule is built to be realistic for both working professionals and students.
+                </AccordionItem>
+                <AccordionItem question="Is the programme live or recorded, and will I get mentorship?">
+                  Sessions are conducted live so you can ask questions and learn interactively. You also receive direct mentorship from experienced MedTech professionals who guide you through projects, career decisions, and interview preparation.
+                </AccordionItem>
+                <AccordionItem question="Do I receive a certificate?">
+                  Yes. On successful completion you receive a certificate from MedSkills Catalyst recognising the skills and projects you have completed during the programme.
+                </AccordionItem>
+                <AccordionItem question="How does the admission process work?">
+                  Admissions begin with a short registration, followed by a counselling call to understand your background and goals and confirm the programme is a good fit. Once confirmed, you complete enrolment to secure your seat in the cohort.
+                </AccordionItem>
+                <AccordionItem question="Does MedSkills Catalyst guarantee a job?">
+                  No. We do not guarantee jobs or placements, as hiring decisions are always made by employers. What we do is make you industry-ready through structured learning, mentorship, practical projects, career guidance, interview preparation, and application strategy. We are an enabler that strengthens your chances, not a placement agency.
+                </AccordionItem>
+                <AccordionItem question="Do you offer EMI options?">
+                  EMI availability depends on your payment method and your bank. If you pay with a supported credit card, your bank may offer EMI, with the tenure, interest, and eligibility decided entirely by them. You can check the available options at checkout or with your bank.
+                </AccordionItem>
+                <AccordionItem question="When does the next cohort start, and how many seats are available?">
+                  The upcoming cohort begins on 8 August 2026. We keep each batch deliberately small to protect the quality of mentorship, so seats are limited and registration closes once they are filled.
                 </AccordionItem>
                 <AccordionItem question="What is your refund policy?">
-                  Because you receive immediate access to our learning resources, mentorship, and community, programme fees are non-refundable. We encourage you to review the programme details before enrolling.
+                  Because you receive immediate access to our learning resources, mentorship, and community, programme fees are non-refundable. We encourage you to review the programme details and speak with our team on your counselling call so you can enrol with full confidence.
                 </AccordionItem>
               </Accordion>
             </CardContent>
