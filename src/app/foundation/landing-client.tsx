@@ -140,6 +140,44 @@ export function FoundationLandingClient({ data }: { data: any }) {
         </div>
       </section>
 
+      {/* ── 1.5 Program Director Welcome (Gagan Victor) ── */}
+      <section className="px-5 py-16 md:py-24 relative z-10 border-b border-brand-navy/5">
+        <div className="mx-auto max-w-5xl grid md:grid-cols-2 gap-10 md:gap-14 items-center">
+          {/* Welcome copy */}
+          <div className="space-y-5 order-2 md:order-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">Meet Your Program Director</span>
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl leading-[1.15]">
+              Learn from someone who has built, sold, and hired across MedTech
+            </h2>
+            <p className="text-base leading-relaxed text-muted">
+              After years leading commercial teams at Pfizer, BMS, Medtronic and Stryker, Gagan Victor built MedSkills Catalyst to hand life-science graduates the map he wishes he had — how the device world really works, and how to break into it.
+            </p>
+            <p className="text-base leading-relaxed text-muted">
+              The Foundation Module is where that journey starts: no jargon, no fluff — just the groundwork you need before you ever walk into an interview.
+            </p>
+          </div>
+
+          {/* Media card — mirrors the main site's Gagan media hero */}
+          <div className="order-1 md:order-2">
+            <div className="relative mx-auto w-full max-w-sm rounded-[28px] border border-brand-navy/10 bg-white p-1.5 shadow-[0_30px_70px_rgba(4,16,26,0.18)] rotate-[1.25deg] transition-transform duration-500 hover:rotate-0">
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[22px]">
+                <img
+                  src="/assets/gagan_victor.jpg"
+                  alt="Gagan Victor — Co-Founder & Program Director, MedSkills Catalyst"
+                  loading="lazy"
+                  className="h-full w-full object-cover object-[center_15%]"
+                />
+                <div className="absolute inset-0 flex flex-col justify-end p-6 text-left [background:linear-gradient(to_top,rgba(6,14,18,0.85)_0%,rgba(6,14,18,0.3)_40%,transparent_100%)]">
+                  <p className="font-display text-xl font-extrabold text-white">Gagan Victor</p>
+                  <p className="mt-1 text-[0.72rem] font-bold uppercase tracking-[0.06em] text-[#4AD0FF]">Co-Founder &amp; Program Director</p>
+                  <p className="mt-1 text-sm font-semibold text-white">MedSkills Catalyst</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── 2. Who Should Enroll ── */}
       <section className="px-5 py-16 md:py-24 relative z-10 border-b border-brand-navy/5">
         <div className="mx-auto max-w-5xl space-y-12">
@@ -176,7 +214,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
 
       {/* ── 3. Curriculum Section ── */}
       <section id="curriculum" className="px-5 py-16 md:py-24 relative z-10 border-b border-brand-navy/5">
-        <div className="mx-auto max-w-3xl space-y-10">
+        <div className="mx-auto max-w-4xl space-y-10">
           <div className="text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">The Curriculum</span>
             <h2 className="font-display text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">
@@ -187,33 +225,72 @@ export function FoundationLandingClient({ data }: { data: any }) {
             </p>
           </div>
 
-          <Card className="border border-brand-navy/[0.05] shadow-msc-sm overflow-hidden">
-            <CardContent className="p-6 sm:p-8">
-              <Accordion>
-                <AccordionItem question="1. Pre-Program Baseline Assessment">
-                  Gauge your current understanding of clinical concepts and corporate commercial readiness to benchmark your career progress.
-                </AccordionItem>
-                <AccordionItem question="2. Categories of Medical Devices">
-                  Explore the full product spectrum: diagnostic, therapeutic, surgical, implantable, and monitoring devices, and how risk levels (Class A–D) work.
-                </AccordionItem>
-                <AccordionItem question="3. Medical Devices Across Specialties">
-                  Master product portfolios and terminology across major clinical disciplines including Cardiology, Orthopedics, Neurology, Radiology, and Critical Care.
-                </AccordionItem>
-                <AccordionItem question="4. Manufacturing & Imports in India">
-                  Examine India's domestic MedTech manufacturing shift (PLI schemes &amp; medical device parks) vs. the distribution dynamics of global import brands.
-                </AccordionItem>
-                <AccordionItem question="5. Career Opportunities in MedTech">
-                  Map entry-level and mid-career tracks across sales, marketing, clinical support, and regulatory affairs, with salary expectations and growth paths.
-                </AccordionItem>
-                <AccordionItem question="6. MedTech vs Pharma Industry - Skillset">
-                  Understand the key differences between volume-driven pharma detailing and consultative, multi-stakeholder device selling, and how to transition.
-                </AccordionItem>
-                <AccordionItem question="7. Knowledge Check &amp; Reflection Assignment">
-                  Consolidate your learning with a final module assessment and a real-world clinical case reflection assignment reviewed by industry mentors.
-                </AccordionItem>
-              </Accordion>
-            </CardContent>
-          </Card>
+          {/* Website-style featured curriculum card — Foundation module only */}
+          <div className="grid grid-cols-1 sm:grid-cols-[96px_1fr] rounded-[22px] border border-[#90A4B8] bg-white p-6 sm:p-8 shadow-[0_2px_8px_rgba(12,35,57,0.04)]">
+            {/* Sidebar */}
+            <div className="flex flex-row sm:flex-col items-center gap-3 sm:gap-2 sm:pr-5 mb-5 sm:mb-0">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-navy text-[1.05rem] font-extrabold text-white shadow-[0_4px_12px_rgba(10,42,67,0.2)]">
+                1
+              </div>
+              <div className="flex shrink-0 items-center justify-center text-brand-navy opacity-30">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-[22px] w-[22px]" aria-hidden>
+                  <path d="M4.5 16.5c-1.5 1.5-2 5-2 5s3.5-.5 5-2L4.5 16.5z" />
+                  <path d="M13 6L7 12l5 5 6-6c2-2 3-5 3-8-3 0-6 1-8 3z" />
+                  <circle cx="15" cy="9" r="1" />
+                </svg>
+              </div>
+              <span className="text-[0.55rem] font-extrabold uppercase tracking-[0.1em] text-brand-navy/40 text-center leading-tight">
+                Start Here
+              </span>
+            </div>
+
+            {/* Body */}
+            <div className="min-w-0">
+              <div className="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-6 md:gap-10 md:items-center">
+                {/* Left */}
+                <div>
+                  <div className="text-[0.64rem] font-extrabold uppercase tracking-[0.12em] text-brand-blue mb-2">
+                    Foundation Module
+                  </div>
+                  <h3 className="text-2xl font-extrabold tracking-tight text-brand-navy leading-[1.15] mb-3">
+                    Foundation to Break into the MedTech Industry
+                  </h3>
+                  <p className="text-sm font-medium leading-[1.55] text-brand-navy/[0.65]">
+                    Move from pill volume to the device world — understand what you&rsquo;ll actually be selling and where it comes from.
+                  </p>
+                </div>
+                {/* Right — badge chips */}
+                <div className="flex flex-col gap-2.5">
+                  {["Class A–D Devices", "Make in India / PLI", "Full Spectrum of Medical Devices"].map((b, i) => (
+                    <div key={i} className="flex items-center gap-2.5 rounded-[30px] border-[1.4px] border-brand-navy/[0.18] px-4 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.04em] text-brand-navy">
+                      <span className="h-[11px] w-[11px] shrink-0 rounded-full border-[1.5px] border-brand-navy/30" />
+                      {b}
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* What you'll cover — module topics */}
+              <div className="mt-6 pt-6 border-t border-brand-navy/10">
+                <div className="text-[0.64rem] font-extrabold uppercase tracking-[0.12em] text-brand-navy/40 mb-3">
+                  What you&rsquo;ll cover
+                </div>
+                <ul className="space-y-2.5">
+                  {[
+                    "The full device map: diagnostic, therapeutic, surgical, implantable, monitoring — and how Class A–D risk levels work",
+                    "Devices across specialties: cardiology, ortho, neuro, radiology, critical care",
+                    "Who makes what in India — manufacturers, MedTech parks, PLI schemes, and why it matters to your career",
+                    "The import ecosystem: global MNCs, distributors, and where the high-value roles sit",
+                  ].map((t, i) => (
+                    <li key={i} className="flex gap-3 text-sm leading-relaxed text-brand-navy/[0.72]">
+                      <IconCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand-blue" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
