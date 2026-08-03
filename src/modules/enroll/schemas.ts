@@ -65,43 +65,47 @@ export const YEARS_OF_STUDY = [
 
 // ── The application schema ─────────────────────────────────────────
 
+const optionalPhone = z
+  .string()
+  .trim()
+  .regex(/^[+]?[0-9][0-9\s-]{8,14}$/, "Enter a valid phone number")
+  .optional()
+  .or(z.literal(""));
+
 export const enrollmentApplicationSchema = z
   .object({
-    // ── Student information ──
-    first_name: z.string().trim().min(1, "First name is required").max(80),
-    last_name: z.string().trim().min(1, "Last name is required").max(80),
-    gender: z.enum(GENDERS, { message: "Select your gender" }),
-    phone,
-    whatsapp: phone,
+    // ── Required: name / number / email ──
+    first_name: z.string().trim().min(1, "Name is required").max(80),
     email: z.string().trim().toLowerCase().email("Enter a valid email address").max(200),
-    address: z.string().trim().min(4, "Address is required").max(300),
-    city: z.string().trim().min(2, "City is required").max(100),
-    state: z.string().trim().min(2, "State is required").max(80),
-    country: z.string().trim().min(2, "Country is required").max(80),
-    zip_code: z
-      .string()
-      .trim()
-      .regex(/^[A-Za-z0-9][A-Za-z0-9\s-]{2,9}$/, "Enter a valid ZIP / PIN code"),
-    nationality: z.string().trim().min(2, "Nationality is required").max(80),
+    phone,
 
-    // ── Background: status drives which fields below are required ──
+    // ── Required: college name ──
+    college: z.string().trim().min(2, "College / university name is required").max(160),
+
+    // ── Required: profession (at least one, enforced in superRefine) ──
     is_student: z.boolean(),
     is_working_professional: z.boolean(),
 
-    // Academic (required when is_student — enforced in superRefine)
+    // ── Everything below is optional ──
+    last_name: optionalText(80),
+    gender: z.enum(GENDERS).optional().or(z.literal("")),
+    whatsapp: optionalPhone,
+    address: optionalText(300),
+    city: optionalText(100),
+    state: optionalText(80),
+    country: optionalText(80),
+    zip_code: optionalText(12),
+    nationality: optionalText(80),
+
     university: optionalText(160),
-    college: optionalText(160),
     degree: optionalText(120),
     course: optionalText(120),
-    year_of_study: z.enum(YEARS_OF_STUDY).optional(),
+    year_of_study: z.enum(YEARS_OF_STUDY).optional().or(z.literal("")),
     graduation_year: optionalText(4),
-
-    // Professional (required when is_working_professional — enforced in superRefine)
     company_name: optionalText(160),
     designation: optionalText(120),
     experience: optionalText(60),
 
-    // Always optional
     linkedin: z
       .string()
       .trim()
@@ -111,16 +115,16 @@ export const enrollmentApplicationSchema = z
       .or(z.literal("")),
     medical_registration_number: optionalText(60),
 
-    // ── Résumé (the only document collected) ──
-    resume: uploadedDoc,
+    // Résumé — optional.
+    resume: uploadedDoc.optional(),
 
-    // ── Consent ──
+    // ── Consent (legal — stays required) ──
     // Boolean (not z.literal(true)) so RHF can default it to false; the refine
     // still requires a ticked box.
     consent: z.boolean().refine((v) => v === true, "Please accept to continue"),
   })
   .superRefine((val, ctx) => {
-    // At least one status must be chosen.
+    // Profession must be indicated (student, working professional, or both).
     if (!val.is_student && !val.is_working_professional) {
       ctx.addIssue({
         code: "custom",
@@ -129,34 +133,14 @@ export const enrollmentApplicationSchema = z
       });
     }
 
-    // Student → academic fields required.
-    if (val.is_student) {
-      if (!val.university?.trim())
-        ctx.addIssue({ code: "custom", path: ["university"], message: "University is required" });
-      if (!val.degree?.trim())
-        ctx.addIssue({ code: "custom", path: ["degree"], message: "Degree is required" });
-      if (!val.course?.trim())
-        ctx.addIssue({ code: "custom", path: ["course"], message: "Course is required" });
-      if (!val.year_of_study)
-        ctx.addIssue({ code: "custom", path: ["year_of_study"], message: "Select your year of study" });
-      const gy = val.graduation_year?.trim();
-      if (!gy) {
-        ctx.addIssue({ code: "custom", path: ["graduation_year"], message: "Graduation year is required" });
-      } else if (!/^\d{4}$/.test(gy) || Number(gy) < 1980 || Number(gy) > CURRENT_YEAR + 8) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["graduation_year"],
-          message: `Enter a valid year (1980–${CURRENT_YEAR + 8})`,
-        });
-      }
-    }
-
-    // Working professional → company + designation required.
-    if (val.is_working_professional) {
-      if (!val.company_name?.trim())
-        ctx.addIssue({ code: "custom", path: ["company_name"], message: "Company name is required" });
-      if (!val.designation?.trim())
-        ctx.addIssue({ code: "custom", path: ["designation"], message: "Designation is required" });
+    // Graduation year, if provided, must be a plausible 4-digit year.
+    const gy = val.graduation_year?.trim();
+    if (gy && (!/^\d{4}$/.test(gy) || Number(gy) < 1980 || Number(gy) > CURRENT_YEAR + 8)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["graduation_year"],
+        message: `Enter a valid year (1980–${CURRENT_YEAR + 8})`,
+      });
     }
   });
 

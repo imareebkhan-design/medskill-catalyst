@@ -145,43 +145,46 @@ export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Pr
           <Field label="First name" htmlFor="first_name" required error={errors.first_name}>
             <Input id="first_name" autoComplete="given-name" {...register("first_name")} />
           </Field>
-          <Field label="Last name" htmlFor="last_name" required error={errors.last_name}>
-            <Input id="last_name" autoComplete="family-name" {...register("last_name")} />
-          </Field>
-          <Field label="Gender" htmlFor="gender" required error={errors.gender}>
-            <Select id="gender" defaultValue="" required {...register("gender")}>
-              <option value="" disabled>Select gender</option>
-              {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
-            </Select>
-          </Field>
           <Field label="Email" htmlFor="email" required error={errors.email}>
             <Input id="email" type="email" autoComplete="email" {...register("email")} />
           </Field>
           <Field label="Phone number" htmlFor="phone" required error={errors.phone}>
             <Input id="phone" type="tel" autoComplete="tel" placeholder="+91 98765 43210" {...register("phone")} />
           </Field>
-          <Field label="WhatsApp number" htmlFor="whatsapp" required error={errors.whatsapp}>
+          <Field label="College / University name" htmlFor="college" required error={errors.college}>
+            <Input id="college" placeholder="Where you studied" {...register("college")} />
+          </Field>
+          <Field label="Last name" htmlFor="last_name" error={errors.last_name}>
+            <Input id="last_name" autoComplete="family-name" {...register("last_name")} />
+          </Field>
+          <Field label="Gender" htmlFor="gender" error={errors.gender}>
+            <Select id="gender" defaultValue="" {...register("gender")}>
+              <option value="">Select gender (optional)</option>
+              {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
+            </Select>
+          </Field>
+          <Field label="WhatsApp number" htmlFor="whatsapp" error={errors.whatsapp}>
             <Input id="whatsapp" type="tel" placeholder="+91 98765 43210" {...register("whatsapp")} />
           </Field>
-          <Field label="Address" htmlFor="address" required error={errors.address} className="sm:col-span-2">
-            <Input id="address" autoComplete="street-address" {...register("address")} />
-          </Field>
-          <Field label="City" htmlFor="city" required error={errors.city}>
+          <Field label="City" htmlFor="city" error={errors.city}>
             <Input id="city" autoComplete="address-level2" {...register("city")} />
           </Field>
-          <Field label="State" htmlFor="state" required error={errors.state}>
-            <Select id="state" defaultValue="" required {...register("state")}>
-              <option value="" disabled>Select state</option>
+          <Field label="State" htmlFor="state" error={errors.state}>
+            <Select id="state" defaultValue="" {...register("state")}>
+              <option value="">Select state (optional)</option>
               {INDIAN_STATES.map((s) => <option key={s} value={s}>{s}</option>)}
             </Select>
           </Field>
-          <Field label="Country" htmlFor="country" required error={errors.country}>
+          <Field label="Address" htmlFor="address" error={errors.address} className="sm:col-span-2">
+            <Input id="address" autoComplete="street-address" {...register("address")} />
+          </Field>
+          <Field label="Country" htmlFor="country" error={errors.country}>
             <Input id="country" autoComplete="country-name" {...register("country")} />
           </Field>
-          <Field label="ZIP / PIN code" htmlFor="zip_code" required error={errors.zip_code}>
+          <Field label="ZIP / PIN code" htmlFor="zip_code" error={errors.zip_code}>
             <Input id="zip_code" autoComplete="postal-code" inputMode="numeric" {...register("zip_code")} />
           </Field>
-          <Field label="Nationality" htmlFor="nationality" required error={errors.nationality} className="sm:col-span-2">
+          <Field label="Nationality" htmlFor="nationality" error={errors.nationality}>
             <Input id="nationality" {...register("nationality")} />
           </Field>
         </div>
@@ -222,27 +225,24 @@ export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Pr
           {isStudent && (
             <div className="grid gap-4 rounded-msc-md bg-brand-pale/40 p-4 sm:grid-cols-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-navy sm:col-span-2">
-                Academic details
+                Academic details <span className="font-normal normal-case text-muted">(optional)</span>
               </p>
-              <Field label="University" htmlFor="university" required error={errors.university}>
+              <Field label="University" htmlFor="university" error={errors.university}>
                 <Input id="university" {...register("university")} />
               </Field>
-              <Field label="College" htmlFor="college" error={errors.college}>
-                <Input id="college" {...register("college")} />
-              </Field>
-              <Field label="Degree" htmlFor="degree" required error={errors.degree}>
+              <Field label="Degree" htmlFor="degree" error={errors.degree}>
                 <Input id="degree" placeholder="e.g. B.Pharm, MBBS, B.Tech" {...register("degree")} />
               </Field>
-              <Field label="Course / specialisation" htmlFor="course" required error={errors.course}>
+              <Field label="Course / specialisation" htmlFor="course" error={errors.course}>
                 <Input id="course" placeholder="e.g. Pharmacology" {...register("course")} />
               </Field>
-              <Field label="Year of study" htmlFor="year_of_study" required error={errors.year_of_study}>
-                <Select id="year_of_study" defaultValue="" required {...register("year_of_study")}>
-                  <option value="" disabled>Select year</option>
+              <Field label="Year of study" htmlFor="year_of_study" error={errors.year_of_study}>
+                <Select id="year_of_study" defaultValue="" {...register("year_of_study")}>
+                  <option value="">Select year (optional)</option>
                   {YEARS_OF_STUDY.map((y) => <option key={y} value={y}>{y}</option>)}
                 </Select>
               </Field>
-              <Field label="Graduation year" htmlFor="graduation_year" required error={errors.graduation_year}>
+              <Field label="Graduation year" htmlFor="graduation_year" error={errors.graduation_year}>
                 <Input id="graduation_year" inputMode="numeric" placeholder="2025" maxLength={4} {...register("graduation_year")} />
               </Field>
             </div>
@@ -251,12 +251,12 @@ export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Pr
           {isWorkingPro && (
             <div className="grid gap-4 rounded-msc-md bg-brand-pale/40 p-4 sm:grid-cols-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-navy sm:col-span-2">
-                Professional details
+                Professional details <span className="font-normal normal-case text-muted">(optional)</span>
               </p>
-              <Field label="Company name" htmlFor="company_name" required error={errors.company_name}>
+              <Field label="Company name" htmlFor="company_name" error={errors.company_name}>
                 <Input id="company_name" {...register("company_name")} />
               </Field>
-              <Field label="Designation" htmlFor="designation" required error={errors.designation}>
+              <Field label="Designation" htmlFor="designation" error={errors.designation}>
                 <Input id="designation" {...register("designation")} />
               </Field>
               <Field label="Experience" htmlFor="experience" error={errors.experience} hint="e.g. 2 years">
@@ -276,13 +276,12 @@ export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Pr
         </div>
       </Section>
 
-      {/* ── 3 · Résumé ─────────────────────────────────────── */}
-      <Section step={3} title="Résumé" subtitle="Upload your latest résumé or CV.">
+      {/* ── 3 · Résumé (optional) ──────────────────────────── */}
+      <Section step={3} title="Résumé" subtitle="Optional — attach your latest résumé or CV if you have one.">
         <FileUpload
           uploadScope={uploadScope}
           field="resume"
           label="Résumé / CV"
-          required
           value={resume}
           error={errors.resume?.message}
           onChange={(d) => setValue("resume", d as EnrollmentApplication["resume"], { shouldValidate: true })}

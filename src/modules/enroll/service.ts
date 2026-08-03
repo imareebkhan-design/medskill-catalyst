@@ -103,6 +103,7 @@ export async function completeEnrollment(token: string, form: EnrollmentApplicat
     country: form.country,
     zip_code: form.zip_code,
     nationality: form.nationality,
+    college: form.college,
     is_student: form.is_student,
     is_working_professional: form.is_working_professional,
     academic: form.is_student
@@ -124,7 +125,7 @@ export async function completeEnrollment(token: string, form: EnrollmentApplicat
       : null,
     linkedin: form.linkedin || null,
     medical_registration_number: form.medical_registration_number || null,
-    resume: form.resume,
+    resume: form.resume ?? null,
     consent: {
       accepted: form.consent,
       accepted_at: new Date().toISOString(),
@@ -185,21 +186,19 @@ export async function completeEnrollment(token: string, form: EnrollmentApplicat
       update: {},
     });
 
-    // Register the résumé as a Document row (owner = the student).
-    const uploads: Array<{ kind: DocKind; doc: { key: string; mime: string; size: number } }> = [
-      { kind: DocKind.OTHER, doc: form.resume },
-    ];
-
-    await tx.document.createMany({
-      data: uploads.map(({ kind, doc }) => ({
-        owner_type: "student",
-        owner_id: student.id,
-        kind,
-        r2_key: doc.key,
-        mime: doc.mime,
-        size_bytes: doc.size,
-      })),
-    });
+    // Register the résumé as a Document row (owner = the student) — if provided.
+    if (form.resume) {
+      await tx.document.create({
+        data: {
+          owner_type: "student",
+          owner_id: student.id,
+          kind: DocKind.OTHER,
+          r2_key: form.resume.key,
+          mime: form.resume.mime,
+          size_bytes: form.resume.size,
+        },
+      });
+    }
 
     await tx.enrollmentLink.update({
       where: { id: link.id },
@@ -250,6 +249,7 @@ function buildStudentData(form: EnrollmentApplication) {
     country: form.country,
     zip_code: form.zip_code,
     nationality: form.nationality,
+    college: form.college,
     is_student: form.is_student,
     is_working_professional: form.is_working_professional,
     academic: form.is_student
@@ -271,7 +271,7 @@ function buildStudentData(form: EnrollmentApplication) {
       : null,
     linkedin: form.linkedin || null,
     medical_registration_number: form.medical_registration_number || null,
-    resume: form.resume,
+    resume: form.resume ?? null,
     consent: { accepted: form.consent, accepted_at: new Date().toISOString() },
   };
   return { fullName, email, qualification, profile };
@@ -353,16 +353,18 @@ export async function completePublicEnrollment(courseSlug: string, form: Enrollm
       return { enrollmentId: enrollment.id, alreadyCompleted: true };
     }
 
-    await tx.document.create({
-      data: {
-        owner_type: "student",
-        owner_id: student.id,
-        kind: DocKind.OTHER,
-        r2_key: form.resume.key,
-        mime: form.resume.mime,
-        size_bytes: form.resume.size,
-      },
-    });
+    if (form.resume) {
+      await tx.document.create({
+        data: {
+          owner_type: "student",
+          owner_id: student.id,
+          kind: DocKind.OTHER,
+          r2_key: form.resume.key,
+          mime: form.resume.mime,
+          size_bytes: form.resume.size,
+        },
+      });
+    }
 
     await tx.activity.create({
       data: {
