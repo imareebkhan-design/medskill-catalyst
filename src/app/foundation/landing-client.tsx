@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 import { Accordion, AccordionItem } from "@/src/components/ui/accordion";
@@ -56,6 +57,47 @@ function IconCalendar({ className }: IconProps) {
       <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.6" />
       <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.6" />
     </svg>
+  );
+}
+
+/* Live HTML certificate embed — renders the real certificate template
+   (public/certificate/foundation.html, native 1123×842) scaled to fit its
+   container. scale() needs a unitless number, so container-query units can't
+   drive it — a ResizeObserver sets the scale on resize. */
+function CertificateEmbed() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    const frame = frameRef.current;
+    if (!wrap || !frame) return;
+    const NATIVE_WIDTH = 1123;
+    const fit = () => {
+      frame.style.transform = `scale(${wrap.clientWidth / NATIVE_WIDTH})`;
+    };
+    const ro = new ResizeObserver(fit);
+    ro.observe(wrap);
+    fit();
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={wrapRef}
+      className="relative w-full overflow-hidden rounded-msc-lg border border-brand-navy/[0.08] bg-white shadow-[0_16px_50px_rgba(12,35,57,0.15)]"
+      style={{ aspectRatio: "1123 / 842" }}
+    >
+      <iframe
+        ref={frameRef}
+        src="/certificate/foundation.html"
+        title="Sample MedSkills Catalyst Certificate — Foundation Module"
+        loading="lazy"
+        scrolling="no"
+        className="absolute left-0 top-0 border-0"
+        style={{ width: "1123px", height: "842px", transformOrigin: "top left", pointerEvents: "none" }}
+      />
+    </div>
   );
 }
 
@@ -337,6 +379,63 @@ export function FoundationLandingClient({ data }: { data: any }) {
         </div>
       </section>
 
+      {/* ── 3.6 The Certificate You'll Earn ── */}
+      <section className="px-5 py-16 md:py-24 relative z-10 border-b border-brand-navy/5">
+        <div className="mx-auto max-w-6xl space-y-12">
+          <div className="text-center space-y-3">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-blue">Your Credential</span>
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">
+              The certificate you&rsquo;ll earn
+            </h2>
+            <p className="text-base leading-relaxed text-muted max-w-2xl mx-auto pt-1">
+              On completing the Foundation, every participant receives a MedSkills Catalyst Certificate of Completion &mdash; verifiable, uniquely numbered, and ready to share on LinkedIn and your resume.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-10 lg:gap-14 items-center">
+            {/* Certificate — live HTML template embed */}
+            <div className="relative">
+              <CertificateEmbed />
+              <span className="absolute top-3 left-3 z-10 rounded-full bg-brand-navy/85 px-3 py-1 text-[0.6rem] font-bold uppercase tracking-wider text-white backdrop-blur">
+                Sample
+              </span>
+            </div>
+
+            {/* Feature list */}
+            <div className="space-y-5">
+              {[
+                {
+                  title: "Independently verifiable",
+                  desc: "A QR code and unique credential ID let anyone confirm authenticity at medskillscatalyst.com/verify.",
+                },
+                {
+                  title: "Uniquely numbered",
+                  desc: "Every certificate carries its own credential ID, tied to your name and the exact course you completed.",
+                },
+                {
+                  title: "Built to share",
+                  desc: "Add it to your LinkedIn profile and resume, or download a print-ready PDF in seconds.",
+                },
+                {
+                  title: "Signed by the program director",
+                  desc: "Issued and signed by Gagan Victor, Academic Director, on behalf of MedSkills Catalyst.",
+                },
+              ].map((f, i) => (
+                <div key={i} className="flex gap-4">
+                  <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand-blue/10 text-brand-blue">
+                    <IconShield className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="font-display font-bold text-brand-navy text-base leading-tight mb-1">{f.title}</div>
+                    <p className="text-sm leading-relaxed text-muted">{f.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── 4. Mentors Section ── */}
       <section className="px-5 py-16 md:py-24 bg-white/50 relative z-10 border-b border-brand-navy/5">
         <div className="mx-auto max-w-5xl space-y-12">
@@ -350,7 +449,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
             </p>
           </div>
 
-          <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
             {[
               {
                 name: "Gagan Victor",
@@ -372,6 +471,13 @@ export function FoundationLandingClient({ data }: { data: any }) {
                 photo: "/assets/vincent_keny.png",
                 bio: "With over 25 years of global corporate leadership experience, Dr. Keny brings executive-grade coaching to MedSkills. An ICF Certified Coach and MIT Sloan alumnus, he works with candidates on behavioral orientation, executive communication, and the interpersonal dynamics that determine performance in high-stakes MedTech environments.",
                 tags: ["Ex-Boston Scientific", "ICF Certified Coach", "MIT Sloan Alumnus"],
+              },
+              {
+                name: "Tabish",
+                role: "L&D Specialist & Corporate Mentor",
+                photo: "/assets/tabish.jpg",
+                bio: "With 20+ years of experience in healthcare and MedTech, including roles at 3M, Becton Dickinson, and Abbott Vascular, and learning partnerships with global brands such as Cipla, Amazon, and PwC, Tabish combines deep industry expertise with her L&D qualifications to design learning programs that help learners build the behavioural competencies essential for successful MedTech careers.",
+                tags: ["Ex-3M, BD & Abbott Vascular", "L&D Specialist", "20+ Years Experience"],
               },
             ].map((m, idx) => (
               <div key={idx} className="group rounded-msc-lg border border-brand-navy/[0.06] bg-surface p-6 shadow-msc-sm flex flex-col h-full">
