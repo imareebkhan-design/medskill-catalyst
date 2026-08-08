@@ -38,7 +38,7 @@ async function main() {
     data: {
       course_id: course.id,
       name: "Cohort 1 — August 2026",
-      start_date: new Date("2026-08-01"),
+      start_date: new Date("2026-08-08"),
       seat_capacity: 20,
       status: "ENROLLING",
     },

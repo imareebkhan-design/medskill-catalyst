@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent } from "@/src/components/ui/card";
 import { Accordion, AccordionItem } from "@/src/components/ui/accordion";
 import { SiteHeader } from "@/src/components/site-header";
 import { EnrollmentForm } from "./enrollment-form";
 import { fbTrack } from "@/src/lib/meta-pixel";
+import { COURSE_OUTLINES, DEFAULT_OUTLINE } from "../course-data";
 import type { EnrollmentApplication } from "@/src/modules/enroll/schemas";
 import { type UploadScope } from "@/src/modules/enroll/upload-client";
 import {
@@ -155,6 +156,14 @@ function IconShield({ className }: IconProps) {
     </svg>
   );
 }
+function IconCalendar({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill={svgBase} className={className} aria-hidden>
+      <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
 
 /** A trust line item used across the page. */
 function TrustLine({ children }: { children: React.ReactNode }) {
@@ -183,6 +192,10 @@ export function EnrollClient({ data, flow }: { data: EnrollPageData; flow?: Enro
   const [payError, setPayError] = useState<string | null>(null);
   const [enrollmentId, setEnrollmentId] = useState<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
+
+  // Load program outline copy details based on course slug
+  const slug = resolvedFlow.kind === "public" ? resolvedFlow.courseSlug : "foundation-program";
+  const outline = COURSE_OUTLINES[slug] ?? DEFAULT_OUTLINE;
 
   const nameParts = data.lead.name.trim().split(/\s+/);
   const firstName = nameParts[0] || "there";
@@ -221,7 +234,6 @@ export function EnrollClient({ data, flow }: { data: EnrollPageData; flow?: Enro
           : ({ status: "error", message: "Missing enrollment reference. Please refresh and try again." } as const);
 
       if (res.status !== "success") {
-        // If it's already confirmed, reflect that instead of showing an error.
         if (/already confirmed/i.test(res.message)) setPaid(true);
         else setPayError(res.message);
         setPaying(false);
@@ -291,265 +303,145 @@ export function EnrollClient({ data, flow }: { data: EnrollPageData; flow?: Enro
   const payLabel = paying ? "Opening secure checkout…" : `Pay ${inr(data.pricePaise)} securely`;
 
   return (
-    <div className="min-h-screen bg-canvas font-body text-ink antialiased">
+    <div className="min-h-screen bg-[#F6F8FA] font-body text-ink antialiased relative">
+      {/* subtle canvas grid texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.03] [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] [background-size:40px_40px]"
+      />
+
       <SiteHeader />
 
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <header className="relative overflow-hidden bg-brand-navy">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_60%_at_88%_-8%,rgba(74,208,255,0.16),transparent_58%),radial-gradient(55%_50%_at_-5%_110%,rgba(0,88,158,0.38),transparent_60%)]"
-        />
-        {/* faint hairline grid for texture */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] [background-size:64px_64px]"
-        />
-        <div className="relative mx-auto max-w-6xl px-5 pb-28 pt-14 sm:pb-32 sm:pt-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="max-w-3xl"
-          >
-            <span className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/5 px-4 py-1.5 text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-brand-cyan backdrop-blur">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-cyan opacity-70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-brand-cyan" />
-              </span>
-              {paid ? "Enrolment confirmed" : isPublic ? "Enrolment open" : `Seat reserved for ${firstName}`}
-            </span>
-
-            <h1 className="mt-6 font-display text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.01em] text-white sm:text-6xl">
-              You&rsquo;re one step from
-              <br className="hidden sm:block" />{" "}
-              <span className="text-brand-cyan">{data.course.name}</span>
-            </h1>
-
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-              Lock your seat in <strong className="font-semibold text-white">{data.batch.name}</strong>
-              {data.batch.startDate ? (
-                <> — starting <strong className="font-semibold text-white">{data.batch.startDate}</strong></>
-              ) : null}
-              . Seats are limited and allocated in order of payment.
-            </p>
-
-            {/* meta chips */}
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {[
-                { label: "Cohort", value: data.batch.name },
-                ...(data.batch.startDate ? [{ label: "Starts", value: data.batch.startDate }] : []),
-                ...(data.course.durationWeeks ? [{ label: "Duration", value: `${data.course.durationWeeks} weeks` }] : []),
-              ].map((m) => (
-                <span
-                  key={m.label}
-                  className="inline-flex items-baseline gap-2 rounded-msc border border-white/10 bg-white/[0.06] px-3.5 py-2 text-sm text-white/85"
-                >
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-brand-cyan/90">
-                    {m.label}
-                  </span>
-                  <span className="font-medium">{m.value}</span>
-                </span>
-              ))}
+      <main className="relative z-10 mx-auto max-w-6xl px-5 py-8 sm:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:items-start">
+          
+          {/* ── Left Column: Course details ── */}
+          <div className="md:col-span-7 space-y-6 pr-0 md:pr-6">
+            <div className="flex items-center gap-3">
+              <img
+                src="/brand/logo/MedSkills-Catalyst_Logo-01.svg"
+                alt="MedSkills Catalyst"
+                className="h-10 w-auto bg-white p-1 rounded border border-brand-navy/10"
+              />
+              <div>
+                <h1 className="font-display text-lg font-bold leading-none text-brand-navy">
+                  MedSkills Catalyst
+                </h1>
+                <p className="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">
+                  Upskill to Upscale
+                </p>
+              </div>
             </div>
 
-            {/* hero CTA — adapts to state */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35 }}
-              className="mt-9 flex flex-wrap items-center gap-4"
-            >
-              {paid ? (
-                <span className="inline-flex items-center gap-2 rounded-pill bg-brand-cyan/15 px-5 py-3 text-sm font-semibold text-brand-cyan">
-                  <IconCheck className="h-4 w-4" /> You&rsquo;re enrolled
-                </span>
-              ) : !reserved ? (
-                <Button
-                  size="lg"
-                  onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                  className="rounded-pill bg-white px-7 font-semibold text-brand-navy shadow-msc-md hover:bg-brand-pale"
-                >
-                  Complete my enrollment ↓
-                </Button>
-              ) : (
-                <span className="text-sm font-medium text-white/70">
-                  Your seat is reserved — complete your payment below ↓
-                </span>
-              )}
-              {!paid && (
-                <span className="inline-flex items-center gap-2 text-xs font-medium text-white/55">
-                  <IconLock className="h-4 w-4 text-brand-cyan/80" />
-                  Secure checkout via Razorpay
-                </span>
-              )}
-            </motion.div>
-          </motion.div>
-        </div>
-      </header>
+            <h2 className="font-display text-3xl font-extrabold tracking-tight text-brand-navy sm:text-4xl">
+              {data.course.name}
+            </h2>
 
-      <main className="relative z-10 mx-auto max-w-6xl px-5">
-        {/* ── Form + fee/seat card ──────────────────────────────────── */}
-        <div ref={formRef} className="-mt-16 grid items-start gap-6 pb-4 lg:grid-cols-5">
-          {/* Left: form / status */}
-          <motion.div {...fadeIn} className="lg:col-span-3">
-            {paid ? (
-              <Card className="rounded-msc-xl shadow-msc-float">
-                <CardContent className="p-8 text-center sm:p-10">
-                  <motion.div
-                    initial={{ scale: 0.6, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 260, damping: 18 }}
-                    className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-success/10 text-success"
-                  >
-                    <IconCheck className="h-8 w-8" />
-                  </motion.div>
-                  <h2 className="mt-5 font-display text-3xl font-semibold text-brand-navy">
-                    You&rsquo;re confirmed
-                  </h2>
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-                    Your seat in <strong className="text-ink">{data.course.name}</strong> is
-                    officially confirmed. A GST tax invoice and confirmation are on their way to
-                    your email. We&rsquo;ll follow up on WhatsApp with onboarding.
-                  </p>
-                  <a
-                    href={WHATSAPP_URL}
-                    className="mt-7 inline-flex h-11 items-center justify-center gap-2 rounded-pill bg-wa px-6 text-sm font-semibold text-white transition hover:opacity-90"
-                  >
-                    Chat with us on WhatsApp
-                  </a>
-                </CardContent>
-              </Card>
-            ) : reserved ? (
-              <Card className="rounded-msc-xl shadow-msc-float">
-                <CardContent className="p-8 text-center sm:p-10">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-brand-pale text-brand-blue">
-                    <IconSeat className="h-8 w-8" />
-                  </div>
-                  <h2 className="mt-5 font-display text-3xl font-semibold text-brand-navy">
-                    One step left — secure your seat
-                  </h2>
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
-                    Your application is in. Complete the programme fee of{" "}
-                    <strong className="text-ink">{inr(data.pricePaise)}</strong> to lock your seat —
-                    seats are allocated strictly in order of payment.
-                  </p>
-                  {payError && (
-                    <p className="mx-auto mt-5 max-w-md rounded-msc bg-danger/10 px-4 py-2.5 text-sm font-medium text-danger">
-                      {payError}
-                    </p>
-                  )}
-                  <Button
-                    size="lg"
-                    className="mt-6 w-full rounded-pill font-semibold shadow-msc-glow sm:w-auto sm:px-8"
-                    disabled={paying}
-                    onClick={() => void startPayment()}
-                  >
-                    {payLabel} →
-                  </Button>
-                  <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-muted">
-                    <IconLock className="h-3.5 w-3.5" /> UPI · cards · net-banking, via Razorpay
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div>
-                <div className="mb-6 pt-16">
-                  <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-brand-blue">
-                    Enrollment
-                  </span>
-                  <h2 className="mt-2 font-display text-3xl font-semibold text-brand-navy">
-                    Complete your details
-                  </h2>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    Every field is used only for your enrollment record, verification, and GST
-                    invoice. Takes about two minutes.
-                  </p>
-                </div>
-                <EnrollmentForm
-                  uploadScope={uploadScope}
-                  submit={submitForm}
-                  defaults={defaults}
-                  onReserved={(res) => {
-                    setReserved(true);
-                    setEnrollmentId(res.enrollmentId);
-                    fbTrack(
-                      "CompleteRegistration",
-                      { content_name: "Enrollment completed" },
-                      res.eventId,
-                    );
-                    // Open Razorpay checkout right away.
-                    void startPayment(res.enrollmentId);
-                  }}
-                />
-              </div>
-            )}
-          </motion.div>
+            <p className="text-base leading-relaxed text-muted">
+              {outline.tagline}
+            </p>
 
-          {/* Right: fee / seat card (signature element) */}
-          <motion.aside {...fadeIn} className="lg:col-span-2">
-            <div className="overflow-hidden rounded-msc-xl bg-surface shadow-msc-float lg:sticky lg:top-6">
-              {/* brand accent bar (navy → blue → cyan, all on-palette) */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-brand-navy via-brand-blue to-brand-cyan" />
-              <div className="p-6 sm:p-7">
-                <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-muted">
-                  Programme
-                </span>
-                <h3 className="mt-1.5 font-display text-2xl font-semibold leading-tight text-brand-navy">
-                  {data.course.name}
-                </h3>
-
-                <dl className="mt-5 space-y-3 text-sm">
-                  <div className="flex justify-between gap-4 border-b border-brand-navy/[0.07] pb-3">
-                    <dt className="text-muted">Cohort</dt>
-                    <dd className="text-right font-medium text-ink">{data.batch.name}</dd>
-                  </div>
-                  {data.batch.startDate && (
-                    <div className="flex justify-between gap-4 border-b border-brand-navy/[0.07] pb-3">
-                      <dt className="text-muted">Starts</dt>
-                      <dd className="text-right font-medium text-ink">{data.batch.startDate}</dd>
-                    </div>
-                  )}
-                  {data.course.durationWeeks && (
-                    <div className="flex justify-between gap-4 border-b border-brand-navy/[0.07] pb-3">
-                      <dt className="text-muted">Duration</dt>
-                      <dd className="text-right font-medium text-ink">{data.course.durationWeeks} weeks</dd>
-                    </div>
-                  )}
-                </dl>
-
-                {/* fee breakdown (GST transparency) */}
-                <div className="mt-5 rounded-msc-md bg-brand-pale/60 p-4">
-                  <div className="flex justify-between text-sm text-muted">
-                    <span>Base fee</span>
-                    <span className="tabular-nums">{inr(base)}</span>
-                  </div>
-                  <div className="mt-2 flex justify-between text-sm text-muted">
-                    <span>GST ({gstRate}%)</span>
-                    <span className="tabular-nums">{inr(gst)}</span>
-                  </div>
-                  {data.discountPaise > 0 && (
-                    <div className="mt-2 flex justify-between text-sm font-medium text-success">
-                      <span>Scholarship</span>
-                      <span className="tabular-nums">−{inr(data.discountPaise)}</span>
-                    </div>
-                  )}
-                  <div className="mt-3 flex items-baseline justify-between border-t border-brand-navy/10 pt-3">
-                    <span className="text-sm font-semibold text-brand-navy">Total payable</span>
-                    <span className="font-display text-3xl font-semibold tabular-nums text-brand-navy">
-                      {inr(data.pricePaise)}
+            {/* Course details bullet list */}
+            <div className="space-y-4 pt-6 border-t border-brand-navy/10 mt-6">
+              <h3 className="font-display text-xs font-bold uppercase tracking-wider text-brand-navy">
+                Course Highlights
+              </h3>
+              <ul className="space-y-3.5 text-sm text-muted">
+                {outline.outcomes.map((o, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5">
+                    <IconCheck className="h-4 w-4 shrink-0 text-brand-blue mt-0.5" />
+                    <span>
+                      <strong className="text-brand-navy font-semibold">{o.title}:</strong> {o.desc}
                     </span>
-                  </div>
-                  <p className="mt-1 text-right text-[0.7rem] text-muted">inclusive of {gstRate}% GST</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact details */}
+            <div className="space-y-3 pt-6 border-t border-brand-navy/10 mt-6">
+              <h3 className="font-display text-xs font-bold uppercase tracking-wider text-brand-navy">
+                Contact Us
+              </h3>
+              <div className="flex flex-col gap-2 text-sm text-muted">
+                <a href="mailto:info@medskillscatalyst.com" className="inline-flex items-center gap-2 hover:text-brand-blue">
+                  <IconReceipt className="h-4 w-4 text-brand-blue" /> info@medskillscatalyst.com
+                </a>
+                <a href="https://wa.me/919759249395" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-brand-blue">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current text-brand-blue" aria-hidden>
+                    <path d="M12.001 2.001C6.478 2.001 2 6.477 2 12c0 1.936.549 3.744 1.501 5.278L2 22l4.835-1.469A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.524 2.001 12.001 2.001zm0 18a7.969 7.969 0 0 1-4.065-1.112l-.291-.173-3.012.915.915-2.936-.19-.303A7.97 7.97 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.588 8-7.999 8z" />
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                  </svg>
+                  +91 97592 49395
+                </a>
+              </div>
+            </div>
+
+            {/* Terms and Policies */}
+            <div className="space-y-2 pt-6 border-t border-brand-navy/10 mt-6 text-xs text-muted leading-relaxed">
+              <p>
+                By enrolling, you agree to share information entered on this page with MedSkills Catalyst, and consent to their processing of your enrollment data.
+              </p>
+              <div className="flex gap-3">
+                <a href="/terms-of-use" target="_blank" className="underline hover:text-brand-blue">Terms of Use</a>
+                <span>·</span>
+                <a href="/privacy-policy" target="_blank" className="underline hover:text-brand-blue">Privacy Policy</a>
+                <span>·</span>
+                <a href="/refund-policy" target="_blank" className="underline hover:text-brand-blue">Refund Policy</a>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Right Column: Payment Details Card ── */}
+          <div className="md:col-span-5">
+            <div className="relative overflow-hidden rounded-msc-xl bg-surface shadow-msc-float border border-brand-navy/[0.05]">
+              {/* Top Accent Line */}
+              <div className="h-1.5 w-full bg-brand-blue" />
+              
+              <div className="p-6 sm:p-8 space-y-6">
+                <div className="border-b border-brand-navy/[0.07] pb-3">
+                  <h3 className="font-display text-xl font-bold text-brand-navy">
+                    Payment Details
+                  </h3>
+                  <div className="h-1 w-10 bg-brand-blue mt-2" />
                 </div>
 
-                {/* CTA */}
-                <div className="mt-5">
-                  {paid ? (
-                    <div className="flex items-center justify-center gap-2 rounded-pill bg-success/10 py-3 text-sm font-semibold text-success">
-                      <IconCheck className="h-4 w-4" /> Paid — seat confirmed
+                {paid ? (
+                  <div className="text-center py-6 space-y-5">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-success/10 text-success">
+                      <IconCheck className="h-7 w-7" />
                     </div>
-                  ) : reserved ? (
+                    <h4 className="font-display text-2xl font-bold text-brand-navy">
+                      You&rsquo;re confirmed!
+                    </h4>
+                    <p className="text-sm text-muted leading-relaxed max-w-sm mx-auto">
+                      Your seat in <strong className="text-ink">{data.course.name}</strong> is officially confirmed. A GST tax invoice and onboarding instructions have been sent to your email.
+                    </p>
+                    <a
+                      href={WHATSAPP_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-11 items-center justify-center gap-2 rounded-pill bg-wa px-6 text-sm font-semibold text-white transition hover:opacity-90 w-full"
+                    >
+                      Chat with us on WhatsApp
+                    </a>
+                  </div>
+                ) : reserved ? (
+                  <div className="text-center py-6 space-y-5">
+                    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-brand-pale text-brand-blue">
+                      <IconSeat className="h-7 w-7" />
+                    </div>
+                    <h4 className="font-display text-2xl font-bold text-brand-navy">
+                      Secure your seat
+                    </h4>
+                    <p className="text-sm text-muted leading-relaxed max-w-sm mx-auto">
+                      Your application details are saved. Complete the program fee of <strong className="text-ink">{inr(data.pricePaise)}</strong> to secure your seat.
+                    </p>
+                    {payError && (
+                      <p className="rounded-msc bg-danger/10 px-4 py-2.5 text-xs font-semibold text-danger">
+                        {payError}
+                      </p>
+                    )}
                     <Button
                       size="lg"
                       className="w-full rounded-pill font-semibold shadow-msc-glow"
@@ -558,210 +450,75 @@ export function EnrollClient({ data, flow }: { data: EnrollPageData; flow?: Enro
                     >
                       {payLabel} →
                     </Button>
-                  ) : (
-                    <Button
-                      size="lg"
-                      className="w-full rounded-pill font-semibold"
-                      onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                    >
-                      Complete the form first ↑
-                    </Button>
-                  )}
-                </div>
-
-                {/* trust row */}
-                <div className="mt-5 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[0.7rem] font-medium text-muted">
-                  <span className="inline-flex items-center gap-1.5">
-                    <IconReceipt className="h-3.5 w-3.5 text-brand-blue" /> Instant GST invoice
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <IconShield className="h-3.5 w-3.5 text-brand-blue" /> Secured by Razorpay
-                  </span>
-                </div>
-              </div>
-            </div>
-          </motion.aside>
-        </div>
-
-        {/* ── Why enroll now ───────────────────────────────────────────── */}
-        <motion.section {...fadeUp} className="py-16 sm:py-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-brand-blue">
-              Why now
-            </span>
-            <h2 className="mt-2 font-display text-3xl font-semibold text-brand-navy sm:text-4xl">
-              Your seat won&rsquo;t wait
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
-            {[
-              {
-                Icon: IconSeat,
-                title: "The cohort is finite",
-                body: "Kept deliberately small so mentoring stays personal. Enrollment closes when seats fill — not on a fixed date.",
-              },
-              {
-                Icon: IconReceipt,
-                title: "Everything on record",
-                body: "A GST tax invoice, a confirmed enrollment record, and onboarding within hours of payment. Fully official, fully documented.",
-              },
-              {
-                Icon: IconSpark,
-                title: "Momentum matters",
-                body: "Pre-work starts before day one. The earlier you're in, the more runway you have before the cohort kicks off.",
-              },
-            ].map((f, i) => (
-              <motion.div
-                key={f.title}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-              >
-                <div className="group h-full rounded-msc-lg border border-brand-navy/[0.07] bg-surface p-6 shadow-msc-sm transition duration-300 hover:-translate-y-1 hover:shadow-msc-lg">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-msc bg-brand-pale text-brand-blue transition group-hover:bg-brand-blue group-hover:text-white">
-                    <f.Icon className="h-5 w-5" />
+                    <p className="text-center text-[10px] text-muted flex items-center justify-center gap-1">
+                      <IconLock className="h-3 w-3" /> UPI · cards · net-banking, via Razorpay
+                    </p>
                   </div>
-                  <h3 className="mt-4 font-display text-lg font-semibold text-brand-navy">
-                    {f.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">{f.body}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.section>
+                ) : (
+                  <div className="space-y-6">
+                    <EnrollmentForm
+                      uploadScope={uploadScope}
+                      submit={submitForm}
+                      defaults={defaults}
+                      pricePaise={data.pricePaise}
+                      onReserved={(res) => {
+                        setReserved(true);
+                        setEnrollmentId(res.enrollmentId);
+                        fbTrack(
+                          "CompleteRegistration",
+                          { content_name: "Enrollment completed" },
+                          res.eventId,
+                        );
+                        void startPayment(res.enrollmentId);
+                      }}
+                    />
 
-        {/* ── Payment reassurance ──────────────────────────────────────── */}
-        <motion.section {...fadeUp} className="pb-16 sm:pb-20">
-          <div className="relative overflow-hidden rounded-msc-xl bg-brand-navy shadow-msc-lg">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(50%_80%_at_100%_0%,rgba(74,208,255,0.14),transparent_60%)]"
-            />
-            <div className="relative grid gap-8 p-8 sm:p-10 md:grid-cols-2 md:items-center">
-              <div>
-                <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-brand-cyan">
-                  Safe payment
-                </span>
-                <h2 className="mt-2 font-display text-3xl font-semibold text-white">
-                  Pay the right way, every time
-                </h2>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-white/70">
-                  Checkout runs on Razorpay — UPI, all major cards, and net-banking. MedSkills
-                  Catalyst never accepts payments to a personal account. If a link looks off, it
-                  isn&rsquo;t ours.
-                </p>
-                <ul className="mt-6 space-y-3 text-sm text-white/85">
-                  <TrustLine>Instant GST tax invoice on payment</TrustLine>
-                  <TrustLine>Onboarding within hours of payment</TrustLine>
-                  <TrustLine>Refunds as per our published policy</TrustLine>
-                </ul>
-              </div>
-              <div className="rounded-msc-lg border border-white/10 bg-white/[0.04] p-7 text-center backdrop-blur">
-                <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-white/50">
-                  One-time fee
-                </span>
-                <div className="mt-2 font-display text-5xl font-semibold text-white">
-                  {inr(data.pricePaise)}
-                </div>
-                <span className="text-xs text-white/50">incl. {gstRate}% GST</span>
-                <div className="mt-6">
-                  {paid ? (
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-brand-cyan">
-                      <IconCheck className="h-4 w-4" /> Paid — seat confirmed
-                    </span>
-                  ) : reserved ? (
-                    <Button
-                      size="lg"
-                      className="w-full rounded-pill bg-brand-cyan font-semibold text-brand-navy shadow-msc-glow hover:bg-brand-cyan/90"
-                      disabled={paying}
-                      onClick={() => void startPayment()}
-                    >
-                      {paying ? "Opening checkout…" : "Pay securely now →"}
-                    </Button>
-                  ) : (
-                    <Button
-                      size="lg"
-                      className="w-full rounded-pill bg-white font-semibold text-brand-navy hover:bg-brand-pale"
-                      onClick={() => formRef.current?.scrollIntoView({ behavior: "smooth" })}
-                    >
-                      Complete the form first ↑
-                    </Button>
-                  )}
-                </div>
+                    {/* Pricing selection styled like Razorpay */}
+                    <div className="space-y-3 pt-6 border-t border-brand-navy/10 mt-6">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-muted block">
+                        Course Fee Summary
+                      </span>
+                      
+                      <div className="flex items-start gap-3 rounded-msc border border-brand-navy/10 bg-brand-pale/25 p-4">
+                        <div className="flex h-5 items-center mt-0.5">
+                          <input
+                            id="primary-course-select"
+                            type="checkbox"
+                            checked
+                            disabled
+                            className="h-4 w-4 rounded border-brand-navy/20 text-brand-navy focus:ring-brand-navy/30"
+                          />
+                        </div>
+                        <div className="flex-1 text-xs">
+                          <label htmlFor="primary-course-select" className="font-bold text-brand-navy block">
+                            {data.course.name}
+                          </label>
+                          <span className="text-[10px] text-muted block mt-0.5">
+                            {data.batch.name} {data.batch.startDate ? `— Starts ${data.batch.startDate}` : ""}
+                          </span>
+                        </div>
+                        <div className="text-right">
+                          <span className="font-display text-sm font-bold text-brand-navy tabular-nums block">
+                            {inr(data.pricePaise)}
+                          </span>
+                          {data.discountPaise > 0 && (
+                            <span className="text-[10px] text-success block font-semibold line-through">
+                              {inr(data.pricePaise + data.discountPaise)}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
-        </motion.section>
 
-        {/* ── FAQ ──────────────────────────────────────────────────────── */}
-        <motion.section {...fadeUp} className="pb-20">
-          <div className="mx-auto max-w-2xl text-center">
-            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.16em] text-brand-blue">
-              Good to know
-            </span>
-            <h2 className="mt-2 font-display text-3xl font-semibold text-brand-navy sm:text-4xl">
-              Common questions
-            </h2>
-          </div>
-          <Card className="mx-auto mt-8 max-w-3xl rounded-msc-lg shadow-msc-sm">
-            <CardContent className="px-6 py-2">
-              <Accordion>
-                <AccordionItem question="Is my seat confirmed after this form?">
-                  Submitting the form reserves your seat. It&rsquo;s confirmed the moment your
-                  programme fee is received — seats are allocated strictly in order of payment.
-                </AccordionItem>
-                <AccordionItem question="What payment methods can I use?">
-                  UPI, all major debit/credit cards, and net-banking — through our secure Razorpay
-                  checkout. We never accept payments to personal accounts.
-                </AccordionItem>
-                <AccordionItem question="Will I get a proper invoice?">
-                  Yes. A GST tax invoice is generated automatically the moment your payment is
-                  received and emailed to you — that&rsquo;s why we ask for your state and billing
-                  address.
-                </AccordionItem>
-                <AccordionItem question="What if I need to defer to a later cohort?">
-                  Talk to us before your cohort starts and we&rsquo;ll move you to the next one,
-                  subject to seats. See the refund policy for full details.
-                </AccordionItem>
-                <AccordionItem question="My link expired — what now?">
-                  Just message us on WhatsApp and we&rsquo;ll send a fresh link. Expiry protects
-                  your offer terms; it doesn&rsquo;t cancel your conversation with us.
-                </AccordionItem>
-              </Accordion>
-            </CardContent>
-          </Card>
-        </motion.section>
+        </div>
       </main>
 
-      {/* ── Footer ───────────────────────────────────────────────────── */}
-      <footer className="border-t border-brand-navy/10 bg-surface">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-5 py-8 text-center sm:flex-row sm:justify-between sm:text-left">
-          <div className="flex items-center gap-3">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/brand/logo/MedSkills-Catalyst_Logo-01.svg"
-              alt="MedSkills Catalyst"
-              className="h-9 w-auto"
-            />
-            <div>
-              <p className="font-display text-base font-bold leading-none text-brand-navy">
-                MedSkills Catalyst
-              </p>
-              <p className="mt-1 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-muted">
-                Upskill to Upscale
-              </p>
-            </div>
-          </div>
-          <nav className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-muted">
-            <a href="/terms-of-use" className="hover:text-brand-blue">Terms</a>
-            <a href="/privacy-policy" className="hover:text-brand-blue">Privacy</a>
-            <a href="/refund-policy" className="hover:text-brand-blue">Refunds</a>
-            <a href="/contact-us" className="hover:text-brand-blue">Contact</a>
-          </nav>
-        </div>
-      </footer>
+      {/* ── Checkout Loader Overlay ── */}
       {paying && (
         <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-brand-navy/60 backdrop-blur-sm text-white">
           <div className="relative flex h-20 w-20 items-center justify-center">

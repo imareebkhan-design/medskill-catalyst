@@ -37,6 +37,7 @@ type Props = {
   submit: (values: EnrollmentApplication) => Promise<EnrollResult>;
   defaults: { firstName: string; lastName: string; email: string; phone: string };
   onReserved: (res: { enrollmentId: string; eventId?: string }) => void;
+  pricePaise: number;
 };
 
 const sectionReveal = {
@@ -93,7 +94,14 @@ function Field({ label, htmlFor, required, error, hint, className, children }: {
   );
 }
 
-export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Props) {
+const inr = (paise: number) =>
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(paise / 100);
+
+export function EnrollmentForm({ uploadScope, submit, defaults, onReserved, pricePaise }: Props) {
   const {
     register,
     handleSubmit,
@@ -312,12 +320,9 @@ export function EnrollmentForm({ uploadScope, submit, defaults, onReserved }: Pr
       )}
 
       <div>
-        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? "Reserving your seat…" : "Reserve my seat →"}
+        <Button type="submit" size="lg" disabled={isSubmitting} className="w-full bg-brand-navy hover:bg-brand-navy/90 text-white font-semibold">
+          {isSubmitting ? "Processing…" : `Proceed to Pay ${inr(pricePaise)} →`}
         </Button>
-        <p className="mt-2 text-center text-xs text-muted">
-          No payment is taken on this step. You&rsquo;ll receive a secure payment link next.
-        </p>
       </div>
     </form>
   );

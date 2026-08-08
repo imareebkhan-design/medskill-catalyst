@@ -27,6 +27,10 @@ a{color:var(--blue)}
 .note{background:#fff;border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:8px;padding:1rem 1.25rem;font-size:.9rem;color:var(--slate);margin:2rem 0}
 footer{margin-top:3rem;padding-top:1.5rem;border-top:1px solid var(--border);font-size:.85rem;color:var(--slate)}
 </style>
+<!-- Meta Pixel -->
+<script async src="/assets/meta-pixel.js"></script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2086725265526325&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 </head>
 <body>
 <div class="wrap">
@@ -64,5 +68,13 @@ MedSkills Catalyst Pvt. Ltd. &middot; Gurgaon, India &middot; <a href="mailto:in
 &copy; 2026 MedSkills Catalyst Pvt. Ltd. All rights reserved.
 </footer>
 </div>
+<script>
+  // Meta Pixel: treat clicking an email link as a Contact conversion.
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+    a.addEventListener('click', function(){
+      if (typeof fbTrack === 'function') fbTrack('Contact', { content_name: 'Email enquiry' });
+    });
+  });
+</script>
 </body>
 </html>

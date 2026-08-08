@@ -94,6 +94,10 @@ select.form-input{appearance:none;-webkit-appearance:none;cursor:pointer;padding
 .success .when span{display:block;color:var(--blue);font-size:.85rem;font-weight:700;margin-top:.15rem}
 footer{text-align:center;font-size:.8rem;color:var(--slate);margin-top:2.5rem}
 </style>
+<!-- Meta Pixel -->
+<script async src="/assets/meta-pixel.js"></script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2086725265526325&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 </head>
 <body>
 <div class="wrap">
@@ -247,7 +251,7 @@ form.addEventListener('submit',async function(e){
     form_type:'masterclass',
     source:'Q&A Registration', event:'Cohort 1 Live Q&A',
     institute:institute, category:category, city:city,
-    consent:true, send_qa_email:true, ...getUTM()
+    consent:true, send_qa_email:true, fb_event_name:'Lead', fb_event_id:(window.fbNewId?fbNewId():''), ...getUTM()
   };
   var controller=new AbortController(); var t=setTimeout(function(){controller.abort();},8000);
   try{
@@ -255,6 +259,7 @@ form.addEventListener('submit',async function(e){
     clearTimeout(t);
     if(res.ok){
       if(typeof gtag!=='undefined')gtag('event','qa_registration',{event_category:'conversion'});
+      if(typeof fbTrack==='function')fbTrack('Lead',{content_name:'Q&A registration'},payload.fb_event_id);
       document.getElementById('reg-view').style.display='none';
       document.getElementById('success-view').classList.add('show');
       window.scrollTo({top:0,behavior:'smooth'});
