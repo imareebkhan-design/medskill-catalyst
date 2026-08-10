@@ -1,25 +1,18 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase";
+import { hasAdminPasscode } from "@/lib/admin-auth";
 import { createInvoice, InvoiceError } from "@/src/lib/invoices";
 
 export const runtime = "nodejs";
 
 // Invoicing API (Phase 1) — CRM-integrated invoice creation + listing.
-// Auth mirrors /api/careers/admin: ADMIN_PASSCODE via "x-admin-passcode"
-// header or ?passcode=. All money is computed server-side by createInvoice()
-// (src/lib/invoices.ts) — the client never sets subtotal/tax/total, and the
-// invoice number is issued atomically in Postgres.
+// Auth: ADMIN_PASSCODE via the "x-admin-passcode" header only (header-only,
+// constant-time — see lib/admin-auth.ts). All money is computed server-side by
+// createInvoice() (src/lib/invoices.ts) — the client never sets subtotal/tax/
+// total, and the invoice number is issued atomically in Postgres.
 
 function checkAuth(request: Request): boolean {
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected) {
-    console.error("[Invoices] ADMIN_PASSCODE is not configured.");
-    return false;
-  }
-  const url = new URL(request.url);
-  const given =
-    request.headers.get("x-admin-passcode") || url.searchParams.get("passcode");
-  return given === expected;
+  return hasAdminPasscode(request.headers.get("x-admin-passcode"));
 }
 
 type ItemIn = { description?: unknown; hsn?: unknown; quantity?: unknown; rate?: unknown };

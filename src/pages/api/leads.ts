@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { passcodesMatch } from "@/lib/admin-auth";
 
 /**
  * Read-only leads feed for the admin dashboard.
  * Mirror of the framework-agnostic root function at /api/leads.js —
  * keep the two in sync.
  *
- * Auth: ADMIN_PASSCODE env var, sent via "x-admin-passcode" header
- * (or ?passcode= for CSV downloads).
+ * Auth: ADMIN_PASSCODE env var, sent via the "x-admin-passcode" header only.
+ * Header-only (never the URL query string, which would leak the passcode into
+ * logs/history) and compared in constant time — see lib/admin-auth.ts.
  */
 
 const COLUMNS = [
@@ -33,8 +35,9 @@ export default async function handler(
     console.error("[Leads] ADMIN_PASSCODE env var is not set.");
     return res.status(500).json({ error: "Dashboard is not configured." });
   }
-  const given = req.headers["x-admin-passcode"] || req.query.passcode;
-  if (given !== expected) {
+  const headerVal = req.headers["x-admin-passcode"];
+  const given = Array.isArray(headerVal) ? headerVal[0] : headerVal;
+  if (!passcodesMatch(given, expected)) {
     return res.status(401).json({ error: "Invalid passcode." });
   }
 
