@@ -32,13 +32,13 @@ async function main() {
   });
 
   let batch = await db.batch.findFirst({
-    where: { course_id: course.id, name: "Cohort 1 — August 2026" },
+    where: { course_id: course.id, name: "Cohort 1 — September 2026" },
   });
   batch ??= await db.batch.create({
     data: {
       course_id: course.id,
-      name: "Cohort 1 — August 2026",
-      start_date: new Date("2026-08-08"),
+      name: "Cohort 1 — September 2026",
+      start_date: new Date("2026-09-26"),
       seat_capacity: 20,
       status: "ENROLLING",
     },

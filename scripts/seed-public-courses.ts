@@ -36,8 +36,8 @@ async function main() {
   foundationBatch ??= await db.batch.create({
     data: {
       course_id: foundationCourse.id,
-      name: "Cohort 1 — August 2026",
-      start_date: new Date("2026-08-08"),
+      name: "Cohort 1 — September 2026",
+      start_date: new Date("2026-09-26"),
       seat_capacity: 20,
       status: BatchStatus.ENROLLING,
     },
@@ -70,8 +70,8 @@ async function main() {
   advancedBatch ??= await db.batch.create({
     data: {
       course_id: advancedCourse.id,
-      name: "Cohort 1 — August 2026",
-      start_date: new Date("2026-08-08"),
+      name: "Cohort 1 — September 2026",
+      start_date: new Date("2026-09-26"),
       seat_capacity: 20,
       status: BatchStatus.ENROLLING,
     },
