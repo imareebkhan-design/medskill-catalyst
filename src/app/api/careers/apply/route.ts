@@ -1,5 +1,9 @@
 import { NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase";
+import {
+  getServiceClient,
+  CAREERS_BUCKET,
+  ensureCareersBucketPrivate,
+} from "@/lib/supabase";
 import { sendMetaEvent, metaContextFromRequest, ALLOWED_EVENTS } from "@/src/lib/meta-capi";
 
 export const runtime = "nodejs";
@@ -96,19 +100,18 @@ export async function POST(request: Request) {
     // 3. Supabase Client & Bucket Creation
     const supabase = getServiceClient();
 
-    const { data: buckets } = await supabase.storage.listBuckets();
-    if (!buckets?.some(b => b.name === "careers")) {
-      const { error: bucketError } = await supabase.storage.createBucket("careers", {
-        public: true,
-        fileSizeLimit: 6 * 1024 * 1024,
-      });
-      if (bucketError) {
-        console.error("Storage bucket creation error:", bucketError);
-        return NextResponse.json({ error: "Failed to initialize upload storage." }, { status: 500 });
-      }
+    // The careers bucket is PRIVATE. Applicant documents (resumes, IDs,
+    // certificates) are PII and must never be world-readable. Admins view them
+    // through short-lived signed URLs generated in /api/careers/admin.
+    try {
+      await ensureCareersBucketPrivate(supabase);
+    } catch (bucketError) {
+      console.error("Storage bucket init error:", bucketError);
+      return NextResponse.json({ error: "Failed to initialize upload storage." }, { status: 500 });
     }
 
-    // Upload Helper
+    // Upload Helper — returns the OBJECT PATH inside the private bucket (not a
+    // public URL). The path is stored in the DB and signed on demand for admins.
     const uploadFile = async (file: File | null, folder: string, prefix: string): Promise<string> => {
       if (!file) return "";
       const ext = file.name.split(".").pop();
@@ -119,7 +122,7 @@ export async function POST(request: Request) {
       const buffer = Buffer.from(arrayBuffer);
 
       const { error: uploadError } = await supabase.storage
-        .from("careers")
+        .from(CAREERS_BUCKET)
         .upload(filePath, buffer, {
           contentType: file.type || "application/octet-stream",
           cacheControl: "3600",
@@ -130,8 +133,7 @@ export async function POST(request: Request) {
         throw new Error(`Upload error: ${uploadError.message}`);
       }
 
-      const { data: urlData } = supabase.storage.from("careers").getPublicUrl(filePath);
-      return urlData.publicUrl;
+      return filePath;
     };
 
     // 4. Perform Uploads

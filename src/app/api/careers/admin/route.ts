@@ -1,19 +1,33 @@
 import { NextResponse } from "next/server";
-import { getServiceClient } from "@/lib/supabase";
+import { getServiceClient, signCareersFile } from "@/lib/supabase";
+import { hasAdminPasscode } from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 
-// Auth helper
+// Header-only, constant-time passcode check (see lib/admin-auth.ts).
 function checkAuth(request: Request): boolean {
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected) {
-    console.error("[Careers Admin] ADMIN_PASSCODE is not configured.");
-    return false;
-  }
+  return hasAdminPasscode(request.headers.get("x-admin-passcode"));
+}
 
-  const urlObj = new URL(request.url);
-  const given = request.headers.get("x-admin-passcode") || urlObj.searchParams.get("passcode");
-  return given === expected;
+// Applicant file columns hold private object paths; sign them for the admin.
+const FILE_FIELDS = ["resume_url", "certificates_url", "portfolio_url", "achievements_url"] as const;
+
+async function withSignedFileUrls(
+  supabase: ReturnType<typeof getServiceClient>,
+  rows: Record<string, unknown>[],
+): Promise<Record<string, unknown>[]> {
+  return Promise.all(
+    rows.map(async (row) => {
+      const out = { ...row };
+      for (const f of FILE_FIELDS) {
+        const v = row[f];
+        if (typeof v === "string" && v) {
+          out[f] = await signCareersFile(supabase, v);
+        }
+      }
+      return out;
+    }),
+  );
 }
 
 export async function GET(request: Request) {
@@ -35,7 +49,8 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: "Failed to retrieve applications." }, { status: 502 });
     }
 
-    return NextResponse.json(data);
+    const signed = await withSignedFileUrls(supabase, data ?? []);
+    return NextResponse.json(signed);
   } catch (err) {
     console.error("[Careers Admin] GET critical failure:", err);
     return NextResponse.json({ error: "Internal server error." }, { status: 500 });

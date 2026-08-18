@@ -1,18 +1,15 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase";
+import { hasAdminPasscode } from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 
 // Single-invoice read + workflow updates (status / notes / dates).
 // Money and line items are immutable here — re-issue a new invoice instead.
+// Auth: header-only, constant-time (see lib/admin-auth.ts).
 
 function checkAuth(request: Request): boolean {
-  const expected = process.env.ADMIN_PASSCODE;
-  if (!expected) return false;
-  const url = new URL(request.url);
-  const given =
-    request.headers.get("x-admin-passcode") || url.searchParams.get("passcode");
-  return given === expected;
+  return hasAdminPasscode(request.headers.get("x-admin-passcode"));
 }
 
 const ALLOWED_STATUS = ["draft", "sent", "viewed", "paid", "overdue", "cancelled"];
