@@ -137,12 +137,6 @@ function verdictFrom(
   return { blocked: true, retryAfterSeconds: Math.max(1, Math.ceil(msLeft / 1000)) };
 }
 
-async function dbVerdict(key: string, cfg: RateLimitConfig, now: number): Promise<RateLimitVerdict> {
-  const row = await db.adminAuthAttempt.findUnique({ where: { key } });
-  if (!row) return ALLOWED;
-  return verdictFrom(row.failures, row.window_start, cfg, now);
-}
-
 /**
  * Increment the shared counter, resetting it first when the stored window has
  * already elapsed. Done as one statement so concurrent requests cannot each
