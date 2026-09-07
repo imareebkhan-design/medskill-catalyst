@@ -24,6 +24,22 @@ export function passcodesMatch(
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+/** True when this deployment actually has a passcode to check against. */
+export function adminPasscodeConfigured(): boolean {
+  const v = process.env.ADMIN_PASSCODE;
+  return typeof v === "string" && v.length > 0;
+}
+
+/**
+ * Reported when ADMIN_PASSCODE is absent. Kept distinct from a 401 on purpose:
+ * with no passcode configured, no input can ever succeed, so "invalid passcode"
+ * points whoever is locked out at the wrong problem. A project moved to another
+ * Vercel account (or re-created as a new project) is the usual way a deployment
+ * ends up here — environment variables do not come along.
+ */
+export const ADMIN_NOT_CONFIGURED_MESSAGE =
+  "Admin access is not configured on this deployment: ADMIN_PASSCODE is not set.";
+
 /** True when the request carries the correct admin passcode in the header. */
 export function hasAdminPasscode(headerValue: string | null | undefined): boolean {
   const expected = process.env.ADMIN_PASSCODE;
