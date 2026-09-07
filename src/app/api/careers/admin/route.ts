@@ -1,12 +1,25 @@
 import { NextResponse } from "next/server";
 import { getServiceClient, signCareersFile } from "@/lib/supabase";
-import { hasAdminPasscode } from "@/lib/admin-auth";
+import {
+  ADMIN_NOT_CONFIGURED_MESSAGE,
+  adminPasscodeConfigured,
+  hasAdminPasscode,
+} from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 
 // Header-only, constant-time passcode check (see lib/admin-auth.ts).
-function checkAuth(request: Request): boolean {
-  return hasAdminPasscode(request.headers.get("x-admin-passcode"));
+// Deny with 503 when the deployment has no ADMIN_PASSCODE at all, and 401
+// only when it has one and the caller got it wrong. Collapsing both into a
+// 401 makes a misconfigured deployment indistinguishable from a bad passcode.
+function denyAuth(request: Request): NextResponse | null {
+  if (!adminPasscodeConfigured()) {
+    return NextResponse.json({ error: ADMIN_NOT_CONFIGURED_MESSAGE }, { status: 503 });
+  }
+  if (!hasAdminPasscode(request.headers.get("x-admin-passcode"))) {
+    return NextResponse.json({ error: "Invalid passcode or unauthorized access." }, { status: 401 });
+  }
+  return null;
 }
 
 // Applicant file columns hold private object paths; sign them for the admin.
@@ -31,9 +44,8 @@ async function withSignedFileUrls(
 }
 
 export async function GET(request: Request) {
-  if (!checkAuth(request)) {
-    return NextResponse.json({ error: "Invalid passcode or unauthorized access." }, { status: 401 });
-  }
+  const denied = denyAuth(request);
+  if (denied) return denied;
 
   try {
     const supabase = getServiceClient();
@@ -58,9 +70,8 @@ export async function GET(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  if (!checkAuth(request)) {
-    return NextResponse.json({ error: "Invalid passcode or unauthorized access." }, { status: 401 });
-  }
+  const denied = denyAuth(request);
+  if (denied) return denied;
 
   try {
     const body = await request.json();

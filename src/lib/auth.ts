@@ -35,6 +35,15 @@ function passcodeSecret(): string | null {
   return p && p.length > 0 ? p : null;
 }
 
+/**
+ * True when this deployment actually has a passcode to check against.
+ * Worth asking separately: with ADMIN_PASSCODE unset, isValidPasscode() is
+ * false for *every* input, so "wrong passcode" is a misleading thing to report.
+ */
+export function isPasscodeConfigured(): boolean {
+  return passcodeSecret() !== null;
+}
+
 /** The value we store in (and expect from) the session cookie. */
 export function cookieTokenFor(passcode: string): string {
   return createHmac("sha256", passcode).update("msc-admin-v1").digest("hex");
