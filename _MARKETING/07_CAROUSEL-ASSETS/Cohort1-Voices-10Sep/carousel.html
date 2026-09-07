@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Inside Cohort 1 — 10 September carousel</title>
+<style>
+  /* ---------------------------------------------------------------
+     Fonts — as used by the original 10Sep_carousel template.
+     Instrument Sans (SemiBold + Regular) and Inter Tight Italic.
+     Note: BRAND.md specifies Fraunces + Plus Jakarta Sans for the
+     website. The social carousels use this pairing instead; kept
+     here for continuity with the rest of the carousel set.
+     --------------------------------------------------------------- */
+  @font-face { font-family:'Instrument Sans'; font-weight:600; font-style:normal;
+               src:url('fonts/InstrumentSans-600.ttf') format('truetype'); }
+  @font-face { font-family:'Instrument Sans'; font-weight:400; font-style:normal;
+               src:url('fonts/InstrumentSans-400.ttf') format('truetype'); }
+  @font-face { font-family:'Inter Tight'; font-weight:400; font-style:italic;
+               src:url('fonts/InterTight-400i.ttf') format('truetype'); }
+
+  :root{
+    --navy:#0A2A43;
+    --blue:#00589E;
+    --cyan:#4AD0FF;
+    --slate:#5A6B7B;
+    --pale-blue:#E8F2FB;
+    --muted-on-navy:#9DB0C0;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#3a4550;font-family:'Instrument Sans',sans-serif}
+
+  /* One artboard = one Instagram slide, 1080 x 1350 (4:5). */
+  .slide{
+    position:relative;
+    width:1080px;height:1350px;
+    overflow:hidden;
+    margin:0 auto 40px;
+  }
+
+  /* --- backgrounds ------------------------------------------------ */
+  .slide.dark{
+    background:radial-gradient(circle 1296px at 540px -135px,
+      #113453 0%, #0A2A43 42%, #061B2C 100%);
+    color:#fff;
+  }
+  .slide.light{
+    background:linear-gradient(180deg,#FFFFFF 0%,#F1F6FC 100%);
+    color:var(--navy);
+  }
+  /* the near-invisible grain the template lays over the lower half of
+     the dark slides (max alpha ~8%) */
+  .grain{
+    position:absolute;left:0;top:730px;width:1080px;height:620px;
+    background:url('assets/texture-dark.png') no-repeat center/cover;
+    pointer-events:none;
+  }
+
+  /* --- top lockup ------------------------------------------------- */
+  .mark{position:absolute;left:96px;top:93px;width:56px;height:56px}
+  .wordmark{
+    position:absolute;left:170px;top:0;
+    font-weight:600;font-size:25px;line-height:29px;
+    letter-spacing:-0.01em;
+  }
+  /* baselines 115 and 144 -> block top such that first baseline lands at 115 */
+  .wordmark{top:93px}
+
+  .eyebrow{
+    position:absolute;right:96px;top:112px;
+    display:flex;align-items:center;gap:20px;
+    font-weight:600;font-size:15px;letter-spacing:0.20em;
+    line-height:1;white-space:nowrap;
+  }
+  .eyebrow .rule{display:block;width:40px;height:1px;background:currentColor}
+
+  /* --- footer ----------------------------------------------------- */
+  .divider{position:absolute;left:96px;width:888px;height:1px}
+  .foot-name{
+    position:absolute;left:96px;top:1197px;
+    font-weight:600;font-size:24px;line-height:28px;letter-spacing:-0.01em;
+  }
+  .handle{
+    position:absolute;left:96px;top:1236px;
+    font-weight:400;font-size:19px;line-height:22px;
+  }
+  .progress{position:absolute;left:798px;top:1255px;width:186px;height:3px}
+  .progress i{position:absolute;top:0;width:30px;height:3px;display:block}
+
+  /* --- slide 1 ---------------------------------------------------- */
+  .s1 .headline{
+    position:absolute;left:96px;top:222px;width:900px;
+    font-weight:600;font-size:78px;line-height:83px;letter-spacing:-0.02em;
+  }
+  .s1 .sub{
+    position:absolute;left:96px;top:418px;width:900px;
+    font-family:'Inter Tight';font-style:italic;font-weight:400;
+    font-size:38px;line-height:44px;color:var(--cyan);
+  }
+  .swipe{
+    position:absolute;left:96px;top:1103px;
+    font-weight:600;font-size:17px;letter-spacing:0.20em;line-height:1;
+  }
+  .swipe-rule{
+    position:absolute;left:206px;top:1113px;width:778px;height:1px;
+    background:linear-gradient(90deg,rgba(74,208,255,.90),rgba(74,208,255,.12));
+  }
+
+  /* --- learner slides --------------------------------------------- */
+  .quote-mark{
+    position:absolute;left:96px;
+    font-weight:600;font-size:120px;line-height:120px;
+    color:var(--navy);opacity:.1294;
+  }
+  .quote{
+    position:absolute;left:96px;width:888px;
+    font-family:'Inter Tight';font-style:italic;font-weight:400;
+    color:var(--navy);
+  }
+  .avatar{
+    position:absolute;left:96px;top:825px;width:56px;height:56px;
+    border-radius:50%;background:var(--pale-blue);
+    object-fit:cover;overflow:hidden;
+  }
+  .who{position:absolute;left:170px;top:827px}
+  .who .name{font-weight:600;font-size:24px;line-height:28px;letter-spacing:-0.01em;color:var(--navy)}
+  .who .meta{font-weight:400;font-size:17px;line-height:20px;color:var(--slate);margin-top:5px}
+
+  /* --- slide 5 ---------------------------------------------------- */
+  .s5 .headline{
+    position:absolute;left:96px;top:222px;width:900px;
+    font-weight:600;font-size:82px;line-height:88.5px;letter-spacing:-0.02em;
+  }
+  .s5 .body{
+    position:absolute;left:96px;top:515px;width:880px;
+    font-weight:400;font-size:29px;line-height:42px;color:var(--muted-on-navy);
+  }
+  .s5 .endmark{position:absolute;left:96px;top:1078px;width:88px;height:88px}
+  .s5 .endname{
+    position:absolute;left:212px;top:1088px;
+    font-weight:600;font-size:38px;line-height:44px;letter-spacing:-0.01em;
+  }
+  .s5 .endtag{
+    position:absolute;left:212px;top:1145px;
+    font-weight:600;font-size:16px;letter-spacing:0.20em;line-height:1;color:var(--cyan);
+  }
+</style>
+</head>
+<body>
+
+<script>
+/* ===================================================================
+   CONTENT — edit here. Everything below this block is layout.
+   ===================================================================
+
+   VARIANT: set to 'verbatim' or 'trimmed'.
+     verbatim — the quotes exactly as the learners sent them. Longer,
+                so the type auto-shrinks to fit (down to ~30px).
+     trimmed  — deletion-only cuts (no rewording, no paraphrase) that
+                let the quotes sit at the template's intended size.
+   Overridden by ?variant= in the URL when rendering.
+*/
+const VARIANT = new URLSearchParams(location.search).get('variant') || 'trimmed';
+
+const CONTENT = {
+  cover: {
+    eyebrow:  'INSIDE COHORT 1',
+    headline: 'We asked Cohort 1 what\nthey see differently now.',
+    sub:      'Three answers, in their words.'
+  },
+
+  learners: [
+    {
+      name:   'Simarpreet',
+      meta:   'Cohort 1 · [DEGREE]',
+      photo:  'photos/simarpreet.jpg',
+      verbatim: 'For me medtech careers always meant dealing with medical devices like coronary stents… from the day I became part of Medskills Catalyst I gained a wider view of Medtech not only from sales, marketing but also newer options like Clinical applications specialist, Supply Chain… Ever since my Medtech knowledge has been growing and I feel that it will continue to do so during my Healthcare Career Journey',
+      trimmed:  'For me medtech careers always meant dealing with medical devices like coronary stents… from the day I became part of Medskills Catalyst I gained a wider view of Medtech not only from sales, marketing but also newer options like Clinical applications specialist, Supply Chain…'
+    },
+    {
+      name:   'Gursheen',
+      meta:   'Cohort 1 · [DEGREE]',
+      photo:  'photos/gursheen.jpg',
+      verbatim: 'Before this workshop, I already had an understanding of medical devices and their risk classification. What I learned here is the commercial side of the MedTech industry, especially how the buying and selling of medical devices works. I got a better understanding of how hospitals and healthcare organizations purchase devices, and how regulatory compliance connects with the actual commercialization of a product. It helped me understand MedTech not just from a regulatory perspective, but also from a business and market perspective.',
+      trimmed:  'What I learned here is the commercial side of the MedTech industry, especially how the buying and selling of medical devices works. It helped me understand MedTech not just from a regulatory perspective, but also from a business and market perspective.'
+    },
+    {
+      name:   'Khushi',
+      meta:   'Cohort 1 · [DEGREE]',
+      photo:  'photos/khushi.jpg',
+      verbatim: 'Before joining MedSkills Catalyst, I had a limited understanding of MedTech. Now, I understand that it is a collaborative ecosystem involving patients, doctors, biomedical engineers, hospitals, manufacturers, distributors, and regulators. Each stakeholder plays an important role in developing, evaluating, adopting, and improving medical technologies.',
+      trimmed:  'Before joining MedSkills Catalyst, I had a limited understanding of MedTech. Now, I understand that it is a collaborative ecosystem involving patients, doctors, biomedical engineers, hospitals, manufacturers, distributors, and regulators.'
+    }
+  ],
+
+  cta: {
+    eyebrow:  'COHORT 2',
+    headline: 'Nobody here has\nfinished yet. That is\nrather the point.',
+    body:     'Cohort 2 starts 26 September. Book a discovery call to see\nif it fits.'
+  },
+
+  footer: { name: 'MedSkills Catalyst', handle: '@MedSkillsCatalyst' }
+};
+
+/* =================================================================== */
+
+const TOTAL = 2 + CONTENT.learners.length;   // cover + learners + cta
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const nl  = s => esc(s).replace(/\n/g,'<br>');
+
+function lockup(dark){
+  return `
+    <img class="mark" src="assets/logo.png" alt="">
+    <div class="wordmark">MedSkills<br>Catalyst</div>`;
+}
+
+function footer(dark, activeIndex, dividerTop){
+  const dividerCol = dark ? 'rgba(74,208,255,.1608)' : 'rgba(10,42,67,.1216)';
+  const idleCol    = dark ? 'rgba(157,176,192,.3216)' : 'rgba(10,42,67,.1804)';
+  let bars = '';
+  for (let i = 0; i < TOTAL; i++){
+    bars += `<i style="left:${i*39}px;background:${i===activeIndex?'#4AD0FF':idleCol}"></i>`;
+  }
+  return `
+    <div class="divider" style="top:${dividerTop}px;background:${dividerCol}"></div>
+    <div class="handle" style="color:${dark?'var(--muted-on-navy)':'var(--slate)'}">${esc(CONTENT.footer.handle)}</div>
+    <div class="progress">${bars}</div>`;
+}
+
+/* ---- slide builders ---------------------------------------------- */
+
+function coverSlide(){
+  const c = CONTENT.cover;
+  return `
+  <section class="slide dark s1">
+    <div class="grain"></div>
+    ${lockup(true)}
+    <div class="eyebrow" style="color:var(--cyan)"><span class="rule"></span>${esc(c.eyebrow)}</div>
+    <div class="headline">${nl(c.headline)}</div>
+    <div class="sub">${nl(c.sub)}</div>
+    <div class="swipe">SWIPE</div>
+    <div class="swipe-rule"></div>
+    <div class="foot-name">${esc(CONTENT.footer.name)}</div>
+    ${footer(true, 0, 1173)}
+  </section>`;
+}
+
+function learnerSlide(l, i){
+  const label = 'LEARNER ' + String(i + 1).padStart(2, '0');
+  const text  = l[VARIANT] || l.verbatim;
+  return `
+  <section class="slide light">
+    ${lockup(false)}
+    <div class="eyebrow" style="color:var(--blue)"><span class="rule"></span>${esc(label)}</div>
+    <div class="quote-mark">&ldquo;</div>
+    <div class="quote" data-fit>${esc(text)}</div>
+    <img class="avatar" src="${l.photo}" alt=""
+         onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'avatar'}))">
+    <div class="who">
+      <div class="name">${esc(l.name)}</div>
+      <div class="meta">${esc(l.meta)}</div>
+    </div>
+    <div class="foot-name" style="color:var(--navy)">${esc(CONTENT.footer.name)}</div>
+    ${footer(false, i + 1, 1173)}
+  </section>`;
+}
+
+function ctaSlide(){
+  const c = CONTENT.cta;
+  return `
+  <section class="slide dark s5">
+    <div class="grain"></div>
+    ${lockup(true)}
+    <div class="eyebrow" style="color:var(--cyan)"><span class="rule"></span>${esc(c.eyebrow)}</div>
+    <div class="headline">${nl(c.headline)}</div>
+    <div class="body">${nl(c.body)}</div>
+    <img class="endmark" src="assets/logo.png" alt="">
+    <div class="endname">${esc(CONTENT.footer.name)}</div>
+    <div class="endtag">UPSKILL TO UPSCALE</div>
+    ${footer(true, TOTAL - 1, 1212)}
+  </section>`;
+}
+
+document.body.innerHTML =
+  coverSlide() +
+  CONTENT.learners.map(learnerSlide).join('') +
+  ctaSlide();
+
+/* ---- quote auto-fit ----------------------------------------------
+   The template sets quotes at 44px / 58px leading in a 888px column,
+   with the quote mark hung above it. Ratio 58/44 = 1.318.
+
+   'trimmed' keeps the template's proportions. 'verbatim' carries far
+   more text, so the mark rides up and the column starts higher to buy
+   the lines it needs. Either way the quote stops clear of the name
+   block at y=825 — it never runs under it.
+   ------------------------------------------------------------------ */
+const BAND = {
+  trimmed:  { mark: 398, top: 560, bottom: 800, max: 44, min: 26 },
+  verbatim: { mark: 268, top: 430, bottom: 800, max: 44, min: 20 }
+}[VARIANT] || { mark: 398, top: 560, bottom: 800, max: 44, min: 26 };
+
+const RATIO = 58 / 44;
+
+function fitQuotes(){
+  const sizes = [];
+  document.querySelectorAll('.quote-mark').forEach(m => { m.style.top = BAND.mark + 'px'; });
+
+  document.querySelectorAll('[data-fit]').forEach(el => {
+    const budget = BAND.bottom - BAND.top;
+    let size = BAND.max;
+    /* pinned, not centred: the template hangs the quote off the mark
+       so the first baseline always lands in the same place */
+    el.style.top = BAND.top + 'px';
+    while (size > BAND.min){
+      el.style.fontSize   = size + 'px';
+      el.style.lineHeight = (size * RATIO) + 'px';
+      if (el.scrollHeight <= budget) break;
+      size--;
+    }
+    if (el.scrollHeight > budget){
+      /* never let a quote run under the name block in silence */
+      el.dataset.overflow = Math.ceil(el.scrollHeight - budget);
+    }
+    sizes.push(size);
+  });
+
+  window.__quoteSizes = sizes;
+  window.__overflows  = [...document.querySelectorAll('[data-overflow]')]
+    .map(el => ({ name: el.parentElement.querySelector('.name').textContent,
+                  by: +el.dataset.overflow }));
+}
+
+if (document.fonts && document.fonts.ready){
+  document.fonts.ready.then(() => { fitQuotes(); document.documentElement.dataset.ready = '1'; });
+} else {
+  fitQuotes();
+  document.documentElement.dataset.ready = '1';
+}
+</script>
+</body>
+</html>
