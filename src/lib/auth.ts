@@ -99,11 +99,32 @@ export async function requireStaff(minRole: StaffRole = StaffRole.VIEWER): Promi
   return staff;
 }
 
+/**
+ * Why the gate refused. "unauthenticated" is the ordinary case — no session, or
+ * a bad passcode. "backend" means the passcode was fine and something behind it
+ * failed (typically the database call that mints the staff row). Keeping the two
+ * apart matters: collapsing them sends a correct passcode back to the login form,
+ * which is indistinguishable from a wrong one and hides the real outage.
+ */
+export type StaffGate =
+  | { ok: true; staff: StaffUser }
+  | { ok: false; reason: "unauthenticated" }
+  | { ok: false; reason: "backend" };
+
+export async function staffGate(): Promise<StaffGate> {
+  try {
+    return { ok: true, staff: await requireStaff() };
+  } catch (err) {
+    if (err instanceof AuthError) return { ok: false, reason: "unauthenticated" };
+    // Never surface this to the browser: a Prisma/pg failure can carry the
+    // connection string. Log it server-side and report only the category.
+    console.error("[auth] staff gate failed behind a valid session:", err);
+    return { ok: false, reason: "backend" };
+  }
+}
+
 /** Non-throwing variant for pages that render a friendly "sign in" state. */
 export async function getStaff(): Promise<StaffUser | null> {
-  try {
-    return await requireStaff();
-  } catch {
-    return null;
-  }
+  const gate = await staffGate();
+  return gate.ok ? gate.staff : null;
 }
