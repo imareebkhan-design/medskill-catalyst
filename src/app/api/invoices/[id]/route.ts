@@ -5,6 +5,13 @@ import {
   adminPasscodeConfigured,
   hasAdminPasscode,
 } from "@/lib/admin-auth";
+import {
+  checkAdminAuthRateLimit,
+  clearAdminAuthFailures,
+  clientKey,
+  rateLimitMessage,
+  recordAdminAuthFailure,
+} from "@/src/lib/rate-limit";
 
 export const runtime = "nodejs";
 
@@ -15,13 +22,27 @@ export const runtime = "nodejs";
 // Deny with 503 when the deployment has no ADMIN_PASSCODE at all, and 401
 // only when it has one and the caller got it wrong. Collapsing both into a
 // 401 makes a misconfigured deployment indistinguishable from a bad passcode.
-function denyAuth(request: Request): NextResponse | null {
+async function denyAuth(request: Request): Promise<NextResponse | null> {
   if (!adminPasscodeConfigured()) {
     return NextResponse.json({ error: ADMIN_NOT_CONFIGURED_MESSAGE }, { status: 503 });
   }
+
+  // Throttle before checking the passcode, so an exhausted caller cannot keep
+  // guessing. Only failures are counted, and a correct passcode clears them.
+  const key = clientKey(request.headers, "invoices");
+  const limit = await checkAdminAuthRateLimit(key);
+  if (limit.blocked) {
+    return NextResponse.json(
+      { error: rateLimitMessage(limit.retryAfterSeconds) },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } },
+    );
+  }
+
   if (!hasAdminPasscode(request.headers.get("x-admin-passcode"))) {
+    await recordAdminAuthFailure(key);
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
+  if (limit.hadFailures) await clearAdminAuthFailures(key);
   return null;
 }
 
@@ -31,7 +52,7 @@ export async function GET(
   request: Request,
   ctx: { params: Promise<{ id: string }> }
 ) {
-  const denied = denyAuth(request);
+  const denied = await denyAuth(request);
   if (denied) return denied;
   const { id } = await ctx.params;
   try {
@@ -56,7 +77,7 @@ export async function PATCH(
   request: Request,
   ctx: { params: Promise<{ id: string }> }
 ) {
-  const denied = denyAuth(request);
+  const denied = await denyAuth(request);
   if (denied) return denied;
   const { id } = await ctx.params;
 

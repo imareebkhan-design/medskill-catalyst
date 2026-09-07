@@ -527,6 +527,19 @@ model AuditLog {
   @@map("audit_logs")
 }
 
+/// Failed admin-passcode attempts per client, shared across serverless
+/// instances. See src/lib/rate-limit.ts — rows are written with raw SQL so the
+/// increment and its window reset happen in one statement.
+model AdminAuthAttempt {
+  key          String   @id
+  failures     Int      @default(0)
+  window_start DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([window_start])
+  @@map("admin_auth_attempts")
+}
+
 model WebhookEvent {
   id           String    @id @default(cuid())
   provider     String
