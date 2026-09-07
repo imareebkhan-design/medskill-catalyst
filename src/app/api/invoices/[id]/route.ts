@@ -28,9 +28,10 @@ async function denyAuth(request: Request): Promise<NextResponse | null> {
   }
 
   // Throttle before checking the passcode, so an exhausted caller cannot keep
-  // guessing. Only failures are counted, and a correct passcode clears them.
+  // guessing. Answered in process: an accepted request never reaches Postgres,
+  // which these Supabase-only routes otherwise have no reason to touch.
   const key = clientKey(request.headers, "invoices");
-  const limit = await checkAdminAuthRateLimit(key);
+  const limit = checkAdminAuthRateLimit(key);
   if (limit.blocked) {
     return NextResponse.json(
       { error: rateLimitMessage(limit.retryAfterSeconds) },

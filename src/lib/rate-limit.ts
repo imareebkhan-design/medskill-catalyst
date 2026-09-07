@@ -17,6 +17,18 @@ import { db } from "@/src/lib/db";
  * Postgres-only limiter that failed open would leave precisely those endpoints
  * unguarded at precisely that moment; the in-process counter still holds there.
  *
+ * Postgres is touched ONLY when a passcode is rejected. An accepted request
+ * costs nothing: it would otherwise pay a cross-region round trip (~300ms, see
+ * src/lib/db.ts) on every call to routes that have no other reason to reach the
+ * database, and couple their latency and availability to it. Recording a
+ * failure and learning the resulting count is one statement, so the guard never
+ * costs more than one query, and only on the unhappy path.
+ *
+ * Cross-instance abuse is still caught: every failure increments the shared
+ * counter and reads back the global total, so an attacker who spreads guesses
+ * across instances is refused on the first failure that crosses the limit
+ * wherever it lands, not after the limit on each instance separately.
+ *
  * The Postgres layer fails OPEN on error. Locking every admin out because the
  * database is unreachable would be a self-inflicted outage — the same mistake
  * as reporting a database failure as a bad passcode — and the in-process
@@ -102,6 +114,16 @@ function memoryRecord(key: string, cfg: RateLimitConfig, now: number): void {
   memory.set(key, { failures: 1, windowStartMs: now });
 }
 
+/**
+ * Adopt a shared count learned from Postgres, so later requests on this
+ * instance can refuse without asking again.
+ */
+function memoryAdopt(key: string, failures: number, windowStartMs: number): void {
+  const bucket = memory.get(key);
+  if (bucket && bucket.failures >= failures) return;
+  memory.set(key, { failures, windowStartMs });
+}
+
 // ── Postgres counter ───────────────────────────────────────────────
 function verdictFrom(
   failures: number,
@@ -126,8 +148,11 @@ async function dbVerdict(key: string, cfg: RateLimitConfig, now: number): Promis
  * already elapsed. Done as one statement so concurrent requests cannot each
  * read a stale count and write back the same value.
  */
-async function dbRecord(key: string, cfg: RateLimitConfig): Promise<void> {
-  await db.$executeRaw`
+async function dbRecord(
+  key: string,
+  cfg: RateLimitConfig,
+): Promise<{ failures: number; window_start: Date } | null> {
+  const rows = await db.$queryRaw<{ failures: number; window_start: Date }[]>`
     INSERT INTO "public"."admin_auth_attempts" ("key", "failures", "window_start", "updated_at")
     VALUES (${key}, 1, now(), now())
     ON CONFLICT ("key") DO UPDATE SET
@@ -144,7 +169,9 @@ async function dbRecord(key: string, cfg: RateLimitConfig): Promise<void> {
         ELSE "admin_auth_attempts"."window_start"
       END,
       "updated_at" = now()
+    RETURNING "failures", "window_start"
   `;
+  return rows[0] ?? null;
 }
 
 // Rows are one per client key and are reused, so they only accumulate under a
@@ -162,39 +189,52 @@ async function sweepExpired(cfg: RateLimitConfig): Promise<void> {
 
 // ── Public API ─────────────────────────────────────────────────────
 
-/** Ask whether this client has already spent its allowance. Does not consume. */
-export async function checkAdminAuthRateLimit(
+/**
+ * Has this client already spent its allowance?
+ *
+ * Answered entirely in process, so an accepted request never touches Postgres.
+ * A block that originated on another instance is learned the moment this client
+ * next fails, via the count returned by recordAdminAuthFailure.
+ */
+export function checkAdminAuthRateLimit(
+  key: string,
+  cfg: RateLimitConfig = ADMIN_AUTH_RATE_LIMIT,
+): RateLimitVerdict {
+  return memoryVerdict(key, cfg, Date.now());
+}
+
+/**
+ * Count one rejected passcode and report where that leaves the client. The
+ * shared counter is authoritative when reachable; when it is not, the caller
+ * still gets the in-process answer.
+ */
+export async function recordAdminAuthFailure(
   key: string,
   cfg: RateLimitConfig = ADMIN_AUTH_RATE_LIMIT,
 ): Promise<RateLimitVerdict> {
   const now = Date.now();
-  const inProcess = memoryVerdict(key, cfg, now);
-  if (inProcess.blocked) return inProcess;
+  memoryRecord(key, cfg, now);
   try {
-    const shared = await dbVerdict(key, cfg, now);
-    if (shared.blocked) return shared;
-    return { blocked: false, hadFailures: inProcess.hadFailures || shared.hadFailures };
-  } catch (err) {
-    console.error("[rate-limit] shared counter unavailable, in-process only:", err);
-    return inProcess;
-  }
-}
-
-/** Count one rejected passcode against this client. */
-export async function recordAdminAuthFailure(
-  key: string,
-  cfg: RateLimitConfig = ADMIN_AUTH_RATE_LIMIT,
-): Promise<void> {
-  memoryRecord(key, cfg, Date.now());
-  try {
-    await dbRecord(key, cfg);
-    await sweepExpired(cfg);
+    const row = await dbRecord(key, cfg);
+    if (row) {
+      memoryAdopt(key, row.failures, row.window_start.getTime());
+      await sweepExpired(cfg);
+      return verdictFrom(row.failures, row.window_start, cfg, now);
+    }
   } catch (err) {
     console.error("[rate-limit] could not record failure in shared counter:", err);
   }
+  return memoryVerdict(key, cfg, now);
 }
 
-/** Forget this client's failures — called once a correct passcode arrives. */
+/**
+ * Forget this client's failures once a correct passcode arrives.
+ *
+ * Only called when this instance knows of failures, so a clean caller performs
+ * no write. Failures recorded solely on another instance therefore survive a
+ * success here; they expire with their window, which is the conservative side
+ * to err on for a brute-force counter.
+ */
 export async function clearAdminAuthFailures(key: string): Promise<void> {
   memory.delete(key);
   try {

@@ -37,9 +37,10 @@ export async function loginAction(formData: FormData): Promise<void> {
 
   // Throttle before checking, so an exhausted client cannot keep guessing.
   // Counting only failures means a legitimate admin is never charged for a
-  // successful sign-in, and a correct passcode wipes the slate below.
+  // successful sign-in, and a correct passcode wipes the slate below. The
+  // check itself is in-process; only a rejected passcode reaches Postgres.
   const key = clientKey(await headers(), "admin-login");
-  const limit = await checkAdminAuthRateLimit(key);
+  const limit = checkAdminAuthRateLimit(key);
   if (limit.blocked) fail(rateLimitMessage(limit.retryAfterSeconds));
 
   if (!isValidPasscode(passcode)) {
