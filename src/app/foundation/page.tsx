@@ -4,14 +4,26 @@ import { db } from "@/src/lib/db";
 import { BatchStatus } from "@/src/generated/prisma/enums";
 import { type EnrollPageData } from "@/src/app/enroll/[token]/enroll-client";
 import { FoundationLandingClient } from "./landing-client";
+import { getPublicCohort, getPublicFaculty } from "@/src/lib/site-content";
+import { formatCohortDate } from "@/src/lib/cms-format";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "MedTech Foundation Module | MedSkills Catalyst",
-  description:
-    "Break into the MedTech industry. Master commercial competency, clinical confidence, and MedTech recruitment frameworks. Next cohort starting 26 September 2026.",
-};
+/**
+ * Built per-request so the description carries the current cohort date rather
+ * than a date frozen at build time. Falls back to the original wording when the
+ * CMS has no active cohort.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+  const cohort = await getPublicCohort();
+  const startsOn = cohort ? formatCohortDate(cohort.startDate) : "26 September 2026";
+  return {
+    title: "MedTech Foundation Module | MedSkills Catalyst",
+    description:
+      "Break into the MedTech industry. Master commercial competency, clinical confidence, " +
+      `and MedTech recruitment frameworks. Next cohort starting ${startsOn}.`,
+  };
+}
 
 export default async function FoundationLandingPage() {
   const course = await db.course.findUnique({ where: { slug: "foundation-program" } });
@@ -51,5 +63,32 @@ export default async function FoundationLandingPage() {
     lead: { name: "", email: "", phone: null },
   };
 
-  return <FoundationLandingClient data={data} />;
+  // One read each, server-side. Both fall back internally, so a database
+  // problem renders the page's original content instead of an error.
+  const [cohort, faculty] = await Promise.all([getPublicCohort(), getPublicFaculty()]);
+
+  return (
+    <FoundationLandingClient
+      data={data}
+      cohort={
+        cohort
+          ? {
+              startDateLong: formatCohortDate(cohort.startDate),
+              admissionsOpen: cohort.admissionsStatus === "OPEN",
+            }
+          : null
+      }
+      mentors={faculty.map((m) => ({
+        name: m.fullName,
+        role: m.designation,
+        photo: m.profileImageUrl
+          ? m.profileImageUrl.startsWith("http") || m.profileImageUrl.startsWith("/")
+            ? m.profileImageUrl
+            : `/${m.profileImageUrl}`
+          : "",
+        bio: m.fullBio ?? m.shortBio ?? "",
+        tags: m.expertise,
+      }))}
+    />
+  );
 }

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { CmsAuthError, requireCapability } from "@/src/lib/cms-auth";
 import { saveCohort } from "@/src/modules/cms/cohort";
 import { cohortSettingsSchema } from "@/src/modules/cms/cohort-schema";
+import { revalidateSiteContent } from "@/src/lib/site-content";
 
 /**
  * Cohort mutations.
@@ -85,6 +86,8 @@ export async function saveCohortAction(
   // Refresh the dashboard's cohort card and this page.
   revalidatePath("/cms");
   revalidatePath("/cms/cohort");
+  // ...and the public site, so a content change needs no deploy.
+  revalidateSiteContent("cohort");
 
   return {
     status: "success",

@@ -101,7 +101,69 @@ function CertificateEmbed() {
   );
 }
 
-export function FoundationLandingClient({ data }: { data: any }) {
+/**
+ * Faculty and cohort details come from the CMS when it has published content,
+ * and fall back to the values written into this file otherwise.
+ *
+ * The fallback is a safety mechanism, not a second source of truth: whenever
+ * the database has published records they win. It exists so an empty or
+ * unreachable database renders the page as it has always looked, rather than
+ * an empty section.
+ */
+/** The mentors as written on this page before the CMS existed. */
+const FALLBACK_MENTORS: FoundationMentor[] = [
+              {
+                name: "Gagan Victor",
+                role: "Co-Founder & Program Director",
+                photo: "/assets/gagan_victor.jpg",
+                bio: "Former leader at Pfizer, BMS, Medtronic India and Stryker, overseeing Cardiovascular and Surgical device portfolios. Transitioned from Medical Rep to Corporate MedTech Leader to full-time training, coaching, and mentoring to build India's next generation of MedTech-ready professionals.",
+                tags: ["Ex-Pfizer, BMS, Medtronic & Stryker", "Career Coach", "Podcaster"],
+              },
+              {
+                name: "Shilpi Babbar",
+                role: "Co-Founder & Skills Enhancement Coach",
+                photo: "/assets/shilpi_babbar.jpg",
+                bio: "Co-founder and Skills Enhancement Coach at MedSkills Catalyst, with more than a decade of experience in coaching and career counselling, certified by ICBI-NABET. Shilpi specialises in stress management, emotional intelligence, and the interpersonal skills required to thrive in high-pressure MedTech corporate environments.",
+                tags: ["ICBI-NABET Certified", "Skills Enhancement Coach", "11+ Years Experience"],
+              },
+              {
+                name: "Dr. Vincent Keny, PhD",
+                role: "Executive Coach & Leadership Mentor",
+                photo: "/assets/vincent_keny.png",
+                bio: "With over 25 years of global corporate leadership experience, Dr. Keny brings executive-grade coaching to MedSkills. An ICF Certified Coach and MIT Sloan alumnus, he works with candidates on behavioral orientation, executive communication, and the interpersonal dynamics that determine performance in high-stakes MedTech environments.",
+                tags: ["Ex-Boston Scientific", "ICF Certified Coach", "MIT Sloan Alumnus"],
+              },
+              {
+                name: "Tabish",
+                role: "L&D Specialist & Corporate Mentor",
+                photo: "/assets/tabish.jpg",
+                bio: "With 20+ years of experience in healthcare and MedTech, including roles at 3M, Becton Dickinson, and Abbott Vascular, and learning partnerships with global brands such as Cipla, Amazon, and PwC, Tabish combines deep industry expertise with her L&D qualifications to design learning programs that help learners build the behavioural competencies essential for successful MedTech careers.",
+                tags: ["Ex-3M, BD & Abbott Vascular", "L&D Specialist", "20+ Years Experience"],
+              },
+];
+
+export type FoundationCohort = {
+  startDateLong: string;
+  admissionsOpen: boolean;
+} | null;
+
+export type FoundationMentor = {
+  name: string;
+  role: string;
+  photo: string;
+  bio: string;
+  tags: string[];
+};
+
+export function FoundationLandingClient({
+  data,
+  cohort = null,
+  mentors,
+}: {
+  data: any;
+  cohort?: FoundationCohort;
+  mentors?: FoundationMentor[];
+}) {
   return (
     <div className="min-h-screen bg-[#F6F8FA] font-body text-ink antialiased relative">
       {/* Canvas grid texture */}
@@ -114,7 +176,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
 
       {/* ── Urgent Top Notification Banner ── */}
       <div className="bg-brand-blue/10 border-b border-brand-blue/10 text-center py-2.5 px-4 text-xs font-semibold text-brand-navy relative z-20">
-        ⚡ Orientation starting 26 September 2026. Only a few seats remaining for the upcoming cohort.
+        ⚡ Orientation starting {cohort?.startDateLong ?? "26 September 2026"}. Only a few seats remaining for the upcoming cohort.
       </div>
 
       {/* ── 1. Hero Section ── */}
@@ -450,36 +512,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-            {[
-              {
-                name: "Gagan Victor",
-                role: "Co-Founder & Program Director",
-                photo: "/assets/gagan_victor.jpg",
-                bio: "Former leader at Pfizer, BMS, Medtronic India and Stryker, overseeing Cardiovascular and Surgical device portfolios. Transitioned from Medical Rep to Corporate MedTech Leader to full-time training, coaching, and mentoring to build India's next generation of MedTech-ready professionals.",
-                tags: ["Ex-Pfizer, BMS, Medtronic & Stryker", "Career Coach", "Podcaster"],
-              },
-              {
-                name: "Shilpi Babbar",
-                role: "Co-Founder & Skills Enhancement Coach",
-                photo: "/assets/shilpi_babbar.jpg",
-                bio: "Co-founder and Skills Enhancement Coach at MedSkills Catalyst, with more than a decade of experience in coaching and career counselling, certified by ICBI-NABET. Shilpi specialises in stress management, emotional intelligence, and the interpersonal skills required to thrive in high-pressure MedTech corporate environments.",
-                tags: ["ICBI-NABET Certified", "Skills Enhancement Coach", "11+ Years Experience"],
-              },
-              {
-                name: "Dr. Vincent Keny, PhD",
-                role: "Executive Coach & Leadership Mentor",
-                photo: "/assets/vincent_keny.png",
-                bio: "With over 25 years of global corporate leadership experience, Dr. Keny brings executive-grade coaching to MedSkills. An ICF Certified Coach and MIT Sloan alumnus, he works with candidates on behavioral orientation, executive communication, and the interpersonal dynamics that determine performance in high-stakes MedTech environments.",
-                tags: ["Ex-Boston Scientific", "ICF Certified Coach", "MIT Sloan Alumnus"],
-              },
-              {
-                name: "Tabish",
-                role: "L&D Specialist & Corporate Mentor",
-                photo: "/assets/tabish.jpg",
-                bio: "With 20+ years of experience in healthcare and MedTech, including roles at 3M, Becton Dickinson, and Abbott Vascular, and learning partnerships with global brands such as Cipla, Amazon, and PwC, Tabish combines deep industry expertise with her L&D qualifications to design learning programs that help learners build the behavioural competencies essential for successful MedTech careers.",
-                tags: ["Ex-3M, BD & Abbott Vascular", "L&D Specialist", "20+ Years Experience"],
-              },
-            ].map((m, idx) => (
+            {(mentors && mentors.length > 0 ? mentors : FALLBACK_MENTORS).map((m, idx) => (
               <div key={idx} className="group rounded-msc-lg border border-brand-navy/[0.06] bg-surface p-6 shadow-msc-sm flex flex-col h-full">
                 <div className="flex items-center gap-4 mb-4">
                   <img
@@ -592,7 +625,7 @@ export function FoundationLandingClient({ data }: { data: any }) {
                   EMI availability depends on your payment method and your bank. If you pay with a supported credit card, your bank may offer EMI, with the tenure, interest, and eligibility decided entirely by them. You can check the available options at checkout or with your bank.
                 </AccordionItem>
                 <AccordionItem question="When does the next cohort start, and how many seats are available?">
-                  The next cohort begins on 26 September 2026. We keep each batch deliberately small to protect the quality of mentorship, so seats are limited and registration closes once they are filled.
+                  The next cohort begins on {cohort?.startDateLong ?? "26 September 2026"}. We keep each batch deliberately small to protect the quality of mentorship, so seats are limited and registration closes once they are filled.
                 </AccordionItem>
                 <AccordionItem question="What is your refund policy?">
                   Because you receive immediate access to our learning resources, mentorship, and community, programme fees are non-refundable. We encourage you to review the programme details and speak with our team on your counselling call so you can enrol with full confidence.

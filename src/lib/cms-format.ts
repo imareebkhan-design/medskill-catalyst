@@ -14,13 +14,19 @@
  * 25 September for anyone west of UTC. Cohort dates are calendar dates, not
  * instants, so UTC is the correct frame.
  */
-export function formatCohortDate(date: Date): string {
+export function formatCohortDate(date: Date | string): string {
+  // Accepts a canonical "YYYY-MM-DD" string as well as a Date, because values
+  // that pass through Next's data cache come back serialised — a Date goes in
+  // and a string comes out. Parsing here rather than at each call site means a
+  // cached value can never reach Intl as a raw string and throw RangeError.
+  const value = typeof date === "string" ? new Date(`${date}T00:00:00Z`) : date;
+  if (Number.isNaN(value.getTime())) return "";
   return new Intl.DateTimeFormat("en-GB", {
     day: "numeric",
     month: "long",
     year: "numeric",
     timeZone: "UTC",
-  }).format(date);
+  }).format(value);
 }
 
 const SHORT_MONTHS = [
@@ -37,8 +43,29 @@ const SHORT_MONTHS = [
  * injected into that page must match its existing copy exactly, so this needs
  * to be deterministic rather than locale-dependent.
  */
-export function formatCohortDateShort(date: Date): string {
-  return `${date.getUTCDate()} ${SHORT_MONTHS[date.getUTCMonth()]} ${date.getUTCFullYear()}`;
+export function formatCohortDateShort(date: Date | string): string {
+  const value = typeof date === "string" ? new Date(`${date}T00:00:00Z`) : date;
+  if (Number.isNaN(value.getTime())) return "";
+  return `${value.getUTCDate()} ${SHORT_MONTHS[value.getUTCMonth()]} ${value.getUTCFullYear()}`;
+}
+
+/**
+ * "Sep 26, 2026" — the US-style short form used by the homepage popup and the
+ * mobile sticky CTA. A separate function rather than a format flag because the
+ * homepage uses four distinct date spellings and each location must keep its
+ * own; injecting one spelling everywhere would visibly change the design.
+ */
+export function formatCohortDateUS(date: Date | string): string {
+  const value = typeof date === "string" ? new Date(`${date}T00:00:00Z`) : date;
+  if (Number.isNaN(value.getTime())) return "";
+  return `${SHORT_MONTHS[value.getUTCMonth()]} ${value.getUTCDate()}, ${value.getUTCFullYear()}`;
+}
+
+/** "Sep 26" — the compact form used by the homepage welcome card. */
+export function formatCohortDateCompact(date: Date | string): string {
+  const value = typeof date === "string" ? new Date(`${date}T00:00:00Z`) : date;
+  if (Number.isNaN(value.getTime())) return "";
+  return `${SHORT_MONTHS[value.getUTCMonth()]} ${value.getUTCDate()}`;
 }
 
 /**

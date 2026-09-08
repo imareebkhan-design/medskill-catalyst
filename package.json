@@ -4,14 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && tsx scripts/check-homepage-sentinels.ts && next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
     "test": "node --import tsx --test tests/*.test.ts",
-    "cms:create-admin": "tsx scripts/create-cms-admin.ts"
+    "cms:create-admin": "tsx scripts/create-cms-admin.ts",
+    "check:sentinels": "tsx scripts/check-homepage-sentinels.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.22",
