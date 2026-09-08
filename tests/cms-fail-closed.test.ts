@@ -9,17 +9,35 @@ import { join } from "node:path";
  * Exactly ONE place in the CMS auth stack is allowed to fail open: the
  * rate-limit check, which returns false (allow) if its query errors, because
  * failing closed there would turn a brief database hiccup into a total CMS
- * lockout. Everywhere else — session resolution, role checks, capability
- * checks — an error must propagate and deny access.
+ * lockout.
+ *
+ * Everywhere else an error must DENY. Two shapes of that are acceptable:
+ *
+ *   - propagate (role checks, capability checks, the page guards), or
+ *   - catch and return the unauthenticated/false value (session resolution,
+ *     credential verification).
+ *
+ * What is never acceptable is a catch that yields a user, a session, or true.
  *
  * These tests read the source rather than the runtime because the dangerous
- * change is textual: someone later wrapping getCmsUser() or a guard in a
- * try/catch that swallows the error and returns a user. That would silently
- * convert authorization to fail-open, and nothing else would catch it.
+ * change is textual: someone later editing a catch in getCmsUser() to return
+ * a session instead of null. That would silently convert authentication to
+ * fail-open, and nothing else would catch it.
  */
 
 const root = join(import.meta.dirname, "..");
 const read = (p: string) => readFileSync(join(root, p), "utf8");
+
+/**
+ * Strip comments before analysing control flow. Without this, prose in a
+ * comment ("it must not return a user") is indistinguishable from code and
+ * makes these checks lie in either direction.
+ */
+function stripComments(source: string): string {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/(^|[^:])\/\/[^\n]*/g, "$1");
+}
 
 /** Extract a top-level function body by name, brace-matched. */
 function functionBody(source: string, name: string): string {
@@ -37,20 +55,45 @@ function functionBody(source: string, name: string): string {
   throw new Error(`unbalanced braces in ${name}`);
 }
 
-test("session resolution never swallows errors", () => {
-  const body = functionBody(read("src/lib/cms-auth.ts"), "getCmsUser");
+test("session resolution denies on error and never grants access", () => {
+  // getCmsUser catches deliberately, so a deployment whose CMS tables do not
+  // exist yet redirects to sign-in instead of returning 500 on every route.
+  // The invariant is not "never catch" — it is "every catch DENIES".
+  const body = stripComments(functionBody(read("src/lib/cms-auth.ts"), "getCmsUser"));
+  const afterCatch = body.split("catch").slice(1);
+
+  assert.ok(afterCatch.length > 0, "getCmsUser is expected to catch lookup failures");
+
+  for (const chunk of afterCatch) {
+    const firstReturn = chunk.indexOf("return");
+    assert.notEqual(firstReturn, -1, "every catch in getCmsUser must return");
+    assert.match(
+      chunk.slice(firstReturn, firstReturn + 24),
+      /return null/,
+      "a catch in getCmsUser must return null (deny). Returning a session " +
+        "object here would silently convert authentication to fail-OPEN.",
+    );
+  }
+});
+
+test("session resolution has no path that fabricates a user", () => {
+  const body = stripComments(functionBody(read("src/lib/cms-auth.ts"), "getCmsUser"));
+  // The only object literal this function may return is built from the row it
+  // read back. A hardcoded role or id would be a bypass.
   assert.ok(
-    !body.includes("catch"),
-    "getCmsUser must let database errors propagate — a caught error that " +
-      "returned null would be safe, but one returning a user would not. " +
-      "Keep this path free of try/catch.",
+    !/role:\s*["'`]/.test(body),
+    "getCmsUser must never hardcode a role",
+  );
+  assert.ok(
+    !/CmsRole\.[A-Z_]+/.test(body),
+    "getCmsUser must not reference a concrete role — it returns what it read",
   );
 });
 
 test("the throwing guards never swallow errors", () => {
   const source = read("src/lib/cms-auth.ts");
   for (const fn of ["requireCmsUser", "requireCapability"]) {
-    assert.ok(!functionBody(source, fn).includes("catch"), `${fn} must not catch`);
+    assert.ok(!stripComments(functionBody(source, fn)).includes("catch"), `${fn} must not catch`);
   }
 });
 
@@ -65,7 +108,7 @@ test("the redirecting page guards never swallow errors", () => {
 
 test("credential verification denies on malformed input", () => {
   // verifyPassword catches, but every catch returns false (deny), never true.
-  const body = functionBody(read("src/lib/password.ts"), "verifyPassword");
+  const body = stripComments(functionBody(read("src/lib/password.ts"), "verifyPassword"));
   const afterCatch = body.split("catch").slice(1);
   assert.ok(afterCatch.length > 0, "verifyPassword is expected to catch");
   for (const chunk of afterCatch) {
@@ -80,7 +123,7 @@ test("credential verification denies on malformed input", () => {
 });
 
 test("the rate-limit check is the only deliberate fail-open", () => {
-  const body = functionBody(read("src/lib/cms-rate-limit.ts"), "isLoginThrottled");
+  const body = stripComments(functionBody(read("src/lib/cms-rate-limit.ts"), "isLoginThrottled"));
   assert.ok(body.includes("catch"), "isLoginThrottled is expected to catch");
   assert.ok(
     body.includes("return false"),

@@ -120,15 +120,44 @@ export async function getCmsUser(): Promise<CmsSessionUser | null> {
   const token = (await cookies()).get(CMS_COOKIE)?.value;
   if (!token) return null;
 
-  const session = await db.cmsSession.findUnique({
-    where: { token_hash: hashToken(token) },
-    select: {
-      expires_at: true,
-      user: {
-        select: { id: true, email: true, full_name: true, role: true, status: true },
+  let session: {
+    expires_at: Date;
+    user: {
+      id: string;
+      email: string;
+      full_name: string;
+      role: CmsRole;
+      status: CmsUserStatus;
+    };
+  } | null;
+
+  try {
+    session = await db.cmsSession.findUnique({
+      where: { token_hash: hashToken(token) },
+      select: {
+        expires_at: true,
+        user: {
+          select: { id: true, email: true, full_name: true, role: true, status: true },
+        },
       },
-    },
-  });
+    });
+  } catch (err) {
+    // FAIL CLOSED. Any lookup failure is treated as "not signed in" — never as
+    // a session. This catch exists for one concrete case: an environment whose
+    // CMS tables have not been created yet (Prisma P2021). Without it, a request
+    // merely CARRYING an msc_cms cookie throws, and every /cms route — including
+    // the sign-in page itself — returns a 500 with a database error behind it.
+    //
+    // Returning null instead sends the visitor to the sign-in screen, which is
+    // both the safe outcome and the honest one. The error is logged server-side
+    // so a real outage is still visible to operators.
+    //
+    // The invariant this must never break: this catch returns null. It must not
+    // return a user, and it must not fall through. tests/cms-fail-closed.test.ts
+    // enforces that textually.
+    console.error("[cms] session lookup failed; treating as signed out:", err);
+    return null;
+  }
 
   if (!session) return null;
   if (session.expires_at < new Date()) return null;
