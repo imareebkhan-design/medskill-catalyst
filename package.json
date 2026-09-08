@@ -9,7 +9,9 @@
     "type-check": "tsc --noEmit",
     "db:migrate": "prisma migrate deploy",
     "db:studio": "prisma studio",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "cms:create-admin": "tsx scripts/create-cms-admin.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.22",

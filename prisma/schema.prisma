@@ -523,7 +523,18 @@ model AuditLog {
   after       Json?
   created_at  DateTime @default(now()) @db.Timestamptz(6)
 
+  // ── CMS extension ──
+  // CRM writes (leads, enrollments) set actor_id → StaffUser. CMS writes set
+  // cms_user_id → CmsUser. entity_name is the human label shown in the CMS
+  // activity feed ("Gagan Victor") so the log stays readable after a delete.
+  cms_user_id String? @db.Uuid
+  entity_name String?
+
+  cms_user CmsUser? @relation(fields: [cms_user_id], references: [id])
+
   @@index([entity_type, entity_id, created_at(sort: Desc)])
+  @@index([cms_user_id, created_at(sort: Desc)])
+  @@index([created_at(sort: Desc)])
   @@map("audit_logs")
 }
 
@@ -538,4 +549,215 @@ model WebhookEvent {
 
   @@unique([provider, event_id])
   @@map("webhook_events")
+}
+
+// ═════════════════════════════════════════════════════════════
+// CMS v1 — content managed by non-technical staff via /admin.
+//
+// Scope: cohort settings, success stories, faculty. Everything here is
+// PUBLIC marketing content. It is deliberately kept separate from the CRM
+// funnel above: editing the marketing cohort date must never change what a
+// paying customer is enrolled into (that stays Batch.start_date).
+// ═════════════════════════════════════════════════════════════
+
+enum CmsRole {
+  SUPER_ADMIN
+  CONTENT_ADMIN
+  CONTENT_EDITOR
+}
+
+enum CmsUserStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum AdmissionsStatus {
+  OPEN
+  CLOSING_SOON
+  CLOSED
+  COMING_SOON
+}
+
+enum AlumniCategory {
+  COHORT_ALUMNI
+  ADVANCED_MODULE_ALUMNI
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+/// The admin whitelist. A person can reach the CMS only if they have a row
+/// here with status ACTIVE — an @medskillscatalyst.com address alone is never
+/// sufficient. Passwords are scrypt hashes (see src/lib/password.ts).
+model CmsUser {
+  id            String        @id @default(uuid()) @db.Uuid
+  email         String        @unique
+  full_name     String
+  password_hash String
+  role          CmsRole       @default(CONTENT_EDITOR)
+  status        CmsUserStatus @default(ACTIVE)
+  last_login_at DateTime?     @db.Timestamptz(6)
+  created_at    DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime      @updatedAt @db.Timestamptz(6)
+
+  sessions         CmsSession[]
+  activity         AuditLog[]
+  content_versions ContentVersion[]
+  cohort_updates   CohortSetting[]
+
+  @@index([status])
+  @@map("cms_users")
+}
+
+/// Server-side session records, so deactivating a user kills their live
+/// sessions immediately. The cookie carries a random token; only its SHA-256
+/// hash is stored, so a database leak cannot be replayed as a login.
+model CmsSession {
+  id         String   @id @default(uuid()) @db.Uuid
+  token_hash String   @unique
+  user_id    String   @db.Uuid
+  expires_at DateTime @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  user_agent String?
+
+  user CmsUser @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@index([expires_at])
+  @@map("cms_sessions")
+}
+
+/// Single source of truth for every cohort date/status shown on the public
+/// site. Exactly one row may have is_active = true (partial unique index).
+model CohortSetting {
+  id                String           @id @default(uuid()) @db.Uuid
+  cohort_name       String
+  start_date        DateTime         @db.Date
+  /// Canonical 24-hour time-of-day, "HH:mm" (e.g. "18:00"). Stored zone-free
+  /// exactly like a SQL TIME; all display formatting happens in the view layer.
+  start_time        String?          @db.VarChar(5)
+  admissions_status AdmissionsStatus @default(OPEN)
+  duration          String?
+  registration_url  String?
+  is_active         Boolean          @default(true)
+  created_at        DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime         @updatedAt @db.Timestamptz(6)
+  updated_by_id     String?          @db.Uuid
+
+  updated_by CmsUser? @relation(fields: [updated_by_id], references: [id])
+
+  @@index([is_active])
+  @@map("cohort_settings")
+}
+
+model SuccessStory {
+  id                  String         @id @default(uuid()) @db.Uuid
+  category            AlumniCategory
+  full_name           String
+  profile_image_url   String?
+  linkedin_url        String?
+  previous_company    String?
+  previous_designation String?
+  current_company     String?
+  current_designation String?
+  growth_headline     String?
+  growth_description  String?
+  short_description   String?
+  full_story          String?
+  testimonial         String?
+  status              ContentStatus  @default(DRAFT)
+  /// Ordering is scoped per category — see the composite index below.
+  display_order       Int            @default(0)
+  created_by_id       String?        @db.Uuid
+  updated_by_id       String?        @db.Uuid
+  created_at          DateTime       @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime       @updatedAt @db.Timestamptz(6)
+  published_at        DateTime?      @db.Timestamptz(6)
+  archived_at         DateTime?      @db.Timestamptz(6)
+  deleted_at          DateTime?      @db.Timestamptz(6)
+
+  @@index([category, status, display_order])
+  @@index([status])
+  @@index([deleted_at])
+  @@map("success_stories")
+}
+
+model Faculty {
+  id                String        @id @default(uuid()) @db.Uuid
+  full_name         String
+  profile_image_url String?
+  designation       String
+  organization      String?
+  years_experience  Int?
+  experience_display String?
+  short_bio         String?
+  full_bio          String?
+  status            ContentStatus @default(DRAFT)
+  display_order     Int           @default(0)
+  created_by_id     String?       @db.Uuid
+  updated_by_id     String?       @db.Uuid
+  created_at        DateTime      @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime      @updatedAt @db.Timestamptz(6)
+  published_at      DateTime?     @db.Timestamptz(6)
+  archived_at       DateTime?     @db.Timestamptz(6)
+  deleted_at        DateTime?     @db.Timestamptz(6)
+
+  expertise FacultyExpertise[]
+
+  @@index([status, display_order])
+  @@index([deleted_at])
+  @@map("faculty")
+}
+
+model FacultyExpertise {
+  id             String @id @default(uuid()) @db.Uuid
+  faculty_id     String @db.Uuid
+  expertise_name String
+  display_order  Int    @default(0)
+
+  faculty Faculty @relation(fields: [faculty_id], references: [id], onDelete: Cascade)
+
+  @@index([faculty_id, display_order])
+  @@map("faculty_expertise")
+}
+
+/// Append-only content snapshots. Never updated, never deleted — a rollback
+/// writes a NEW version rather than rewinding history.
+model ContentVersion {
+  id             String   @id @default(uuid()) @db.Uuid
+  entity_type    String
+  entity_id      String
+  version_number Int
+  content_data   Json
+  created_by_id  String?  @db.Uuid
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+
+  created_by CmsUser? @relation(fields: [created_by_id], references: [id])
+
+  @@unique([entity_type, entity_id, version_number])
+  @@index([entity_type, entity_id, version_number(sort: Desc)])
+  @@map("content_versions")
+}
+
+/// Failed CMS sign-in attempts, one row each, used for sliding-window rate
+/// limiting. Rows are written ONLY on failure and pruned by age, so the table
+/// stays small. This is also the audit trail for password-guessing attempts.
+///
+/// Deliberately not tied to CmsUser: attempts against addresses that have no
+/// account must be counted too, otherwise the rate limiter itself would become
+/// a user-enumeration oracle.
+model CmsLoginAttempt {
+  id         String   @id @default(uuid()) @db.Uuid
+  /// The lower-cased email that was submitted. Not a foreign key — see above.
+  identifier String
+  /// Best-effort client IP. Advisory only: see src/lib/cms-rate-limit.ts.
+  ip         String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([identifier, created_at])
+  @@index([ip, created_at])
+  @@map("cms_login_attempts")
 }
