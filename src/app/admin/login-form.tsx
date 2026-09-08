@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { loginAction } from "./auth-actions";
 
-function LoginInner() {
+function LoginInner({ backendDown }: { backendDown: boolean }) {
   const error = useSearchParams()?.get("error");
   return (
     <div className="w-full max-w-sm rounded-msc-lg bg-surface p-8 shadow-msc-md">
@@ -14,6 +14,14 @@ function LoginInner() {
       <p className="mt-2 text-center text-sm text-muted">
         Enter the admin passcode to continue.
       </p>
+      {backendDown && (
+        <p className="mt-4 rounded-msc border border-danger/30 bg-red-50 px-3 py-2 text-sm text-danger">
+          Your passcode was accepted, but the CRM backend is unavailable — the
+          database could not be reached. This is not a passcode problem. Check
+          that <code className="font-mono">DATABASE_URL</code> is set on this
+          deployment and that the database is reachable.
+        </p>
+      )}
       {error && (
         <p className="mt-4 rounded-msc border border-danger/30 bg-red-50 px-3 py-2 text-center text-sm text-danger">
           {error}
@@ -39,11 +47,11 @@ function LoginInner() {
   );
 }
 
-export function AdminLogin() {
+export function AdminLogin({ backendDown = false }: { backendDown?: boolean }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-canvas px-4 font-body">
       <Suspense>
-        <LoginInner />
+        <LoginInner backendDown={backendDown} />
       </Suspense>
     </div>
   );

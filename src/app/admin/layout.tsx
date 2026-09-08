@@ -1,15 +1,18 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { getStaff } from "@/src/lib/auth";
+import { staffGate } from "@/src/lib/auth";
 import { logoutAction } from "./auth-actions";
 import { AdminLogin } from "./login-form";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const staff = await getStaff();
+  const gate = await staffGate();
 
-  if (!staff) return <AdminLogin />;
+  // A backend failure is not a login failure. Re-prompting here would hide a
+  // database outage behind what looks like a rejected passcode.
+  if (!gate.ok) return <AdminLogin backendDown={gate.reason === "backend"} />;
+  const staff = gate.staff;
 
   const nav = [
     { href: "/admin", label: "Dashboard" },
