@@ -116,3 +116,18 @@ export function fmtDateTime(d: Date | null | undefined) {
   if (!d) return "—";
   return new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short", timeZone: "Asia/Kolkata" }).format(d);
 }
+
+export const EVENT_LABEL: Record<string, string> = {
+  ISSUE_REQUESTED: "Issue requested",
+  PDF_GENERATED: "PDF generated",
+  RENDER_FAILED: "Generation failed",
+  ISSUED: "Issued",
+  EMAIL_SENT: "Email sent",
+  EMAIL_FAILED: "Email failed",
+  EMAIL_SUPPRESSED: "Email suppressed",
+  EMAIL_RESENT: "Resend requested",
+  REVOKED: "Revoked",
+  REISSUED: "Reissued",
+  SUPERSEDED: "Superseded",
+  STATUS_CHANGED: "Status changed",
+};

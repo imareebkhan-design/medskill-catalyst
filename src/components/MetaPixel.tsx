@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { isTrackingExcludedPath } from "@/src/lib/tracking-exclusions";
 
 /**
  * Base Meta (Facebook) Pixel for the Next.js app.
@@ -16,9 +17,10 @@ export function MetaPixel() {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const pathname = usePathname();
   const isFirst = useRef(true);
+  const excluded = isTrackingExcludedPath(pathname);
 
   useEffect(() => {
-    if (!pixelId) return;
+    if (!pixelId || excluded) return;
     // The inline init script already fired PageView for the first load.
     if (isFirst.current) {
       isFirst.current = false;
@@ -27,9 +29,10 @@ export function MetaPixel() {
     if (typeof window !== "undefined" && typeof window.fbq === "function") {
       window.fbq("track", "PageView");
     }
-  }, [pathname, pixelId]);
+  }, [pathname, pixelId, excluded]);
 
-  if (!pixelId) return null;
+  // Never load on credential verification pages (token-bearing URLs).
+  if (!pixelId || excluded) return null;
 
   return (
     <Script id="meta-pixel" strategy="afterInteractive">

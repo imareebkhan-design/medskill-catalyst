@@ -241,6 +241,10 @@ export async function issueCredential(
 
   const plan = await planIssue(input, deps);
   if (plan.dedupe.existingCertificateId) {
+    // A concurrent request with the SAME key may have just created the row we
+    // collided with: that is our own submission, not a duplicate.
+    const mine = await db.credential.findUnique({ where: { idempotency_key: input.idempotencyKey } });
+    if (mine) return resumeExisting(mine, input, actor, deps);
     throw new CredentialError(
       `This learner already has an active credential for this program${plan.batch ? " and cohort" : " and completion date"} (${plan.dedupe.existingCertificateId}). Use Reissue to correct it.`,
       "DUPLICATE",
@@ -292,6 +296,8 @@ export async function issueCredential(
         return resumeExisting(existing, input, actor, deps);
       }
       if (which === "credentials_dedupe_active_key") {
+        const mine = await db.credential.findUnique({ where: { idempotency_key: input.idempotencyKey } });
+        if (mine) return resumeExisting(mine, input, actor, deps);
         throw new CredentialError("This learner already has an active credential for this program and cohort. Use Reissue to correct it.", "DUPLICATE");
       }
       if (which === "students_email_key") continue; // concurrent learner creation; the retry finds the row

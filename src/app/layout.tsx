@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
-import Script from "next/script";
 import { MetaPixel } from "@/src/components/MetaPixel";
+import { GoogleAnalytics } from "@/src/components/GoogleAnalytics";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -27,22 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body>
         {children}
         <MetaPixel />
-        {gaId && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${gaId}');
-              `}
-            </Script>
-          </>
-        )}
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );

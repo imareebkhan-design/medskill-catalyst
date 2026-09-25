@@ -47,7 +47,8 @@ export class LocalStorage implements CredentialStorage {
     return full;
   }
 
-  async put(key: string, bytes: Uint8Array): Promise<void> {
+  async put(key: string, bytes: Uint8Array, _contentType?: string): Promise<void> {
+    void _contentType;
     const full = this.resolve(key);
     await mkdir(path.dirname(full), { recursive: true });
     try {
