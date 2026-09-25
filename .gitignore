@@ -42,3 +42,6 @@ src/graphify-out/
 
 /src/generated/prisma
 src/generated/
+
+# credential system local data
+/.data/

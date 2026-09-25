@@ -16,6 +16,7 @@ enum StaffRole {
   COUNSELOR
   ACCOUNTS
   VIEWER
+  ISSUER
 }
 
 enum LeadStatus {
@@ -305,6 +306,14 @@ model StaffUser {
   activities     Activity[]
   sent_links     EnrollmentLink[]
 
+  credentials_created   Credential[]              @relation("CredentialCreatedBy")
+  credentials_revoked   Credential[]              @relation("CredentialRevokedBy")
+  credential_events     CredentialEvent[]
+  templates_created     CertificateTemplate[]
+  email_deliveries      CredentialEmailDelivery[]
+  bulk_jobs_created     CredentialBulkJob[]       @relation("BulkJobCreatedBy")
+  bulk_jobs_confirmed   CredentialBulkJob[]       @relation("BulkJobConfirmedBy")
+
   @@map("staff_users")
 }
 
@@ -325,6 +334,7 @@ model Student {
   enrollments          Enrollment[]
   activities           Activity[]
   converted_from_leads Lead[]
+  credentials          Credential[]
 
   @@index([phone])
   @@map("students")
@@ -365,8 +375,21 @@ model Course {
   created_at       DateTime   @default(now()) @db.Timestamptz(6)
   updated_at       DateTime   @updatedAt @db.Timestamptz(6)
 
+  // ── Credential configuration (credential system, 2026-09) ──
+  /// Program code used in certificate IDs (MSC-{YEAR}-{CODE}-{RANDOM}). Set by an admin.
+  code              String?  @unique
+  /// null = credentials from this program never expire.
+  validity_months   Int?
+  /// What expires_at is counted from: COMPLETION (completion date) or ISSUE (issue date).
+  validity_anchor   String   @default("COMPLETION")
+  /// Program title as printed on certificates / verification page (defaults to name).
+  certificate_title String?
+
   batches        Batch[]
   interested_leads Lead[]
+  certificate_templates CertificateTemplate[]
+  credentials           Credential[]
+  credential_bulk_jobs  CredentialBulkJob[]
 
   @@map("courses")
 }
@@ -385,6 +408,8 @@ model Batch {
   course           Course           @relation(fields: [course_id], references: [id])
   enrollments      Enrollment[]
   enrollment_links EnrollmentLink[]
+  credentials      Credential[]
+  credential_bulk_jobs CredentialBulkJob[]
 
   @@index([course_id, status])
   @@map("batches")
@@ -551,4 +576,244 @@ model WebhookEvent {
 
   @@unique([provider, event_id])
   @@map("webhook_events")
+}
+
+// ─────────────────────────────────────────────────────────────
+// Credential system (migration 20260925120000_credentials)
+// The credential registry is the source of truth; the PDF is a rendering.
+// DB triggers enforce: no deletes, immutable identifiers/printed content after
+// issue, terminal REVOKED/SUPERSEDED, append-only events, frozen active templates.
+// ─────────────────────────────────────────────────────────────
+
+enum CredentialStatus {
+  ISSUING
+  VALID
+  REVOKED
+  SUPERSEDED
+  FAILED
+}
+
+enum CertificateTemplateStatus {
+  DRAFT
+  ACTIVE
+  RETIRED
+}
+
+enum CredentialEventType {
+  ISSUE_REQUESTED
+  PDF_GENERATED
+  RENDER_FAILED
+  ISSUED
+  EMAIL_SENT
+  EMAIL_FAILED
+  EMAIL_SUPPRESSED
+  EMAIL_RESENT
+  REVOKED
+  REISSUED
+  SUPERSEDED
+  STATUS_CHANGED
+}
+
+enum CredentialEmailStatus {
+  PENDING
+  SENT
+  FAILED
+  SUPPRESSED
+}
+
+enum CredentialBulkJobStatus {
+  VALIDATED
+  PROCESSING
+  COMPLETED
+  CANCELLED
+}
+
+enum CredentialBulkRowValidation {
+  VALID
+  WARNING
+  ERROR
+}
+
+enum CredentialBulkRowOutcome {
+  PENDING
+  SUCCESS
+  FAILED
+  SKIPPED
+  DUPLICATE
+}
+
+model CertificateTemplate {
+  id            String                    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  course_id     String
+  version       Int
+  name          String
+  status        CertificateTemplateStatus @default(DRAFT)
+  /// false for the development template: refused for issuance on production.
+  is_production Boolean                   @default(false)
+  /// { kind: "builtin-dev" } | { kind: "storage", path, sha256, mime }
+  background    Json
+  /// Page size + dynamic field boxes + QR box. See src/modules/credentials/template-config.ts
+  field_config  Json
+  /// Signature blocks for this template (per template, not global).
+  signatures    Json                      @default("[]")
+  notes         String?
+  created_by_id String?
+  activated_at  DateTime?                 @db.Timestamptz(6)
+  retired_at    DateTime?                 @db.Timestamptz(6)
+  created_at    DateTime                  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime                  @updatedAt @db.Timestamptz(6)
+
+  course      Course              @relation(fields: [course_id], references: [id])
+  created_by  StaffUser?          @relation(fields: [created_by_id], references: [id])
+  credentials Credential[]
+  bulk_jobs   CredentialBulkJob[]
+
+  @@unique([course_id, version])
+  @@index([course_id, status])
+  @@map("certificate_templates")
+}
+
+model Credential {
+  id                 String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  certificate_id     String           @unique
+  verification_token String           @unique
+  idempotency_key    String           @unique
+  student_id         String
+  course_id          String
+  batch_id           String?
+  template_id        String           @db.Uuid
+  /// Snapshot of what is printed, so later profile edits never change an issued credential.
+  learner_name       String
+  program_name       String
+  completion_date    DateTime         @db.Date
+  /// Used for the duplicate rule when there is no cohort.
+  completion_context String?
+  issued_at          DateTime         @db.Timestamptz(6)
+  expires_at         DateTime?        @db.Date
+  /// Stored lifecycle state. EXPIRED is derived at read time from expires_at.
+  status             CredentialStatus @default(ISSUING)
+  /// learner+program+cohort (or completion context). Unique among ISSUING/VALID (partial index in SQL).
+  dedupe_key         String?
+  source             String           @default("SINGLE")
+  pdf_path           String?
+  pdf_sha256         String?
+  render_attempts    Int              @default(0)
+  lease_until        DateTime?        @db.Timestamptz(6)
+  last_error         String?
+  supersedes_id      String?          @unique @db.Uuid
+  revoked_at         DateTime?        @db.Timestamptz(6)
+  revoked_by_id      String?
+  /// INTERNAL ONLY. Never included in any public payload.
+  revocation_reason  String?
+  created_by_id      String
+  created_at         DateTime         @default(now()) @db.Timestamptz(6)
+  updated_at         DateTime         @updatedAt @db.Timestamptz(6)
+
+  student       Student                   @relation(fields: [student_id], references: [id])
+  course        Course                    @relation(fields: [course_id], references: [id])
+  batch         Batch?                    @relation(fields: [batch_id], references: [id])
+  template      CertificateTemplate       @relation(fields: [template_id], references: [id])
+  supersedes    Credential?               @relation("CredentialSupersedes", fields: [supersedes_id], references: [id])
+  superseded_by Credential?               @relation("CredentialSupersedes")
+  created_by    StaffUser                 @relation("CredentialCreatedBy", fields: [created_by_id], references: [id])
+  revoked_by    StaffUser?                @relation("CredentialRevokedBy", fields: [revoked_by_id], references: [id])
+  events        CredentialEvent[]
+  deliveries    CredentialEmailDelivery[]
+  bulk_rows     CredentialBulkRow[]
+
+  @@index([student_id])
+  @@index([course_id, batch_id])
+  @@index([status])
+  @@index([issued_at(sort: Desc)])
+  @@index([created_at(sort: Desc)])
+  @@map("credentials")
+}
+
+model CredentialEvent {
+  id            String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  credential_id String              @db.Uuid
+  type          CredentialEventType
+  actor_id      String?
+  metadata      Json                @default("{}")
+  created_at    DateTime            @default(now()) @db.Timestamptz(6)
+
+  credential Credential @relation(fields: [credential_id], references: [id], onDelete: Restrict)
+  actor      StaffUser? @relation(fields: [actor_id], references: [id])
+
+  @@index([credential_id, created_at(sort: Desc)])
+  @@index([type, created_at(sort: Desc)])
+  @@index([actor_id, created_at(sort: Desc)])
+  @@index([created_at(sort: Desc)])
+  @@map("credential_events")
+}
+
+model CredentialEmailDelivery {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  credential_id       String                @db.Uuid
+  /// ISSUED | RESEND
+  kind                String
+  recipient           String
+  status              CredentialEmailStatus @default(PENDING)
+  provider_message_id String?
+  attempts            Int                   @default(0)
+  last_error          String?
+  last_attempt_at     DateTime?             @db.Timestamptz(6)
+  triggered_by_id     String?
+  created_at          DateTime              @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime              @updatedAt @db.Timestamptz(6)
+
+  credential   Credential @relation(fields: [credential_id], references: [id], onDelete: Restrict)
+  triggered_by StaffUser? @relation(fields: [triggered_by_id], references: [id])
+
+  @@index([credential_id, created_at(sort: Desc)])
+  @@index([status, created_at(sort: Desc)])
+  @@map("credential_email_deliveries")
+}
+
+model CredentialBulkJob {
+  id              String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  course_id       String
+  batch_id        String?
+  template_id     String                  @db.Uuid
+  file_name       String
+  file_sha256     String
+  status          CredentialBulkJobStatus @default(VALIDATED)
+  send_email      Boolean                 @default(true)
+  total_rows      Int                     @default(0)
+  created_by_id   String
+  confirmed_by_id String?
+  confirmed_at    DateTime?               @db.Timestamptz(6)
+  completed_at    DateTime?               @db.Timestamptz(6)
+  created_at      DateTime                @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime                @updatedAt @db.Timestamptz(6)
+
+  course       Course              @relation(fields: [course_id], references: [id])
+  batch        Batch?              @relation(fields: [batch_id], references: [id])
+  template     CertificateTemplate @relation(fields: [template_id], references: [id])
+  created_by   StaffUser           @relation("BulkJobCreatedBy", fields: [created_by_id], references: [id])
+  confirmed_by StaffUser?          @relation("BulkJobConfirmedBy", fields: [confirmed_by_id], references: [id])
+  rows         CredentialBulkRow[]
+
+  @@index([created_at(sort: Desc)])
+  @@map("credential_bulk_jobs")
+}
+
+model CredentialBulkRow {
+  id            String                      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  job_id        String                      @db.Uuid
+  row_number    Int
+  input         Json
+  validation    CredentialBulkRowValidation
+  messages      Json                        @default("[]")
+  outcome       CredentialBulkRowOutcome    @default(PENDING)
+  credential_id String?                     @db.Uuid
+  error         String?
+  processed_at  DateTime?                   @db.Timestamptz(6)
+
+  job        CredentialBulkJob @relation(fields: [job_id], references: [id], onDelete: Cascade)
+  credential Credential?       @relation(fields: [credential_id], references: [id])
+
+  @@unique([job_id, row_number])
+  @@index([job_id, outcome])
+  @@map("credential_bulk_rows")
 }
